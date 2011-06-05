@@ -236,17 +236,17 @@ BuildRequires:	hsqldb
 BuildRequires:	libwpg-devel
 BuildRequires:	libwps-devel
 BuildRequires:	icu
-BuildRequires:  %{mklibname icu}-devel
+BuildRequires:	icu-devel
 BuildRequires:	libmdbtools-devel
 BuildRequires:  ant-apache-regexp
 BuildRequires:  xulrunner-devel
-BuildRequires:  %{mklibname vigra}-devel
+BuildRequires:	libvigra-devel
 BuildRequires:  hunspell-devel
 #pdfimport extension
-BuildRequires:  %{mklibname poppler}-devel
-BuildRequires:  %{mklibname xtst}-devel
+BuildRequires:	libpoppler-devel
+BuildRequires:	libxtst-devel
 BuildRequires:  desktop-file-utils
-BuildRequires:  %{mklibname mesaglu1}-devel 
+BuildRequires:	mesaglu-devel
 BuildRequires:  qt4-devel 
 BuildRequires:  task-kde4-devel 
 BuildRequires:  cppunit-devel
@@ -440,15 +440,12 @@ Suggests: %{name}-help-en_US
 # And then general requires for OOo follows
 Requires: ghostscript
 Requires: fonts-ttf-liberation
-Requires: %{mklibname sane 1}
 Requires: desktop-common-data >= 2008
 # rpm will automatically grab the require for libsane1, but there are some
 # configs needed at this package, so we must require it too.
 Requires: sane-backends
 # Due to %{_bindir}/paperconf
 # Requires: paper-utils
-Requires: %{mklibname icu 44} 
-Requires: %{mklibname hunspell 1.2_0}
 Requires(post): desktop-file-utils update-alternatives
 Requires(postun): desktop-file-utils update-alternatives
 
