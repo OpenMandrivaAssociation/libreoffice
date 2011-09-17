@@ -157,7 +157,10 @@ BuildRequires:	gperf
 BuildRequires:	ImageMagick
 BuildRequires:	db1-devel
 %if %{use_systemdb}
+%if %mdkversion < 201100
+# this is pulled by db-devel >= 5.1, and libdbcxx5.1 does not provide libdbcxx at all
 BuildRequires:	libdbcxx >= 4.2.5-4mdk
+%endif
 BuildRequires:	db-devel >= 4.2.5-4mdk
 %else
 BuildConflicts: libdbjava4.2
