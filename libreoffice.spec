@@ -758,9 +758,6 @@ Group: Office
 Summary: LibreOffice Open Clipart data
 Requires: %{name}-core = %{EVRD}
 Requires: %{name}-common = %{EVRD}
-# Due to the split
-Requires: clipart-openclipart
-# Due to the split
 Conflicts: openoffice.org <= 2.2.1
 Obsoletes: openoffice.org-galleries <= 2.2.1
 Obsoletes: openoffice.org-openclipart < 1:3.3-1:2011.0 
@@ -774,7 +771,7 @@ Obsoletes: openoffice.org64-openclipart <= 1:3.1-4
 LibreOffice is a full-featured office productivity suite that provides a
 near drop-in replacement for Microsoft(R) Office.
 
-This package contains the OpenOffice.org Open Clipart data, including images
+This package contains the LibreOffice Open Clipart data, including images
 and sounds.
 
 %package pyuno
@@ -3107,6 +3104,7 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 	--with-distro=%{distroname} \
 	--with-vendor=Mandriva \
 	--with-build-version="%{buildver}" \
+	--with-system-stdlibs \
 	--disable-qadevooo \
 	--enable-lockdown \
 	--enable-opengl \
