@@ -14,18 +14,18 @@
 %define _binary_payload w1.gzdio
 %define _source_payload w1.gzdio
 
-%define version	        3.3.2
+%define version	        3.4.2
 %define release		%mkrel 1
 
-%define buildver     	3.3.2.2
-%define basis           basis3.3
+%define buildver     	3.4.2.3
+%define basis           basis3.4
 %define jdkver		1_5_0_11
-%define ooodir		%{_libdir}/ooo
+%define ooodir		%{_libdir}/libreoffice
 %define libdbver	4.2
-%if l10n
-%define ooolangs	"en-US af ar bg br bs ca cs cy da de el en-GB es et eu fi fr he hi hu it ja ko mk nb nl nn pl pt pt-BR pt-AO ru sk sl sv ta tr zh-TW zh-CN zu"
+%if %l10n
+%define langs	"en-US af ar bg br bs ca cs cy da de el en-GB es et eu fi fr he hi hu it ja ko mk nb nl nn pl pt pt-BR ru sk sl sv ta tr zh-TW zh-CN zu"
 %else
-%define ooolangs	"en-US"
+%define langs	"en-US"
 %endif
 
 %define firefox_plugin  libnpsoplugin.so
@@ -236,7 +236,6 @@ BuildRequires:	libwps-devel
 BuildRequires:	icu
 BuildRequires:  %{mklibname icu}-devel
 
-
 # main cleanup
 # BuildRequires:	libmdbtools-devel
 
@@ -257,69 +256,59 @@ BuildRequires:  jakarta-commons-codec
 BuildRequires:  jakarta-commons-lang
 BuildRequires:  jakarta-commons-httpclient
 
+# BuildRequires:  jakarta-commons-logging
+# BuildRequires:  textcat-devel
+
 ####################################################################
 #
 # Sources
 #
 ####################################################################
-Source0:	http://download.documentfoundation.org/libreoffice/src/%{ooname}-build-%{buildver}.tar.%{oootarext}
-Source5:	http://download.documentfoundation.org/libreoffice/src/%{ooname}-sdk-%{buildver}.tar.%{oootarext}
-Source71:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-ure-%{buildver}.tar.%{oootarext}
-Source72:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-base-%{buildver}.tar.%{oootarext}
-Source73:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-calc-%{buildver}.tar.%{oootarext}
-Source74:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-impress-%{buildver}.tar.%{oootarext}
-Source75:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-writer-%{buildver}.tar.%{oootarext}
-Source76:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-l10n-%{buildver}.tar.%{oootarext}
-Source77:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-artwork-%{buildver}.tar.%{oootarext}
-Source78:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-filters-%{buildver}.tar.%{oootarext}
-Source79:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-testing-%{buildver}.tar.%{oootarext}
-Source80:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-bootstrap-%{buildver}.tar.%{oootarext}
-Source81:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-libs-gui-%{buildver}.tar.%{oootarext}
-Source82:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-libs-core-%{buildver}.tar.%{oootarext}
-Source83:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-libs-extern-%{buildver}.tar.%{oootarext}
-Source84:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-libs-extern-sys-%{buildver}.tar.%{oootarext}
-Source85:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-components-%{buildver}.tar.%{oootarext}
-Source86:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-postprocess-%{buildver}.tar.%{oootarext}
-Source91:        http://download.go-oo.org/DEV300/ooo_oxygen_images-2009-06-17.tar.gz
-Source104: 	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-extensions-%{buildver}.tar.%{oootarext}
-Source106:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-help-%{buildver}.tar.%{oootarext}
-Source107:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-extras-%{buildver}.tar.%{oootarext}
+Source0:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-artwork-%{buildver}.tar.%{oootarext}
+Source1:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-base-%{buildver}.tar.%{oootarext}
+Source2:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-bootstrap-%{buildver}.tar.%{oootarext}
+Source3:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-calc-%{buildver}.tar.%{oootarext}
+Source4:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-components-%{buildver}.tar.%{oootarext}
+Source5: 	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-extensions-%{buildver}.tar.%{oootarext}
+Source6:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-extras-%{buildver}.tar.%{oootarext}
+Source7:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-filters-%{buildver}.tar.%{oootarext}
+Source8:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-help-%{buildver}.tar.%{oootarext}
+Source9:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-impress-%{buildver}.tar.%{oootarext}
+Source10:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-libs-core-%{buildver}.tar.%{oootarext}
+Source11:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-libs-extern-%{buildver}.tar.%{oootarext}
+Source12:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-libs-extern-sys-%{buildver}.tar.%{oootarext}
+Source13:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-libs-gui-%{buildver}.tar.%{oootarext}
+Source14:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-postprocess-%{buildver}.tar.%{oootarext}
+Source15:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-sdk-%{buildver}.tar.%{oootarext}
+Source16:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-testing-%{buildver}.tar.%{oootarext}
+Source17:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-ure-%{buildver}.tar.%{oootarext}
+Source18:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-writer-%{buildver}.tar.%{oootarext}
+Source19:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-translations-%{buildver}.tar.%{oootarext}
 
 
-Source13:	http://download.go-oo.org/SRC680/extras-3.1.tar.bz2
-Source17:	http://download.go-oo.org/SRC680/mdbtools-0.6pre1.tar.gz
+Source20: 	Mandriva-Rosa_Icons.tar.bz2
 
-Source20:       http://download.go-oo.org//DEV300/ooo-cli-prebuilt-3.3.tar.bz2
-Source21:       http://download.go-oo.org/OOO300/cairo-1.4.10.tar.gz
-Source22: 	http://download.go-oo.org/OOO300/libwpd-0.8.14.tar.gz
-Source3: 	http://download.go-oo.org/OOO300/libwps-0.1.2.tar.gz
-Source4:        http://download.go-oo.org/OOO300/libwpg-0.1.3.tar.gz
+# Source22:	http://download.go-oo.org/SRC680/extras-3.1.tar.bz2
+# Source23:	http://download.go-oo.org/SRC680/mdbtools-0.6pre1.tar.gz
+# Source24:       http://download.go-oo.org//DEV300/ooo-cli-prebuilt-3.3.tar.bz2
+# Source25:       http://download.go-oo.org/OOO300/cairo-1.4.10.tar.gz
+# Source25:	http://download.go-oo.org/SRC680/biblio.tar.bz2
 
-Source25:	http://download.go-oo.org/SRC680/biblio.tar.bz2
-Source26:	http://tools.openoffice.org/unowinreg_prebuild/680/unowinreg.dll
+# splash screens and about images (REVIEW)
+# Source27:	openintro_mandriva.bmp
+# Source28:	openabout_mandriva.bmp
 
-
-
-# splash screens and about images
-Source27:	openintro_mandriva.bmp
-Source28:	openabout_mandriva.bmp
-
-Source102:	mdv-desktop-japanese.patch
-
-# templates for kde "create new" context menu
-Source31: kde-context-menu-templates.tar.bz2
-
+Source31:       http://download.go-oo.org/DEV300/ooo_oxygen_images-2009-06-17.tar.gz
 Source32: 	http://hg.services.openoffice.org/binaries/fdb27bfe2dbe2e7b57ae194d9bf36bab-SampleICC-1.3.2.tar.gz
-# Source33:       http://download.go-oo.org/src/86e390f015e505dd71a66f0123c62f09-libwpd-0.9.0.tar.bz2
-Source33: 	http://download.go-oo.org/src/5ff846847dab351604ad859e2fd4ed3c-libwpd-0.9.1.tar.bz2
-Source34:	http://download.go-oo.org/src/9e436bff44c60dc8b97cba0c7fc11a5c-libwps-0.2.0.tar.bz2
-Source35:	http://download.go-oo.org/src/5ba6a61a2f66dfd5fee8cdd4cd262a37-libwpg-0.2.0.tar.bz2
-Source36:	http://hg.services.openoffice.org/binaries/cf8a6967f7de535ae257fa411c98eb88-mdds_0.3.0.tar.bz2
+Source33: 	http://download.go-oo.org/src/8d265a592619166f29c4672ea54812b7-libwpd-0.9.2.tar.bz2
+Source34:	http://download.go-oo.org/src/83d4029aebf290c0a9a8fee9c99638d3-libwps-0.2.1.tar.bz2
+Source35:	http://download.go-oo.org/src/5ba6a61a2f66dfd5fee8cdd4cd262a37-libwpg-0.2.0.tar.bz2 
+Source36: 	http://download.go-oo.org/src/0ff7d225d087793c8c2c680d77aac3e7-mdds_0.5.3.tar.bz2
 Source37: 	http://download.go-oo.org/src/0f63ee487fda8f21fafa767b3c447ac9-ixion-0.2.0.tar.gz
 Source38:	http://hg.services.openoffice.org/binaries/067201ea8b126597670b5eff72e1f66c-mythes-1.2.0.tar.gz
 Source39: 	http://download.go-oo.org/extern/185d60944ea767075d27247c3162b3bc-unowinreg.dll
 Source40: 	http://hg.services.openoffice.org/binaries/48d8169acc35f97e05d8dcdfd45be7f2-lucene-2.3.2.tar.gz
-Source41: 	http://hg.services.openoffice.org/binaries/d35724900f6a4105550293686688bbb3-silgraphite-2.3.1.tar.gz
+# Source41: 	http://hg.services.openoffice.org/binaries/d35724900f6a4105550293686688bbb3-silgraphite-2.3.1.tar.gz
 Source42:	http://hg.services.openoffice.org/binaries/2a177023f9ea8ec8bd00837605c5df1b-jakarta-tomcat-5.0.30-src.tar.gz
 Source43: 	http://hg.services.openoffice.org/binaries/284e768eeda0e2898b0d5bf7e26a016e-raptor-1.4.18.tar.gz
 Source44:	http://hg.services.openoffice.org/binaries/fca8706f2c4619e2fa3f8f42f8fc1e9d-rasqal-0.9.16.tar.gz 
@@ -328,24 +317,23 @@ Source46:	http://hg.services.openoffice.org/binaries/1f24ab1d39f4a51faf22244c94a
 Source47:	http://hg.services.openoffice.org/binaries/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
 Source48:	http://hg.services.openoffice.org/binaries/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
 Source49:	http://hg.services.openoffice.org/binaries/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
-Source50:	http://hg.services.openoffice.org/binaries/d0b5af6e408b8d2958f3d83b5244f5e8-hyphen-2.4.tar.gz
+Source50:	http://hg.services.openoffice.org/binaries/48a9f787f43a09c0a9b7b00cd1fddbbf-hyphen-2.7.1.tar.gz
 Source51:	http://hg.services.openoffice.org/binaries/26b3e95ddf3d9c077c480ea45874b3b8-lp_solve_5.5.tar.gz
 Source52:	http://hg.services.openoffice.org/binaries/3c219630e4302863a9a83d0efde889db-commons-logging-1.1.1-src.tar.gz	
 Source53:	http://hg.services.openoffice.org/binaries/128cfc86ed5953e57fe0f5ae98b62c2e-libtextcat-2.2.tar.gz
 Source54:	http://hg.services.openoffice.org/binaries/ada24d37d8d638b3d8a9985e80bc2978-source-9.0.0.7-bj.zip
 Source55:	http://download.go-oo.org/src/ea570af93c284aa9e5621cd563f54f4d-bsh-2.0b1-src.tar.gz
+Source56:	http://hg.services.openoffice.org/binaries/18f577b374d60b3c760a3a3350407632-STLport-4.5.tar.gz
 
-Source60:	openoffice.org.csh
-Source61:	openoffice.org.sh
-
-Patch1:	 	build-fmtstrings.diff		 
-Patch2:		mdv-package-ooo.patch	
-Patch3: 	mdv-build-apply.patch
+# Patch1:	build-fmtstrings.diff		 
+# Patch2:	mdv-package-ooo.patch	
+# Patch3: 	mdv-build-apply.patch
 Patch4:		xulrunner-to-mozila-plugin.pc.diff
 Patch5:		mdv-sysui-disableslack.diff	
-Patch6: 	mdv-fpermissiveflag.diff
-Patch7:		libreoffice-gcc4.6.diff
-Patch8:		mdv-db51check.diff
+# Patch6: 	mdv-fpermissiveflag.diff
+# Patch7:	libreoffice-gcc4.6.diff
+# Patch8:	mdv-db51check.diff
+Patch9:		vbahelper.visibility.patch 
 
 %description
 LibreOffice is an Open Source, community-developed, multi-platform
@@ -477,6 +465,16 @@ Conflicts: openoffice.org64-gnome < 3.0svn13581-2mdv
 Obsoletes: openoffice.org64-common <= 1:3.1-4
 %endif
 Conflicts: %{name}-common = 1:3.2-rc4.0
+
+# Upstream dropped this packages in 3.4
+Obsoletes: %{name}-l10n-pt_AO = 1:3.3.2-1
+Obsoletes: %{name}-help-pt_AO = 1:3.3.2-1
+Obsoletes: %{name}-help-ta    = 1:3.3.2-1
+Obsoletes: %{name}-help-zu    = 1:3.3.2-1
+Obsoletes: %{name}-help-cy    = 1:3.3.2-1
+Obsoletes: %{name}-help-ar    = 1:3.3.2-1
+Obsoletes: %{name}-help-af    = 1:3.3.2-1
+Obsoletes: %{name}-help-br    = 1:3.3.2-1
 
 %description common
 LibreOffice is a full-featured office productivity suite that provides a
@@ -1968,29 +1966,29 @@ possible language. You can switch user interface language using the
 standard locales system.
 
 
-%package l10n-pt_AO
-Summary:    Portuguese Angola language support for LibreOffice
-Group:      Office
-Provides:	%{ooname}-l10n = %{EVRD}
-# Due to alternatives setup, we must have -release here. (BrOffice)
-Requires:	%{ooname}-common = %{EVRD}
-Requires:   locales-pt
-Requires:   urw-fonts
-Obsoletes:  OpenOffice.org-l10n-pt_AO
-Provides: 	LibreOffice-l10n-pt_AO
-Suggests:	%{ooname}-help-pt_AO = %{EVRD} 
-Obsoletes:	openoffice.org-l10n-pt_AO < 1:3.3-1:2011.0 
-
-%description l10n-pt_AO
-LibreOffice is an Open Source, community-developed, office suite.
-
-This package contains the localization of LibreOffice in Portuguese
-Angola.
-It contains the user interface, the templates and the autotext
-features. Please note that not all of these are available for all
-possible language. You can switch user interface language using the
-standard locales system.
-
+# %package l10n-pt_AO
+# Summary:    Portuguese Angola language support for LibreOffice
+# Group:      Office
+# Provides:	%{ooname}-l10n = %{EVRD}
+# # Due to alternatives setup, we must have -release here. (BrOffice)
+# Requires:	%{ooname}-common = %{EVRD}
+# Requires:   locales-pt
+# Requires:   urw-fonts
+# Obsoletes:  OpenOffice.org-l10n-pt_AO
+# Provides: 	LibreOffice-l10n-pt_AO
+# Suggests:	%{ooname}-help-pt_AO = %{EVRD} 
+# Obsoletes:	openoffice.org-l10n-pt_AO < 1:3.3-1:2011.0 
+# 
+# %description l10n-pt_AO
+# LibreOffice is an Open Source, community-developed, office suite.
+# 
+# This package contains the localization of LibreOffice in Portuguese
+# Angola.
+# It contains the user interface, the templates and the autotext
+# features. Please note that not all of these are available for all
+# possible language. You can switch user interface language using the
+# standard locales system.
+# 
 
 %package l10n-ru
 Summary:	Russian language support for LibreOffice
@@ -2261,40 +2259,40 @@ LibreOffice is an Open Source, community-developed, office suite.
 
 This package contains the localized help files of LibreOffice in Italian.
 
-%package help-af
-Summary:	Afrikaans help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-af = %{EVRD}
-%ifarch x86_64
-Obsoletes:     openoffice.org64-help-af <= 1:3.1-4
-%endif
-Obsoletes:  OpenOffice.org-help-af
-Provides:	LibreOffice-help-af
-Obsoletes:  openoffice.org-help-af < 1:3.3-1:2011.0 
+# %package help-af
+# Summary:	Afrikaans help for LibreOffice
+# Group:		Office
+# Provides:	%{ooname}-help = %{EVRD}
+# Requires:	%{ooname}-l10n-af = %{EVRD}
+# %ifarch x86_64
+# Obsoletes:     openoffice.org64-help-af <= 1:3.1-4
+# %endif
+# Obsoletes:  OpenOffice.org-help-af
+# Provides:	LibreOffice-help-af
+# Obsoletes:  openoffice.org-help-af < 1:3.3-1:2011.0 
+# 
+# %description help-af
+# LibreOffice is an Open Source, community-developed, office suite.
+# 
+# This package contains the localized help files of LibreOffice in Afrikaans.
 
-%description help-af
-LibreOffice is an Open Source, community-developed, office suite.
 
-This package contains the localized help files of LibreOffice in Afrikaans.
-
-
-%package help-ar
-Summary:	Arabic help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-ar = %{EVRD}
-%ifarch x86_64
-Obsoletes:     openoffice.org64-help-ar <= 1:3.1-4
-%endif
-Obsoletes:  OpenOffice.org-help-ar
-Provides:	LibreOffice-help-ar
-Obsoletes:  openoffice.org-help-ar < 1:3.3-1:2011.0 
-
-%description help-ar
-LibreOffice is an Open Source, community-developed, office suite.
-
-This package contains the localized help files of LibreOffice in Arabic.
+# %package help-ar
+# Summary:	Arabic help for LibreOffice
+# Group:		Office
+# Provides:	%{ooname}-help = %{EVRD}
+# Requires:	%{ooname}-l10n-ar = %{EVRD}
+# %ifarch x86_64
+# Obsoletes:     openoffice.org64-help-ar <= 1:3.1-4
+# %endif
+# Obsoletes:  OpenOffice.org-help-ar
+# Provides:	LibreOffice-help-ar
+# Obsoletes:  openoffice.org-help-ar < 1:3.3-1:2011.0 
+# 
+# %description help-ar
+# LibreOffice is an Open Source, community-developed, office suite.
+# 
+# This package contains the localized help files of LibreOffice in Arabic.
 
 
 %package help-bg
@@ -2315,22 +2313,22 @@ LibreOffice is an Open Source, community-developed, office suite.
 This package contains the localized help files of LibreOffice in Bulgarian.
 
 
-%package help-br
-Summary:	Breton help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-br = %{EVRD}
-%ifarch x86_64
-Obsoletes:     openoffice.org64-help-br <= 1:3.1-4
-%endif
-Obsoletes:  OpenOffice.org-help-br
-Provides:	LibreOffice-help-br
-Obsoletes:  openoffice.org-help-br < 1:3.3-1:2011.0 
-
-%description help-br
-LibreOffice is an Open Source, community-developed, office suite.
-
-This package contains the localized help files of LibreOffice in Breton.
+# %package help-br
+# Summary:	Breton help for LibreOffice
+# Group:		Office
+# Provides:	%{ooname}-help = %{EVRD}
+# Requires:	%{ooname}-l10n-br = %{EVRD}
+# %ifarch x86_64
+# Obsoletes:     openoffice.org64-help-br <= 1:3.1-4
+# %endif
+# Obsoletes:  OpenOffice.org-help-br
+# Provides:	LibreOffice-help-br
+# Obsoletes:  openoffice.org-help-br < 1:3.3-1:2011.0 
+# 
+# %description help-br
+# LibreOffice is an Open Source, community-developed, office suite.
+# 
+# This package contains the localized help files of LibreOffice in Breton.
 
 
 %package help-bs
@@ -2388,22 +2386,22 @@ LibreOffice is an Open Source, community-developed, office suite.
 This package contains the localized help files of LibreOffice in Czech.
 
 
-%package help-cy
-Summary:	Welsh help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-cy = %{EVRD}
-%ifarch x86_64
-Obsoletes:     openoffice.org64-help-cy <= 1:3.1-4
-%endif
-Obsoletes:	OpenOffice.org-help-cy
-Provides:	LibreOffice-help-cy
-Obsoletes:  openoffice.org-help-cy < 1:3.3-1:2011.0 
-
-%description help-cy
-LibreOffice is an Open Source, community-developed, office suite.
-
-This package contains the localized help files of LibreOffice in Welsh.
+# %package help-cy
+# Summary:	Welsh help for LibreOffice
+# Group:		Office
+# Provides:	%{ooname}-help = %{EVRD}
+# Requires:	%{ooname}-l10n-cy = %{EVRD}
+# %ifarch x86_64
+# Obsoletes:     openoffice.org64-help-cy <= 1:3.1-4
+# %endif
+# Obsoletes:	OpenOffice.org-help-cy
+# Provides:	LibreOffice-help-cy
+# Obsoletes:  openoffice.org-help-cy < 1:3.3-1:2011.0 
+# 
+# %description help-cy
+# LibreOffice is an Open Source, community-developed, office suite.
+# 
+# This package contains the localized help files of LibreOffice in Welsh.
 
 
 %package help-da
@@ -2807,19 +2805,19 @@ This package contains the localized help files of LibreOffice in Portuguese
 Brazilian.
 
 
-%package help-pt_AO
-Summary:	Portuguese Angola help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-pt_AO = %{EVRD}
-Provides:	LibreOffice-help-pt_AO
-Obsoletes:  openoffice.org-help-pt_AO < 1:3.3-1:2011.0 
-
-%description help-pt_AO
-LibreOffice is an Open Source, community-developed, office suite.
-
-This package contains the localized help files of LibreOffice in Portuguese
-Angola.
+# %package help-pt_AO
+# Summary:	Portuguese Angola help for LibreOffice
+# Group:		Office
+# Provides:	%{ooname}-help = %{EVRD}
+# Requires:	%{ooname}-l10n-pt_AO = %{EVRD}
+# Provides:	LibreOffice-help-pt_AO
+# Obsoletes:  openoffice.org-help-pt_AO < 1:3.3-1:2011.0 
+# 
+# %description help-pt_AO
+# LibreOffice is an Open Source, community-developed, office suite.
+# 
+# This package contains the localized help files of LibreOffice in Portuguese
+# Angola.
 
 
 %package help-ru
@@ -2894,22 +2892,22 @@ LibreOffice is an Open Source, community-developed, office suite.
 This package contains the localized help files of LibreOffice in Swedish.
 
 
-%package help-ta
-Summary:	Tamil help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-ta = %{EVRD}
-%ifarch x86_64
-Obsoletes:     openoffice.org64-help-ta <= 1:3.1-4
-%endif
-Obsoletes:	OpenOffice.org-help-ta
-Provides:	LibreOffice-help-ta
-Obsoletes:  openoffice.org-help-ta < 1:3.3-1:2011.0 
-
-%description help-ta
-LibreOffice is an Open Source, community-developed, office suite.
-
-This package contains the localized help files of LibreOffice in Tamil.
+# %package help-ta
+# Summary:	Tamil help for LibreOffice
+# Group:		Office
+# Provides:	%{ooname}-help = %{EVRD}
+# Requires:	%{ooname}-l10n-ta = %{EVRD}
+# %ifarch x86_64
+# Obsoletes:     openoffice.org64-help-ta <= 1:3.1-4
+# %endif
+# Obsoletes:	OpenOffice.org-help-ta
+# Provides:	LibreOffice-help-ta
+# Obsoletes:  openoffice.org-help-ta < 1:3.3-1:2011.0 
+# 
+# %description help-ta
+# LibreOffice is an Open Source, community-developed, office suite.
+# 
+# This package contains the localized help files of LibreOffice in Tamil.
 
 
 %package help-tr
@@ -2967,49 +2965,39 @@ LibreOffice is an Open Source, community-developed, office suite.
 This package contains the localized help files of LibreOffice in Chinese
 Traditional.
 
+# %package help-zu
+# Summary:	Zulu help for LibreOffice
+# Group:		Office
+# Provides:	%{ooname}-help = %{EVRD}
+# Requires:	%{ooname}-l10n-zu = %{EVRD}
+# %ifarch x86_64
+# Obsoletes:     openoffice.org64-help-zu <= 1:3.1-4
+# %endif
+# Obsoletes:	OpenOffice.org-help-zu
+# Provides:	LibreOffice-help-zu
+# Obsoletes:  openoffice.org-help-zu < 1:3.3-1:2011.0 
+# 
+# %description help-zu
+# LibreOffice is an Open Source, community-developed, office suite.
+# 
+# This package contains the localized help files of LibreOffice in Zulu.
 
-%package help-zu
-Summary:	Zulu help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-zu = %{EVRD}
-%ifarch x86_64
-Obsoletes:     openoffice.org64-help-zu <= 1:3.1-4
-%endif
-Obsoletes:	OpenOffice.org-help-zu
-Provides:	LibreOffice-help-zu
-Obsoletes:  openoffice.org-help-zu < 1:3.3-1:2011.0 
-
-%description help-zu
-LibreOffice is an Open Source, community-developed, office suite.
-
-This package contains the localized help files of LibreOffice in Zulu.
 %endif
 
 %prep
-%setup -q -n libreoffice-build-%{buildver}
+%setup -q -c -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18 -a 19
+for a in */*; do mv `pwd`/$a .; done
 
-# mdv fixes for the building stuff 
-cp %{P:1} %{_builddir}/libreoffice-build-%{buildver}/patches/hotfixes/
-cp %{P:4} %{_builddir}/libreoffice-build-%{buildver}/patches/hotfixes/
-cp %{P:5} %{_builddir}/libreoffice-build-%{buildver}/patches/hotfixes/
-cp %{P:5} %{_builddir}/libreoffice-build-%{buildver}/patches/hotfixes/
-cp %{P:6} %{_builddir}/libreoffice-build-%{buildver}/patches/hotfixes/
-cp %{P:7} %{_builddir}/libreoffice-build-%{buildver}/patches/hotfixes/
-cp %{P:8} %{_builddir}/libreoffice-build-%{buildver}/patches/hotfixes/
-%patch3 -p0 -b .apply-mdv 
-
-# mdv fixes for the packaging stuff
-%patch2 -p0 -b .pkg-mdv
+%patch4 -p0 -b .xul
+%patch5 -p0 -b .sysui
+%patch9 -p0 -b .vba
 
 # Add lzma support (REVIEW)
 %if %{oootarext} == "lzma"
 %patch1 -p1 -b .lzma
 %endif
 
-
-# We want odk
-# sed -i /disable-odk/d distro-configs/Mandriva*
+touch src.downloaded
 
 %build
 
@@ -3035,12 +3023,9 @@ export KDE4LIB=%{_libdir}/kde4/lib
 
 
 # Force KDE3 support instead of KDE4 (dev 300)
-#%ifarch x86_64 
-#export KDEDIR=/opt/kde
-#%endif
-
-
-
+# %ifarch x86_64 
+# export KDEDIR=/opt/kde
+# %endif
 
 %if !%{use_gcj}
 if [ -z $JAVA_HOME ]; then
@@ -3065,39 +3050,7 @@ if [ "`readlink -f %{_bindir}/java`" = "%{_bindir}/jamvm" ]; then
 fi
 %endif
 
-%if !%{use_icecream}
-# sbin due to icu stuff there
-#PATH=/bin:/usr/bin:/usr/X11R6/bin:$QTPATH:/usr/sbin:$PATH
-PATH=$PATH:/usr/sbin
-export PATH
-%endif
-
-
-mkdir -p src/clone
-
-ln -sf %{SOURCE3} src/
-ln -sf %{SOURCE4} src/
-ln -sf %{SOURCE5} src/
-ln -sf %{SOURCE13} src/
-ln -sf %{SOURCE17} src/
-%if %{use_mono}
-ln -sf %{SOURCE20} src/
-%endif
-
-ln -sf %{SOURCE21} src/
-ln -sf %{SOURCE22} src/
-
-# ooo-build requests this even with mono off
-ln -sf %{SOURCE26} src/
-ln -sf %{SOURCE25} src/
-
-# splash screen
-ln -sf %{SOURCE27} src/
-ln -sf %{SOURCE28} src/
-
-# templates for kde context menu
 ln -sf %{SOURCE31} src/
-
 ln -sf %{SOURCE32} src/
 ln -sf %{SOURCE33} src/
 ln -sf %{SOURCE34} src/
@@ -3107,7 +3060,7 @@ ln -sf %{SOURCE37} src/
 ln -sf %{SOURCE38} src/
 ln -sf %{SOURCE39} src/
 ln -sf %{SOURCE40} src/
-ln -sf %{SOURCE41} src/
+# ln -sf %{SOURCE41} src/
 ln -sf %{SOURCE42} src/
 ln -sf %{SOURCE43} src/
 ln -sf %{SOURCE44} src/
@@ -3123,30 +3076,12 @@ ln -sf %{SOURCE53} src/
 ln -sf %{SOURCE54} src/
 ln -sf %{SOURCE55} src/
 
-ln -sf %{SOURCE71} src/
-ln -sf %{SOURCE72} src/
-ln -sf %{SOURCE73} src/
-ln -sf %{SOURCE74} src/
-ln -sf %{SOURCE75} src/
-ln -sf %{SOURCE76} src/
-ln -sf %{SOURCE77} src/
-ln -sf %{SOURCE78} src/
-ln -sf %{SOURCE79} src/
-ln -sf %{SOURCE80} src/
-ln -sf %{SOURCE81} src/
-ln -sf %{SOURCE82} src/
-ln -sf %{SOURCE83} src/
-ln -sf %{SOURCE84} src/
-ln -sf %{SOURCE85} src/
-ln -sf %{SOURCE86} src/
-ln -sf %{SOURCE91} src/
-ln -sf %{SOURCE104} src/
-ln -sf %{SOURCE106} src/
-ln -sf %{SOURCE107} src/
-
-if [ -x ./autogen.sh ]; then
-	./autogen.sh --with-distro=%{distroname}
-fi
+%if !%{use_icecream}
+# sbin due to icu stuff there
+#PATH=/bin:/usr/bin:/usr/X11R6/bin:$QTPATH:/usr/sbin:$PATH
+PATH=$PATH:/usr/sbin
+export PATH
+%endif
 
 %if %{use_ccache}
 export CCACHE_DIR=%{ccachedir}
@@ -3183,8 +3118,8 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 	--with-system-hsqldb \
 	--with-system-icu \
 	--with-system-xrender-headers \
-        --with-system-jpeg \
-        --with-system-hunspell \
+    	--with-system-jpeg \
+    	--with-system-hunspell \
 	--with-system-zlib \
 	--with-system-openssl \
 	--with-system-expat \
@@ -3200,9 +3135,10 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 	--enable-broffice \
 	--with-system-redland \
 	--with-system-apache-commons \
+	--with-openldap \
 	--disable-kde \
 	--enable-kde4 \
-	--with-git=no \
+	--without-download \
 	--with-intro-bitmaps="%{SOURCE27}" \
 	--with-about-bitmaps="%{SOURCE28}" \
 %if %use_gcj
@@ -3216,23 +3152,24 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 %if %{use_systemboost}
 	--with-system-boost \
 %endif
-	--with-lang=%{ooolangs} \
-        --with-installed-ooo-dirname=ooo \
-        --with-docdir=%{_datadir}/doc/packages/ooo \
+	--with-lang=%{langs} \
+    	--with-installed-ooo-dirname=ooo \
+    	--with-docdir=%{_datadir}/doc/packages/ooo \
 	--with-system-sane-header \
 	--with-system-cairo \
 	--without-myspell-dicts \
 	--with-system-dicts \
 	--with-external-dict-dir=%{_datadir}/dict/ooo \
-        --with-external-hyph-dir=%{_datadir}/dict/ooo \
-        --with-external-thes-dir=%{_datadir}/dict/ooo \
+    	--with-external-hyph-dir=%{_datadir}/dict/ooo \
+    	--with-external-thes-dir=%{_datadir}/dict/ooo \
 	--with-system-poppler \
-        --enable-pdfimport \
-	--enable-minimizer \
-	--enable-presenter-console \
-        --enable-wiki-publisher \
+    	--enable-ext-pdfimport \
+	--enable-ext-presenter-minimizer \
+	--enable-ext-presenter-console \
+    	--enable-ext-wiki-publisher \
+    	--without-fonts \
 %if %{use_openclipart}
-        --with-openclipart=%{_datadir}/images/openclipart \
+    	--with-openclipart=%{_datadir}/images/openclipart \
 %endif
 %if %{use_mono}
 # dev300
@@ -3269,12 +3206,14 @@ export nodep=TRUE
 export NO_HIDS=TRUE 
 export MAXPROCESS=4 
 
+./bootstrap
+
 # %make 
 make \
 	ARCH_FLAGS="%{optflags} %{optsafe} -fno-omit-frame-pointer -fno-strict-aliasing" \
 	ARCH_FLAGS_CC="%{optflags} %{optsafe} -fno-omit-frame-pointer -fno-strict-aliasing" \
 	ARCH_FLAGS_CXX="%{optflags} %{optsafe} -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive -fvisibility-inlines-hidden" \
-	ARCH_FLAGS_OPT="%{optflags} -O2 %{optsafe}"
+	ARCH_FLAGS_OPT="%{optflags} -O2 %{optsafe}" 
 
 echo "Make end at: "`date` >> ooobuildtime.log 
 echo "Install start at: "`date` >> ooobuildtime.log 
@@ -3284,89 +3223,88 @@ echo "Install start at: "`date` >> ooobuildtime.log
 # sbin due to icu stuff there
 PATH=$PATH:/usr/sbin
 
-# clear lists in case of short-circuiting:
-rm -f build/*_list.txt
-
 rm -rf %{buildroot}
-make install DESTDIR=%{buildroot}
+make DESTDIR=%{buildroot} distro-pack-install
 rm -rf %{buildroot}/opt
-# FIXME: there are template/<locale>wizard/letter already
-#rm -rf %{buildroot}%{ooodir}/share/template/wizard/letter/
 
 # use the dicts from myspell-<lang>
 # rm -rf %{buildroot}%{ooodir}/share/dict/ooo
 # ln -s %{_datadir}/dict/ooo %{buildroot}%{ooodir}/share/dict
 
-# desktop files
-desktop-file-install --vendor="" \
-  --remove-category="Application" \
-  --add-category="Office" \
-  --add-category="X-MandrivaLinux-CrossDesktop" \
-  --add-mime-type="application/vnd.ms-works;application/x-msworks-wp;zz-application/zz-winassoc-wps" \
-  --dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/writer*desktop
+# # (Review)
+# # desktop files
+# desktop-file-install --vendor="" \
+#   --remove-category="Application" \
+#   --add-category="Office" \
+#   --add-category="X-MandrivaLinux-CrossDesktop" \
+#   --add-mime-type="application/vnd.ms-works;application/x-msworks-wp;zz-application/zz-winassoc-wps" \
+#   --add-mime-type="application/vnd.openxmlformats-officedocument.wordprocessingml.document" \
+#   --add-mime-type="application/vnd.ms-word.document.macroEnabled.12" \
+#   --dir %{buildroot}%{_datadir}/applications %{buildroot}%{ooodir}/share/xdg/writer*desktop
+# 
+# desktop-file-install --vendor="" \
+#   --remove-category="Application" \
+#   --add-category="Office" \
+#   --add-category="X-MandrivaLinux-CrossDesktop" \
+#   --add-mime-type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" \
+#   --add-mime-type="application/vnd.ms-excel.sheet.macroEnabled.12" \
+#   --dir %{buildroot}%{_datadir}/applications %{buildroot}%{ooodir}/share/xdg/calc*desktop
+# 
+# desktop-file-install --vendor="" \
+#   --remove-category="Application" \
+#   --remove-category="Graphics" \
+#   --remove-category="VectorGraphics" \
+#   --add-category="Office" \
+#   --add-category="X-MandrivaLinux-CrossDesktop" \
+#   --dir %{buildroot}%{_datadir}/applications %{buildroot}%{ooodir}/share/xdg/draw*desktop
+# 
+# desktop-file-install --vendor="" \
+#   --remove-category="Application" \
+#   --add-category="Office" \
+#   --add-category="X-MandrivaLinux-CrossDesktop" \
+#   --add-mime-type="application/vnd.openxmlformats-officedocument.presentationml.presentation" \
+#   --add-mime-type="application/vnd.ms-powerpoint.presentation.macroEnabled.12" \
+#   --dir %{buildroot}%{_datadir}/applications %{buildroot}%{ooodir}/share/xdg/impress*desktop
+# 
+# desktop-file-install --vendor="" \
+#   --remove-category="Application" \
+#   --add-category="Office" \
+#   --add-category="X-MandrivaLinux-CrossDesktop" \
+#   --dir %{buildroot}%{_datadir}/applications %{buildroot}%{ooodir}/share/xdg/math*desktop
+# 
+# # desktop-file-install --vendor="" \
+# #   --remove-category="Application" \
+# #   --remove-category="Network" \
+# #   --remove-category="WebDevelopment" \
+# #   --add-category="Office" \
+# #   --add-category="X-MandrivaLinux-CrossDesktop" \
+# #   --dir %{buildroot}%{_datadir}/applications %{buildroot}%{ooodir}/share/xdg/web*desktop
+# # #  --dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/web*desktop
+# 
+# # libre
+# # desktop-file-install --vendor="" \
+# #   --remove-category="Application" \
+# #   --add-category="Office" \
+# #   --add-category="X-MandrivaLinux-CrossDesktop" \
+# #   --dir %{buildroot}%{_datadir}/applications %{buildroot}%{ooodir}/share/xdg/template*desktop
+# # #  --dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/template*desktop
+# 
+# desktop-file-install --vendor="" \
+#   --remove-category="Application" \
+#   --remove-category="Database" \
+#   --add-category="Office" \
+#   --add-category="X-MandrivaLinux-CrossDesktop" \
+#   --dir %{buildroot}%{_datadir}/applications %{buildroot}%{ooodir}/share/xdg/base*desktop
 
-desktop-file-install --vendor="" \
-  --remove-category="Application" \
-  --add-category="Office" \
-  --add-category="X-MandrivaLinux-CrossDesktop" \
-  --dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/calc*desktop
+# Mandriva Rosa icons
+mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/
+tar -xjvf %{SOURCE20} -C %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/
 
-desktop-file-install --vendor="" \
-  --remove-category="Application" \
-  --remove-category="Graphics" \
-  --remove-category="VectorGraphics" \
-  --add-category="Office" \
-  --add-category="X-MandrivaLinux-CrossDesktop" \
-  --dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/draw*desktop
-
-desktop-file-install --vendor="" \
-  --remove-category="Application" \
-  --add-category="Office" \
-  --add-category="X-MandrivaLinux-CrossDesktop" \
-  --dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/impress*desktop
-
-desktop-file-install --vendor="" \
-  --remove-category="Application" \
-  --add-category="Office" \
-  --add-category="X-MandrivaLinux-CrossDesktop" \
-  --dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/math*desktop
-
-desktop-file-install --vendor="" \
-  --remove-category="Application" \
-  --remove-category="Network" \
-  --remove-category="WebDevelopment" \
-  --add-category="Office" \
-  --add-category="X-MandrivaLinux-CrossDesktop" \
-  --dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/web*desktop
-
-desktop-file-install --vendor="" \
-  --remove-category="Application" \
-  --add-category="Office" \
-  --add-category="X-MandrivaLinux-CrossDesktop" \
-  --dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/template*desktop
-
-desktop-file-install --vendor="" \
-  --remove-category="Application" \
-  --remove-category="Database" \
-  --add-category="Office" \
-  --add-category="X-MandrivaLinux-CrossDesktop" \
-  --dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/base*desktop
-
-## MS OOXML (#36465)
-desktop-file-install \
-  --add-mime-type="application/vnd.openxmlformats-officedocument.wordprocessingml.document" \
-  --add-mime-type="application/vnd.ms-word.document.macroEnabled.12" \
-  --dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/writer*desktop
-
-desktop-file-install \
-  --add-mime-type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" \
-  --add-mime-type="application/vnd.ms-excel.sheet.macroEnabled.12" \
-  --dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/calc*desktop
-
-desktop-file-install \
-  --add-mime-type="application/vnd.openxmlformats-officedocument.presentationml.presentation" \
-  --add-mime-type="application/vnd.ms-powerpoint.presentation.macroEnabled.12" \
-  --dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/impress*desktop
+sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-calc_72/'    %{buildroot}%{ooodir}/share/xdg/calc.desktop
+sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-writer_72/'  %{buildroot}%{ooodir}/share/xdg/writer.desktop 
+sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-impress_72/' %{buildroot}%{ooodir}/share/xdg/impress.desktop  
+sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-draw_72/'    %{buildroot}%{ooodir}/share/xdg/draw.desktop  
+sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-base_72/'    %{buildroot}%{ooodir}/share/xdg/base.desktop  
 
 # fix permissions for stripping
 find %{buildroot} -type f -exec chmod u+rw '{}' \;
@@ -3377,9 +3315,6 @@ find %{buildroot} -type f \( -name '*.so' -o -name '*.so.*' \) -exec chmod a+x '
 # Anssi patch
 # remove /usr/bin/soffice (made with update-alternatives)
 # rm -f %{buildroot}%{_bindir}/soffice
-
-# Fix sdk listing
-sort -u build/sdk_list.txt > build/sdk_list_fixed.txt
 
 # Anssi patch
 # Versionify bash_completion (ooo-wrapper.sh)
@@ -3401,15 +3336,6 @@ sort -u build/sdk_list.txt > build/sdk_list_fixed.txt
 #   %{buildroot}%{_libdir}/pkgconfig/mono-ooo%{mdvsuffix}-2.3.pc
 # %endif
 
-# Install versioned profile.d/ files (#33475)
-# Profiles for set PYTHONPATH variables (Python Integration)
-mkdir -p %{buildroot}%{_sysconfdir}/profile.d
-sed 's@%%{ooodir}@%{ooodir}@g' \
-	%{_sourcedir}/openoffice.org.csh > \
-	%{buildroot}%{_sysconfdir}/profile.d/openoffice.org.csh
-sed 's@%%{ooodir}@%{ooodir}@g' \
-	%{_sourcedir}/openoffice.org.sh > \
-	%{buildroot}%{_sysconfdir}/profile.d/openoffice.org.sh
 # Anssi 
 # Install a random UNO extension into BUILDROOT and remove it, so that unopkg
 # creates the cache directories and files that can then be ghostified.
@@ -3420,7 +3346,7 @@ sed 's@%%{ooodir}@%{ooodir}@g' \
 # First make sure there is no actual data pre-existing in this directory,
 # as that will be lost due to the ghostification:
 [ $(find %{buildroot}%{ooodir}/share/uno_packages/cache | wc -l) -eq 1 ]
-%{buildroot}%{ooodir}/program/unopkg add --shared %{_builddir}/libreoffice-build-%{buildver}/build/libreoffice-%{buildver}/solver/330/unxlng*/bin/pdfimport/pdfimport.oxt
+%{buildroot}%{ooodir}/program/unopkg add --shared %{_builddir}/libreoffice-%version/solver/340/unxlng*/bin/pdfimport/pdfimport.oxt
 %{buildroot}%{ooodir}/program/unopkg remove --shared pdfimport.oxt
 # clean cache
 %{buildroot}%{ooodir}/program/unopkg list --shared
@@ -3433,38 +3359,6 @@ sed 's@%%{ooodir}@%{ooodir}@g' \
 #               echo "%%ghost ${path#%{buildroot}}" >> build/common_list.txt
 #       fi
 # done
-
-## libreoffice provided with feature --enable-broffice
-#  # BrOffice.org Support (install)
-#  function bro() {
-#     exp="$1"
-#     f="$2"
-#     mv "%{buildroot}$f" "%{buildroot}$f.ooo"
-#     echo -n > "%{buildroot}$f"
-#    %if %l10n
-#     sed "$exp" "%{buildroot}$f.ooo" > "%{buildroot}$f.bro"
-#    %endif
-#    sed -i "s@$f\$@$f.ooo@" %{_builddir}/libreoffice-build-%{buildver}/build/*.txt
-#  }
-#  
-#  ## Change suite name in the program itself
-#  bro "s/OpenO/BrO/;s/openo/bro/" %{ooodir}/program/bootstraprc
-#  bro "s/en-US/pt-BR/;s/openo/bro/" %{ooodir}/program/versionrc
-#  bro "s/OpenO/BrO/" %{ooodir}/%basis/share/registry/data/org/openoffice/Setup.xcu
-#  
-#  # Change the suite name in .desktop files for pt_BR locale
-#  sed -i '/pt_BR/{s/OpenO/BrO/}' %{buildroot}%{_datadir}/applications/*.desktop
-#  
-#  # Place symlinks br<app> -> oo<app>
-#  %if %l10n
-#  cd %{buildroot}%{_bindir}
-#  # fix me wrong brffice symb link name 
-#  for i in oo*; do
-#  	ln -s $i ${i/oo/br}
-#  done
-#  cd -
-#  %endif
-#  # End of BrOffice support (install)
 
 # Change progress bar colors
 sed -i '/^ProgressBarColor/d;/^ProgressFrameColor/d' \
@@ -3487,88 +3381,62 @@ echo 'ProgressSize=377,9' >> %{buildroot}%{ooodir}/program/sofficerc
 # remove scalables icons since we dont have yet
 # rm -rf %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/*
 
-# XXX disable the menu entries for these
-# besides not being real apps, we don't have new-style icons for them
-# see #26311#c33
-for f in %{buildroot}%{_datadir}/applications/template*desktop \
-	%{buildroot}%{_datadir}/applications/web*desktop; do
-	echo 'NoDisplay=true' >> $f
-done
-
 # libre
 # Fixes japanese translations on desktop files
 ## patch -p0 -d %{buildroot} < %{SOURCE102}
 
-# templates for kde "create new" context menu
-tar xjf %{SOURCE31} -C %{buildroot}%{_datadir}
+# libre
+# # templates for kde "create new" context menu
+# # tar xjf %{SOURCE31} -C %{buildroot}%{_datadir}
 
 # copy extensions 
 install -d -m755 %{buildroot}%{ooodir}/extensions
-cp %{_builddir}/libreoffice-build-%{buildver}/build/libreoffice-%{buildver}/solver/330/unxlng*/bin/pdfimport/pdfimport.oxt %{buildroot}%{ooodir}/extensions/
-cp %{_builddir}/libreoffice-build-%{buildver}/build/libreoffice-%{buildver}/solver/330/unxlng*/bin/presenter/presenter-screen.oxt %{buildroot}%{ooodir}/extensions/
-cp %{_builddir}/libreoffice-build-%{buildver}/build/libreoffice-%{buildver}/solver/330/unxlng*/bin/swext/wiki-publisher.oxt %{buildroot}%{ooodir}/extensions/
-cp %{_builddir}/libreoffice-build-%{buildver}/build/libreoffice-%{buildver}/solver/330/unxlng*/bin/minimizer/presentation-minimizer.oxt %{buildroot}%{ooodir}/extensions/
+cp %{_builddir}/libreoffice-%version/solver/340/unxlng*/bin/pdfimport/pdfimport.oxt %{buildroot}%{ooodir}/extensions/
+cp %{_builddir}/libreoffice-%version/solver/340/unxlng*/bin/presenter/presenter-screen.oxt %{buildroot}%{ooodir}/extensions/
+cp %{_builddir}/libreoffice-%version/solver/340/unxlng*/bin/swext/wiki-publisher.oxt %{buildroot}%{ooodir}/extensions/
+cp %{_builddir}/libreoffice-%version/solver/340/unxlng*/bin/minimizer/presentation-minimizer.oxt %{buildroot}%{ooodir}/extensions/
 
-#fixes #56439
-sed -i 's/^Icon=.*$/Icon=ooo-calc/' %{buildroot}%{_datadir}/templates/ooo-spreadsheet.desktop
-sed -i 's/^Icon=.*$/Icon=ooo-writer/' %{buildroot}%{_datadir}/templates/ooo-text.desktop
-sed -i 's/^Icon=.*$/Icon=ooo-impress/' %{buildroot}%{_datadir}/templates/ooo-presentation.desktop
-sed -i 's/^Icon=.*$/Icon=ooo-draw/' %{buildroot}%{_datadir}/templates/ooo-drawing.desktop
+# libre
+# #fixes #56439
+# sed -i 's/^Icon=.*$/Icon=ooo-calc/' %{buildroot}%{_datadir}/templates/ooo-spreadsheet.desktop
+# sed -i 's/^Icon=.*$/Icon=ooo-writer/' %{buildroot}%{_datadir}/templates/ooo-text.desktop
+# sed -i 's/^Icon=.*$/Icon=ooo-impress/' %{buildroot}%{_datadir}/templates/ooo-presentation.desktop
+# sed -i 's/^Icon=.*$/Icon=ooo-draw/' %{buildroot}%{_datadir}/templates/ooo-drawing.desktop
 
-# Remove version on names so better position on menu 
-# and to give consistency under old links #43922, #57700
-for dskt in base calc draw impress math template web writer ooo-extension-manager startcenter; do 
-     mv %{buildroot}%{_datadir}/applications/${dskt}3.3.desktop %{buildroot}%{_datadir}/applications/${dskt}.desktop
+## Libre (Temporary), will better handled inside (bin/distro-install-file-lists) 
+## Installation fixes
+## remove fix wrong manpages files, extension gz->xz
+for p in common base calc writer impress draw math; do
+	sed -i '/^.*man.*\.gz$/d' file-lists/${p}_list.txt 
 done;
 
-# Get rid of the version at the name of unopkg script #57700
-mv %{buildroot}%{_bindir}/unopkg3.3 %{buildroot}%{_bindir}/unopkg
-mv %{buildroot}%{_mandir}/man1/unopkg3.3.1 %{buildroot}%{_mandir}/man1/unopkg.1
-# for m in %{buildroot}%{_mandir}/man1/unopkg%version.1*; do
-#      mv $m `echo $m | sed 's/unopkg%version/unopkg/'`
-# done; 
+## sort removing duplicates
+sort -u file-lists/gnome_list.txt > file-lists/gnome_list.uniq.sorted.txt 
+sort -u file-lists/sdk_list.txt   > file-lists/sdk_list.uniq.sorted.txt 
 
-#libre, temp
-sed -i 's/\(TryExec\|Exec\)=oo/\1=lo/' %{buildroot}%{_datadir}/applications/writer.desktop
-sed -i 's/\(TryExec\|Exec\)=oo/\1=lo/' %{buildroot}%{_datadir}/applications/calc.desktop
-sed -i 's/\(TryExec\|Exec\)=oo/\1=lo/' %{buildroot}%{_datadir}/applications/base.desktop
-sed -i 's/\(TryExec\|Exec\)=oo/\1=lo/' %{buildroot}%{_datadir}/applications/impress.desktop
-sed -i 's/\(TryExec\|Exec\)=oo/\1=lo/' %{buildroot}%{_datadir}/applications/draw.desktop
-sed -i 's/\(TryExec\|Exec\)=oo/\1=lo/' %{buildroot}%{_datadir}/applications/math.desktop
+## oxygen should be in the style
+sed -i '/^.*images_oxygen\.zip$/d' file-lists/common_list.txt 
+
+## merge en-US with common
+cat file-lists/lang_en_US_list.txt >> file-lists/common_list.txt
+sort -u file-lists/common_list.txt >  file-lists/common_list.uniq.sorted.txt 
+
+# # does not package lo original desktop files (Review)
+# sed -i '/^.*libreoffice-writer.desktop$/d'  file-lists/writer_list.txt 
+# sed -i '/^.*libreoffice-calc.desktop$/d'    file-lists/calc_list.txt 
+# sed -i '/^.*libreoffice-impress.desktop$/d' file-lists/impress_list.txt 
+# sed -i '/^.*libreoffice-draw.desktop$/d'    file-lists/draw_list.txt 
+# sed -i '/^.*libreoffice-base.desktop$/d'    file-lists/base_list.txt 
+# sed -i '/^.*libreoffice-math.desktop$/d'    file-lists/math_list.txt 
 
 %clean
 rm -rf %{buildroot}
 
 %post common
-# <mrl> Bogus versioning in previous alternatives setup forces us to do this
-# We can safelly remove it, as we are obsoleting that version anyway.
-/usr/sbin/update-alternatives --remove ooffice %{_bindir}/ooffice2.1 || :
-# We changed the master name here.
-/usr/sbin/update-alternatives --remove ooffice %{_bindir}/ooffice2.3 || :
-
-# dev300: including basis3.0 before program
-# alternatives names follows oobr_<filename> mark, making it explicit.
-# /usr/sbin/update-alternatives \
-#	--install %{ooodir}/program/bootstraprc oobr_bootstraprc \
-#		%{ooodir}/program/bootstraprc.ooo 1 \
-#	--slave %{ooodir}/program/versionrc oobr_versionrc \
-#		%{ooodir}/program/versionrc.ooo
-#	--slave %{ooodir}/%basis/share/registry/data/org/openoffice/Setup.xcu oobr_Setup.xcu \
-#		%{ooodir}/%basis/share/registry/data/org/openoffice/Setup.xcu.ooo
-# Always do this configuration, as the switch should be transparent.
-# /usr/sbin/update-alternatives --auto oobr_bootstraprc
-# End of BrOffice support %post
 
 %{update_desktop_database}
 %update_icon_cache gnome
 %update_icon_cache hicolor
-
-# Remove ooobuildtime.log misplaced file
-if [ -f /ooobuildtime.log ]; then
-      mkdir -p /tmp/ooo.tmp.mdv.rc2/
-      mv /ooobuildtime.log /tmp/ooo.tmp.mdv.rc2/
-      rm -r /tmp/ooo.tmp.mdv.rc2/
-fi
 
 # Firefox plugin
 if [ $1 -gt 1 ]
@@ -3581,12 +3449,6 @@ update-alternatives \
   %{ooodir}/program/libnpsoplugin.so 1
 
 %postun common
-
-# BrOffice support %postun common
- if [ ! -e "%{ooodir}/program/bootstraprc.ooo" ]; then
-       /usr/sbin/update-alternatives --remove oobr_bootstraprc %{ooodir}/program/bootstraprc.ooo
- fi
-# End of BrOffice support %postun common
 %{clean_desktop_database}
 %clean_icon_cache gnome
 %clean_icon_cache hicolor
@@ -3597,33 +3459,6 @@ then
   update-alternatives --remove %{firefox_plugin} \
   %{ooodir}/program/libnpsoplugin.so
 fi
-
-%if %l10n
-# %post l10n-pt_BR
-# BrOffice support %post l10n-pt_BR
-# alternatives names follows oobr_<filename> mark, making it explicit.
-#  /usr/sbin/update-alternatives \
-#	--install %{ooodir}/program/bootstraprc oobr_bootstraprc \
-#		%{ooodir}/program/bootstraprc.bro 2 \
-#	--slave %{ooodir}/program/versionrc oobr_versionrc \
-#		%{ooodir}/program/versionrc.bro \
-#	--slave %{ooodir}/%basis/share/registry/data/org/openoffice/Setup.xcu oobr_Setup.xcu \
-#		%{ooodir}/%basis/share/registry/data/org/openoffice/Setup.xcu.bro
-# Always do this configuration, as the switch should be transparent.
-# /usr/sbin/update-alternatives --auto oobr_bootstraprc
-# End of BrOffice support %post l10n-pt_BR
-
-# %{update_desktop_database}
-
-%postun l10n-pt_BR
-# BrOffice support %postun l10n-pt_BR
- if [ ! -e "%{ooodir}/program/bootstraprc.bro" ]; then
-        /usr/sbin/update-alternatives --remove oobr_bootstraprc %{ooodir}/program/bootstraprc.bro
- fi
-# End of BrOffice support %postun l10n-pt_BR
-
-%{clean_desktop_database}
-%endif
 
 %post base
 %{update_desktop_database}
@@ -3768,44 +3603,29 @@ fi
 
 %files
 
-%files base -f build/base_list.txt
-%{_bindir}/lobase3.3
-%{_mandir}/man1/lobase3.3.1*
-%{_datadir}/applications/base.desktop
+%files base -f file-lists/base_list.txt
+%{_mandir}/man1/lobase*
+# %{_datadir}/applications/base.desktop
+%{_datadir}/icons/hicolor/scalable/apps/mandriva-rosa-lo-base_72.svg
 
-%files calc -f build/calc_list.txt
-%{_bindir}/localc3.3
-%{_datadir}/templates/ooo-spreadsheet.desktop
-%{_datadir}/templates/.source/ooo-spreadsheet.ods
-%{_mandir}/man1/localc3.3.1*
-%{_datadir}/applications/calc.desktop
+%files calc -f file-lists/calc_list.txt
+#libre 
+# %{_datadir}/templates/ooo-spreadsheet.desktop
+# %{_datadir}/templates/.source/ooo-spreadsheet.ods
+%{_mandir}/man1/localc*
+# %{_datadir}/applications/calc.desktop
+%{_datadir}/icons/hicolor/scalable/apps/mandriva-rosa-lo-calc_72.svg
 
-%files common -f build/common_list.txt 
-%{_sysconfdir}/bash_completion.d/libreoffice3.3.sh
-%{_sysconfdir}/profile.d/openoffice.org.*
-%{_bindir}/ooconfig3.3
-%{_bindir}/libreoffice3.3
-%{_bindir}/lofromtemplate3.3
-%{_bindir}/ootool3.3
-%{_bindir}/soffice3.3
-#ooo3.2
-## %{ooodir}/%basis/program/OGLTrans.uno.so
-## %{ooodir}/%basis/share/config/soffice.cfg/simpress/transitions-ogl.xml
-## %{ooodir}/%basis/share/registry/modules/org/openoffice/Office/Impress/Impress-ogltrans.xcu
+%files common -f file-lists/common_list.uniq.sorted.txt 
 
-%{_datadir}/applications/template*.desktop
-%{_datadir}/applications/startcenter.desktop
+# libre
+# %{_sysconfdir}/bash_completion.d/libreoffice3.3.sh
+# %{_sysconfdir}/profile.d/openoffice.org.*
+# %{_bindir}/ooconfig3.3
+# %{_bindir}/ootool3.3
 
-%{_datadir}/icons/hicolor/*/apps/ooo-base3.3.*
-%{_datadir}/icons/hicolor/*/apps/ooo-calc3.3.*
-%{_datadir}/icons/hicolor/*/apps/ooo-draw3.3.*
-%{_datadir}/icons/hicolor/*/apps/ooo-gulls3.3.*
-%{_datadir}/icons/hicolor/*/apps/ooo-impress3.3.*
-%{_datadir}/icons/hicolor/*/apps/ooo-math3.3.*
-%{_datadir}/icons/hicolor/*/apps/ooo-printeradmin3.3.*
-%{_datadir}/icons/hicolor/*/apps/ooo-template3.3.*
-%{_datadir}/icons/hicolor/*/apps/ooo-web3.3.*
-%{_datadir}/icons/hicolor/*/apps/ooo-writer3.3.*
+# libre
+# %{_datadir}/applications/template*.desktop
 
 # new icons
 # %{_datadir}/icons/hicolor/*/apps/openofficeorg3-*.png
@@ -3813,22 +3633,23 @@ fi
 #%{_datadir}/icons/hicolor/*/mimetypes/openofficeorg3-*.png
 # %{_datadir}/icons/gnome/*/apps/openofficeorg3-*.png
 # %{_datadir}/icons/gnome/*/mimetypes/openofficeorg3-*.png
-%{_datadir}/pixmaps/ooo-base3.3.png
-%{_datadir}/pixmaps/ooo-calc3.3.png
-%{_datadir}/pixmaps/ooo-draw3.3.png
-%{_datadir}/pixmaps/ooo-gulls3.3.png
-%{_datadir}/pixmaps/ooo-impress3.3.png
-%{_datadir}/pixmaps/ooo-math3.3.png
-%{_datadir}/pixmaps/ooo-template3.3.png
-%{_datadir}/pixmaps/ooo-web3.3.png
-%{_datadir}/pixmaps/ooo-writer3.3.png
-# %{_mandir}/man1/looffice3.3.1*
-%{_mandir}/man1/lofromtemplate3.3.1*
-%{_mandir}/man1/libreoffice3.3.1*
+
+
+# libre
+# %{_datadir}/pixmaps/ooo-base3.3.png
+# %{_datadir}/pixmaps/ooo-calc3.3.png
+# %{_datadir}/pixmaps/ooo-draw3.3.png
+# %{_datadir}/pixmaps/ooo-gulls3.3.png
+# %{_datadir}/pixmaps/ooo-impress3.3.png
+# %{_datadir}/pixmaps/ooo-math3.3.png
+# %{_datadir}/pixmaps/ooo-template3.3.png
+# %{_datadir}/pixmaps/ooo-web3.3.png
+# %{_datadir}/pixmaps/ooo-writer3.3.png
+
+%{_mandir}/man1/loffice*
+%{_mandir}/man1/lofromtemplate*
+%{_mandir}/man1/libreoffice*
 %{_datadir}/mime
-# XXX Due to alternatives upgrade from 2.3.0.5-1mdv to -2mdv
-# (.desktop files are not included because they are in their
-# respective subpackages already (#38412))
 
 #dev300 
 # %ghost %{ooodir}/share/uno_packages
@@ -3836,59 +3657,60 @@ fi
 # %ghost %{ooodir}/program/versionrc
 # %ghost %{ooodir}/%basis/share/registry/data/org/openoffice/Setup.xcu
 
-%{_bindir}/unopkg
 %{_mandir}/man1/unopkg.1*
-%{_datadir}/applications/ooo-extension-manager*.desktop
+
+# libre
+# %{_datadir}/applications/ooo-extension-manager*.desktop
 
 # Anssi 
 %dir %{ooodir}/extensions
 
-%files core -f build/core_list.txt
+%files core -f file-lists/core_list.txt
 
-%files devel -f build/sdk_list_fixed.txt
+%files devel -f file-lists/sdk_list.uniq.sorted.txt
 
-%files devel-doc -f build/sdk_doc_list.txt
+%files devel-doc -f file-lists/sdk_doc_list.txt
 
-%files draw -f build/draw_list.txt
-%{_bindir}/lodraw3.3
-%{_datadir}/applications/draw.desktop
-
-%{_datadir}/templates/ooo-drawing.desktop
-%{_datadir}/templates/.source/ooo-drawing.odg
-%{_mandir}/man1/lodraw3.3.1*
+%files draw -f file-lists/draw_list.txt
+# %{_datadir}/applications/draw.desktop
+# libre
+# %{_datadir}/templates/ooo-drawing.desktop
+# %{_datadir}/templates/.source/ooo-drawing.odg
+%{_mandir}/man1/lodraw*
+%{_datadir}/icons/hicolor/scalable/apps/mandriva-rosa-lo-draw_72.svg
 
 # dev300: 
 # %files dtd-officedocument1.0 -f build/dtd_list.txt
 
 # dev300: 
-%files filter-binfilter -f build/filter-binfilter_list.txt
+%files filter-binfilter -f file-lists/filter-binfilter_list.txt
 
-%files gnome -f build/gnome_list.txt
+%files gnome -f file-lists/gnome_list.uniq.sorted.txt
 
-%files impress -f build/impress_list.txt
-%{_bindir}/loimpress3.3
-%{_datadir}/applications/impress.desktop
-%{_datadir}/templates/ooo-presentation.desktop
-%{_datadir}/templates/.source/ooo-presentation.odp
-%{_mandir}/man1/loimpress3.3.1*
+%files impress -f file-lists/impress_list.txt
+# %{_datadir}/applications/impress.desktop
+# libre 
+# %{_datadir}/templates/ooo-presentation.desktop
+# %{_datadir}/templates/.source/ooo-presentation.odp
+%{_mandir}/man1/loimpress*
+%{_datadir}/icons/hicolor/scalable/apps/mandriva-rosa-lo-impress_72.svg
 
-%files java-common -f build/java_common_list.txt
+%files java-common -f file-lists/java_common_list.txt
 
-%files kde4 -f build/kde4_list.txt
+%files kde4 -f file-lists/kde4_list.txt
 
-%files math -f build/math_list.txt
-%{_bindir}/lomath3.3
-%{_datadir}/applications/math.desktop
-%{_mandir}/man1/lomath3.3.1*
+%files math -f file-lists/math_list.txt
+# %{_datadir}/applications/math.desktop
+%{_mandir}/man1/lomath*
 
-%files openclipart -f build/gallery_list.txt
+%files openclipart -f file-lists/gallery_list.txt
 
-%files pyuno -f build/pyuno_list.txt
+%files pyuno -f file-lists/pyuno_list.txt
 
 #%files qa-api-tests
 #%{ooodir}/qadevOOo
 
-%files testtool -f build/testtool_list.txt
+%files testtool -f file-lists/testtool_list.txt
 
 %files style-galaxy
 %{ooodir}/%basis/share/config/images.zip
@@ -3908,18 +3730,19 @@ fi
 %files style-oxygen
 %{ooodir}/%basis/share/config/images_oxygen.zip
 
-%files writer -f build/writer_list.txt
-%{_bindir}/loweb3.3
-%{_bindir}/lowriter3.3
-%{_datadir}/applications/writer.desktop
-%{_datadir}/applications/web.desktop
-%{_datadir}/templates/ooo-text.desktop
-%{_datadir}/templates/.source/ooo-text.odt
-%{_mandir}/man1/loweb3.3.1*
-%{_mandir}/man1/lowriter3.3.1*
+%files writer -f file-lists/writer_list.txt
+# %{_datadir}/applications/writer.desktop
+# libre
+#%{_datadir}/applications/web.desktop
+# libre
+# %{_datadir}/templates/ooo-text.desktop
+# %{_datadir}/templates/.source/ooo-text.odt
+%{_mandir}/man1/loweb*
+%{_mandir}/man1/lowriter*
+%{_datadir}/icons/hicolor/scalable/apps/mandriva-rosa-lo-writer_72.svg
 
 %if %{use_mono}
-%files mono -f build/mono_list.txt
+%files mono -f file-lists/mono_list.txt
 %defattr(-,root,root)
 %{_libdir}/pkgconfig/mono-ooo.pc
 # %{_libdir}/pkgconfig/mono-ooo%{mdvsuffix}-2.3.pc
@@ -3948,256 +3771,246 @@ fi
 %{ooodir}/extensions/presentation-minimizer.oxt
 
 %if %l10n
-%files l10n-it -f build/lang_it_list.txt
+%files l10n-it -f file-lists/lang_it_list.txt
 %defattr(-,root,root)
 
-%files l10n-af -f build/lang_af_list.txt
+%files l10n-af -f file-lists/lang_af_list.txt
 %defattr(-,root,root)
 
-%files l10n-ar -f build/lang_ar_list.txt
+%files l10n-ar -f file-lists/lang_ar_list.txt
 %defattr(-,root,root)
 
-%files l10n-bg -f build/lang_bg_list.txt
+%files l10n-bg -f file-lists/lang_bg_list.txt
 %defattr(-,root,root)
 
-%files l10n-br -f build/lang_br_list.txt
+%files l10n-br -f file-lists/lang_br_list.txt
 %defattr(-,root,root)
 
-%files l10n-bs -f build/lang_bs_list.txt
+%files l10n-bs -f file-lists/lang_bs_list.txt
 %defattr(-,root,root)
 
-%files l10n-ca -f build/lang_ca_list.txt
+%files l10n-ca -f file-lists/lang_ca_list.txt
 %defattr(-,root,root)
 
-%files l10n-cs -f build/lang_cs_list.txt
+%files l10n-cs -f file-lists/lang_cs_list.txt
 %defattr(-,root,root)
 
-%files l10n-cy -f build/lang_cy_list.txt
+%files l10n-cy -f file-lists/lang_cy_list.txt
 %defattr(-,root,root)
 
-%files l10n-da -f build/lang_da_list.txt
+%files l10n-da -f file-lists/lang_da_list.txt
 %defattr(-,root,root)
 
-%files l10n-de -f build/lang_de_list.txt
+%files l10n-de -f file-lists/lang_de_list.txt
 %defattr(-,root,root)
 
-%files l10n-el -f build/lang_el_list.txt
+%files l10n-el -f file-lists/lang_el_list.txt
 %defattr(-,root,root)
 
-%files l10n-en_GB -f build/lang_en_GB_list.txt
+%files l10n-en_GB -f file-lists/lang_en_GB_list.txt
 %defattr(-,root,root)
 
-%files l10n-es -f build/lang_es_list.txt
+%files l10n-es -f file-lists/lang_es_list.txt
 %defattr(-,root,root)
 
-%files l10n-et -f build/lang_et_list.txt
+%files l10n-et -f file-lists/lang_et_list.txt
 %defattr(-,root,root)
 
-%files l10n-eu -f build/lang_eu_list.txt
+%files l10n-eu -f file-lists/lang_eu_list.txt
 %defattr(-,root,root)
 
-%files l10n-fi -f build/lang_fi_list.txt
+%files l10n-fi -f file-lists/lang_fi_list.txt
 %defattr(-,root,root)
 
-%files l10n-fr -f build/lang_fr_list.txt
+%files l10n-fr -f file-lists/lang_fr_list.txt
 %defattr(-,root,root)
 
-%files l10n-he -f build/lang_he_list.txt
+%files l10n-he -f file-lists/lang_he_list.txt
 %defattr(-,root,root)
 
-%files l10n-hi -f build/lang_hi_list.txt
+%files l10n-hi -f file-lists/lang_hi_list.txt
 %defattr(-,root,root)
 
-%files l10n-hu -f build/lang_hu_list.txt
+%files l10n-hu -f file-lists/lang_hu_list.txt
 %defattr(-,root,root)
 
-%files l10n-ja -f build/lang_ja_list.txt
+%files l10n-ja -f file-lists/lang_ja_list.txt
 %defattr(-,root,root)
 
-%files l10n-ko -f build/lang_ko_list.txt
+%files l10n-ko -f file-lists/lang_ko_list.txt
 %defattr(-,root,root)
 
-%files l10n-mk -f build/lang_mk_list.txt
+%files l10n-mk -f file-lists/lang_mk_list.txt
 %defattr(-,root,root)
 
-%files l10n-nb -f build/lang_nb_list.txt
+%files l10n-nb -f file-lists/lang_nb_list.txt
 %defattr(-,root,root)
 
-%files l10n-nl -f build/lang_nl_list.txt
+%files l10n-nl -f file-lists/lang_nl_list.txt
 %defattr(-,root,root)
 
-%files l10n-nn -f build/lang_nn_list.txt
+%files l10n-nn -f file-lists/lang_nn_list.txt
 %defattr(-,root,root)
 
-%files l10n-pl -f build/lang_pl_list.txt
+%files l10n-pl -f file-lists/lang_pl_list.txt
 %defattr(-,root,root)
 
-%files l10n-pt -f build/lang_pt_list.txt
+%files l10n-pt -f file-lists/lang_pt_list.txt
 %defattr(-,root,root)
 
-%files l10n-pt_BR -f build/lang_pt_BR_list.txt
+%files l10n-pt_BR -f file-lists/lang_pt_BR_list.txt
 %defattr(-,root,root)
-# BrOffice support
-# XXX Yes, by this way there will be broken symlinks if you don't make a full suite
-# installation.
-# %{_bindir}/br*
-# %{ooodir}/program/bootstraprc.bro
-# %{ooodir}/program/versionrc.bro
-# %{ooodir}/%basis/share/registry/data/org/openoffice/Setup.xcu.bro
-# %ghost %{ooodir}/program/bootstraprc
-# %ghost %{ooodir}/program/versionrc
-# %ghost %{ooodir}/%basis/share/registry/data/org/openoffice/Setup.xcu
 
-%files l10n-pt_AO -f build/lang_pt_AO_list.txt
-%defattr(-,root,root)
+# %files l10n-pt_AO -f file-lists/lang_pt_AO_list.txt
+# %defattr(-,root,root)
 
-%files l10n-ru -f build/lang_ru_list.txt
+%files l10n-ru -f file-lists/lang_ru_list.txt
 %defattr(-,root,root)
 
-%files l10n-sk -f build/lang_sk_list.txt
+%files l10n-sk -f file-lists/lang_sk_list.txt
 %defattr(-,root,root)
 
-%files l10n-sl -f build/lang_sl_list.txt
+%files l10n-sl -f file-lists/lang_sl_list.txt
 %defattr(-,root,root)
 
-%files l10n-sv -f build/lang_sv_list.txt
+%files l10n-sv -f file-lists/lang_sv_list.txt
 %defattr(-,root,root)
 
-%files l10n-ta -f build/lang_ta_list.txt
+%files l10n-ta -f file-lists/lang_ta_list.txt
 %defattr(-,root,root)
 
-%files l10n-tr -f build/lang_tr_list.txt
+%files l10n-tr -f file-lists/lang_tr_list.txt
 %defattr(-,root,root)
 
-%files l10n-zh_CN -f build/lang_zh_CN_list.txt
+%files l10n-zh_CN -f file-lists/lang_zh_CN_list.txt
 %defattr(-,root,root)
 
-%files l10n-zh_TW -f build/lang_zh_TW_list.txt
+%files l10n-zh_TW -f file-lists/lang_zh_TW_list.txt
 %defattr(-,root,root)
 
-%files l10n-zu -f build/lang_zu_list.txt
+%files l10n-zu -f file-lists/lang_zu_list.txt
 %defattr(-,root,root)
 
-%files help-it -f build/help_it_list.txt
+%files help-it -f file-lists/help_it_list.txt
 %defattr(-,root,root)
 
-%files help-af -f build/help_af_list.txt
-%defattr(-,root,root)
+# %files help-af -f file-lists/help_af_list.txt
+# %defattr(-,root,root)
 
-%files help-ar -f build/help_ar_list.txt
-%defattr(-,root,root)
+# %files help-ar -f file-lists/help_ar_list.txt
+# %defattr(-,root,root)
 
-%files help-bg -f build/help_bg_list.txt
+%files help-bg -f file-lists/help_bg_list.txt
 %defattr(-,root,root)
 
-%files help-br -f build/help_br_list.txt
-%defattr(-,root,root)
+# %files help-br -f file-lists/help_br_list.txt
+# %defattr(-,root,root)
 
-%files help-bs -f build/help_bs_list.txt
+%files help-bs -f file-lists/help_bs_list.txt
 %defattr(-,root,root)
 
-%files help-ca -f build/help_ca_list.txt
+%files help-ca -f file-lists/help_ca_list.txt
 %defattr(-,root,root)
 
-%files help-cs -f build/help_cs_list.txt
+%files help-cs -f file-lists/help_cs_list.txt
 %defattr(-,root,root)
 
-%files help-cy -f build/help_cy_list.txt
-%defattr(-,root,root)
+# %files help-cy -f file-lists/help_cy_list.txt
+# %defattr(-,root,root)
 
-%files help-da -f build/help_da_list.txt
+%files help-da -f file-lists/help_da_list.txt
 %defattr(-,root,root)
 
-%files help-de -f build/help_de_list.txt
+%files help-de -f file-lists/help_de_list.txt
 %defattr(-,root,root)
 
-%files help-el -f build/help_el_list.txt
+%files help-el -f file-lists/help_el_list.txt
 %defattr(-,root,root)
 
-%files help-en_GB -f build/help_en_GB_list.txt
+%files help-en_GB -f file-lists/help_en_GB_list.txt
 %defattr(-,root,root)
 
-%files help-es -f build/help_es_list.txt
+%files help-es -f file-lists/help_es_list.txt
 %defattr(-,root,root)
 
-%files help-et -f build/help_et_list.txt
+%files help-et -f file-lists/help_et_list.txt
 %defattr(-,root,root)
 
-%files help-eu -f build/help_eu_list.txt
+%files help-eu -f file-lists/help_eu_list.txt
 %defattr(-,root,root)
 
-%files help-fi -f build/help_fi_list.txt
+%files help-fi -f file-lists/help_fi_list.txt
 %defattr(-,root,root)
 
-%files help-fr -f build/help_fr_list.txt
+%files help-fr -f file-lists/help_fr_list.txt
 %defattr(-,root,root)
 
-%files help-he -f build/help_he_list.txt
+%files help-he -f file-lists/help_he_list.txt
 %defattr(-,root,root)
 
-%files help-hi -f build/help_hi_list.txt
+%files help-hi -f file-lists/help_hi_list.txt
 %defattr(-,root,root)
 
-%files help-hu -f build/help_hu_list.txt
+%files help-hu -f file-lists/help_hu_list.txt
 %defattr(-,root,root)
 
-%files help-ja -f build/help_ja_list.txt
+%files help-ja -f file-lists/help_ja_list.txt
 %defattr(-,root,root)
 
-%files help-ko -f build/help_ko_list.txt
+%files help-ko -f file-lists/help_ko_list.txt
 %defattr(-,root,root)
 
-%files help-mk -f build/help_mk_list.txt
+%files help-mk -f file-lists/help_mk_list.txt
 %defattr(-,root,root)
 
-%files help-nb -f build/help_nb_list.txt
+%files help-nb -f file-lists/help_nb_list.txt
 %defattr(-,root,root)
 
-%files help-nl -f build/help_nl_list.txt
+%files help-nl -f file-lists/help_nl_list.txt
 %defattr(-,root,root)
 
-%files help-nn -f build/help_nn_list.txt
+%files help-nn -f file-lists/help_nn_list.txt
 %defattr(-,root,root)
 
-%files help-pl -f build/help_pl_list.txt
+%files help-pl -f file-lists/help_pl_list.txt
 %defattr(-,root,root)
 
-%files help-pt -f build/help_pt_list.txt
+%files help-pt -f file-lists/help_pt_list.txt
 %defattr(-,root,root)
 
-%files help-pt_BR -f build/help_pt_BR_list.txt
+%files help-pt_BR -f file-lists/help_pt_BR_list.txt
 %defattr(-,root,root)
 
-%files help-pt_AO -f build/help_pt_AO_list.txt
-%defattr(-,root,root)
+# %files help-pt_AO -f file-lists/help_pt_AO_list.txt
+# %defattr(-,root,root)
 
-%files help-ru -f build/help_ru_list.txt
+%files help-ru -f file-lists/help_ru_list.txt
 %defattr(-,root,root)
 
-%files help-sk -f build/help_sk_list.txt
+%files help-sk -f file-lists/help_sk_list.txt
 %defattr(-,root,root)
 
-%files help-sl -f build/help_sl_list.txt
+%files help-sl -f file-lists/help_sl_list.txt
 %defattr(-,root,root)
 
-%files help-sv -f build/help_sv_list.txt
+%files help-sv -f file-lists/help_sv_list.txt
 %defattr(-,root,root)
 
-%files help-ta -f build/help_ta_list.txt
-%defattr(-,root,root)
+# %files help-ta -f file-lists/help_ta_list.txt
+# %defattr(-,root,root)
 
-%files help-tr -f build/help_tr_list.txt
+%files help-tr -f file-lists/help_tr_list.txt
 %defattr(-,root,root)
 
-%files help-zh_CN -f build/help_zh_CN_list.txt
+%files help-zh_CN -f file-lists/help_zh_CN_list.txt
 %defattr(-,root,root)
 
-%files help-zh_TW -f build/help_zh_TW_list.txt
+%files help-zh_TW -f file-lists/help_zh_TW_list.txt
 %defattr(-,root,root)
 
-%files help-zu -f build/help_zu_list.txt
-%defattr(-,root,root)
+# %files help-zu -f file-lists/help_zu_list.txt
+# %defattr(-,root,root)
 
-%files help-en_US -f build/help_en_US_list.txt
+%files help-en_US -f file-lists/help_en_US_list.txt
 %defattr(-,root,root)
 %endif
