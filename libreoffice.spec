@@ -2975,6 +2975,10 @@ for a in */*; do mv `pwd`/$a .; done
 %patch1 -p1 -b .lzma
 %endif
 
+# to make the friggin cppunit tests work
+mkdir -p ~/tmp
+chmod 777 ~/tmp
+
 %build
 
 # Workaround for bug http://qa.mandriva.com/show_bug.cgi?id=27771
