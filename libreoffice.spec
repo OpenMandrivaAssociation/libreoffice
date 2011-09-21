@@ -14,10 +14,10 @@
 %define _binary_payload w1.gzdio
 %define _source_payload w1.gzdio
 
-%define version	        3.4.2
-%define release		%mkrel 1
+%define version	        3.4.3
+%define release		%mkrel 2
 
-%define buildver     	3.4.2.3
+%define buildver     	3.4.3.2
 %define basis           basis3.4
 %define jdkver		1_5_0_11
 %define ooodir		%{_libdir}/libreoffice
@@ -318,6 +318,7 @@ Source56:	http://hg.services.openoffice.org/binaries/18f577b374d60b3c760a3a33504
 Patch4:		xulrunner-to-mozila-plugin.pc.diff
 Patch5:		mdv-sysui-disableslack.diff
 Patch9:		vbahelper.visibility.patch 
+Patch10:    	disable-qtunixeventloop.patch
 
 %description
 LibreOffice is an Open Source, community-developed, multi-platform
@@ -2969,6 +2970,7 @@ for a in */*; do mv `pwd`/$a .; done
 %patch4 -p0 -b .xul
 %patch5 -p0 -b .sysui
 %patch9 -p0 -b .vba
+%patch10 -p0 -b .vclkde
 
 # Add lzma support (REVIEW)
 %if %{oootarext} == "lzma"
