@@ -153,7 +153,7 @@ BuildRequires:	glitz-devel
 BuildRequires:	gnutls-devel
 BuildRequires:	gnome-vfsmm2.6-devel
 BuildRequires:	gperf
-BuildRequires:	ImageMagick
+BuildRequires:	imagemagick
 BuildRequires:	db1-devel
 %if %{use_systemdb}
 %if %mdkversion < 201020
@@ -165,21 +165,19 @@ BuildRequires:	db-devel >= 4.2.5-4mdk
 BuildConflicts: libdbjava4.2
 %endif
 # BuildRequires:	bsh
-BuildRequires:	libcurl-devel
-BuildRequires:	libgtk+2-devel
+BuildRequires:	curl-devel
+BuildRequires:	gtk+2-devel
 BuildRequires:	libsvg-devel
 BuildRequires:	libgstreamer-plugins-base-devel
-BuildRequires:	libxaw-devel
-BuildRequires:	libldap-devel
-BuildRequires:	libportaudio-devel
-BuildConflicts: %{mklibname libportaudio 2}-devel
-BuildRequires:	libsndfile-devel
+BuildRequires:	xaw-devel
+BuildRequires:	openldap-devel
+BuildRequires:	portaudio0-devel >= 18.1
+BuildRequires:	sndfile-devel
 BuildRequires:	unixODBC-devel
-BuildRequires:	libwpd-devel
 BuildRequires:	libxp-devel
 BuildRequires:	libxslt-proc >= 1.0.19
 BuildRequires:	libxslt-devel
-BuildRequires:	libxml2 >= 2.4.23
+BuildRequires:	libxml2-devel >= 2.4.23
 %if %{use_mono}
 BuildRequires:	mono-devel
 BuildRequires:	mono-data-sqlite
@@ -187,6 +185,7 @@ BuildRequires:	mono-data-sqlite
 # dev 300 (retirar essa require)
 # BuildRequires:	mozilla-firefox-devel
 BuildRequires:	nss-devel
+BuildRequires:	nspr-devel
 BuildRequires:	nas-devel
 BuildRequires:	neon-devel >= 0.27
 BuildRequires:	pam-devel
@@ -232,35 +231,39 @@ BuildConflicts:	gcc-java
 BuildConflicts:	gcj-tools
 BuildConflicts: java-kaffe
 %endif
-BuildConflicts:	STLport-devel
 BuildRequires:	hsqldb
+BuildRequires:	libwpd-devel
 BuildRequires:	libwpg-devel
 BuildRequires:	libwps-devel
 BuildRequires:	icu
-BuildRequires:  %{mklibname icu}-devel
+BuildRequires:  icu-devel
 
 # main cleanup
 # BuildRequires:	libmdbtools-devel
 
 BuildRequires:  ant-apache-regexp
 BuildRequires:  xulrunner-devel
-BuildRequires:  %{mklibname vigra}-devel
+BuildRequires:  libvigra-devel
 BuildRequires:  hunspell-devel
 #pdfimport extension
-BuildRequires:  %{mklibname poppler}-devel
-BuildRequires:  %{mklibname xtst}-devel
+BuildRequires:	libpoppler-devel
+BuildRequires:	libxtst-devel
 BuildRequires:  desktop-file-utils
-BuildRequires:  %{mklibname mesaglu1}-devel 
-BuildRequires:  qt4-devel 
-BuildRequires:  task-kde4-devel 
+BuildRequires:  mesaglu-devel
+BuildRequires:  qt4-devel
+BuildRequires:  task-kde4-devel
 BuildRequires:  cppunit-devel
 BuildRequires:  redland-devel
 BuildRequires:  jakarta-commons-codec
 BuildRequires:  jakarta-commons-lang
 BuildRequires:  jakarta-commons-httpclient
+BuildRequires:  graphite2-devel
+BuildRequires:  textcat-devel
+BuildRequires:	python-translate >= 1.9.0
+# STLport-devel 4.5 + private patches are needed
+BuildConflicts:	STLport-devel
 
 # BuildRequires:  jakarta-commons-logging
-# BuildRequires:  textcat-devel
 
 ####################################################################
 #
@@ -288,30 +291,15 @@ Source17:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-ure-
 Source18:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-writer-%{buildver}.tar.%{oootarext}
 Source19:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-translations-%{buildver}.tar.%{oootarext}
 
-
 Source20: 	Mandriva-Rosa_Icons.tar.bz2
-
-# Source22:	http://download.go-oo.org/SRC680/extras-3.1.tar.bz2
-# Source23:	http://download.go-oo.org/SRC680/mdbtools-0.6pre1.tar.gz
-# Source24:       http://download.go-oo.org//DEV300/ooo-cli-prebuilt-3.3.tar.bz2
-# Source25:       http://download.go-oo.org/OOO300/cairo-1.4.10.tar.gz
-# Source25:	http://download.go-oo.org/SRC680/biblio.tar.bz2
-
-# splash screens and about images (REVIEW)
-# Source27:	openintro_mandriva.bmp
-# Source28:	openabout_mandriva.bmp
 
 Source31:       http://download.go-oo.org/DEV300/ooo_oxygen_images-2009-06-17.tar.gz
 Source32: 	http://hg.services.openoffice.org/binaries/fdb27bfe2dbe2e7b57ae194d9bf36bab-SampleICC-1.3.2.tar.gz
-Source33: 	http://download.go-oo.org/src/8d265a592619166f29c4672ea54812b7-libwpd-0.9.2.tar.bz2
-Source34:	http://download.go-oo.org/src/83d4029aebf290c0a9a8fee9c99638d3-libwps-0.2.1.tar.bz2
-Source35:	http://download.go-oo.org/src/5ba6a61a2f66dfd5fee8cdd4cd262a37-libwpg-0.2.0.tar.bz2 
 Source36: 	http://download.go-oo.org/src/0ff7d225d087793c8c2c680d77aac3e7-mdds_0.5.3.tar.bz2
 Source37: 	http://download.go-oo.org/src/0f63ee487fda8f21fafa767b3c447ac9-ixion-0.2.0.tar.gz
 Source38:	http://hg.services.openoffice.org/binaries/067201ea8b126597670b5eff72e1f66c-mythes-1.2.0.tar.gz
 Source39: 	http://download.go-oo.org/extern/185d60944ea767075d27247c3162b3bc-unowinreg.dll
 Source40: 	http://hg.services.openoffice.org/binaries/48d8169acc35f97e05d8dcdfd45be7f2-lucene-2.3.2.tar.gz
-# Source41: 	http://hg.services.openoffice.org/binaries/d35724900f6a4105550293686688bbb3-silgraphite-2.3.1.tar.gz
 Source42:	http://hg.services.openoffice.org/binaries/2a177023f9ea8ec8bd00837605c5df1b-jakarta-tomcat-5.0.30-src.tar.gz
 Source43: 	http://hg.services.openoffice.org/binaries/284e768eeda0e2898b0d5bf7e26a016e-raptor-1.4.18.tar.gz
 Source44:	http://hg.services.openoffice.org/binaries/fca8706f2c4619e2fa3f8f42f8fc1e9d-rasqal-0.9.16.tar.gz 
@@ -323,19 +311,12 @@ Source49:	http://hg.services.openoffice.org/binaries/35c94d2df8893241173de1d16b6
 Source50:	http://hg.services.openoffice.org/binaries/48a9f787f43a09c0a9b7b00cd1fddbbf-hyphen-2.7.1.tar.gz
 Source51:	http://hg.services.openoffice.org/binaries/26b3e95ddf3d9c077c480ea45874b3b8-lp_solve_5.5.tar.gz
 Source52:	http://hg.services.openoffice.org/binaries/3c219630e4302863a9a83d0efde889db-commons-logging-1.1.1-src.tar.gz	
-Source53:	http://hg.services.openoffice.org/binaries/128cfc86ed5953e57fe0f5ae98b62c2e-libtextcat-2.2.tar.gz
 Source54:	http://hg.services.openoffice.org/binaries/ada24d37d8d638b3d8a9985e80bc2978-source-9.0.0.7-bj.zip
 Source55:	http://download.go-oo.org/src/ea570af93c284aa9e5621cd563f54f4d-bsh-2.0b1-src.tar.gz
 Source56:	http://hg.services.openoffice.org/binaries/18f577b374d60b3c760a3a3350407632-STLport-4.5.tar.gz
 
-# Patch1:	build-fmtstrings.diff		 
-# Patch2:	mdv-package-ooo.patch	
-# Patch3: 	mdv-build-apply.patch
 Patch4:		xulrunner-to-mozila-plugin.pc.diff
-Patch5:		mdv-sysui-disableslack.diff	
-# Patch6: 	mdv-fpermissiveflag.diff
-# Patch7:	libreoffice-gcc4.6.diff
-# Patch8:	mdv-db51check.diff
+Patch5:		mdv-sysui-disableslack.diff
 Patch9:		vbahelper.visibility.patch 
 
 %description
@@ -439,15 +420,12 @@ Suggests: %{name}-help-en_US = %{EVRD}
 # And then general requires for OOo follows
 Requires: ghostscript
 Requires: fonts-ttf-liberation
-Requires: %{mklibname sane 1}
 Requires: desktop-common-data >= 2008
 # rpm will automatically grab the require for libsane1, but there are some
 # configs needed at this package, so we must require it too.
 Requires: sane-backends
 # Due to %{_bindir}/paperconf
 # Requires: paper-utils
-Requires: %{mklibname icu 44} 
-Requires: %{mklibname hunspell 1.2_0}
 Requires(post): desktop-file-utils update-alternatives
 Requires(postun): desktop-file-utils update-alternatives
 
@@ -2997,8 +2975,6 @@ for a in */*; do mv `pwd`/$a .; done
 %patch1 -p1 -b .lzma
 %endif
 
-touch src.downloaded
-
 %build
 
 # Workaround for bug http://qa.mandriva.com/show_bug.cgi?id=27771
@@ -3049,32 +3025,6 @@ if [ "`readlink -f %{_bindir}/java`" = "%{_bindir}/jamvm" ]; then
 	exit 1
 fi
 %endif
-
-ln -sf %{SOURCE31} src/
-ln -sf %{SOURCE32} src/
-ln -sf %{SOURCE33} src/
-ln -sf %{SOURCE34} src/
-ln -sf %{SOURCE35} src/
-ln -sf %{SOURCE36} src/
-ln -sf %{SOURCE37} src/
-ln -sf %{SOURCE38} src/
-ln -sf %{SOURCE39} src/
-ln -sf %{SOURCE40} src/
-# ln -sf %{SOURCE41} src/
-ln -sf %{SOURCE42} src/
-ln -sf %{SOURCE43} src/
-ln -sf %{SOURCE44} src/
-ln -sf %{SOURCE45} src/
-ln -sf %{SOURCE46} src/
-ln -sf %{SOURCE47} src/
-ln -sf %{SOURCE48} src/
-ln -sf %{SOURCE49} src/
-ln -sf %{SOURCE50} src/
-ln -sf %{SOURCE51} src/
-ln -sf %{SOURCE52} src/
-ln -sf %{SOURCE53} src/
-ln -sf %{SOURCE54} src/
-ln -sf %{SOURCE55} src/
 
 %if !%{use_icecream}
 # sbin due to icu stuff there
@@ -3131,6 +3081,13 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 	--with-system-vigra \
 	--with-system-neon \
 	--with-system-agg \
+	--with-system-libtextcat \
+	--with-external-libtextcat-data \
+	--with-system-libwpd \
+	--with-system-libwps \
+	--with-system-libwpg \
+	--with-system-graphite \
+	--with-system-translate-toolkit \
 	--without-junit \
 	--with-system-cppunit \
 	--enable-broffice \
@@ -3139,7 +3096,6 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 	--with-openldap \
 	--disable-kde \
 	--enable-kde4 \
-	--without-download \
 	--with-intro-bitmaps="%{SOURCE27}" \
 	--with-about-bitmaps="%{SOURCE28}" \
 %if %use_gcj
@@ -3207,6 +3163,34 @@ export nodep=TRUE
 export NO_HIDS=TRUE 
 export MAXPROCESS=4 
 
+mkdir -p src
+ln -sf %{SOURCE31} src/
+ln -sf %{SOURCE32} src/
+#ln -sf %{SOURCE33} src/
+#ln -sf %{SOURCE34} src/
+#ln -sf %{SOURCE35} src/
+ln -sf %{SOURCE36} src/
+ln -sf %{SOURCE37} src/
+ln -sf %{SOURCE38} src/
+ln -sf %{SOURCE39} src/
+ln -sf %{SOURCE40} src/
+ln -sf %{SOURCE42} src/
+ln -sf %{SOURCE43} src/
+ln -sf %{SOURCE44} src/
+ln -sf %{SOURCE45} src/
+ln -sf %{SOURCE46} src/
+ln -sf %{SOURCE47} src/
+ln -sf %{SOURCE48} src/
+ln -sf %{SOURCE49} src/
+ln -sf %{SOURCE50} src/
+ln -sf %{SOURCE51} src/
+ln -sf %{SOURCE52} src/
+ln -sf %{SOURCE54} src/
+ln -sf %{SOURCE55} src/
+ln -sf %{SOURCE56} src/
+touch src.downloaded
+
+#. ./*[Ee]nv.[Ss]et.sh
 ./bootstrap
 
 # %make 
