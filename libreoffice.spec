@@ -233,7 +233,7 @@ BuildConflicts:	gcc-java
 BuildConflicts:	gcj-tools
 BuildConflicts: java-kaffe
 %endif
-BuildRequires:	hsqldb
+# BuildRequires:	hsqldb
 BuildRequires:	libwpd-devel >= 0.9.0
 BuildRequires:	libwpg-devel
 BuildRequires:	libwps-devel
@@ -243,7 +243,7 @@ BuildRequires:  icu-devel
 # main cleanup
 # BuildRequires:	libmdbtools-devel
 
-BuildRequires:  ant-apache-regexp
+# BuildRequires:  ant-apache-regexp
 BuildRequires:  xulrunner-devel
 BuildRequires:  libvigra-devel
 BuildRequires:  hunspell-devel
@@ -3074,7 +3074,6 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
   	--enable-split-opt-features \
 	--enable-binfilter \
 	--with-system-mozilla=xulrunner \
-	--with-system-hsqldb \
 	--with-system-icu \
 	--with-system-xrender-headers \
     	--with-system-jpeg \
@@ -3095,12 +3094,12 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 	--with-system-libwps \
 	--with-system-libwpg \
 	--with-system-graphite \
+        --with-system-apache-commons \
 	--with-system-translate-toolkit \
 	--without-junit \
 	--with-system-cppunit \
 	--enable-broffice \
 	--with-system-redland \
-	--with-system-apache-commons \
 	--with-openldap \
 	--disable-kde \
 	--enable-kde4 \
@@ -4007,3 +4006,6 @@ fi
 %files help-en_US -f file-lists/help_en_US_list.txt
 %defattr(-,root,root)
 %endif
+
+#removed --with-system-hsqldb
+# BuildRequires:  ant-apache-regexp
