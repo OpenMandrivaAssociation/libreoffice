@@ -234,7 +234,7 @@ BuildConflicts:	gcj-tools
 BuildConflicts: java-kaffe
 %endif
 BuildRequires:	hsqldb
-BuildRequires:	libwpd-devel
+BuildRequires:	libwpd-devel >= 0.9.0
 BuildRequires:	libwpg-devel
 BuildRequires:	libwps-devel
 BuildRequires:	icu
