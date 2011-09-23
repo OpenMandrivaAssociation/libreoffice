@@ -1,4 +1,6 @@
-%define debug_package  %{nil}
+%define _enable_debug_packages %{nil}
+%define debug_package          %{nil}
+%undefine debug_package_and_restore
 
 %define l10n   1
 %{?_with_l10n: %global l10n 1}
