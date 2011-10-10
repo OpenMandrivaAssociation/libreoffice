@@ -233,7 +233,7 @@ BuildConflicts:	gcc-java
 BuildConflicts:	gcj-tools
 BuildConflicts: java-kaffe
 %endif
-# BuildRequires:	hsqldb
+BuildRequires:	hsqldb
 %if %mdkversion >=201100
 BuildRequires:	libwpd-devel >= 0.9.0
 %else
@@ -3078,6 +3078,7 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
   	--enable-split-opt-features \
 	--enable-binfilter \
 	--with-system-mozilla=xulrunner \
+	--with-system-hsqldb \
 	--with-system-icu \
 	--with-system-xrender-headers \
     	--with-system-jpeg \
