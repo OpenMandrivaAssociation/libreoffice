@@ -25,7 +25,7 @@
 %define ooodir		%{_libdir}/libreoffice
 %define libdbver	4.2
 %if %l10n
-%define langs	"en-US af ar bg br bs ca cs cy da de el en-GB es et eu fi fr he hi hu it ja ko mk nb nl nn pl pt pt-BR ru sk sl sv ta tr zh-TW zh-CN zu"
+%define langs	"en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru sh si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu"
 %else
 %define langs	"en-US"
 %endif
@@ -1103,33 +1103,6 @@ way.
 Note: The Presentation Minimizer also works on Microsoft PowerPoint presentations. 
 
 %if %l10n
-%package l10n-it
-Summary:	Italian language support for LibreOffice
-Group:		Office
-Provides:	%{ooname}-l10n = %{EVRD}
-Requires:	%{ooname}-common = %{EVRD}
-Requires:	fonts-ttf-dejavu
-Requires:	urw-fonts
-Requires:	myspell-it
-Requires:	myspell-hyph-it
-Obsoletes:  OpenOffice.org-l10n-it
-Provides: 	LibreOffice-l10n-it
-Obsoletes:	openoffice.org-go-ooo-l10n-it <= %{version}
-Suggests:	%{ooname}-help-it = %{EVRD}
-Obsoletes:	openoffice.org-l10n-it < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:     openoffice.org64-l10n-it <= 1:3.1-4
-Obsoletes:     openoffice.org64-go-ooo-l10n-it <= 3.1-4
-%endif
-
-%description l10n-it
-LibreOffice is an Open Source, community-developed, office suite.
-
-This package contains the localization of LibreOffice in Italian.
-It contains the user interface, the templates and the autotext
-features. Please note that not all of these are available for all
-possible language. You can switch user interface language using the
-standard locales system.
 
 %package l10n-af
 Summary:	Afrikaans language support for LibreOffice
@@ -1139,7 +1112,7 @@ Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-af
 Requires:	urw-fonts
 Requires:	myspell-af
-Obsoletes:  OpenOffice.org-l10n-af
+Obsoletes:  	OpenOffice.org-l10n-af
 Provides: 	LibreOffice-l10n-af
 Obsoletes:	openoffice.org-go-ooo-l10n-af <= %{version}
 Suggests:	%{ooname}-help-af = %{EVRD} 
@@ -1185,6 +1158,23 @@ features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
 
+%package l10n-as
+Summary:	Assamese language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	locales-as
+Provides: 	LibreOffice-l10n-as
+
+%description l10n-as
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Assamese.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
 
 %package l10n-bg
 Summary:	Bulgarian language support for LibreOffice
@@ -1192,7 +1182,7 @@ Group:		Office
 Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-bg
-Obsoletes:  OpenOffice.org-l10n-bg
+Obsoletes:  	OpenOffice.org-l10n-bg
 Provides: 	LibreOffice-l10n-bg
 Obsoletes:	openoffice.org-go-ooo-l10n-bg <= %{version}
 Suggests:	%{ooname}-help-bg = %{EVRD}
@@ -1206,6 +1196,25 @@ Obsoletes:     openoffice.org64-go-ooo-l10n-bg <= 3.1-4
 LibreOffice is an Open Source, community-developed, office suite.
 
 This package contains the localization of LibreOffice in Bulgarian.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
+
+%package l10n-bn
+Summary:	Bengali language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	locales-bn
+Provides: 	LibreOffice-l10n-bn
+Suggests:	%{ooname}-help-bn = %{EVRD}
+
+%description l10n-bn
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Bengali.
 It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
@@ -1407,6 +1416,23 @@ features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
 
+%package l10n-dz
+Summary:	Dzongkha language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	locales-dz
+Provides: 	LibreOffice-l10n-dz
+Suggests:	%{ooname}-help-dz = %{EVRD} 
+
+%description l10n-dz
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Dzongkha.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
 
 %package l10n-el
 Summary:	Greek language support for LibreOffice
@@ -1553,6 +1579,23 @@ features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
 
+%package l10n-fa
+Summary:	Farsi language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	locales-fa
+Provides: 	LibreOffice-l10n-fa
+
+%description l10n-fa
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Farsi.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
 
 %package l10n-fi
 Summary:	Finnish language support for LibreOffice
@@ -1613,6 +1656,61 @@ possible language. You can switch user interface language using the
 standard locales system.
 
 
+%package l10n-ga
+Summary:	Irish language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	locales-ga
+Provides: 	LibreOffice-l10n-ga
+
+%description l10n-ga
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Irish.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
+
+%package l10n-gl
+Summary:	Galician language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	locales-gl
+Provides: 	LibreOffice-l10n-gl
+Suggests:	%{ooname}-help-gl = %{EVRD} 
+
+%description l10n-gl
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Galician.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
+%package l10n-gu
+Summary:	Gujarati language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	locales-gu
+Provides: 	LibreOffice-l10n-gu
+Suggests:	%{ooname}-help-gu = %{EVRD} 
+
+%description l10n-gu
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Gujarati.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
+
 %package l10n-he
 Summary:	Hebrew language support for LibreOffice
 Group:		Office
@@ -1667,6 +1765,24 @@ possible language. You can switch user interface language using the
 standard locales system.
 
 
+%package l10n-hr
+Summary:	Croatian language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	locales-hr
+Provides: 	LibreOffice-l10n-hr
+Suggests:	%{ooname}-help-hr = %{EVRD} 
+
+%description l10n-hr
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Croatian.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
 %package l10n-hu
 Summary:	Hungarian language support for LibreOffice
 Group:		Office
@@ -1690,6 +1806,35 @@ Obsoletes:     openoffice.org64-go-ooo-l10n-hu <= 3.1-4
 LibreOffice is an Open Source, community-developed, office suite.
 
 This package contains the localization of LibreOffice in Hungarian.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
+
+%package l10n-it
+Summary:	Italian language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	fonts-ttf-dejavu
+Requires:	urw-fonts
+Requires:	myspell-it
+Requires:	myspell-hyph-it
+Obsoletes:  OpenOffice.org-l10n-it
+Provides: 	LibreOffice-l10n-it
+Obsoletes:	openoffice.org-go-ooo-l10n-it <= %{version}
+Suggests:	%{ooname}-help-it = %{EVRD}
+Obsoletes:	openoffice.org-l10n-it < 1:3.3-1:2011.0 
+%ifarch x86_64
+Obsoletes:     openoffice.org64-l10n-it <= 1:3.1-4
+Obsoletes:     openoffice.org64-go-ooo-l10n-it <= 3.1-4
+%endif
+
+%description l10n-it
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Italian.
 It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
@@ -1723,6 +1868,24 @@ possible language. You can switch user interface language using the
 standard locales system.
 
 
+%package l10n-kn
+Summary:	Kannada language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	locales-kn
+Provides: 	LibreOffice-l10n-kn
+
+%description l10n-kn
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Kannada.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
+
 %package l10n-ko
 Summary:	Korean language support for LibreOffice
 Group:		Office
@@ -1750,6 +1913,78 @@ possible language. You can switch user interface language using the
 standard locales system.
 
 
+%package l10n-lt
+Summary:	Lithuanian language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	locales-lt
+Provides: 	LibreOffice-l10n-lt
+
+%description l10n-lt
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Lithuanian.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
+
+%package l10n-lv
+Summary:	Latvian language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	locales-lv
+Provides: 	LibreOffice-l10n-lv
+
+%description l10n-lv
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Latvian.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
+
+%package l10n-mai
+Summary:	Maithili language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	locales-mai
+Provides: 	LibreOffice-l10n-mai
+
+%description l10n-mai
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Maithili.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
+
+%package l10n-ml
+Summary:	Malayalam language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	locales-ml
+Provides: 	LibreOffice-l10n-ml
+
+%description l10n-ml
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Malayalam.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
+
 %package l10n-mk
 Summary:	Macedonian language support for LibreOffice
 Group:		Office
@@ -1770,6 +2005,24 @@ Obsoletes:     openoffice.org64-go-ooo-l10n-mk <= 3.1-4
 LibreOffice is an Open Source, community-developed, office suite.
 
 This package contains the localization of LibreOffice in Macedonian.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
+
+%package l10n-mr
+Summary:	Marathi language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	locales-mr
+Provides: 	LibreOffice-l10n-mr
+
+%description l10n-mr
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Marathi.
 It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
@@ -1854,6 +2107,80 @@ Obsoletes:     openoffice.org64-go-ooo-l10n-nn <= 3.1-4
 LibreOffice is an Open Source, community-developed, office suite.
 
 This package contains the localization of LibreOffice in Norwegian Nynorsk.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
+
+%package l10n-nr
+Summary:	Ndebele language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	locales-nr
+Provides: 	LibreOffice-l10n-nr
+
+%description l10n-nr
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Ndebele.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
+
+%package l10n-nso
+Summary:	Northern Shoto language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	locales-nso
+Provides: 	LibreOffice-l10n-nso
+Suggests:	%{ooname}-help-nso = %{EVRD} 
+
+%description l10n-nso
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Northern Shoto.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
+
+%package l10n-or
+Summary:	Oriya language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	locales-or
+Provides: 	LibreOffice-l10n-or
+
+%description l10n-or
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Oriya.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
+
+%package l10n-pa_IN
+Summary:	Punjabi language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	locales-pa
+Provides: 	LibreOffice-l10n-pa_IN
+Provides: 	LibreOffice-l10n-pa
+
+%description l10n-pa_IN
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Punjabi.
 It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
@@ -1975,6 +2302,24 @@ standard locales system.
 # standard locales system.
 # 
 
+%package l10n-ro
+Summary:	Romanian language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	locales-ro
+Provides: 	LibreOffice-l10n-ro
+
+%description l10n-ro
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Romanian.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
+
 %package l10n-ru
 Summary:	Russian language support for LibreOffice
 Group:		Office
@@ -1998,6 +2343,44 @@ Obsoletes:     openoffice.org64-go-ooo-l10n-ru <= 3.1-4
 LibreOffice is an Open Source, community-developed, office suite.
 
 This package contains the localization of LibreOffice in Russian.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
+
+%package l10n-sh
+Summary:	Secwepemctsin language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	locales-sh
+Provides: 	LibreOffice-l10n-sh
+Suggests:	%{ooname}-help-sh = %{EVRD} 
+
+%description l10n-sh
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Secwepemctsin.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
+
+%package l10n-si
+Summary:	Sinhalese language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	locales-si
+Provides: 	LibreOffice-l10n-si
+Suggests:	%{ooname}-help-si = %{EVRD} 
+
+%description l10n-si
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Sinhalese.
 It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
@@ -2061,6 +2444,60 @@ possible language. You can switch user interface language using the
 standard locales system.
 
 
+%package l10n-sr
+Summary:	Serbian language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	locales-sr
+Provides: 	LibreOffice-l10n-sr
+
+%description l10n-sr
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Serbian.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
+
+%package l10n-st
+Summary:	Sotho language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	locales-st
+Provides: 	LibreOffice-l10n-st
+
+%description l10n-st
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Sotho.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
+
+%package l10n-ss
+Summary:	Swati language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	locales-ss
+Provides: 	LibreOffice-l10n-ss
+
+%description l10n-ss
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Swati.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
+
 %package l10n-sv
 Summary:	Swedish language support for LibreOffice
 Group:		Office
@@ -2118,6 +2555,60 @@ possible language. You can switch user interface language using the
 standard locales system.
 
 
+%package l10n-te
+Summary:	Telugu language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	locales-te
+Provides: 	LibreOffice-l10n-te
+
+%description l10n-te
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Telugu.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
+
+%package l10n-th
+Summary:	Thai language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	locales-th
+Provides: 	LibreOffice-l10n-th
+
+%description l10n-th
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Thai.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
+
+%package l10n-tn
+Summary:	Tswana language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	locales-tn
+Provides: 	LibreOffice-l10n-tn
+
+%description l10n-tn
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Tswana.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
+
 %package l10n-tr
 Summary:	Turkish language support for LibreOffice
 Group:		Office
@@ -2139,6 +2630,79 @@ Obsoletes:     openoffice.org64-go-ooo-l10n-tr <= 3.1-4
 LibreOffice is an Open Source, community-developed, office suite.
 
 This package contains the localization of LibreOffice in Turkish.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
+
+%package l10n-ts
+Summary:	Tsonga language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	locales-ts
+Provides: 	LibreOffice-l10n-ts
+
+%description l10n-ts
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Tsonga.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
+
+%package l10n-uk
+Summary:	Ukrainian language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	locales-uk
+Provides: 	LibreOffice-l10n-uk
+Suggests:	%{ooname}-help-uk = %{EVRD} 
+
+%description l10n-uk
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Ukrainian.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
+
+%package l10n-ve
+Summary:	Venda language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	locales-ve
+Provides: 	LibreOffice-l10n-ve
+
+%description l10n-ve
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Venda.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
+
+%package l10n-xh
+Summary:	Xhosa language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	%{ooname}-common = %{EVRD}
+Requires:	locales-xh
+Provides: 	LibreOffice-l10n-xh
+
+%description l10n-xh
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in Xhosa.
 It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
@@ -2227,22 +2791,6 @@ features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
 
-%package help-it
-Summary:	Italian help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-it = %{EVRD}
-%ifarch x86_64
-Obsoletes:     openoffice.org64-help-it <= 1:3.1-4
-%endif
-Obsoletes:  OpenOffice.org-help-it
-Provides:	LibreOffice-help-it
-Obsoletes:  openoffice.org-help-it < 1:3.3-1:2011.0 
-
-%description help-it
-LibreOffice is an Open Source, community-developed, office suite.
-
-This package contains the localized help files of LibreOffice in Italian.
 
 # %package help-af
 # Summary:	Afrikaans help for LibreOffice
@@ -2296,6 +2844,18 @@ Obsoletes:  openoffice.org-help-bg < 1:3.3-1:2011.0
 LibreOffice is an Open Source, community-developed, office suite.
 
 This package contains the localized help files of LibreOffice in Bulgarian.
+
+%package help-bn
+Summary:	Bengali help for LibreOffice
+Group:		Office
+Provides:	%{ooname}-help = %{EVRD}
+Requires:	%{ooname}-l10n-bn = %{EVRD}
+Provides:	LibreOffice-help-bn
+
+%description help-bn
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localized help files of LibreOffice in Bengali.
 
 
 # %package help-br
@@ -2424,6 +2984,18 @@ Obsoletes:  openoffice.org-help-de < 1:3.3-1:2011.0
 LibreOffice is an Open Source, community-developed, office suite.
 
 This package contains the localized help files of LibreOffice in German.
+
+%package help-dz
+Summary:	Dzongkha help for LibreOffice
+Group:		Office
+Provides:	%{ooname}-help = %{EVRD}
+Requires:	%{ooname}-l10n-dz = %{EVRD}
+Provides:	LibreOffice-help-dz
+
+%description help-dz
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localized help files of LibreOffice in Dzongkha.
 
 
 %package help-el
@@ -2572,6 +3144,32 @@ LibreOffice is an Open Source, community-developed, office suite.
 This package contains the localized help files of LibreOffice in French.
 
 
+%package help-gu
+Summary:	Gujarati help for LibreOffice
+Group:		Office
+Provides:	%{ooname}-help = %{EVRD}
+Requires:	%{ooname}-l10n-gu = %{EVRD}
+Provides:	LibreOffice-help-gu
+
+%description help-gu
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localized help files of LibreOffice in Gujarati.
+
+
+%package help-gl
+Summary:	Galician help for LibreOffice
+Group:		Office
+Provides:	%{ooname}-help = %{EVRD}
+Requires:	%{ooname}-l10n-gl = %{EVRD}
+Provides:	LibreOffice-help-gl
+
+%description help-gl
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localized help files of LibreOffice in Galician.
+
+
 %package help-he
 Summary:	Hebrew help for LibreOffice
 Group:		Office
@@ -2608,6 +3206,19 @@ LibreOffice is an Open Source, community-developed, office suite.
 This package contains the localized help files of LibreOffice in Hindi.
 
 
+%package help-hr
+Summary:	Croatian help for LibreOffice
+Group:		Office
+Provides:	%{ooname}-help = %{EVRD}
+Requires:	%{ooname}-l10n-hr = %{EVRD}
+Provides:	LibreOffice-help-hr
+
+%description help-hr
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localized help files of LibreOffice in Croatian.
+
+
 %package help-hu
 Summary:	Hungarian help for LibreOffice
 Group:		Office
@@ -2624,6 +3235,24 @@ Obsoletes:  openoffice.org-help-hu < 1:3.3-1:2011.0
 LibreOffice is an Open Source, community-developed, office suite.
 
 This package contains the localized help files of LibreOffice in Hungarian.
+
+
+%package help-it
+Summary:	Italian help for LibreOffice
+Group:		Office
+Provides:	%{ooname}-help = %{EVRD}
+Requires:	%{ooname}-l10n-it = %{EVRD}
+%ifarch x86_64
+Obsoletes:     openoffice.org64-help-it <= 1:3.1-4
+%endif
+Obsoletes:  OpenOffice.org-help-it
+Provides:	LibreOffice-help-it
+Obsoletes:  openoffice.org-help-it < 1:3.3-1:2011.0 
+
+%description help-it
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localized help files of LibreOffice in Italian.
 
 
 %package help-ja
@@ -2735,6 +3364,20 @@ LibreOffice is an Open Source, community-developed, office suite.
 This package contains the localized help files of LibreOffice in Norwegian
 Nynorsk.
 
+
+%package help-nso
+Summary:	Northern Sotho help for LibreOffice
+Group:		Office
+Provides:	%{ooname}-help = %{EVRD}
+Requires:	%{ooname}-l10n-nso = %{EVRD}
+Provides:	LibreOffice-help-nso
+
+%description help-nso
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localized help files of LibreOffice in Northern Sotho.
+
+
 %package help-pl
 Summary:	Polish help for LibreOffice
 Group:		Office
@@ -2821,6 +3464,19 @@ Obsoletes:  openoffice.org-help-ru < 1:3.3-1:2011.0
 LibreOffice is an Open Source, community-developed, office suite.
 
 This package contains the localized help files of LibreOffice in Russian.
+
+
+%package help-si
+Summary:	Sinhalese help for LibreOffice
+Group:		Office
+Provides:	%{ooname}-help = %{EVRD}
+Requires:	%{ooname}-l10n-si = %{EVRD}
+Provides:	LibreOffice-help-si
+
+%description help-si
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localized help files of LibreOffice in Sinhalese.
 
 
 %package help-sk
@@ -2911,6 +3567,19 @@ Obsoletes:  openoffice.org-help-tr < 1:3.3-1:2011.0
 LibreOffice is an Open Source, community-developed, office suite.
 
 This package contains the localized help files of LibreOffice in Turkish.
+
+
+%package help-uk
+Summary:	Ukrainian help for LibreOffice
+Group:		Office
+Provides:	%{ooname}-help = %{EVRD}
+Requires:	%{ooname}-l10n-uk = %{EVRD}
+Provides:	LibreOffice-help-uk
+
+%description help-uk
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localized help files of LibreOffice in Ukrainian.
 
 
 %package help-zh_CN
@@ -3777,7 +4446,13 @@ fi
 %files l10n-ar -f file-lists/lang_ar_list.txt
 %defattr(-,root,root)
 
+%files l10n-as -f file-lists/lang_as_list.txt
+%defattr(-,root,root)
+
 %files l10n-bg -f file-lists/lang_bg_list.txt
+%defattr(-,root,root)
+
+%files l10n-bn -f file-lists/lang_bn_list.txt
 %defattr(-,root,root)
 
 %files l10n-br -f file-lists/lang_br_list.txt
@@ -3801,6 +4476,9 @@ fi
 %files l10n-de -f file-lists/lang_de_list.txt
 %defattr(-,root,root)
 
+%files l10n-dz -f file-lists/lang_dz_list.txt
+%defattr(-,root,root)
+
 %files l10n-el -f file-lists/lang_el_list.txt
 %defattr(-,root,root)
 
@@ -3816,10 +4494,22 @@ fi
 %files l10n-eu -f file-lists/lang_eu_list.txt
 %defattr(-,root,root)
 
+%files l10n-fa -f file-lists/lang_fa_list.txt
+%defattr(-,root,root)
+
 %files l10n-fi -f file-lists/lang_fi_list.txt
 %defattr(-,root,root)
 
 %files l10n-fr -f file-lists/lang_fr_list.txt
+%defattr(-,root,root)
+
+%files l10n-ga -f file-lists/lang_ga_list.txt
+%defattr(-,root,root)
+
+%files l10n-gl -f file-lists/lang_gl_list.txt
+%defattr(-,root,root)
+
+%files l10n-gu -f file-lists/lang_gu_list.txt
 %defattr(-,root,root)
 
 %files l10n-he -f file-lists/lang_he_list.txt
@@ -3828,16 +4518,37 @@ fi
 %files l10n-hi -f file-lists/lang_hi_list.txt
 %defattr(-,root,root)
 
+%files l10n-hr -f file-lists/lang_hr_list.txt
+%defattr(-,root,root)
+
 %files l10n-hu -f file-lists/lang_hu_list.txt
 %defattr(-,root,root)
 
 %files l10n-ja -f file-lists/lang_ja_list.txt
 %defattr(-,root,root)
 
+%files l10n-kn -f file-lists/lang_kn_list.txt
+%defattr(-,root,root)
+
 %files l10n-ko -f file-lists/lang_ko_list.txt
 %defattr(-,root,root)
 
+%files l10n-lt -f file-lists/lang_lt_list.txt
+%defattr(-,root,root)
+
+%files l10n-lv -f file-lists/lang_lv_list.txt
+%defattr(-,root,root)
+
+%files l10n-mai -f file-lists/lang_mai_list.txt
+%defattr(-,root,root)
+
+%files l10n-ml -f file-lists/lang_ml_list.txt
+%defattr(-,root,root)
+
 %files l10n-mk -f file-lists/lang_mk_list.txt
+%defattr(-,root,root)
+
+%files l10n-mr -f file-lists/lang_mr_list.txt
 %defattr(-,root,root)
 
 %files l10n-nb -f file-lists/lang_nb_list.txt
@@ -3847,6 +4558,18 @@ fi
 %defattr(-,root,root)
 
 %files l10n-nn -f file-lists/lang_nn_list.txt
+%defattr(-,root,root)
+
+%files l10n-nr -f file-lists/lang_nr_list.txt
+%defattr(-,root,root)
+
+%files l10n-nso -f file-lists/lang_nso_list.txt
+%defattr(-,root,root)
+
+%files l10n-or -f file-lists/lang_or_list.txt
+%defattr(-,root,root)
+
+%files l10n-pa_IN -f file-lists/lang_pa_IN_list.txt
 %defattr(-,root,root)
 
 %files l10n-pl -f file-lists/lang_pl_list.txt
@@ -3861,7 +4584,16 @@ fi
 # %files l10n-pt_AO -f file-lists/lang_pt_AO_list.txt
 # %defattr(-,root,root)
 
+%files l10n-ro -f file-lists/lang_ro_list.txt
+%defattr(-,root,root)
+
 %files l10n-ru -f file-lists/lang_ru_list.txt
+%defattr(-,root,root)
+
+%files l10n-sh -f file-lists/lang_sh_list.txt
+%defattr(-,root,root)
+
+%files l10n-si -f file-lists/lang_si_list.txt
 %defattr(-,root,root)
 
 %files l10n-sk -f file-lists/lang_sk_list.txt
@@ -3870,13 +4602,43 @@ fi
 %files l10n-sl -f file-lists/lang_sl_list.txt
 %defattr(-,root,root)
 
+%files l10n-sr -f file-lists/lang_sr_list.txt
+%defattr(-,root,root)
+
+%files l10n-ss -f file-lists/lang_ss_list.txt
+%defattr(-,root,root)
+
+%files l10n-st -f file-lists/lang_st_list.txt
+%defattr(-,root,root)
+
 %files l10n-sv -f file-lists/lang_sv_list.txt
 %defattr(-,root,root)
 
 %files l10n-ta -f file-lists/lang_ta_list.txt
 %defattr(-,root,root)
 
+%files l10n-te -f file-lists/lang_te_list.txt
+%defattr(-,root,root)
+
+%files l10n-th -f file-lists/lang_th_list.txt
+%defattr(-,root,root)
+
+%files l10n-tn -f file-lists/lang_tn_list.txt
+%defattr(-,root,root)
+
 %files l10n-tr -f file-lists/lang_tr_list.txt
+%defattr(-,root,root)
+
+%files l10n-ts -f file-lists/lang_ts_list.txt
+%defattr(-,root,root)
+
+%files l10n-uk -f file-lists/lang_uk_list.txt
+%defattr(-,root,root)
+
+%files l10n-ve -f file-lists/lang_ve_list.txt
+%defattr(-,root,root)
+
+%files l10n-xh -f file-lists/lang_xh_list.txt
 %defattr(-,root,root)
 
 %files l10n-zh_CN -f file-lists/lang_zh_CN_list.txt
@@ -3888,8 +4650,6 @@ fi
 %files l10n-zu -f file-lists/lang_zu_list.txt
 %defattr(-,root,root)
 
-%files help-it -f file-lists/help_it_list.txt
-%defattr(-,root,root)
 
 # %files help-af -f file-lists/help_af_list.txt
 # %defattr(-,root,root)
@@ -3898,6 +4658,9 @@ fi
 # %defattr(-,root,root)
 
 %files help-bg -f file-lists/help_bg_list.txt
+%defattr(-,root,root)
+
+%files help-bn -f file-lists/help_bn_list.txt
 %defattr(-,root,root)
 
 # %files help-br -f file-lists/help_br_list.txt
@@ -3921,6 +4684,9 @@ fi
 %files help-de -f file-lists/help_de_list.txt
 %defattr(-,root,root)
 
+%files help-dz -f file-lists/help_dz_list.txt
+%defattr(-,root,root)
+
 %files help-el -f file-lists/help_el_list.txt
 %defattr(-,root,root)
 
@@ -3942,13 +4708,25 @@ fi
 %files help-fr -f file-lists/help_fr_list.txt
 %defattr(-,root,root)
 
+%files help-gl -f file-lists/help_gl_list.txt
+%defattr(-,root,root)
+
+%files help-gu -f file-lists/help_gu_list.txt
+%defattr(-,root,root)
+
 %files help-he -f file-lists/help_he_list.txt
 %defattr(-,root,root)
 
 %files help-hi -f file-lists/help_hi_list.txt
 %defattr(-,root,root)
 
+%files help-hr -f file-lists/help_hr_list.txt
+%defattr(-,root,root)
+
 %files help-hu -f file-lists/help_hu_list.txt
+%defattr(-,root,root)
+
+%files help-it -f file-lists/help_it_list.txt
 %defattr(-,root,root)
 
 %files help-ja -f file-lists/help_ja_list.txt
@@ -3969,6 +4747,9 @@ fi
 %files help-nn -f file-lists/help_nn_list.txt
 %defattr(-,root,root)
 
+%files help-nso -f file-lists/help_nso_list.txt
+%defattr(-,root,root)
+
 %files help-pl -f file-lists/help_pl_list.txt
 %defattr(-,root,root)
 
@@ -3984,6 +4765,9 @@ fi
 %files help-ru -f file-lists/help_ru_list.txt
 %defattr(-,root,root)
 
+%files help-si -f file-lists/help_si_list.txt
+%defattr(-,root,root)
+
 %files help-sk -f file-lists/help_sk_list.txt
 %defattr(-,root,root)
 
@@ -3997,6 +4781,9 @@ fi
 # %defattr(-,root,root)
 
 %files help-tr -f file-lists/help_tr_list.txt
+%defattr(-,root,root)
+
+%files help-uk -f file-lists/help_uk_list.txt
 %defattr(-,root,root)
 
 %files help-zh_CN -f file-lists/help_zh_CN_list.txt
