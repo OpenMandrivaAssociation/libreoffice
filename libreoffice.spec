@@ -1,13 +1,14 @@
 %define _enable_debug_packages %{nil}
 %define debug_package          %{nil}
-%undefine debug_package_and_restore
 
 %define l10n   1
 %{?_with_l10n: %global l10n 1}
 %{?_without_l10n: %global l10n 0}
 
-%define	ooname		libreoffice
-%define name		libreoffice
+%define javaless 1
+
+%define	ooname      libreoffice
+%define name        libreoffice
 
 #define _binary_payload w1.gzdio
 #define _binary_payload w9.bzdio
@@ -16,10 +17,10 @@
 %define _binary_payload w1.gzdio
 %define _source_payload w1.gzdio
 
-%define version	        3.4.3
+%define version	        3.4.4
 %define release		%mkrel 2
 
-%define buildver     	3.4.3.2
+%define buildver     	3.4.4.2
 %define basis           basis3.4
 %define jdkver		1_5_0_11
 %define ooodir		%{_libdir}/libreoffice
@@ -41,19 +42,6 @@
 %define distroname      Mandriva
 %define jdkver          1_5_0_11
 %endif
-
-%ifarch x86_64
-%define use_gcj		1
-%else
-%if %mdkversion >= 200800
-%define	use_gcj		1
-%else
-%define	use_gcj		0
-%endif
-%endif
-
-%{?_with_gcj: %global use_gcj 1}
-%{?_without_gcj: %global use_gcj 0}
 
 %define use_icecream    0	
 %{?_with_icecream: %global use_icecream 1}
@@ -113,8 +101,6 @@ Requires:	%{name}-math = %{EVRD}
 Requires:	%{name}-writer = %{EVRD}
 # Suggests:	%{name}-dtd-officedocument1.0 = %{version}
 Suggests: 	%{name}-pdfimport = %{EVRD}
-Obsoletes:	OpenOffice.org
-Obsoletes:	OpenOffice.org-libs
 Obsoletes:	%{ooname}-go-ooo <= %{version}
 %ifarch x86_64
 Obsoletes:     openoffice.org64 <= 1:3.1-4
@@ -123,17 +109,14 @@ Obsoletes:     openoffice.org64-go-ooo < 3.1-4
 Provides:	LibreOffice
 Provides:	LibreOffice-libs
 Obsoletes:      openoffice.org < 1:3.3-1:2011.0 
-# Provides:       openoffice.org = 1:3.3-1:2011.0
 
 # Requirements for building
-#
 %if %{use_icecream}
 BuildRequires:	icecream
 %endif
 %if %{use_ccache}
 BuildRequires:	ccache
 %endif
-#
 BuildRequires:	automake1.8
 BuildRequires:	autoconf
 %if %{use_systemboost}
@@ -166,7 +149,6 @@ BuildRequires:	db-devel >= 4.2.5-4mdk
 %else
 BuildConflicts: libdbjava4.2
 %endif
-# BuildRequires:	bsh
 BuildRequires:	curl-devel
 BuildRequires:	gtk+2-devel
 BuildRequires:	libsvg-devel
@@ -184,8 +166,6 @@ BuildRequires:	libxml2-devel >= 2.4.23
 BuildRequires:	mono-devel
 BuildRequires:	mono-data-sqlite
 %endif
-# dev 300 (retirar essa require)
-# BuildRequires:	mozilla-firefox-devel
 BuildRequires:	nss-devel
 BuildRequires:	nspr-devel
 BuildRequires:	nas-devel
@@ -213,61 +193,37 @@ BuildRequires:	x11-server-xvfb
 BuildRequires:	xpm-devel
 BuildRequires:	zlib-devel
 BuildRequires:	zip
-#
-# java
-%if %{use_gcj}
-BuildRequires:	ant
-%if %mdkversion >= 200810
-BuildRequires:	java-rpmbuild
-%else
-BuildRequires:	java-1.7.0-icedtea-devel
-%define java_home %{_jvmdir}/java-icedtea
-%endif
-#
-BuildRequires:	xml-commons-apis
-%else
-BuildRequires:	jdk >= %{jdkver}
-BuildRequires:	jre >= %{jdkver}
-BuildRequires:	j2sdk-ant
-BuildConflicts:	gcc-java
-BuildConflicts:	gcj-tools
-BuildConflicts: java-kaffe
-%endif
-BuildRequires:	hsqldb
-%if %mdkversion >=201100
 BuildRequires:	libwpd-devel >= 0.9.0
-%else
-BuildRequires:	libwpd-devel
-%endif
 BuildRequires:	libwpg-devel
 BuildRequires:	libwps-devel
 BuildRequires:	icu
 BuildRequires:  icu-devel
-
-# main cleanup
-# BuildRequires:	libmdbtools-devel
-
-# BuildRequires:  ant-apache-regexp
 BuildRequires:  xulrunner-devel
 BuildRequires:  libvigra-devel
 BuildRequires:  hunspell-devel
-#pdfimport extension
-BuildRequires:	libpoppler-devel
-BuildRequires:	libxtst-devel
+BuildRequires:	%{mklibname poppler-devel}
+BuildRequires:	%{mklibname poppler-glib-devel}
+BuildRequires:	%{mklibname poppler-cpp-devel}
+BuildRequires:	%{mklibname xtst-devel}
 BuildRequires:  desktop-file-utils
 BuildRequires:  mesaglu-devel
 BuildRequires:  qt4-devel
 BuildRequires:  task-kde4-devel
 BuildRequires:  cppunit-devel
 BuildRequires:  redland-devel
+%if !%javaless 
+BuildRequires:  ant
+BuildRequires:	hsqldb
 BuildRequires:  jakarta-commons-codec
 BuildRequires:  jakarta-commons-lang
 BuildRequires:  jakarta-commons-httpclient
+%endif 
 BuildRequires:  graphite2-devel
 BuildRequires:  textcat-devel
 BuildRequires:	python-translate >= 1.9.0
 # STLport-devel 4.5 + private patches are needed
 BuildConflicts:	STLport-devel
+BuildRequires:	java-devel
 
 # BuildRequires:  jakarta-commons-logging
 
@@ -316,15 +272,25 @@ Source48:	http://hg.services.openoffice.org/binaries/798b2ffdc8bcfe7bca2cf92b62c
 Source49:	http://hg.services.openoffice.org/binaries/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
 Source50:	http://hg.services.openoffice.org/binaries/48a9f787f43a09c0a9b7b00cd1fddbbf-hyphen-2.7.1.tar.gz
 Source51:	http://hg.services.openoffice.org/binaries/26b3e95ddf3d9c077c480ea45874b3b8-lp_solve_5.5.tar.gz
-Source52:	http://hg.services.openoffice.org/binaries/3c219630e4302863a9a83d0efde889db-commons-logging-1.1.1-src.tar.gz	
+Source52:	http://hg.services.openoffice.org/binaries/18f577b374d60b3c760a3a3350407632-STLport-4.5.tar.gz
 Source54:	http://hg.services.openoffice.org/binaries/ada24d37d8d638b3d8a9985e80bc2978-source-9.0.0.7-bj.zip
 Source55:	http://download.go-oo.org/src/ea570af93c284aa9e5621cd563f54f4d-bsh-2.0b1-src.tar.gz
-Source56:	http://hg.services.openoffice.org/binaries/18f577b374d60b3c760a3a3350407632-STLport-4.5.tar.gz
+#javaless
+Source56:       http://hg.services.openoffice.org/binaries/3c219630e4302863a9a83d0efde889db-commons-logging-1.1.1-src.tar.gz
+Source57:       http://dev-www.libreoffice.org/ooo_external/af3c3acf618de6108d65fcdc92b492e1-commons-codec-1.3-src.tar.gz
+Source58:       http://hg.services.openoffice.org/binaries/2c9b0f83ed5890af02c0df1c1776f39b-commons-httpclient-3.1-src.tar.gz 
+Source59:       http://hg.services.openoffice.org/binaries/2ae988b339daec234019a7066f96733e-commons-lang-2.3-src.tar.gz 
+Source60:       http://archive.apache.org/dist/ant/binaries/apache-ant-1.8.1-bin.tar.bz2
+Source61:       http://hg.services.openoffice.org/binaries/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
 
 Patch4:		xulrunner-to-mozila-plugin.pc.diff
 Patch5:		mdv-sysui-disableslack.diff
 Patch9:		vbahelper.visibility.patch 
 Patch10:    	disable-qtunixeventloop.patch
+Patch11:        poppler0.18.1.patch	
+Patch12:	glib2.31.patch
+# bug fix 64789
+Patch13: 	help-images-mdv64789.patch
 
 %description
 LibreOffice is an Open Source, community-developed, multi-platform
@@ -332,7 +298,7 @@ office productivity suite. It includes the key desktop applications,
 such as a word processor, spreadsheet, presentation manager, formula
 editing and drawing program, with a user interface and feature set
 similar to other office suites. Sophisticated and flexible,
-OpenOffice.org also works transparently with a variety of file
+LibreOffice also works transparently with a variety of file
 formats, including Microsoft Office.
 
 %package base
@@ -341,7 +307,9 @@ Summary: LibreOffice office suite - database
 Requires: %{name}-core = %{EVRD}
 Requires: %{name}-common = %{EVRD}
 # Heavy java deps
+%if !%javaless
 Requires: hsqldb
+%endif
 Suggests: %{name}-java-common = %{EVRD}
 # Due to the split
 Conflicts: openoffice.org <= 2.2.1
@@ -411,7 +379,6 @@ Requires: %{name}-openclipart
 Requires: %{name}-style-galaxy 
 Requires: %{name}-style-crystal
 Requires: %{name}-style-hicontrast
-Requires: %{name}-style-industrial
 Requires: %{name}-style-tango
 %endif
 # Require the architecture dependant stuff
@@ -616,7 +583,7 @@ This package contains the "binfilters", legacy filters for
 
 %package gnome
 Group: Office
-Summary: GNOME Integration for OpenOffice.org (VFS, GConf)
+Summary: GNOME Integration for LibreOffice (VFS, GConf)
 Requires: %{name}-common = %{EVRD}
 Requires: %{name}-core = %{EVRD}
 # Due to the split
@@ -644,10 +611,6 @@ near drop-in replacement for Microsoft(R) Office.
 
 This package contains the GNOME VFS support and a GConf backend.
 
-You can extend the functionality of this by installing these packages:
-
- * openoffice.org-evolution: Evolution addressbook support
- * evolution
 
 %package impress
 Group: Office
@@ -714,9 +677,9 @@ LibreOffice is a full-featured office productivity suite that provides a
 near drop-in replacement for Microsoft(R) Office.
 
 This package contains the architecture-independent files of the Java support
-for OpenOffice.org (Java classes, scripts, config snippets).
+for LibreOffice (Java classes, scripts, config snippets).
 
-Also contains the OpenOffice.org Office Bean for embedding OpenOffice.org in
+Also contains the LibreOffice Office Bean for embedding LibreOffice in
 custom Java applications.
 
 %package math
@@ -811,7 +774,7 @@ Obsoletes: openoffice.org64-testtool <= 1:3.1-4
 LibreOffice is a full-featured office productivity suite that provides a
 near drop-in replacement for Microsoft(R) Office.
 
-This package contains the test tools to automatically test the OpenOffice.org
+This package contains the test tools to automatically test the LibreOffice 
 programs.
 
 %package style-galaxy
@@ -836,7 +799,7 @@ near drop-in replacement for Microsoft(R) Office.
 
 This package contains the "Galaxy" symbol style from Sun, normally used on
 MS Windows (tm) and when not using GNOME or KDE. Needs to be manually enabled
-in the OpenOffice.org option menu.
+in the LibreOffice option menu.
 
 %package style-crystal
 Group: Office
@@ -879,28 +842,7 @@ LibreOffice is a full-featured office productivity suite that provides a
 near drop-in replacement for Microsoft(R) Office.
 
 This package contains the "hicontrast" symbol style, needs to be manually
-enabled in the OpenOffice.org option menu.
-
-%package style-industrial
-Group: Office
-Summary: Industrial symbol style for LibreOffice
-Requires: %{name}-core = %{EVRD}
-Requires: %{name}-common = %{EVRD}
-Provides: %{name}-style = %{EVRD}
-# Due to the split
-Conflicts: openoffice.org <= 2.2.1
-Obsoletes: openoffice.org-style-industrial < 1:3.3-1:2011.0 
-# Provides:  openoffice.org-style-industrial = 1:3.3-1:2011.0
-%ifarch x86_64
-Conflicts: openoffice.org64 <= 2.2.1
-Obsoletes: openoffice.org64-style-industrial <= 1:3.1-4
-%endif
-
-%description style-industrial
-LibreOffice is a full-featured office productivity suite that provides a
-near drop-in replacement for Microsoft(R) Office.
-
-This package contains the "industrial" symbol style.
+enabled in the LibreOffice option menu.
 
 %package style-tango
 Group: Office
@@ -975,9 +917,9 @@ Obsoletes: openoffice.org64-mono <= 1:3.1-4
 
 %description mono
 The Mono/UNO binding allows a Mono application to access the complete
-set of APIs exposed by OpenOffice.org via UNO.
+set of APIs exposed by LibreOffice via UNO.
 
-Currently the use of Mono for add-ins & scripting inside OO.o itself is
+Currently the use of Mono for add-ins & scripting inside LibreOffice itself is
 not supported.
 
 %package pdfimport
@@ -1002,7 +944,7 @@ Conflicts: openoffice.org-pdfimport <= 1:3.2-rc4.0
 
 %description pdfimport
 PDF import extension enables PDF documments importing and basic editing of PDF
-documments by using OpenOffice.org-draw application.
+documments by using LibreOffice-draw application.
 
 %package presenter-screen
 Group: Office
@@ -1055,8 +997,10 @@ Summary: LibreOffice office suite - Wiki Publisher extension
 Requires: %{name}-core = %{EVRD}
 Requires: %{name}-common = %{EVRD}
 Requires: %{name}-writer = %{EVRD}
+%if !%javaless
 Requires: jakarta-commons-codec, jakarta-commons-httpclient
 Requires: jakarta-commons-lang, jakarta-commons-logging
+%endif
 # Due to the split
 Conflicts: openoffice.org <= 2.2.1
 Conflicts: openoffice.org-common <= 2.3.0.5-1mdv
@@ -1112,10 +1056,8 @@ Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-af
 Requires:	urw-fonts
 Requires:	myspell-af
-Obsoletes:  	OpenOffice.org-l10n-af
 Provides: 	LibreOffice-l10n-af
 Obsoletes:	openoffice.org-go-ooo-l10n-af <= %{version}
-Suggests:	%{ooname}-help-af = %{EVRD} 
 Obsoletes:	openoffice.org-l10n-af < 1:3.3-1:2011.0 
 %ifarch x86_64
 Obsoletes:     openoffice.org64-l10n-af <= 1:3.1-4
@@ -1139,10 +1081,8 @@ Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-ar
 Requires:	fonts-ttf-arabic
-Obsoletes:  OpenOffice.org-l10n-ar
 Provides: 	LibreOffice-l10n-ar
 Obsoletes:	openoffice.org-go-ooo-l10n-ar <= %{version}
-Suggests:	%{ooname}-help-ar = %{EVRD}
 Obsoletes:	openoffice.org-l10n-ar < 1:3.3-1:2011.0 
 %ifarch x86_64
 Obsoletes:     openoffice.org64-l10n-ar <= 1:3.1-4
@@ -1182,7 +1122,6 @@ Group:		Office
 Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-bg
-Obsoletes:  	OpenOffice.org-l10n-bg
 Provides: 	LibreOffice-l10n-bg
 Obsoletes:	openoffice.org-go-ooo-l10n-bg <= %{version}
 Suggests:	%{ooname}-help-bg = %{EVRD}
@@ -1227,10 +1166,8 @@ Group:		Office
 Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-br
-Obsoletes:  OpenOffice.org-l10n-br
 Provides: 	LibreOffice-l10n-br
 Obsoletes:	openoffice.org-go-ooo-l10n-br <= %{version}
-Suggests:	%{ooname}-help-br = %{EVRD}
 Obsoletes:	openoffice.org-l10n-br < 1:3.3-1:2011.0 
 %ifarch x86_64
 Obsoletes:     openoffice.org64-l10n-br <= 1:3.1-4
@@ -1253,7 +1190,6 @@ Group:		Office
 Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-bs
-Obsoletes:  OpenOffice.org-l10n-bs
 Provides: 	LibreOffice-l10n-bs
 Obsoletes:	openoffice.org-go-ooo-l10n-bs <= %{version}
 Suggests:	%{ooname}-help-bs = %{EVRD}
@@ -1281,7 +1217,6 @@ Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-ca
 Requires:	urw-fonts
 Requires:	myspell-ca
-Obsoletes:  OpenOffice.org-l10n-ca
 Provides: 	LibreOffice-l10n-ca
 Obsoletes:	openoffice.org-go-ooo-l10n-ca <= %{version}
 Suggests:	%{ooname}-help-ca = %{EVRD}
@@ -1310,7 +1245,6 @@ Requires:	locales-cs
 Requires:	urw-fonts
 Requires:	myspell-cs
 Requires:	myspell-hyph-cs
-Obsoletes:  OpenOffice.org-l10n-cs
 Provides: 	LibreOffice-l10n-cs
 Obsoletes:	openoffice.org-go-ooo-l10n-cs <= %{version}
 Suggests:	%{ooname}-help-cs = %{EVRD}
@@ -1338,10 +1272,8 @@ Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-cy
 Requires:	urw-fonts
 Requires:	myspell-cy
-Obsoletes:  OpenOffice.org-l10n-cy
 Provides: 	LibreOffice-l10n-cy
 Obsoletes:	openoffice.org-go-ooo-l10n-cy <= %{version}
-Suggests:	%{ooname}-help-cy = %{EVRD}
 Obsoletes:	openoffice.org-l10n-cy < 1:3.3-1:2011.0 
 %ifarch x86_64
 Obsoletes:     openoffice.org64-l10n-cy <= 1:3.1-4
@@ -1367,7 +1299,6 @@ Requires:	locales-da
 Requires:	fonts-ttf-dejavu
 Requires:	urw-fonts
 Requires:	myspell-da, myspell-hyph-da
-Obsoletes:  OpenOffice.org-l10n-da
 Provides: 	LibreOffice-l10n-da
 Obsoletes:	openoffice.org-go-ooo-l10n-da <= %{version}
 Suggests:	%{ooname}-help-da = %{EVRD}
@@ -1397,7 +1328,6 @@ Requires:	fonts-ttf-dejavu
 Requires:	urw-fonts
 Requires:	myspell-de
 Requires:	myspell-hyph-de
-Obsoletes:  OpenOffice.org-l10n-de
 Provides: 	LibreOffice-l10n-de
 Obsoletes:	openoffice.org-go-ooo-l10n-de <= %{version}
 Suggests:	%{ooname}-help-de = %{EVRD} 
@@ -1443,7 +1373,6 @@ Requires:	locales-el
 Requires:	fonts-type1-greek
 Requires:	myspell-el
 Requires:	myspell-hyph-el
-Obsoletes:  OpenOffice.org-l10n-el
 Provides: 	LibreOffice-l10n-el
 Obsoletes:	openoffice.org-go-ooo-l10n-el <= %{version}
 Suggests:	%{ooname}-help-el = %{EVRD} 
@@ -1472,7 +1401,6 @@ Requires:	locales-en
 Requires:	urw-fonts
 Requires:	myspell-en_GB
 Requires:	myspell-hyph-en
-Obsoletes:  OpenOffice.org-l10n-en_GB
 Provides: 	LibreOffice-l10n-en_GB
 Obsoletes:	openoffice.org-go-ooo-l10n-en_GB <= %{version}
 Suggests:	%{ooname}-help-en_GB = %{EVRD} 
@@ -1502,7 +1430,6 @@ Requires:	fonts-ttf-dejavu
 Requires:	urw-fonts
 Requires:	myspell-es
 Requires:	myspell-hyph-es
-Obsoletes:  OpenOffice.org-l10n-es
 Provides: 	LibreOffice-l10n-es
 Obsoletes:	openoffice.org-go-ooo-l10n-es <= %{version}
 Suggests:	%{ooname}-help-es = %{EVRD} 
@@ -1532,7 +1459,6 @@ Requires:	fonts-ttf-dejavu
 Requires:	urw-fonts
 Requires:	myspell-et
 Requires:	myspell-hyph-et
-Obsoletes:  OpenOffice.org-l10n-et
 Provides: 	LibreOffice-l10n-et
 Obsoletes:	openoffice.org-go-ooo-l10n-et <= %{version}
 Suggests:	%{ooname}-help-et = %{EVRD} 
@@ -1560,7 +1486,6 @@ Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-eu
 Requires:	fonts-ttf-dejavu
 Requires:	urw-fonts
-Obsoletes:  OpenOffice.org-l10n-eu
 Provides: 	LibreOffice-l10n-eu
 Obsoletes:	openoffice.org-go-ooo-l10n-eu <= %{version}
 Suggests:	%{ooname}-help-eu = %{EVRD} 
@@ -1606,7 +1531,6 @@ Requires:	locales-fi
 Requires:	fonts-ttf-dejavu
 Requires:	urw-fonts
 Requires:	%{ooname}-voikko
-Obsoletes:  OpenOffice.org-l10n-fi
 Provides: 	LibreOffice-l10n-fi
 Obsoletes:	openoffice.org-go-ooo-l10n-fi <= %{version}
 Suggests:	%{ooname}-help-fi = %{EVRD} 
@@ -1636,7 +1560,6 @@ Requires:	fonts-ttf-dejavu
 Requires:	urw-fonts
 Requires:	myspell-fr
 Requires:	myspell-hyph-fr
-Obsoletes:  OpenOffice.org-l10n-fr
 Provides: 	LibreOffice-l10n-fr
 Obsoletes:	openoffice.org-go-ooo-l10n-fr <= %{version}
 Suggests:	%{ooname}-help-fr = %{EVRD} 
@@ -1718,7 +1641,6 @@ Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-he
 Requires:	urw-fonts
-Obsoletes:  OpenOffice.org-l10n-he
 Provides: 	LibreOffice-l10n-he
 Obsoletes:	openoffice.org-go-ooo-l10n-he <= %{version}
 Suggests:	%{ooname}-help-he = %{EVRD} 
@@ -1745,7 +1667,6 @@ Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-hi
 Requires:	urw-fonts
-Obsoletes:  OpenOffice.org-l10n-hi
 Provides: 	LibreOffice-l10n-hi
 Obsoletes:	openoffice.org-go-ooo-l10n-hi <= %{version}
 Suggests:	%{ooname}-help-hi = %{EVRD} 
@@ -1792,7 +1713,6 @@ Requires:	locales-hu
 Requires:	urw-fonts
 Requires:	myspell-hu
 Requires:	myspell-hyph-hu
-Obsoletes:  OpenOffice.org-l10n-hu
 Provides: 	LibreOffice-l10n-hu
 Obsoletes:	openoffice.org-go-ooo-l10n-hu <= %{version}
 Suggests:	%{ooname}-help-hu = %{EVRD} 
@@ -1821,7 +1741,6 @@ Requires:	fonts-ttf-dejavu
 Requires:	urw-fonts
 Requires:	myspell-it
 Requires:	myspell-hyph-it
-Obsoletes:  OpenOffice.org-l10n-it
 Provides: 	LibreOffice-l10n-it
 Obsoletes:	openoffice.org-go-ooo-l10n-it <= %{version}
 Suggests:	%{ooname}-help-it = %{EVRD}
@@ -1848,7 +1767,6 @@ Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-ja
 Requires:	fonts-ttf-japanese >= 0.20020727-1mdk
-Obsoletes:  OpenOffice.org-l10n-ja
 Provides: 	LibreOffice-l10n-ja
 Obsoletes:	openoffice.org-go-ooo-l10n-ja <= %{version}
 Suggests:	%{ooname}-help-ja = %{EVRD} 
@@ -1893,7 +1811,6 @@ Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-ko
 Requires:	fonts-ttf-korean >= 2.1
-Obsoletes:  OpenOffice.org-l10n-ko
 Provides: 	LibreOffice-l10n-ko
 Obsoletes:	openoffice.org-go-ooo-l10n-ko <= %{version}
 Suggests:	%{ooname}-help-ko = %{EVRD} 
@@ -1991,7 +1908,6 @@ Group:		Office
 Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-mk
-Obsoletes:  OpenOffice.org-l10n-mk
 Provides: 	LibreOffice-l10n-mk
 Obsoletes:	openoffice.org-go-ooo-l10n-mk <= %{version}
 Suggests:	%{ooname}-help-mk = %{EVRD} 
@@ -2036,7 +1952,6 @@ Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-no
 Requires:	urw-fonts
-Obsoletes:  OpenOffice.org-l10n-nb
 Provides: 	LibreOffice-l10n-nb
 Obsoletes:	openoffice.org-go-ooo-l10n-nb <= %{version}
 Suggests:	%{ooname}-help-nb = %{EVRD} 
@@ -2066,7 +1981,6 @@ Requires:	fonts-ttf-dejavu
 Requires:	urw-fonts
 Requires:	myspell-nl
 Requires:	myspell-hyph-nl
-Obsoletes:  OpenOffice.org-l10n-nl
 Provides: 	LibreOffice-l10n-nl
 Obsoletes:	openoffice.org-go-ooo-l10n-nl <= %{version}
 Suggests:	%{ooname}-help-nl = %{EVRD} 
@@ -2093,7 +2007,6 @@ Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-no
 Requires:	urw-fonts
-Obsoletes:  OpenOffice.org-l10n-nn
 Provides: 	LibreOffice-l10n-nn
 Obsoletes:	openoffice.org-go-ooo-l10n-nn <= %{version}
 Suggests:	%{ooname}-help-nn = %{EVRD} 
@@ -2138,7 +2051,6 @@ Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-nso
 Provides: 	LibreOffice-l10n-nso
-Suggests:	%{ooname}-help-nso = %{EVRD} 
 
 %description l10n-nso
 LibreOffice is an Open Source, community-developed, office suite.
@@ -2196,7 +2108,6 @@ Requires:	locales-pl
 Requires:	urw-fonts
 Requires:	myspell-pl
 Requires:	myspell-hyph-pl
-Obsoletes:  OpenOffice.org-l10n-pl
 Provides: 	LibreOffice-l10n-pl
 Obsoletes:	openoffice.org-go-ooo-l10n-pl <= %{version}
 Suggests:	%{ooname}-help-pl = %{EVRD} 
@@ -2226,7 +2137,6 @@ Requires:	fonts-ttf-dejavu
 Requires:	urw-fonts
 Requires:	myspell-pt
 Requires:	myspell-hyph-pt
-Obsoletes:  OpenOffice.org-l10n-pt
 Provides: 	LibreOffice-l10n-pt
 Obsoletes:	openoffice.org-go-ooo-l10n-pt <= %{version}
 Suggests:	%{ooname}-help-pt = %{EVRD} 
@@ -2257,7 +2167,6 @@ Requires(postun): update-alternatives %{ooname}-common
 Requires:	locales-pt
 Requires:	urw-fonts
 Requires:	myspell-pt_BR
-Obsoletes:  OpenOffice.org-l10n_pt_BR
 Provides: 	LibreOffice-l10n_pt_BR
 Obsoletes:	openoffice.org-go-ooo-l10n-pt_BR <= %{version}
 Suggests:	%{ooname}-help-pt_BR = %{EVRD} 
@@ -2277,30 +2186,6 @@ features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
 
-
-# %package l10n-pt_AO
-# Summary:    Portuguese Angola language support for LibreOffice
-# Group:      Office
-# Provides:	%{ooname}-l10n = %{EVRD}
-# # Due to alternatives setup, we must have -release here. (BrOffice)
-# Requires:	%{ooname}-common = %{EVRD}
-# Requires:   locales-pt
-# Requires:   urw-fonts
-# Obsoletes:  OpenOffice.org-l10n-pt_AO
-# Provides: 	LibreOffice-l10n-pt_AO
-# Suggests:	%{ooname}-help-pt_AO = %{EVRD} 
-# Obsoletes:	openoffice.org-l10n-pt_AO < 1:3.3-1:2011.0 
-# 
-# %description l10n-pt_AO
-# LibreOffice is an Open Source, community-developed, office suite.
-# 
-# This package contains the localization of LibreOffice in Portuguese
-# Angola.
-# It contains the user interface, the templates and the autotext
-# features. Please note that not all of these are available for all
-# possible language. You can switch user interface language using the
-# standard locales system.
-# 
 
 %package l10n-ro
 Summary:	Romanian language support for LibreOffice
@@ -2329,7 +2214,6 @@ Requires:	locales-ru
 Requires:	urw-fonts >= 2.0-6mdk
 Requires:	myspell-ru
 Requires:	myspell-hyph-ru
-Obsoletes:  OpenOffice.org-l10n-ru
 Provides: 	LibreOffice-l10n-ru
 Obsoletes:	openoffice.org-go-ooo-l10n-ru <= %{version}
 Suggests:	%{ooname}-help-ru = %{EVRD} 
@@ -2396,7 +2280,6 @@ Requires:	locales-sk
 Requires:	urw-fonts
 Requires:	myspell-sk
 Requires:	myspell-hyph-sk
-Obsoletes:  OpenOffice.org-l10n-sk
 Provides: 	LibreOffice-l10n-sk
 Obsoletes:	openoffice.org-go-ooo-l10n-sk <= %{version}
 Suggests:	%{ooname}-help-sk = %{EVRD} 
@@ -2424,7 +2307,6 @@ Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-sl
 Requires:	urw-fonts
 Requires:	myspell-sl, myspell-hyph-sl
-Obsoletes:  OpenOffice.org-l10n-sl
 Provides: 	LibreOffice-l10n-sl
 Obsoletes:	openoffice.org-go-ooo-l10n-sl <= %{version}
 Suggests:	%{ooname}-help-sl = %{EVRD} 
@@ -2508,7 +2390,6 @@ Requires:	fonts-ttf-dejavu
 Requires:	urw-fonts
 Requires:	myspell-sv
 Requires:	myspell-hyph-sv
-Obsoletes:  OpenOffice.org-l10n-sv
 Provides: 	LibreOffice-l10n-sv
 Obsoletes:	openoffice.org-go-ooo-l10n-sv <= %{version}
 Suggests:	%{ooname}-help-sv = %{EVRD} 
@@ -2535,10 +2416,8 @@ Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-ta
 Requires:	urw-fonts
-Obsoletes:  OpenOffice.org-l10n-ta
 Provides: 	LibreOffice-l10n-ta
 Obsoletes:	openoffice.org-go-ooo-l10n-ta <= %{version}
-Suggests:	%{ooname}-help-ta = %{EVRD} 
 Obsoletes:	openoffice.org-l10n-ta < 1:3.3-1:2011.0 
 %ifarch x86_64
 Obsoletes:     openoffice.org64-l10n-ta <= 1:3.1-4
@@ -2616,7 +2495,6 @@ Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-tr
 Requires:	urw-fonts
-Obsoletes:  OpenOffice.org-l10n-tr
 Provides: 	LibreOffice-l10n-tr
 Obsoletes:	openoffice.org-go-ooo-l10n-tr <= %{version}
 Suggests:	%{ooname}-help-tr = %{EVRD} 
@@ -2716,7 +2594,6 @@ Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-zh
 Requires:	fonts-ttf-chinese
-Obsoletes:  OpenOffice.org-l10n-zh_CN
 Provides: 	LibreOffice-l10n-zh_CN
 Obsoletes:	openoffice.org-go-ooo-l10n-zh_CN <= %{version}
 Suggests:	%{ooname}-help-zh_CN = %{EVRD} 
@@ -2743,7 +2620,6 @@ Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-zh
 Requires:	fonts-ttf-chinese
-Obsoletes:  OpenOffice.org-l10n-zh_TW
 Provides: 	LibreOffice-l10n-zh_TW
 Obsoletes:	openoffice.org-go-ooo-l10n-zh_TW <= %{version}
 Suggests:	%{ooname}-help-zh_TW = %{EVRD}
@@ -2772,10 +2648,8 @@ Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-zu
 Requires:	urw-fonts
 Requires:	myspell-zu
-Obsoletes:  OpenOffice.org-l10n-zu
 Provides: 	LibreOffice-l10n-zu
 Obsoletes:	openoffice.org-go-ooo-l10n-zu <= %{version}
-Suggests:	%{ooname}-help-zu = %{EVRD}
 Obsoletes:	openoffice.org-l10n-zu < 1:3.3-1:2011.0 
 %ifarch x86_64
 Obsoletes:     openoffice.org64-l10n-zu <= 1:3.1-4
@@ -2792,42 +2666,6 @@ possible language. You can switch user interface language using the
 standard locales system.
 
 
-# %package help-af
-# Summary:	Afrikaans help for LibreOffice
-# Group:		Office
-# Provides:	%{ooname}-help = %{EVRD}
-# Requires:	%{ooname}-l10n-af = %{EVRD}
-# %ifarch x86_64
-# Obsoletes:     openoffice.org64-help-af <= 1:3.1-4
-# %endif
-# Obsoletes:  OpenOffice.org-help-af
-# Provides:	LibreOffice-help-af
-# Obsoletes:  openoffice.org-help-af < 1:3.3-1:2011.0 
-# 
-# %description help-af
-# LibreOffice is an Open Source, community-developed, office suite.
-# 
-# This package contains the localized help files of LibreOffice in Afrikaans.
-
-
-# %package help-ar
-# Summary:	Arabic help for LibreOffice
-# Group:		Office
-# Provides:	%{ooname}-help = %{EVRD}
-# Requires:	%{ooname}-l10n-ar = %{EVRD}
-# %ifarch x86_64
-# Obsoletes:     openoffice.org64-help-ar <= 1:3.1-4
-# %endif
-# Obsoletes:  OpenOffice.org-help-ar
-# Provides:	LibreOffice-help-ar
-# Obsoletes:  openoffice.org-help-ar < 1:3.3-1:2011.0 
-# 
-# %description help-ar
-# LibreOffice is an Open Source, community-developed, office suite.
-# 
-# This package contains the localized help files of LibreOffice in Arabic.
-
-
 %package help-bg
 Summary:	Bulgarian help for LibreOffice
 Group:		Office
@@ -2836,7 +2674,6 @@ Requires:	%{ooname}-l10n-bg = %{EVRD}
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-bg <= 1:3.1-4
 %endif
-Obsoletes:  OpenOffice.org-help-bg
 Provides:	LibreOffice-help-bg
 Obsoletes:  openoffice.org-help-bg < 1:3.3-1:2011.0 
 
@@ -2858,33 +2695,14 @@ LibreOffice is an Open Source, community-developed, office suite.
 This package contains the localized help files of LibreOffice in Bengali.
 
 
-# %package help-br
-# Summary:	Breton help for LibreOffice
-# Group:		Office
-# Provides:	%{ooname}-help = %{EVRD}
-# Requires:	%{ooname}-l10n-br = %{EVRD}
-# %ifarch x86_64
-# Obsoletes:     openoffice.org64-help-br <= 1:3.1-4
-# %endif
-# Obsoletes:  OpenOffice.org-help-br
-# Provides:	LibreOffice-help-br
-# Obsoletes:  openoffice.org-help-br < 1:3.3-1:2011.0 
-# 
-# %description help-br
-# LibreOffice is an Open Source, community-developed, office suite.
-# 
-# This package contains the localized help files of LibreOffice in Breton.
-
-
 %package help-bs
 Summary:	Bosnian help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-bs = %{EVRD}
 %ifarch x86_64
-Obsoletes:     openoffice.org64-help-br <= 1:3.1-4
+Obsoletes:     openoffice.org64-help-bs <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-bs
 Provides:	LibreOffice-help-bs
 Obsoletes:  openoffice.org-help-bs < 1:3.3-1:2011.0 
 
@@ -2902,7 +2720,6 @@ Requires:	%{ooname}-l10n-ca = %{EVRD}
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-ca <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-ca
 Provides:	LibreOffice-help-ca
 Obsoletes:  openoffice.org-help-ca < 1:3.3-1:2011.0 
 
@@ -2917,11 +2734,9 @@ Summary:	Czech help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-cs = %{EVRD}
-Obsoletes:	OpenOffice.org-help-cs
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-cs <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-cs
 Provides:	LibreOffice-help-cs
 Obsoletes:  openoffice.org-help-cs < 1:3.3-1:2011.0 
 
@@ -2929,24 +2744,6 @@ Obsoletes:  openoffice.org-help-cs < 1:3.3-1:2011.0
 LibreOffice is an Open Source, community-developed, office suite.
 
 This package contains the localized help files of LibreOffice in Czech.
-
-
-# %package help-cy
-# Summary:	Welsh help for LibreOffice
-# Group:		Office
-# Provides:	%{ooname}-help = %{EVRD}
-# Requires:	%{ooname}-l10n-cy = %{EVRD}
-# %ifarch x86_64
-# Obsoletes:     openoffice.org64-help-cy <= 1:3.1-4
-# %endif
-# Obsoletes:	OpenOffice.org-help-cy
-# Provides:	LibreOffice-help-cy
-# Obsoletes:  openoffice.org-help-cy < 1:3.3-1:2011.0 
-# 
-# %description help-cy
-# LibreOffice is an Open Source, community-developed, office suite.
-# 
-# This package contains the localized help files of LibreOffice in Welsh.
 
 
 %package help-da
@@ -2957,7 +2754,6 @@ Requires:	%{ooname}-l10n-da = %{EVRD}
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-da <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-da
 Provides:	LibreOffice-help-da
 Obsoletes:  openoffice.org-help-da < 1:3.3-1:2011.0 
 
@@ -2972,11 +2768,9 @@ Summary:	German help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-de = %{EVRD}
-Obsoletes:	OpenOffice.org-help-de
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-de <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-de
 Provides:	LibreOffice-help-de
 Obsoletes:  openoffice.org-help-de < 1:3.3-1:2011.0 
 
@@ -3006,7 +2800,6 @@ Requires:	%{ooname}-l10n-el = %{EVRD}
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-el <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-el
 Provides:	LibreOffice-help-el
 Obsoletes:  openoffice.org-help-el < 1:3.3-1:2011.0 
 
@@ -3025,7 +2818,6 @@ Requires:	%{ooname}-l10n-en_GB = %{EVRD}
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-en_GB <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-en_GB
 Provides:	LibreOffice-help-en_GB
 Obsoletes:  openoffice.org-help-en_GB < 1:3.3-1:2011.0 
 
@@ -3043,7 +2835,6 @@ Requires:	%{ooname}-common = %{EVRD}
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-en_US <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-en_US
 Provides:	LibreOffice-help-en_US
 Obsoletes: openoffice.org-help-en_US < 1:3.3-1:2011.0 
 #Provides:  openoffice.org-help-en_US = 1:3.3-1:2011.0
@@ -3062,7 +2853,6 @@ Requires:	%{ooname}-l10n-es = %{EVRD}
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-es <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-es
 Provides:	LibreOffice-help-es
 Obsoletes:  openoffice.org-help-es < 1:3.3-1:2011.0 
 
@@ -3080,7 +2870,6 @@ Requires:	%{ooname}-l10n-et = %{EVRD}
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-et <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-et
 Provides:	LibreOffice-help-et
 Obsoletes:  openoffice.org-help-et < 1:3.3-1:2011.0 
 
@@ -3098,7 +2887,6 @@ Requires:	%{ooname}-l10n-eu = %{EVRD}
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-eu <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-eu
 Provides:	LibreOffice-help-eu
 Obsoletes:  openoffice.org-help-eu < 1:3.3-1:2011.0 
 
@@ -3116,7 +2904,6 @@ Requires:	%{ooname}-l10n-fi = %{EVRD}
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-fi <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-fi
 Provides:	LibreOffice-help-fi
 Obsoletes:  openoffice.org-help-fi < 1:3.3-1:2011.0 
 
@@ -3134,7 +2921,6 @@ Requires:	%{ooname}-l10n-fr = %{EVRD}
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-fr <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-fr
 Provides:	LibreOffice-help-fr
 Obsoletes:  openoffice.org-help-fr < 1:3.3-1:2011.0 
 
@@ -3178,7 +2964,6 @@ Requires:	%{ooname}-l10n-he = %{EVRD}
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-he <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-he
 Provides:	LibreOffice-help-he
 Obsoletes:  openoffice.org-help-he < 1:3.3-1:2011.0 
 
@@ -3196,7 +2981,6 @@ Requires:	%{ooname}-l10n-hi = %{EVRD}
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-hi <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-hi
 Provides:	LibreOffice-help-hi
 Obsoletes:  openoffice.org-help-hi < 1:3.3-1:2011.0 
 
@@ -3227,7 +3011,6 @@ Requires:	%{ooname}-l10n-hu = %{EVRD}
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-hu <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-hu
 Provides:	LibreOffice-help-hu
 Obsoletes:  openoffice.org-help-hu < 1:3.3-1:2011.0 
 
@@ -3245,7 +3028,6 @@ Requires:	%{ooname}-l10n-it = %{EVRD}
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-it <= 1:3.1-4
 %endif
-Obsoletes:  OpenOffice.org-help-it
 Provides:	LibreOffice-help-it
 Obsoletes:  openoffice.org-help-it < 1:3.3-1:2011.0 
 
@@ -3263,7 +3045,6 @@ Requires:	%{ooname}-l10n-ja = %{EVRD}
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-ja <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-ja
 Provides:	LibreOffice-help-ja
 Obsoletes:  openoffice.org-help-ja < 1:3.3-1:2011.0 
 
@@ -3281,7 +3062,6 @@ Requires:	%{ooname}-l10n-ko = %{EVRD}
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-ko <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-ko
 Provides:	LibreOffice-help-ko
 Obsoletes:  openoffice.org-help-ko < 1:3.3-1:2011.0 
 
@@ -3299,7 +3079,6 @@ Requires:	%{ooname}-l10n-mk = %{EVRD}
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-mk <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-mk
 Provides:	LibreOffice-help-mk
 Obsoletes:  openoffice.org-help-mk < 1:3.3-1:2011.0 
 
@@ -3317,7 +3096,6 @@ Requires:	%{ooname}-l10n-nb = %{EVRD}
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-nb <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-nb
 Provides:	LibreOffice-help-nb
 Obsoletes:  openoffice.org-help-nb < 1:3.3-1:2011.0 
 
@@ -3336,7 +3114,6 @@ Requires:	%{ooname}-l10n-nl = %{EVRD}
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-nl <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-nl
 Provides:	LibreOffice-help-nl
 Obsoletes:  openoffice.org-help-nl < 1:3.3-1:2011.0 
 
@@ -3354,7 +3131,6 @@ Requires:	%{ooname}-l10n-nn = %{EVRD}
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-nn <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-nn
 Provides:	LibreOffice-help-nn
 Obsoletes:  openoffice.org-help-nn < 1:3.3-1:2011.0 
 
@@ -3365,19 +3141,6 @@ This package contains the localized help files of LibreOffice in Norwegian
 Nynorsk.
 
 
-%package help-nso
-Summary:	Northern Sotho help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-nso = %{EVRD}
-Provides:	LibreOffice-help-nso
-
-%description help-nso
-LibreOffice is an Open Source, community-developed, office suite.
-
-This package contains the localized help files of LibreOffice in Northern Sotho.
-
-
 %package help-pl
 Summary:	Polish help for LibreOffice
 Group:		Office
@@ -3386,7 +3149,6 @@ Requires:	%{ooname}-l10n-pl = %{EVRD}
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-pl <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-pl
 Provides:	LibreOffice-help-pl
 Obsoletes:  openoffice.org-help-pl < 1:3.3-1:2011.0 
 
@@ -3404,7 +3166,6 @@ Requires:	%{ooname}-l10n-pt = %{EVRD}
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-pt <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-pt
 Provides:	LibreOffice-help-pt
 Obsoletes:  openoffice.org-help-pt < 1:3.3-1:2011.0 
 
@@ -3422,7 +3183,6 @@ Requires:	%{ooname}-l10n-pt_BR = %{EVRD}
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-pt_BR <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-pt_BR
 Provides:	LibreOffice-help-pt_BR
 Obsoletes:  openoffice.org-help-pt_BR < 1:3.3-1:2011.0 
 
@@ -3433,21 +3193,6 @@ This package contains the localized help files of LibreOffice in Portuguese
 Brazilian.
 
 
-# %package help-pt_AO
-# Summary:	Portuguese Angola help for LibreOffice
-# Group:		Office
-# Provides:	%{ooname}-help = %{EVRD}
-# Requires:	%{ooname}-l10n-pt_AO = %{EVRD}
-# Provides:	LibreOffice-help-pt_AO
-# Obsoletes:  openoffice.org-help-pt_AO < 1:3.3-1:2011.0 
-# 
-# %description help-pt_AO
-# LibreOffice is an Open Source, community-developed, office suite.
-# 
-# This package contains the localized help files of LibreOffice in Portuguese
-# Angola.
-
-
 %package help-ru
 Summary:        Russian help for LibreOffice
 Group:          Office
@@ -3456,7 +3201,6 @@ Requires:	%{ooname}-l10n-ru = %{EVRD}
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-ru <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-ru
 Provides:	LibreOffice-help-ru
 Obsoletes:  openoffice.org-help-ru < 1:3.3-1:2011.0 
 
@@ -3487,7 +3231,6 @@ Requires:	%{ooname}-l10n-sk = %{EVRD}
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-sk <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-sk
 Provides:	LibreOffice-help-sk
 Obsoletes:  openoffice.org-help-sk < 1:3.3-1:2011.0 
 
@@ -3505,7 +3248,6 @@ Requires:	%{ooname}-l10n-sl = %{EVRD}
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-sl <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-sl
 Provides:	LibreOffice-help-sl
 Obsoletes:  openoffice.org-help-sl < 1:3.3-1:2011.0 
 
@@ -3523,7 +3265,6 @@ Requires:	%{ooname}-l10n-sv = %{EVRD}
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-sv <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-sv
 Provides:	LibreOffice-help-sv
 Obsoletes:  openoffice.org-help-sv < 1:3.3-1:2011.0 
 
@@ -3531,24 +3272,6 @@ Obsoletes:  openoffice.org-help-sv < 1:3.3-1:2011.0
 LibreOffice is an Open Source, community-developed, office suite.
 
 This package contains the localized help files of LibreOffice in Swedish.
-
-
-# %package help-ta
-# Summary:	Tamil help for LibreOffice
-# Group:		Office
-# Provides:	%{ooname}-help = %{EVRD}
-# Requires:	%{ooname}-l10n-ta = %{EVRD}
-# %ifarch x86_64
-# Obsoletes:     openoffice.org64-help-ta <= 1:3.1-4
-# %endif
-# Obsoletes:	OpenOffice.org-help-ta
-# Provides:	LibreOffice-help-ta
-# Obsoletes:  openoffice.org-help-ta < 1:3.3-1:2011.0 
-# 
-# %description help-ta
-# LibreOffice is an Open Source, community-developed, office suite.
-# 
-# This package contains the localized help files of LibreOffice in Tamil.
 
 
 %package help-tr
@@ -3559,7 +3282,6 @@ Requires:	%{ooname}-l10n-tr = %{EVRD}
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-tr <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-tr
 Provides:	LibreOffice-help-tr
 Obsoletes:  openoffice.org-help-tr < 1:3.3-1:2011.0 
 
@@ -3590,7 +3312,6 @@ Requires:	%{ooname}-l10n-zh_CN = %{EVRD}
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-zh_CN <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-zh_CN
 Provides:	LibreOffice-help-zn_CN
 Obsoletes:  openoffice.org-help-zn_CN < 1:3.3-1:2011.0 
 
@@ -3609,7 +3330,6 @@ Requires:	%{ooname}-l10n-zh_TW = %{EVRD}
 %ifarch x86_64
 Obsoletes:     openoffice.org64-help-zh_TW <= 1:3.1-4
 %endif
-Obsoletes:	OpenOffice.org-help-zh_CT
 Provides:	LibreOffice-help-zn_CT
 Obsoletes:  openoffice.org-help-zn_CT < 1:3.3-1:2011.0 
 
@@ -3619,33 +3339,25 @@ LibreOffice is an Open Source, community-developed, office suite.
 This package contains the localized help files of LibreOffice in Chinese
 Traditional.
 
-# %package help-zu
-# Summary:	Zulu help for LibreOffice
-# Group:		Office
-# Provides:	%{ooname}-help = %{EVRD}
-# Requires:	%{ooname}-l10n-zu = %{EVRD}
-# %ifarch x86_64
-# Obsoletes:     openoffice.org64-help-zu <= 1:3.1-4
-# %endif
-# Obsoletes:	OpenOffice.org-help-zu
-# Provides:	LibreOffice-help-zu
-# Obsoletes:  openoffice.org-help-zu < 1:3.3-1:2011.0 
-# 
-# %description help-zu
-# LibreOffice is an Open Source, community-developed, office suite.
-# 
-# This package contains the localized help files of LibreOffice in Zulu.
-
 %endif
 
 %prep
 %setup -q -c -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18 -a 19
+
 for a in */*; do mv `pwd`/$a .; done
+
+#ant
+%if %javaless
+tar -xjvf %{SOURCE60}
+%endif
 
 %patch4 -p0 -b .xul
 %patch5 -p0 -b .sysui
 %patch9 -p0 -b .vba
 %patch10 -p0 -b .vclkde
+%patch11 -p1 -b .sdext
+%patch12 -p0 -b .ucb
+%patch13 -p0 -b .xmlhelp
 
 # Add lzma support (REVIEW)
 %if %{oootarext} == "lzma"
@@ -3678,35 +3390,6 @@ export KDE4DIR=%{_libdir}/kde4
 %endif 
 export KDE4LIB=%{_libdir}/kde4/lib
 
-
-# Force KDE3 support instead of KDE4 (dev 300)
-# %ifarch x86_64 
-# export KDEDIR=/opt/kde
-# %endif
-
-%if !%{use_gcj}
-if [ -z $JAVA_HOME ]; then
-	. /etc/profile.d/jdk-%{jdkver}.sh
-fi
-%endif
-
-# add moc in PATH
-# if [ ! -z $QTDIR ]; then
-#	export QTPATH=$QTDIR/bin
-#	export PATH=$PATH:$QTPATH
-#else
-#	export PATH=$PATH:%{_prefix}/lib/qt3
-
-# fi
-
-%if %{use_gcj}
-if [ "`readlink -f %{_bindir}/java`" = "%{_bindir}/jamvm" ]; then
-	echo "Warning: Alternatives for java-1.4.2-gcj-compat are not installed properly."
-	echo "Warning: Try running \"update-alternatives --config java\" before building this package."
-	exit 1
-fi
-%endif
-
 %if !%{use_icecream}
 # sbin due to icu stuff there
 #PATH=/bin:/usr/bin:/usr/X11R6/bin:$QTPATH:/usr/sbin:$PATH
@@ -3723,14 +3406,7 @@ export ARCH_FLAGS_CC="%{optflags} %{optsafe} -fno-omit-frame-pointer -fno-strict
 export ARCH_FLAGS_CXX="%{optflags} %{optsafe} -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive -fvisibility-inlines-hidden"
 export ARCH_FLAGS_OPT="%{optflags} -O2 %{optsafe}"
 
-%if %use_gcj
-export JAVA=%java
-export JAVAC=%javac
-export ANT="%ant"
-%endif
-
 echo "Configure start at: "`date` >> ooobuildtime.log 
-# --with-jdk-home=%java_home \
 
 ENVCFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-aliasing" \
 ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive -fvisibility-inlines-hidden " \
@@ -3747,7 +3423,6 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
   	--enable-split-opt-features \
 	--enable-binfilter \
 	--with-system-mozilla=xulrunner \
-	--with-system-hsqldb \
 	--with-system-icu \
 	--with-system-xrender-headers \
     	--with-system-jpeg \
@@ -3768,7 +3443,6 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 	--with-system-libwps \
 	--with-system-libwpg \
 	--with-system-graphite \
-        --with-system-apache-commons \
 	--with-system-translate-toolkit \
 	--without-junit \
 	--with-system-cppunit \
@@ -3779,10 +3453,11 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 	--enable-kde4 \
 	--with-intro-bitmaps="%{SOURCE27}" \
 	--with-about-bitmaps="%{SOURCE28}" \
-%if %use_gcj
-	--with-java-target-version=1.5 \
+%if %javaless
+       --with-ant-home=%{_builddir}/libreoffice-%version/apache-ant-1.8.1/ \
 %else
-	--with-jdk-home=$JAVA_HOME \
+       --with-system-hsqldb \
+       --with-system-apache-commons \
 %endif
 %if %{use_systemdb}
 	--with-system-db \
@@ -3815,8 +3490,7 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 #	--with-mono-gac-root=%{_libdir} \
 %endif
 %if %{use_smp}
-#dev300: (--with-num-cpus command not found  )
-#	--with-num-cpus=${RPM_BUILD_NCPUS:-1}
+	--with-num-cpus=${RPM_BUILD_NCPUS:-1} \
 %endif
 %if %{use_ccache} && !%{use_icecream}
 	--with-gcc-speedup=ccache \
@@ -3869,6 +3543,12 @@ ln -sf %{SOURCE52} src/
 ln -sf %{SOURCE54} src/
 ln -sf %{SOURCE55} src/
 ln -sf %{SOURCE56} src/
+%if %javaless 
+ln -sf %{SOURCE57} src/
+ln -sf %{SOURCE58} src/
+ln -sf %{SOURCE59} src/
+ln -sf %{SOURCE61} src/
+%endif
 touch src.downloaded
 
 #. ./*[Ee]nv.[Ss]et.sh
@@ -3964,13 +3644,15 @@ rm -rf %{buildroot}/opt
 
 # Mandriva Rosa icons
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/
-tar -xjvf %{SOURCE20} -C %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/
+tar -xjvf %{SOURCE20} --exclude Libre_Office* -C %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/
 
 sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-calc_72/'    %{buildroot}%{ooodir}/share/xdg/calc.desktop
 sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-writer_72/'  %{buildroot}%{ooodir}/share/xdg/writer.desktop 
 sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-impress_72/' %{buildroot}%{ooodir}/share/xdg/impress.desktop  
 sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-draw_72/'    %{buildroot}%{ooodir}/share/xdg/draw.desktop  
 sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-base_72/'    %{buildroot}%{ooodir}/share/xdg/base.desktop  
+sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-math_72/'    %{buildroot}%{ooodir}/share/xdg/math.desktop  
+sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo_72/'         %{buildroot}%{ooodir}/share/xdg/startcenter.desktop
 
 # fix permissions for stripping
 find %{buildroot} -type f -exec chmod u+rw '{}' \;
@@ -4270,11 +3952,13 @@ fi
 %files
 
 %files base -f file-lists/base_list.txt
+%defattr(-,root,root,-)
 %{_mandir}/man1/lobase*
 # %{_datadir}/applications/base.desktop
 %{_datadir}/icons/hicolor/scalable/apps/mandriva-rosa-lo-base_72.svg
 
 %files calc -f file-lists/calc_list.txt
+%defattr(-,root,root,-)
 #libre 
 # %{_datadir}/templates/ooo-spreadsheet.desktop
 # %{_datadir}/templates/.source/ooo-spreadsheet.ods
@@ -4283,6 +3967,8 @@ fi
 %{_datadir}/icons/hicolor/scalable/apps/mandriva-rosa-lo-calc_72.svg
 
 %files common -f file-lists/common_list.uniq.sorted.txt 
+%defattr(-,root,root,-)
+%{_datadir}/icons/hicolor/scalable/apps/mandriva-rosa-lo_72.svg
 
 # libre
 # %{_sysconfdir}/bash_completion.d/libreoffice3.3.sh
@@ -4338,6 +4024,7 @@ fi
 %files devel-doc -f file-lists/sdk_doc_list.txt
 
 %files draw -f file-lists/draw_list.txt
+%defattr(-,root,root,-)
 # %{_datadir}/applications/draw.desktop
 # libre
 # %{_datadir}/templates/ooo-drawing.desktop
@@ -4354,6 +4041,7 @@ fi
 %files gnome -f file-lists/gnome_list.uniq.sorted.txt
 
 %files impress -f file-lists/impress_list.txt
+%defattr(-,root,root,-)
 # %{_datadir}/applications/impress.desktop
 # libre 
 # %{_datadir}/templates/ooo-presentation.desktop
@@ -4366,8 +4054,10 @@ fi
 %files kde4 -f file-lists/kde4_list.txt
 
 %files math -f file-lists/math_list.txt
+%defattr(-,root,root,-)
 # %{_datadir}/applications/math.desktop
 %{_mandir}/man1/lomath*
+%{_datadir}/icons/hicolor/scalable/apps/mandriva-rosa-lo-math_72.svg
 
 %files openclipart -f file-lists/gallery_list.txt
 
@@ -4379,24 +4069,27 @@ fi
 %files testtool -f file-lists/testtool_list.txt
 
 %files style-galaxy
+%defattr(-,root,root,-)
 %{ooodir}/%basis/share/config/images.zip
 
 %files style-crystal
+%defattr(-,root,root,-)
 %{ooodir}/%basis/share/config/images_crystal.zip
 
 %files style-hicontrast
+%defattr(-,root,root,-)
 %{ooodir}/%basis/share/config/images_hicontrast.zip
-#libre
-# %files style-industrial
-# %{ooodir}/%basis/share/config/images_industrial.zip
 
 %files style-tango
+%defattr(-,root,root,-)
 %{ooodir}/%basis/share/config/images_tango.zip
 
 %files style-oxygen
+%defattr(-,root,root,-)
 %{ooodir}/%basis/share/config/images_oxygen.zip
 
 %files writer -f file-lists/writer_list.txt
+%defattr(-,root,root,-)
 # %{_datadir}/applications/writer.desktop
 # libre
 #%{_datadir}/applications/web.desktop
@@ -4581,9 +4274,6 @@ fi
 %files l10n-pt_BR -f file-lists/lang_pt_BR_list.txt
 %defattr(-,root,root)
 
-# %files l10n-pt_AO -f file-lists/lang_pt_AO_list.txt
-# %defattr(-,root,root)
-
 %files l10n-ro -f file-lists/lang_ro_list.txt
 %defattr(-,root,root)
 
@@ -4650,21 +4340,11 @@ fi
 %files l10n-zu -f file-lists/lang_zu_list.txt
 %defattr(-,root,root)
 
-
-# %files help-af -f file-lists/help_af_list.txt
-# %defattr(-,root,root)
-
-# %files help-ar -f file-lists/help_ar_list.txt
-# %defattr(-,root,root)
-
 %files help-bg -f file-lists/help_bg_list.txt
 %defattr(-,root,root)
 
 %files help-bn -f file-lists/help_bn_list.txt
 %defattr(-,root,root)
-
-# %files help-br -f file-lists/help_br_list.txt
-# %defattr(-,root,root)
 
 %files help-bs -f file-lists/help_bs_list.txt
 %defattr(-,root,root)
@@ -4674,9 +4354,6 @@ fi
 
 %files help-cs -f file-lists/help_cs_list.txt
 %defattr(-,root,root)
-
-# %files help-cy -f file-lists/help_cy_list.txt
-# %defattr(-,root,root)
 
 %files help-da -f file-lists/help_da_list.txt
 %defattr(-,root,root)
@@ -4747,9 +4424,6 @@ fi
 %files help-nn -f file-lists/help_nn_list.txt
 %defattr(-,root,root)
 
-%files help-nso -f file-lists/help_nso_list.txt
-%defattr(-,root,root)
-
 %files help-pl -f file-lists/help_pl_list.txt
 %defattr(-,root,root)
 
@@ -4758,9 +4432,6 @@ fi
 
 %files help-pt_BR -f file-lists/help_pt_BR_list.txt
 %defattr(-,root,root)
-
-# %files help-pt_AO -f file-lists/help_pt_AO_list.txt
-# %defattr(-,root,root)
 
 %files help-ru -f file-lists/help_ru_list.txt
 %defattr(-,root,root)
@@ -4777,9 +4448,6 @@ fi
 %files help-sv -f file-lists/help_sv_list.txt
 %defattr(-,root,root)
 
-# %files help-ta -f file-lists/help_ta_list.txt
-# %defattr(-,root,root)
-
 %files help-tr -f file-lists/help_tr_list.txt
 %defattr(-,root,root)
 
@@ -4791,9 +4459,6 @@ fi
 
 %files help-zh_TW -f file-lists/help_zh_TW_list.txt
 %defattr(-,root,root)
-
-# %files help-zu -f file-lists/help_zu_list.txt
-# %defattr(-,root,root)
 
 %files help-en_US -f file-lists/help_en_US_list.txt
 %defattr(-,root,root)
