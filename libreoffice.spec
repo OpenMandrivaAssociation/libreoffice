@@ -224,6 +224,7 @@ BuildRequires:	python-translate >= 1.9.0
 # STLport-devel 4.5 + private patches are needed
 BuildConflicts:	STLport-devel
 BuildRequires:	java-devel
+BuildRequires:  %{mklibname ORBit2-devel}
 
 # BuildRequires:  jakarta-commons-logging
 
