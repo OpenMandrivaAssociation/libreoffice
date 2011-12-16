@@ -292,6 +292,8 @@ Patch11:        poppler0.18.1.patch
 Patch12:	glib2.31.patch
 # bug fix 64789
 Patch13: 	help-images-mdv64789.patch
+# bug fix 64945 (experimental)
+Patch14:	libreoffice34-gcc462.patch
 
 %description
 LibreOffice is an Open Source, community-developed, multi-platform
@@ -3359,6 +3361,7 @@ tar -xjvf %{SOURCE60}
 %patch11 -p1 -b .sdext
 %patch12 -p0 -b .ucb
 %patch13 -p0 -b .xmlhelp
+%patch14 -p0 -b .gcc462
 
 # Add lzma support (REVIEW)
 %if %{oootarext} == "lzma"
@@ -3769,6 +3772,9 @@ sed -i '/^.*images_oxygen\.zip$/d' file-lists/common_list.txt
 ## merge en-US with common
 cat file-lists/lang_en_US_list.txt >> file-lists/common_list.txt
 sort -u file-lists/common_list.txt >  file-lists/common_list.uniq.sorted.txt 
+
+## extra binfilter files
+sed -i '/^.*-US.res$/d' file-lists/filter-binfilter_list.txt
 
 # # does not package lo original desktop files (Review)
 # sed -i '/^.*libreoffice-writer.desktop$/d'  file-lists/writer_list.txt 
