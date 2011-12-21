@@ -225,7 +225,8 @@ BuildRequires:	python-translate >= 1.9.0
 BuildConflicts:	STLport-devel
 BuildRequires:	java-devel
 BuildRequires:  %{mklibname ORBit2-devel}
-
+# recent enough rpm with broken unpackaged subpackage check no longer erroring out
+BuildRequires:	rpm-build >= 1:5.4.4-27
 # BuildRequires:  jakarta-commons-logging
 
 ####################################################################
