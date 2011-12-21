@@ -4008,7 +4008,6 @@ fi
 %{_mandir}/man1/loffice*
 %{_mandir}/man1/lofromtemplate*
 %{_mandir}/man1/libreoffice*
-%{_datadir}/mime
 
 #dev300 
 # %ghost %{ooodir}/share/uno_packages
