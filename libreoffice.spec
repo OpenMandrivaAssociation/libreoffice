@@ -3764,13 +3764,18 @@ for p in common base calc writer impress draw math; do
 	sed -i '/^.*man.*\.gz$/d' file-lists/${p}_list.txt 
 done;
 
+## drop GTK dependency from -core
+sed -i -e '/^.*libqstart_gtklx.so$/d' file-lists/core_list.txt
+sed -i -e '/^.*pluginapp.bin$/d' file-lists/core_list.txt
+echo '%ooodir/%basis/program/libqstart_gtklx.so' >>file-lists/gnome_list.txt
+echo '%ooodir/%basis/program/pluginapp.bin' >>file-lists/gnome_list.txt
+
 ## sort removing duplicates
 sort -u file-lists/gnome_list.txt > file-lists/gnome_list.uniq.sorted.txt 
 sort -u file-lists/sdk_list.txt   > file-lists/sdk_list.uniq.sorted.txt 
 
 ## oxygen should be in the style
 sed -i '/^.*images_oxygen\.zip$/d' file-lists/common_list.txt 
-
 ## merge en-US with common
 cat file-lists/lang_en_US_list.txt >> file-lists/common_list.txt
 sort -u file-lists/common_list.txt >  file-lists/common_list.uniq.sorted.txt 
