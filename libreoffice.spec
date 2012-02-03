@@ -17,10 +17,10 @@
 %define _binary_payload w1.gzdio
 %define _source_payload w1.gzdio
 
-%define version	        3.4.4
-%define release		%mkrel 2
+%define version	        3.4.5
+%define release		%mkrel 1
 
-%define buildver     	3.4.4.2
+%define buildver     	3.4.5.2
 %define basis           basis3.4
 %define jdkver		1_5_0_11
 %define ooodir		%{_libdir}/libreoffice
@@ -90,8 +90,6 @@ URL:		http://www.libreoffice.org
 License:	LGPL
 Group:		Office
 Vendor:		Mandriva
-Packager:	Rafael da Veiga Cabral <cabral@mandriva.com>
-BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 # Requres to all our packages
 Requires:	%{name}-base = %{EVRD}
 Requires:	%{name}-calc = %{EVRD}
@@ -139,7 +137,6 @@ BuildRequires:	gnutls-devel
 BuildRequires:	gnome-vfsmm2.6-devel
 BuildRequires:	gperf
 BuildRequires:	imagemagick
-BuildRequires:	db1-devel
 %if %{use_systemdb}
 %if %mdkversion < 201020
 # this is pulled by db-devel >= 4.8, and libdbcxx?.? does not provide libdbcxx at all
@@ -150,7 +147,7 @@ BuildRequires:	db-devel >= 4.2.5-4mdk
 BuildConflicts: libdbjava4.2
 %endif
 BuildRequires:	curl-devel
-BuildRequires:	gtk+2-devel
+BuildRequires:	gtk+2-devel pkgconfig(gdk-pixbuf-xlib-2.0)
 BuildRequires:	libsvg-devel
 BuildRequires:	libgstreamer-plugins-base-devel
 BuildRequires:	xaw-devel
@@ -158,7 +155,6 @@ BuildRequires:	openldap-devel
 BuildRequires:	portaudio0-devel >= 18.1
 BuildRequires:	sndfile-devel
 BuildRequires:	unixODBC-devel
-BuildRequires:	libxp-devel
 BuildRequires:	libxslt-proc >= 1.0.19
 BuildRequires:	libxslt-devel
 BuildRequires:	libxml2-devel >= 2.4.23
@@ -224,7 +220,7 @@ BuildRequires:	python-translate >= 1.9.0
 # STLport-devel 4.5 + private patches are needed
 BuildConflicts:	STLport-devel
 BuildRequires:	java-devel
-BuildRequires:  %{mklibname ORBit2-devel}
+BuildRequires:  pkgconfig(ORBit-2.0)
 # recent enough rpm with broken unpackaged subpackage check no longer erroring out
 BuildRequires:	rpm-build >= 1:5.4.4-27
 # BuildRequires:  jakarta-commons-logging
@@ -234,26 +230,26 @@ BuildRequires:	rpm-build >= 1:5.4.4-27
 # Sources
 #
 ####################################################################
-Source0:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-artwork-%{buildver}.tar.%{oootarext}
-Source1:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-base-%{buildver}.tar.%{oootarext}
-Source2:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-bootstrap-%{buildver}.tar.%{oootarext}
-Source3:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-calc-%{buildver}.tar.%{oootarext}
-Source4:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-components-%{buildver}.tar.%{oootarext}
-Source5: 	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-extensions-%{buildver}.tar.%{oootarext}
-Source6:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-extras-%{buildver}.tar.%{oootarext}
-Source7:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-filters-%{buildver}.tar.%{oootarext}
-Source8:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-help-%{buildver}.tar.%{oootarext}
-Source9:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-impress-%{buildver}.tar.%{oootarext}
-Source10:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-libs-core-%{buildver}.tar.%{oootarext}
-Source11:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-libs-extern-%{buildver}.tar.%{oootarext}
-Source12:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-libs-extern-sys-%{buildver}.tar.%{oootarext}
-Source13:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-libs-gui-%{buildver}.tar.%{oootarext}
-Source14:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-postprocess-%{buildver}.tar.%{oootarext}
-Source15:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-sdk-%{buildver}.tar.%{oootarext}
-Source16:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-testing-%{buildver}.tar.%{oootarext}
-Source17:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-ure-%{buildver}.tar.%{oootarext}
-Source18:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-writer-%{buildver}.tar.%{oootarext}
-Source19:	 http://download.documentfoundation.org/libreoffice/src/%{ooname}-translations-%{buildver}.tar.%{oootarext}
+Source0:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-artwork-%{buildver}.tar.%{oootarext}
+Source1:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-base-%{buildver}.tar.%{oootarext}
+Source2:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-bootstrap-%{buildver}.tar.%{oootarext}
+Source3:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-calc-%{buildver}.tar.%{oootarext}
+Source4:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-components-%{buildver}.tar.%{oootarext}
+Source5: 	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-extensions-%{buildver}.tar.%{oootarext}
+Source6:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-extras-%{buildver}.tar.%{oootarext}
+Source7:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-filters-%{buildver}.tar.%{oootarext}
+Source8:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-help-%{buildver}.tar.%{oootarext}
+Source9:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-impress-%{buildver}.tar.%{oootarext}
+Source10:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-libs-core-%{buildver}.tar.%{oootarext}
+Source11:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-libs-extern-%{buildver}.tar.%{oootarext}
+Source12:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-libs-extern-sys-%{buildver}.tar.%{oootarext}
+Source13:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-libs-gui-%{buildver}.tar.%{oootarext}
+Source14:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-postprocess-%{buildver}.tar.%{oootarext}
+Source15:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-sdk-%{buildver}.tar.%{oootarext}
+Source16:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-testing-%{buildver}.tar.%{oootarext}
+Source17:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-ure-%{buildver}.tar.%{oootarext}
+Source18:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-writer-%{buildver}.tar.%{oootarext}
+Source19:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-translations-%{buildver}.tar.%{oootarext}
 
 Source20: 	Mandriva-Rosa_Icons.tar.bz2
 
@@ -285,8 +281,11 @@ Source59:       http://hg.services.openoffice.org/binaries/2ae988b339daec234019a
 Source60:       http://archive.apache.org/dist/ant/binaries/apache-ant-1.8.1-bin.tar.bz2
 Source61:       http://hg.services.openoffice.org/binaries/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
 
+Source100:	libreoffice.rpmlintrc
+
 Patch4:		xulrunner-to-mozila-plugin.pc.diff
 Patch5:		mdv-sysui-disableslack.diff
+Patch6:		libreoffice-3.4.5-fpicker-kde-4.8.0-compile.patch
 Patch9:		vbahelper.visibility.patch 
 Patch10:    	disable-qtunixeventloop.patch
 Patch11:        poppler0.18.1.patch	
@@ -656,8 +655,8 @@ Conflicts: openoffice.org-core <= %{version}-beta1.0mdv
 LibreOffice is a full-featured office productivity suite that provides a
 near drop-in replacement for Microsoft(R) Office.
 
-This package contains the KDE4 plugin for drawing OOo's widgets with KDE4/Qt4.5 and 
-a KDEish File Picker when running under KDE4.
+This package contains the KDE4 plugin for drawing OOo's widgets with
+KDE4/Qt4.x and a KDEish File Picker when running under KDE4.
  
 %package java-common
 Group: Office
@@ -2846,7 +2845,8 @@ Obsoletes: openoffice.org-help-en_US < 1:3.3-1:2011.0
 %description help-en_US
 LibreOffice is an Open Source, community-developed, office suite.
 
-This package contains the localized help files of LibreOffice in American English.
+This package contains the localized help files of LibreOffice
+in American English.
 
 
 %package help-es
@@ -3357,6 +3357,7 @@ tar -xjvf %{SOURCE60}
 
 %patch4 -p0 -b .xul
 %patch5 -p0 -b .sysui
+%patch6 -p1 -b .kde48~
 %patch9 -p0 -b .vba
 %patch10 -p0 -b .vclkde
 %patch11 -p1 -b .sdext
@@ -3698,7 +3699,7 @@ find %{buildroot} -type f \( -name '*.so' -o -name '*.so.*' \) -exec chmod a+x '
 # files and thus disable unopkg for the rest of install stage.
 # First make sure there is no actual data pre-existing in this directory,
 # as that will be lost due to the ghostification:
-[ $(find %{buildroot}%{ooodir}/share/uno_packages/cache | wc -l) -eq 1 ]
+[ $(find %{buildroot}%{ooodir}/share/uno_packages/cache -type f | wc -l) -eq 0 ]
 %{buildroot}%{ooodir}/program/unopkg add --shared %{_builddir}/libreoffice-%version/solver/340/unxlng*/bin/pdfimport/pdfimport.oxt
 %{buildroot}%{ooodir}/program/unopkg remove --shared pdfimport.oxt
 # clean cache
