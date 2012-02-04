@@ -38,9 +38,11 @@
 %ifarch x86_64
 %define distroname      Mandriva64
 %define jdkver          1.4.2
+%define libsuffix 		lx
 %else
 %define distroname      Mandriva
 %define jdkver          1_5_0_11
+%define libsuffix 		li
 %endif
 
 %define use_icecream    0	
@@ -655,7 +657,7 @@ Conflicts: openoffice.org-core <= %{version}-beta1.0mdv
 LibreOffice is a full-featured office productivity suite that provides a
 near drop-in replacement for Microsoft(R) Office.
 
-This package contains the KDE4 plugin for drawing OOo's widgets with
+This package contains the KDE4 plugin for drawing LibreOffice widgets with
 KDE4/Qt4.x and a KDEish File Picker when running under KDE4.
  
 %package java-common
@@ -3357,7 +3359,7 @@ tar -xjvf %{SOURCE60}
 
 %patch4 -p0 -b .xul
 %patch5 -p0 -b .sysui
-%patch6 -p1 -b .kde48~
+%patch6 -p1 -b .kde48
 %patch9 -p0 -b .vba
 %patch10 -p0 -b .vclkde
 %patch11 -p1 -b .sdext
@@ -3765,9 +3767,9 @@ for p in common base calc writer impress draw math; do
 done;
 
 ## drop GTK dependency from -core
-sed -i -e '/^.*libqstart_gtklx.so$/d' file-lists/core_list.txt
+sed -i -e '/^.*libqstart_gtk%libsuffix.so$/d' file-lists/core_list.txt
 sed -i -e '/^.*pluginapp.bin$/d' file-lists/core_list.txt
-echo '%ooodir/%basis/program/libqstart_gtklx.so' >>file-lists/gnome_list.txt
+echo '%ooodir/%basis/program/libqstart_gtk%libsuffix.so' >>file-lists/gnome_list.txt
 echo '%ooodir/%basis/program/pluginapp.bin' >>file-lists/gnome_list.txt
 
 ## sort removing duplicates
