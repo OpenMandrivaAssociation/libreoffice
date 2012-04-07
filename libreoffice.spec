@@ -18,7 +18,7 @@
 %define _source_payload w1.gzdio
 
 %define version	        3.4.5
-%define release		%mkrel 1
+%define release		%mkrel 2
 
 %define buildver     	3.4.5.2
 %define basis           basis3.4
@@ -195,7 +195,7 @@ BuildRequires:	libwpd-devel >= 0.9.0
 BuildRequires:	libwpg-devel
 BuildRequires:	libwps-devel
 BuildRequires:	icu
-BuildRequires:  icu-devel
+BuildRequires:  icu-devel >= 49.0
 BuildRequires:  xulrunner-devel
 BuildRequires:  libvigra-devel
 BuildRequires:  hunspell-devel
