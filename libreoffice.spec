@@ -22,7 +22,15 @@
 %define _source_payload w1.xzdio
 
 %define version		3.5.2
-%define release		%mkrel 3
+
+%if %mandriva_branch == Cooker
+# Cooker
+%define release %mkrel 3
+%else
+# Old distros
+%define subrel 1
+%define release %mkrel 0
+%endif
 
 %define buildver	3.5.2.2
 %define jdkver		1_5_0_11
