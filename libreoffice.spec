@@ -6,6 +6,7 @@
 %{?_without_l10n: %global l10n 0}
 
 %define javaless 1
+%define extensionenabled 1
 
 %define	ooname      libreoffice
 %define name        libreoffice
@@ -14,14 +15,16 @@
 #define _binary_payload w9.bzdio
 #define _binary_payload w9.lzdio
 #define _source_payload w9.bzdio
-%define _binary_payload w1.gzdio
-%define _source_payload w1.gzdio
+#define _binary_payload w1.gzdio
+#define _source_payload w1.gzdio
 
-%define version	        3.4.5
-%define release		%mkrel 2
+%define _binary_payload w1.xzdio
+%define _source_payload w1.xzdio
 
-%define buildver     	3.4.5.2
-%define basis           basis3.4
+%define version		3.5.2
+%define release		%mkrel 3
+
+%define buildver	3.5.2.2
 %define jdkver		1_5_0_11
 %define ooodir		%{_libdir}/libreoffice
 %define libdbver	4.2
@@ -33,16 +36,14 @@
 
 %define firefox_plugin  libnpsoplugin.so
 
-%define oootarext	bz2
+%define oootarext	xz
 
 %ifarch x86_64
 %define distroname      Mandriva64
 %define jdkver          1.4.2
-%define libsuffix 		lx
 %else
 %define distroname      Mandriva
 %define jdkver          1_5_0_11
-%define libsuffix 		li
 %endif
 
 %define use_icecream    0	
@@ -75,13 +76,17 @@
 %{?_with_systemboost: %global use_systemboost 1}
 %{?_without_systemboost: %global use_systemboost 0}
 
-# (fix to avoid gcc 4.0.2 produces segfaulting javaldx bin which breaks
-# building process)
-%define optsafe	""
+%if %{_use_internal_dependency_generator}
+%define __noautoreq libjawt.so\\|libmyspell.so\\|libstlport_gcc.so\\|libmono.so\\|mono
+%define __noautoprov libsndfile.so\\|libportaudio.so\\|libdb-4.2.so\\|libdb_java-4.2.so\\|libmyspell.so\\|libstlport_gcc.so\\|librdf.so.0\\|libraptor.so.1\\|libxmlsec1-nss.so.1\\|libxmlsec1.so.1
+%else
 %define _requires_exceptions libjawt.so\\|libmyspell.so\\|libstlport_gcc.so\\|libmono.so\\|mono
 %define _provides_exceptions libsndfile.so\\|libportaudio.so\\|libdb-4.2.so\\|libdb_java-4.2.so\\|libmyspell.so\\|libstlport_gcc.so\\|librdf.so.0\\|libraptor.so.1\\|libxmlsec1-nss.so.1\\|libxmlsec1.so.1
+%endif
 
-%define unopkg  %{_bindir}/unopkg
+%define antpath    %{_builddir}/libreoffice-%{version}/apache-ant-1.8.1
+
+#define unopkg  %{_bindir}/unopkg
 
 Summary:	Office suite 
 Name:		%{name}
@@ -89,7 +94,7 @@ Epoch:		1
 Version:	%{version}
 Release:	%{release}
 URL:		http://www.libreoffice.org
-License:	LGPL
+License:	(MPLv1.1 or LGPLv3+) and LGPLv3 and LGPLv2+ and BSD and (MPLv1.1 or GPLv2 or LGPLv2 or Netscape) and Public Domain and ASL 2.0 and Artistic
 Group:		Office
 Vendor:		Mandriva
 # Requres to all our packages
@@ -99,8 +104,10 @@ Requires:	%{name}-draw = %{EVRD}
 Requires:	%{name}-impress = %{EVRD}
 Requires:	%{name}-math = %{EVRD}
 Requires:	%{name}-writer = %{EVRD}
-# Suggests:	%{name}-dtd-officedocument1.0 = %{version}
+Suggests:	%{name}-dtd-officedocument1.0 = %{EVRD}
+%if %extensionenabled
 Suggests: 	%{name}-pdfimport = %{EVRD}
+%endif
 Obsoletes:	%{ooname}-go-ooo <= %{version}
 %ifarch x86_64
 Obsoletes:     openoffice.org64 <= 1:3.1-4
@@ -136,7 +143,6 @@ BuildRequires:	gcc >= 3.2-0.3mdk
 BuildRequires:	gcc-c++ >= 3.2-0.3mdk
 BuildRequires:	glitz-devel
 BuildRequires:	gnutls-devel
-BuildRequires:	gnome-vfsmm2.6-devel
 BuildRequires:	gperf
 BuildRequires:	imagemagick
 %if %{use_systemdb}
@@ -154,12 +160,12 @@ BuildRequires:	libsvg-devel
 BuildRequires:	libgstreamer-plugins-base-devel
 BuildRequires:	xaw-devel
 BuildRequires:	openldap-devel
-BuildRequires:	portaudio0-devel >= 18.1
+BuildRequires:	portaudio-devel >= 18.1
 BuildRequires:	sndfile-devel
 BuildRequires:	unixODBC-devel
-BuildRequires:	libxslt-proc >= 1.0.19
-BuildRequires:	libxslt-devel
-BuildRequires:	libxml2-devel >= 2.4.23
+BuildRequires:  libxslt-proc >= 1.0.19
+BuildRequires:  libxslt-devel
+BuildRequires:  libxml2-devel
 %if %{use_mono}
 BuildRequires:	mono-devel
 BuildRequires:	mono-data-sqlite
@@ -209,7 +215,9 @@ BuildRequires:  qt4-devel
 BuildRequires:  task-kde4-devel
 BuildRequires:  cppunit-devel
 BuildRequires:  redland-devel
-%if !%javaless 
+BuildRequires:  postgresql-devel
+BuildRequires:  librsvg-devel
+%if !%{javaless}
 BuildRequires:  ant
 BuildRequires:	hsqldb
 BuildRequires:  jakarta-commons-codec
@@ -217,12 +225,15 @@ BuildRequires:  jakarta-commons-lang
 BuildRequires:  jakarta-commons-httpclient
 %endif 
 BuildRequires:  graphite2-devel
-BuildRequires:  textcat-devel
 BuildRequires:	python-translate >= 1.9.0
 # STLport-devel 4.5 + private patches are needed
 BuildConflicts:	STLport-devel
-BuildRequires:	java-devel
+BuildRequires:	java-devel = 0:1.6.0
+BuildConflicts: java-devel >= 0:1.7.0
+#Gnome Stuff
 BuildRequires:  pkgconfig(ORBit-2.0)
+BuildRequires:  pkgconfig(gconf-2.0)
+BuildRequires:  pkgconfig(gnome-vfs-2.0)
 # recent enough rpm with broken unpackaged subpackage check no longer erroring out
 BuildRequires:	rpm-build >= 1:5.4.4-27
 # BuildRequires:  jakarta-commons-logging
@@ -232,26 +243,11 @@ BuildRequires:	rpm-build >= 1:5.4.4-27
 # Sources
 #
 ####################################################################
-Source0:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-artwork-%{buildver}.tar.%{oootarext}
-Source1:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-base-%{buildver}.tar.%{oootarext}
-Source2:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-bootstrap-%{buildver}.tar.%{oootarext}
-Source3:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-calc-%{buildver}.tar.%{oootarext}
-Source4:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-components-%{buildver}.tar.%{oootarext}
-Source5: 	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-extensions-%{buildver}.tar.%{oootarext}
-Source6:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-extras-%{buildver}.tar.%{oootarext}
-Source7:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-filters-%{buildver}.tar.%{oootarext}
-Source8:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-help-%{buildver}.tar.%{oootarext}
-Source9:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-impress-%{buildver}.tar.%{oootarext}
-Source10:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-libs-core-%{buildver}.tar.%{oootarext}
-Source11:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-libs-extern-%{buildver}.tar.%{oootarext}
-Source12:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-libs-extern-sys-%{buildver}.tar.%{oootarext}
-Source13:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-libs-gui-%{buildver}.tar.%{oootarext}
-Source14:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-postprocess-%{buildver}.tar.%{oootarext}
-Source15:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-sdk-%{buildver}.tar.%{oootarext}
-Source16:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-testing-%{buildver}.tar.%{oootarext}
-Source17:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-ure-%{buildver}.tar.%{oootarext}
-Source18:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-writer-%{buildver}.tar.%{oootarext}
-Source19:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-translations-%{buildver}.tar.%{oootarext}
+Source0:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-binfilter-%{buildver}.tar.%{oootarext}
+Source1:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-core-%{buildver}.tar.%{oootarext}
+Source2:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-dictionaries-%{buildver}.tar.%{oootarext}
+Source3:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-help-%{buildver}.tar.%{oootarext}
+Source4:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-translations-%{buildver}.tar.%{oootarext}
 
 Source20: 	Mandriva-Rosa_Icons.tar.bz2
 
@@ -267,7 +263,7 @@ Source43: 	http://hg.services.openoffice.org/binaries/284e768eeda0e2898b0d5bf7e2
 Source44:	http://hg.services.openoffice.org/binaries/fca8706f2c4619e2fa3f8f42f8fc1e9d-rasqal-0.9.16.tar.gz 
 Source45:	http://hg.services.openoffice.org/binaries/1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz
 Source46:	http://hg.services.openoffice.org/binaries/1f24ab1d39f4a51faf22244c94a6203f-xmlsec1-1.2.14.tar.gz	
-Source47:	http://hg.services.openoffice.org/binaries/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
+Source47:   http://hg.services.openoffice.org/binaries/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
 Source48:	http://hg.services.openoffice.org/binaries/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
 Source49:	http://hg.services.openoffice.org/binaries/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
 Source50:	http://hg.services.openoffice.org/binaries/48a9f787f43a09c0a9b7b00cd1fddbbf-hyphen-2.7.1.tar.gz
@@ -275,27 +271,40 @@ Source51:	http://hg.services.openoffice.org/binaries/26b3e95ddf3d9c077c480ea4587
 Source52:	http://hg.services.openoffice.org/binaries/18f577b374d60b3c760a3a3350407632-STLport-4.5.tar.gz
 Source54:	http://hg.services.openoffice.org/binaries/ada24d37d8d638b3d8a9985e80bc2978-source-9.0.0.7-bj.zip
 Source55:	http://download.go-oo.org/src/ea570af93c284aa9e5621cd563f54f4d-bsh-2.0b1-src.tar.gz
+Source62:	http://dev-www.libreoffice.org/src/e1c178b18f130b40494561f02bc1a948-libexttextcat-3.2.0.tar.bz2
+Source63:	http://dev-www.libreoffice.org/src/7c2549f6b0a8bb604e6c4c729ffdcfe6-libcmis-0.1.0.tar.gz
+Source64:	http://dev-www.libreoffice.org/src/d28864eb2b59bb57b034c0d4662a3cee-libvisio-0.0.15.tar.bz2
+
+# jfreereport
+Source65:	http://dev-www.libreoffice.org/src/39bb3fcea1514f1369fcfc87542390fd-sacjava-1.3.zip
+Source66:	http://dev-www.libreoffice.org/src/d8bd5eed178db6e2b18eeed243f85aa8-flute-1.1.6.zip
+Source67:	http://dev-www.libreoffice.org/src/eeb2c7ddf0d302fba4bfc6e97eac9624-libbase-1.1.6.zip
+Source68:	http://dev-www.libreoffice.org/src/8ce2fcd72becf06c41f7201d15373ed9-librepository-1.1.6.zip
+Source69:	http://dev-www.libreoffice.org/src/f94d9870737518e3b597f9265f4e9803-libserializer-1.1.6.zip
+Source70:	http://dev-www.libreoffice.org/src/97b2d4dba862397f446b217e2b623e71-libloader-1.1.6.zip
+Source71:	http://dev-www.libreoffice.org/src/3bdf40c0d199af31923e900d082ca2dd-libfonts-1.1.6.zip
+Source72:	http://dev-www.libreoffice.org/src/3404ab6b1792ae5f16bbd603bd1e1d03-libformula-1.1.7.zip
+Source73:	http://dev-www.libreoffice.org/src/db60e4fde8dd6d6807523deb71ee34dc-liblayout-0.2.10.zip
+Source74:	http://dev-www.libreoffice.org/src/ace6ab49184e329db254e454a010f56d-libxml-1.1.7.zip
+Source75:	http://dev-www.libreoffice.org/src/ba2930200c9f019c2d93a8c88c651a0f-flow-engine-0.9.4.zip
+
 #javaless
-Source56:       http://hg.services.openoffice.org/binaries/3c219630e4302863a9a83d0efde889db-commons-logging-1.1.1-src.tar.gz
-Source57:       http://dev-www.libreoffice.org/ooo_external/af3c3acf618de6108d65fcdc92b492e1-commons-codec-1.3-src.tar.gz
-Source58:       http://hg.services.openoffice.org/binaries/2c9b0f83ed5890af02c0df1c1776f39b-commons-httpclient-3.1-src.tar.gz 
-Source59:       http://hg.services.openoffice.org/binaries/2ae988b339daec234019a7066f96733e-commons-lang-2.3-src.tar.gz 
-Source60:       http://archive.apache.org/dist/ant/binaries/apache-ant-1.8.1-bin.tar.bz2
-Source61:       http://hg.services.openoffice.org/binaries/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
+Source56:	http://hg.services.openoffice.org/binaries/3c219630e4302863a9a83d0efde889db-commons-logging-1.1.1-src.tar.gz
+Source57:	http://dev-www.libreoffice.org/ooo_external/af3c3acf618de6108d65fcdc92b492e1-commons-codec-1.3-src.tar.gz
+Source58:	http://hg.services.openoffice.org/binaries/2c9b0f83ed5890af02c0df1c1776f39b-commons-httpclient-3.1-src.tar.gz 
+Source59:	http://hg.services.openoffice.org/binaries/2ae988b339daec234019a7066f96733e-commons-lang-2.3-src.tar.gz 
+Source60:	http://archive.apache.org/dist/ant/binaries/apache-ant-1.8.1-bin.tar.bz2
+Source61:	http://hg.services.openoffice.org/binaries/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
 
 Source100:	libreoffice.rpmlintrc
 
+# Upstream:
+# http://cgit.freedesktop.org/libreoffice/core/patch/?id=0c08a84c04b166ab6479716e2c33cd444d7e3dbe
+Patch3:		libreoffice-3.5.2.2-icu-49.patch
 Patch4:		xulrunner-to-mozila-plugin.pc.diff
-Patch5:		mdv-sysui-disableslack.diff
-Patch6:		libreoffice-3.4.5-fpicker-kde-4.8.0-compile.patch
-Patch9:		vbahelper.visibility.patch 
-Patch10:    	disable-qtunixeventloop.patch
-Patch11:        poppler0.18.1.patch	
-Patch12:	glib2.31.patch
+Patch5:		libreoffice-3.5.2-no-slackwareicons.patch
 # bug fix 64789
 Patch13: 	help-images-mdv64789.patch
-# bug fix 64945 (experimental)
-Patch14:	libreoffice34-gcc462.patch
 
 %description
 LibreOffice is an Open Source, community-developed, multi-platform
@@ -312,7 +321,7 @@ Summary: LibreOffice office suite - database
 Requires: %{name}-core = %{EVRD}
 Requires: %{name}-common = %{EVRD}
 # Heavy java deps
-%if !%javaless
+%if !%{javaless}
 Requires: hsqldb
 %endif
 Suggests: %{name}-java-common = %{EVRD}
@@ -455,8 +464,6 @@ Conflicts: openoffice.org-impress <= 2.3.0.5-1mdv
 Conflicts: openoffice.org-kde <= 2.3.0.5-1mdv
 Conflicts: openoffice.org-writer <= 2.3.0.5-1mdv
 Obsoletes: openoffice.org-core < 1:3.3-1:2011.0 
-# Provides:  openoffice.org-core = 1:3.3-1:2011.0
-# Provides:  openoffice.org-core = %{EVRD}
 %ifarch x86_64
 Conflicts: openoffice.org64 <= 2.1.0
 Conflicts: openoffice.org64-base <= 2.3.0.5-1mdv
@@ -493,7 +500,6 @@ zipped source of the UNO Java libraries for use in IDEs like eclipse.
 %package devel-doc
 Group: Office
 Summary: LibreOffice SDK - documentation
-Requires: %{name}-devel = %{version}
 # Due to the split
 Conflicts: openoffice.org <= 2.2.1
 Obsoletes: openoffice.org-devel-doc < 1:3.3-1:2011.0 
@@ -539,19 +545,19 @@ near drop-in replacement for Microsoft(R) Office.
 
 This package contains the drawing component for LibreOffice.
 
-# package dtd-officedocument1.0
-# Group: Office
-# Summary: OfficeDocument 1.0 DTD (OpenOffice.org 1.x)
-## due to the split
-#Conflicts: %{name} <= 2.2.1
-## no need to require -core or -common, see #37559
+%package dtd-officedocument1.0
+Group: Office
+Summary: OfficeDocument 1.0 DTD
+# due to the split
+Conflicts: openoffice.org <= 2.2.1
+# no need to require -core or -common, see #37559
 
-#%description dtd-officedocument1.0
-#LibreOffice is a full-featured office productivity suite that provides a
-#near drop-in replacement for Microsoft(R) Office.
+%description dtd-officedocument1.0
+LibreOffice is a full-featured office productivity suite that provides a
+near drop-in replacement for Microsoft(R) Office.
 
-# This package contains the Document Type Definition (DTD) of the OpenOffice.org
-# 1.x(!) XML file format.
+This package contains the Document Type Definition (DTD) of the LibreOffice
+1.x(!) XML file format.
 
 %package filter-binfilter
 Group: Office
@@ -761,27 +767,6 @@ This package contains the Python bindings for the UNO library.
 #
 #This package contains the test data for the OpenOffice.org Java and Basic APIs.
 
-%package testtool
-Group: Office
-Summary: LibreOffice Automatic Test Programs
-Requires: %{name}-common = %{EVRD}
-# Due to the split
-Conflicts: openoffice.org <= 2.2.1
-Conflicts: openoffice.org-common <= 2.3.0.5-1mdv
-Obsoletes: openoffice.org-testtool < 1:3.3-1:2011.0 
-%ifarch x86_64
-Conflicts: openoffice.org64 <= 2.2.1
-Conflicts: openoffice.org64-common <= 2.3.0.5-1mdv
-Obsoletes: openoffice.org64-testtool <= 1:3.1-4
-%endif
-
-%description testtool
-LibreOffice is a full-featured office productivity suite that provides a
-near drop-in replacement for Microsoft(R) Office.
-
-This package contains the test tools to automatically test the LibreOffice 
-programs.
-
 %package style-galaxy
 Group: Office
 Summary: Default symbol style for LibreOffice
@@ -927,6 +912,8 @@ set of APIs exposed by LibreOffice via UNO.
 Currently the use of Mono for add-ins & scripting inside LibreOffice itself is
 not supported.
 
+%if %extensionenabled
+
 %package pdfimport
 Group: Office
 Summary: LibreOffice office suite - PDF Import extension
@@ -974,27 +961,26 @@ Conflicts: %{name}-presenter-screen <= 1:3.2-rc4.0
 Presenter Screen extension helps users to see upcoming slides and slide notes
 of presentations inside a second view not visible for the spectators.
 
-# %package report-builder
-# Group: Office
-# Summary: LibreOffice office suite - Report Builder extension
-# Requires: %{name}-core = %{version}-%{release}
-# Requires: %{name}-common = %{version}-%{release}
-# Requires: %{name}-base = %{version}
+%package report-builder
+Group: Office
+Summary: LibreOffice office suite - Report Builder extension
+Requires: %{name}-core = %{EVRD}
+Requires: %{name}-common = %{EVRD}
+Requires: %{name}-base = %{EVRD}
 # Due to the split
-# Conflicts: %{name} <= 2.2.1
-# Conflicts: %{name}-common <= 2.3.0.5-1mdv
-# Conflicts: %{name}-core <= 2.3.0.5-1mdv
-# %ifarch x86_64
-# Conflicts: %{name}64 <= 2.2.1
-# Conflicts: %{name}64-common <= 2.3.0.5-1mdv
-# Conflicts: %{name}64-core <= 2.3.0.5-1mdv
-# Obsoletes: openoffice.org64-report-builder < 1:3.1-4
-# %endif
+Conflicts: openoffice.org <= 2.2.1
+Conflicts: openoffice.org-common <= 2.3.0.5-1mdv
+Conflicts: openoffice.org-core <= 2.3.0.5-1mdv
+%ifarch x86_64
+Conflicts: openoffice.org64 <= 2.2.1
+Conflicts: openoffice.org64-common <= 2.3.0.5-1mdv
+Conflicts: openoffice.org64-core <= 2.3.0.5-1mdv
+%endif
 
-# %description report-builder
-# By using %{name}-base the Report Builder extesion enables creating of smart and 
-# professional looking reports. Further the reports can be exported to PDF or 
-# OpenDocuments formats.
+%description report-builder
+By using %{name}-base the Report Builder extesion enables creating of smart and 
+professional looking reports. Further the reports can be exported to PDF or 
+OpenDocuments formats.
 
 %package wiki-publisher
 Group: Office
@@ -1002,7 +988,7 @@ Summary: LibreOffice office suite - Wiki Publisher extension
 Requires: %{name}-core = %{EVRD}
 Requires: %{name}-common = %{EVRD}
 Requires: %{name}-writer = %{EVRD}
-%if !%javaless
+%if !%{javaless}
 Requires: jakarta-commons-codec, jakarta-commons-httpclient
 Requires: jakarta-commons-lang, jakarta-commons-logging
 %endif
@@ -1045,11 +1031,22 @@ Obsoletes: openoffice.org64-presentation-minimizer <= 1:3.1-4
 Conflicts: openoffice.org-presentation-minimizer <= 1:3.2-rc4.0
 
 %description presentation-minimizer
-With Presentation Minimizer extesion is possible to reduce the file size of the 
-presentation by compressing images and removing data not needed in a automatizated
-way.
+With Presentation Minimizer extesion is possible to reduce the file size 
+of the presentation by compressing images and removing data not needed in 
+a automatizated way.
 
-Note: The Presentation Minimizer also works on Microsoft PowerPoint presentations. 
+Note: The Presentation Minimizer also works on 
+Microsoft PowerPoint presentations. 
+%endif
+
+%package postgresql
+Summary: PostgreSQL connector for LibreOffice
+Group: Office
+Requires: %{name}-base = %{EVRD}
+
+%description postgresql
+A PostgreSQl connector for the database front-end for LibreOffice. Allows
+creation and management of PostgreSQL databases through a GUI.
 
 %if %l10n
 
@@ -1535,7 +1532,6 @@ Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-fi
 Requires:	fonts-ttf-dejavu
 Requires:	urw-fonts
-Requires:	%{ooname}-voikko
 Provides: 	LibreOffice-l10n-fi
 Obsoletes:	openoffice.org-go-ooo-l10n-fi <= %{version}
 Suggests:	%{ooname}-help-fi = %{EVRD} 
@@ -2165,10 +2161,6 @@ standard locales system.
 Summary:	Portuguese Brazilian language support for LibreOffice
 Group:		Office
 Provides:	%{ooname}-l10n = %{EVRD}
-# Due to alternatives setup, we must have -release here. (BrOffice)
-Requires:	%{ooname}-common = %{EVRD}
-Requires(post): update-alternatives %{ooname}-common
-Requires(postun): update-alternatives %{ooname}-common
 Requires:	locales-pt
 Requires:	urw-fonts
 Requires:	myspell-pt_BR
@@ -3348,24 +3340,19 @@ Traditional.
 %endif
 
 %prep
-%setup -q -c -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8 -a 9 -a 10 -a 11 -a 12 -a 13 -a 14 -a 15 -a 16 -a 17 -a 18 -a 19
-
+%setup -q -c -a 0 -a 1 -a 2 -a 3 -a 4
+rm -rf git-hooks */git-hooks
 for a in */*; do mv `pwd`/$a .; done
 
 #ant
-%if %javaless
+%if %{javaless}
 tar -xjvf %{SOURCE60}
 %endif
 
+%patch3 -p1 -b .icu~
 %patch4 -p0 -b .xul
-%patch5 -p0 -b .sysui
-%patch6 -p1 -b .kde48
-%patch9 -p0 -b .vba
-%patch10 -p0 -b .vclkde
-%patch11 -p1 -b .sdext
-%patch12 -p0 -b .ucb
+%patch5 -p1 -b .noslack~
 %patch13 -p0 -b .xmlhelp
-%patch14 -p0 -b .gcc462
 
 # Add lzma support (REVIEW)
 %if %{oootarext} == "lzma"
@@ -3409,21 +3396,33 @@ export PATH
 export CCACHE_DIR=%{ccachedir}
 %endif
 
-export ARCH_FLAGS="%{optflags} %{optsafe} -fno-omit-frame-pointer -fno-strict-aliasing"
-export ARCH_FLAGS_CC="%{optflags} %{optsafe} -fno-omit-frame-pointer -fno-strict-aliasing"
-export ARCH_FLAGS_CXX="%{optflags} %{optsafe} -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive -fvisibility-inlines-hidden"
-export ARCH_FLAGS_OPT="%{optflags} -O2 %{optsafe}"
+export ARCH_FLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing"
+export ARCH_FLAGS_CC="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing"
+export ARCH_FLAGS_CXX="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive -fvisibility-inlines-hidden"
+export ARCH_FLAGS_OPT="%{optflags} -O2"
 
 echo "Configure start at: "`date` >> ooobuildtime.log 
 
+
 ENVCFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-aliasing" \
 ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive -fvisibility-inlines-hidden " \
-%configure2_5x \
+./autogen.sh \
+ 	--prefix=%{_prefix} \
+	--exec-prefix=%{_prefix} \
+	--bindir=%{_bindir} \
+	--sbindir=%{_sbindir} \
+	--sysconfdir=%{_sysconfdir} \
+	--datadir=%{_datadir} \
+	--includedir=%{_includedir} \
+	--libdir=%{_libdir} \
+	--libexecdir=%{_libdir} \
+	--localstatedir=/var \
+	--mandir=%{_mandir} \
+	--infodir=%{_infodir} \
 	--with-distro=%{distroname} \
 	--with-vendor=Mandriva \
 	--with-build-version="%{buildver}" \
 	--with-system-stdlibs \
-	--disable-qadevooo \
 	--enable-lockdown \
 	--enable-opengl \
 	--enable-odk \
@@ -3432,40 +3431,36 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 	--enable-binfilter \
 	--with-system-mozilla=xulrunner \
 	--with-system-icu \
-	--with-system-xrender-headers \
-    	--with-system-jpeg \
-    	--with-system-hunspell \
+	--with-system-jpeg \
+	--with-system-hunspell \
 	--with-system-zlib \
 	--with-system-openssl \
 	--with-system-expat \
 	--with-system-libxml \
-	--with-system-python \
-	--with-system-xslt \
+	--enable-python=system \
 	--with-system-curl \
 	--with-system-vigra \
 	--with-system-neon \
-	--with-system-agg \
-	--with-system-libtextcat \
-	--with-external-libtextcat-data \
 	--with-system-libwpd \
 	--with-system-libwps \
 	--with-system-libwpg \
 	--with-system-graphite \
-	--with-system-translate-toolkit \
 	--without-junit \
 	--with-system-cppunit \
-	--enable-broffice \
 	--with-system-redland \
+	--with-system-nss \
+	--with-system-postgresql \
+	--enable-librsvg=system \
 	--with-openldap \
 	--disable-kde \
 	--enable-kde4 \
 	--with-intro-bitmaps="%{SOURCE27}" \
 	--with-about-bitmaps="%{SOURCE28}" \
-%if %javaless
-       --with-ant-home=%{_builddir}/libreoffice-%version/apache-ant-1.8.1/ \
+%if %{javaless}
+	--with-ant-home="%{antpath}" \
 %else
-       --with-system-hsqldb \
-       --with-system-apache-commons \
+	--with-system-hsqldb \
+	--with-system-apache-commons \
 %endif
 %if %{use_systemdb}
 	--with-system-db \
@@ -3474,21 +3469,23 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 	--with-system-boost \
 %endif
 	--with-lang=%{langs} \
-    	--with-installed-ooo-dirname=ooo \
-    	--with-docdir=%{_datadir}/doc/packages/ooo \
-	--with-system-sane-header \
+	--with-system-sane \
 	--with-system-cairo \
 	--without-myspell-dicts \
 	--with-system-dicts \
 	--with-external-dict-dir=%{_datadir}/dict/ooo \
-    	--with-external-hyph-dir=%{_datadir}/dict/ooo \
-    	--with-external-thes-dir=%{_datadir}/dict/ooo \
+	--with-external-hyph-dir=%{_datadir}/dict/ooo \
+	--with-external-thes-dir=%{_datadir}/dict/ooo \
 	--with-system-poppler \
-    	--enable-ext-pdfimport \
-	--enable-ext-presenter-minimizer \
-	--enable-ext-presenter-console \
-    	--enable-ext-wiki-publisher \
-    	--without-fonts \
+%if !%extensionenabled
+	--disable-ext-pdfimport \
+	--disable-ext-presenter-minimizer \
+	--disable-ext-presenter-console \
+	--disable-ext-report-builder \
+%else
+	--enable-ext-wiki-publisher \
+%endif
+	--without-fonts \
 %if %{use_openclipart}
     	--with-openclipart=%{_datadir}/images/openclipart \
 %endif
@@ -3551,23 +3548,35 @@ ln -sf %{SOURCE52} src/
 ln -sf %{SOURCE54} src/
 ln -sf %{SOURCE55} src/
 ln -sf %{SOURCE56} src/
-%if %javaless 
+ln -sf %{SOURCE62} src/
+ln -sf %{SOURCE63} src/
+ln -sf %{SOURCE64} src/
+ln -sf %{SOURCE65} src/
+ln -sf %{SOURCE66} src/
+ln -sf %{SOURCE67} src/
+ln -sf %{SOURCE68} src/
+ln -sf %{SOURCE69} src/
+ln -sf %{SOURCE70} src/
+ln -sf %{SOURCE71} src/
+ln -sf %{SOURCE72} src/
+ln -sf %{SOURCE73} src/
+ln -sf %{SOURCE74} src/
+ln -sf %{SOURCE75} src/
+%if %{javaless}
 ln -sf %{SOURCE57} src/
 ln -sf %{SOURCE58} src/
 ln -sf %{SOURCE59} src/
 ln -sf %{SOURCE61} src/
 %endif
 touch src.downloaded
-
-#. ./*[Ee]nv.[Ss]et.sh
 ./bootstrap
 
 # %make 
 make \
-	ARCH_FLAGS="%{optflags} %{optsafe} -fno-omit-frame-pointer -fno-strict-aliasing" \
-	ARCH_FLAGS_CC="%{optflags} %{optsafe} -fno-omit-frame-pointer -fno-strict-aliasing" \
-	ARCH_FLAGS_CXX="%{optflags} %{optsafe} -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive -fvisibility-inlines-hidden" \
-	ARCH_FLAGS_OPT="%{optflags} -O2 %{optsafe}" 
+	ARCH_FLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing" \
+	ARCH_FLAGS_CC="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing" \
+	ARCH_FLAGS_CXX="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive -fvisibility-inlines-hidden" \
+	ARCH_FLAGS_OPT="%{optflags} -O2" 
 
 echo "Make end at: "`date` >> ooobuildtime.log 
 echo "Install start at: "`date` >> ooobuildtime.log 
@@ -3701,11 +3710,11 @@ find %{buildroot} -type f \( -name '*.so' -o -name '*.so.*' \) -exec chmod a+x '
 # files and thus disable unopkg for the rest of install stage.
 # First make sure there is no actual data pre-existing in this directory,
 # as that will be lost due to the ghostification:
-[ $(find %{buildroot}%{ooodir}/share/uno_packages/cache -type f | wc -l) -eq 0 ]
-%{buildroot}%{ooodir}/program/unopkg add --shared %{_builddir}/libreoffice-%version/solver/340/unxlng*/bin/pdfimport/pdfimport.oxt
-%{buildroot}%{ooodir}/program/unopkg remove --shared pdfimport.oxt
-# clean cache
-%{buildroot}%{ooodir}/program/unopkg list --shared
+# [ $(find %{buildroot}%{ooodir}/share/uno_packages/cache -type f | wc -l) -eq 0 ]
+# %{buildroot}%{ooodir}/program/unopkg add --shared %{_builddir}/libreoffice-%version/solver/340/unxlng*/bin/pdfimport/pdfimport.oxt
+# %{buildroot}%{ooodir}/program/unopkg remove --shared pdfimport.oxt
+# # clean cache
+# %{buildroot}%{ooodir}/program/unopkg list --shared
 # # there should be more files now:
 # [ $(find %{buildroot}%{ooodir}/share/uno_packages/cache | wc -l) -ge 5 ]
 # for path in $(find %{buildroot}%{ooodir}/share/uno_packages/cache/); do
@@ -3745,12 +3754,14 @@ echo 'ProgressSize=377,9' >> %{buildroot}%{ooodir}/program/sofficerc
 # # templates for kde "create new" context menu
 # # tar xjf %{SOURCE31} -C %{buildroot}%{_datadir}
 
-# copy extensions 
-install -d -m755 %{buildroot}%{ooodir}/extensions
-cp %{_builddir}/libreoffice-%version/solver/340/unxlng*/bin/pdfimport/pdfimport.oxt %{buildroot}%{ooodir}/extensions/
-cp %{_builddir}/libreoffice-%version/solver/340/unxlng*/bin/presenter/presenter-screen.oxt %{buildroot}%{ooodir}/extensions/
-cp %{_builddir}/libreoffice-%version/solver/340/unxlng*/bin/swext/wiki-publisher.oxt %{buildroot}%{ooodir}/extensions/
-cp %{_builddir}/libreoffice-%version/solver/340/unxlng*/bin/minimizer/presentation-minimizer.oxt %{buildroot}%{ooodir}/extensions/
+%if %extensionenabled
+# # copy extensions 
+# install -d -m755 %{buildroot}%{ooodir}/extensions
+# cp %{_builddir}/libreoffice-%version/solver/unxlng*/bin/pdfimport/pdfimport.oxt %{buildroot}%{ooodir}/extensions/
+# cp %{_builddir}/libreoffice-%version/solver/unxlng*/bin/presenter/presenter-screen.oxt %{buildroot}%{ooodir}/extensions/
+# cp %{_builddir}/libreoffice-%version/solver/unxlng*/bin/wiki-publisher.oxt %{buildroot}%{ooodir}/extensions/
+# cp %{_builddir}/libreoffice-%version/solver/unxlng*/bin/minimizer/presentation-minimizer.oxt %{buildroot}%{ooodir}/extensions/
+%endif
 
 # libre
 # #fixes #56439
@@ -3767,10 +3778,13 @@ for p in common base calc writer impress draw math; do
 done;
 
 ## drop GTK dependency from -core
-sed -i -e '/^.*libqstart_gtk%libsuffix.so$/d' file-lists/core_list.txt
+sed -i -e '/^.*libqstart_gtklo.so$/d' file-lists/core_list.txt
 sed -i -e '/^.*pluginapp.bin$/d' file-lists/core_list.txt
-echo '%ooodir/%basis/program/libqstart_gtk%libsuffix.so' >>file-lists/gnome_list.txt
-echo '%ooodir/%basis/program/pluginapp.bin' >>file-lists/gnome_list.txt
+echo '%ooodir/program/libqstart_gtklo.so' >>file-lists/gnome_list.txt
+echo '%ooodir/program/pluginapp.bin' >>file-lists/gnome_list.txt
+## GConf too
+sed -i -e '/^.*gconfbe1.uno.so$/d' file-lists/core_list.txt
+echo '%ooodir/program/gconfbe1.uno.so' >>file-lists/gnome_list.txt
 
 ## sort removing duplicates
 sort -u file-lists/gnome_list.txt > file-lists/gnome_list.uniq.sorted.txt 
@@ -3792,6 +3806,9 @@ sed -i '/^.*-US.res$/d' file-lists/filter-binfilter_list.txt
 # sed -i '/^.*libreoffice-draw.desktop$/d'    file-lists/draw_list.txt 
 # sed -i '/^.*libreoffice-base.desktop$/d'    file-lists/base_list.txt 
 # sed -i '/^.*libreoffice-math.desktop$/d'    file-lists/math_list.txt 
+
+#rpmlint: E: non-standard-executable-perm
+chmod 0755 %{buildroot}%{ooodir}/share/extensions/pdfimport/xpdfimport
 
 %clean
 rm -rf %{buildroot}
@@ -3849,121 +3866,125 @@ fi
 %postun writer
 %{clean_desktop_database}
 
-%post pdfimport
-# upgrade 
-if [ $1 -ge 2 ];then
-	# removes old installed pdfimport extension 
-	idpdfimport=$(%unopkg list --shared 2> /dev/null | sed -ne 's/^Identifier: \(com.sun.star.PDFImport-linux.*\)/\1/p');
-	if [ "z$idpdfimport" != "z" ]; then
-		%unopkg remove --shared $idpdfimport 2> /dev/null
-		%unopkg list --shared &> /dev/null
-	fi
-fi
+%if %extensionenabled
 
-#install new pdfimport version
-%unopkg add --shared %{ooodir}/extensions/pdfimport.oxt 2> /dev/null
-%unopkg list --shared &> /dev/null 
-
-#uninstall
-%preun pdfimport 
-if [ $1 -eq 0 ];then
-	idpdfimport=$(%unopkg list --shared 2> /dev/null | sed -ne 's/^Identifier: \(com.sun.star.PDFImport-linux.*\)/\1/p');
-	if [ "z$idpdfimport" != "z" ]; then
-		%unopkg remove --shared $idpdfimport 2> /dev/null
-		#clean footprint cache
-		%unopkg list --shared &> /dev/null
-	fi
-fi
-
-%post presenter-screen
-# upgrade 
-if [ $1 -ge 2 ];then
-	idextension=$(%unopkg list --shared 2> /dev/null | sed -ne 's/^Identifier: \(com.sun.PresenterScreen-linux.*\)/\1/p');
-	if [ "z$idextension" != "z" ]; then
-		%unopkg remove --shared $idextension 2> /dev/null
-		%unopkg list --shared &> /dev/null
-	fi
-fi
-#install 
-%unopkg add --shared %{ooodir}/extensions/presenter-screen.oxt 2> /dev/null
-%unopkg list --shared &> /dev/null 
-
-
-%preun presenter-screen  
-if [ $1 -eq 0 ];then
-	idextension=$(%unopkg list --shared 2> /dev/null | sed -ne 's/^Identifier: \(com.sun.PresenterScreen-linux.*\)/\1/p');
-	if [ "z$idextension" != "z" ]; then
-		%unopkg remove --shared $idextension 2> /dev/null
-		%unopkg list --shared &> /dev/null
-	fi
-fi
-
-# %post report-builder
-# upgrade 
-# if [ $1 -ge 1 ];then
-#	idextension=$(%unopkg list --shared 2> /dev/null | sed -ne 's/^Identifier: \(com.sun.reportdesigner\)/\1/p');
-#	if [ "z$idextension" != "z" ]; then
-#		%unopkg remove --shared $idextension 2> /dev/null
-#		%unopkg list --shared &> /dev/null
-#	fi
+# %post pdfimport
+# # upgrade 
+# if [ $1 -ge 2 ];then
+# 	# removes old installed pdfimport extension 
+# 	idpdfimport=$(%unopkg list --shared 2> /dev/null | sed -ne 's/^Identifier: \(com.sun.star.PDFImport-linux.*\)/\1/p');
+# 	if [ "z$idpdfimport" != "z" ]; then
+# 		%unopkg remove --shared $idpdfimport 2> /dev/null
+# 		%unopkg list --shared &> /dev/null
+# 	fi
 # fi
-#install 
-# %unopkg add --shared %{ooodir}/sun-report-builder.oxt 2> /dev/null
+# 
+# #install new pdfimport version
+# %unopkg add --shared %{ooodir}/extensions/pdfimport.oxt 2> /dev/null
 # %unopkg list --shared &> /dev/null 
-
-#uninstall
-# %preun report-builder
+# 
+# #uninstall
+# %preun pdfimport 
 # if [ $1 -eq 0 ];then
-#	idextension=$(%unopkg list --shared 2> /dev/null | sed -ne 's/^Identifier: \(com.sun.reportdesigner\)/\1/p');
-#	if [ "z$idextension" != "z" ]; then
-#		%unopkg remove --shared $idextension 2> /dev/null
-#		%unopkg list --shared &> /dev/null
-#	fi
+# 	idpdfimport=$(%unopkg list --shared 2> /dev/null | sed -ne 's/^Identifier: \(com.sun.star.PDFImport-linux.*\)/\1/p');
+# 	if [ "z$idpdfimport" != "z" ]; then
+# 		%unopkg remove --shared $idpdfimport 2> /dev/null
+# 		#clean footprint cache
+# 		%unopkg list --shared &> /dev/null
+# 	fi
+# fi
+# 
+# %post presenter-screen
+# # upgrade 
+# if [ $1 -ge 2 ];then
+# 	idextension=$(%unopkg list --shared 2> /dev/null | sed -ne 's/^Identifier: \(com.sun.PresenterScreen-linux.*\)/\1/p');
+# 	if [ "z$idextension" != "z" ]; then
+# 		%unopkg remove --shared $idextension 2> /dev/null
+# 		%unopkg list --shared &> /dev/null
+# 	fi
+# fi
+# #install 
+# %unopkg add --shared %{ooodir}/extensions/presenter-screen.oxt 2> /dev/null
+# %unopkg list --shared &> /dev/null 
+# 
+# 
+# %preun presenter-screen  
+# if [ $1 -eq 0 ];then
+# 	idextension=$(%unopkg list --shared 2> /dev/null | sed -ne 's/^Identifier: \(com.sun.PresenterScreen-linux.*\)/\1/p');
+# 	if [ "z$idextension" != "z" ]; then
+# 		%unopkg remove --shared $idextension 2> /dev/null
+# 		%unopkg list --shared &> /dev/null
+# 	fi
+# fi
+# 
+# # %post report-builder
+# # upgrade 
+# # if [ $1 -ge 1 ];then
+# #	idextension=$(%unopkg list --shared 2> /dev/null | sed -ne 's/^Identifier: \(com.sun.reportdesigner\)/\1/p');
+# #	if [ "z$idextension" != "z" ]; then
+# #		%unopkg remove --shared $idextension 2> /dev/null
+# #		%unopkg list --shared &> /dev/null
+# #	fi
+# # fi
+# #install 
+# # %unopkg add --shared %{ooodir}/sun-report-builder.oxt 2> /dev/null
+# # %unopkg list --shared &> /dev/null 
+# 
+# #uninstall
+# # %preun report-builder
+# # if [ $1 -eq 0 ];then
+# #	idextension=$(%unopkg list --shared 2> /dev/null | sed -ne 's/^Identifier: \(com.sun.reportdesigner\)/\1/p');
+# #	if [ "z$idextension" != "z" ]; then
+# #		%unopkg remove --shared $idextension 2> /dev/null
+# #		%unopkg list --shared &> /dev/null
+# #	fi
+# # fi
+# 
+# %post wiki-publisher
+# # upgrade 
+# if [ $1 -ge 2 ];then
+# 	idextension=$(%unopkg list --shared 2> /dev/null | sed -ne 's/^Identifier: \(com.sun.wiki-publisher\)/\1/p');
+# 	if [ "z$idextension" != "z" ]; then
+# 		%unopkg remove --shared $idextension 2> /dev/null
+# 		%unopkg list --shared &> /dev/null
+# 	fi
+# fi	
+# #install 
+# %unopkg add --shared %{ooodir}/extensions/wiki-publisher.oxt 2> /dev/null
+# %unopkg list --shared &> /dev/null 
+# 
+# %preun wiki-publisher
+# if [ $1 -eq 0 ];then
+# 	idextension=$(%unopkg list --shared 2> /dev/null | sed -ne 's/^Identifier: \(com.sun.wiki-publisher\)/\1/p');
+# 	if [ "z$idextension" != "z" ]; then
+# 		%unopkg remove --shared $idextension 2> /dev/null
+# 		%unopkg list --shared &> /dev/null
+# 	fi
+# fi
+# 
+# %post presentation-minimizer
+# # upgrade 
+# if [ $1 -ge 2 ];then
+# 	idextension=$(%unopkg list --shared 2> /dev/null | sed -ne 's/^Identifier: \(com.sun.star.PresentationMinimizer-linux.*\)/\1/p');
+# 	if [ "z$idextension" != "z" ]; then
+# 		%unopkg remove --shared $idextension 2> /dev/null
+# 		%unopkg list --shared &> /dev/null
+# 	fi
+# fi
+# #install 
+# %unopkg add --shared %{ooodir}/extensions/sun-presentation-minimizer.oxt 2> /dev/null
+# %unopkg list --shared &> /dev/null 
+# 
+# %preun presentation-minimizer
+# if [ $1 -eq 0 ];then
+# 	idextension=$(%unopkg list --shared 2> /dev/null | sed -ne 's/^Identifier: \(com.sun.star.PresentationMinimizer-linux.*\)/\1/p');
+# 	if [ "z$idextension" != "z" ]; then
+# 		%unopkg remove --shared $idextension 2> /dev/null
+# 		%unopkg list --shared &> /dev/null
+# 	fi
 # fi
 
-%post wiki-publisher
-# upgrade 
-if [ $1 -ge 2 ];then
-	idextension=$(%unopkg list --shared 2> /dev/null | sed -ne 's/^Identifier: \(com.sun.wiki-publisher\)/\1/p');
-	if [ "z$idextension" != "z" ]; then
-		%unopkg remove --shared $idextension 2> /dev/null
-		%unopkg list --shared &> /dev/null
-	fi
-fi	
-#install 
-%unopkg add --shared %{ooodir}/extensions/wiki-publisher.oxt 2> /dev/null
-%unopkg list --shared &> /dev/null 
-
-%preun wiki-publisher
-if [ $1 -eq 0 ];then
-	idextension=$(%unopkg list --shared 2> /dev/null | sed -ne 's/^Identifier: \(com.sun.wiki-publisher\)/\1/p');
-	if [ "z$idextension" != "z" ]; then
-		%unopkg remove --shared $idextension 2> /dev/null
-		%unopkg list --shared &> /dev/null
-	fi
-fi
-
-%post presentation-minimizer
-# upgrade 
-if [ $1 -ge 2 ];then
-	idextension=$(%unopkg list --shared 2> /dev/null | sed -ne 's/^Identifier: \(com.sun.star.PresentationMinimizer-linux.*\)/\1/p');
-	if [ "z$idextension" != "z" ]; then
-		%unopkg remove --shared $idextension 2> /dev/null
-		%unopkg list --shared &> /dev/null
-	fi
-fi
-#install 
-%unopkg add --shared %{ooodir}/extensions/sun-presentation-minimizer.oxt 2> /dev/null
-%unopkg list --shared &> /dev/null 
-
-%preun presentation-minimizer
-if [ $1 -eq 0 ];then
-	idextension=$(%unopkg list --shared 2> /dev/null | sed -ne 's/^Identifier: \(com.sun.star.PresentationMinimizer-linux.*\)/\1/p');
-	if [ "z$idextension" != "z" ]; then
-		%unopkg remove --shared $idextension 2> /dev/null
-		%unopkg list --shared &> /dev/null
-	fi
-fi
+%endif
 
 %files
 
@@ -4029,9 +4050,6 @@ fi
 # libre
 # %{_datadir}/applications/ooo-extension-manager*.desktop
 
-# Anssi 
-%dir %{ooodir}/extensions
-
 %files core -f file-lists/core_list.txt
 
 %files devel -f file-lists/sdk_list.uniq.sorted.txt
@@ -4047,11 +4065,19 @@ fi
 %{_mandir}/man1/lodraw*
 %{_datadir}/icons/hicolor/scalable/apps/mandriva-rosa-lo-draw_72.svg
 
-# dev300: 
-# %files dtd-officedocument1.0 -f build/dtd_list.txt
+%files dtd-officedocument1.0 -f file-lists/dtd_list.txt
 
-# dev300: 
 %files filter-binfilter -f file-lists/filter-binfilter_list.txt
+%defattr(-,root,root,-)
+%{ooodir}/program/resource/bf_frmen-US.res
+%{ooodir}/program/resource/bf_ofaen-US.res
+%{ooodir}/program/resource/bf_scen-US.res
+%{ooodir}/program/resource/bf_schen-US.res
+%{ooodir}/program/resource/bf_sden-US.res
+%{ooodir}/program/resource/bf_smen-US.res
+%{ooodir}/program/resource/bf_svten-US.res
+%{ooodir}/program/resource/bf_svxen-US.res
+%{ooodir}/program/resource/bf_swen-US.res
 
 %files gnome -f file-lists/gnome_list.uniq.sorted.txt
 
@@ -4077,31 +4103,31 @@ fi
 %files openclipart -f file-lists/gallery_list.txt
 
 %files pyuno -f file-lists/pyuno_list.txt
+%defattr(-,root,root,-)
+%{ooodir}/share/extensions/script-provider-for-python
 
 #%files qa-api-tests
 #%{ooodir}/qadevOOo
 
-%files testtool -f file-lists/testtool_list.txt
-
 %files style-galaxy
 %defattr(-,root,root,-)
-%{ooodir}/%basis/share/config/images.zip
+%{ooodir}/share/config/images.zip
 
 %files style-crystal
 %defattr(-,root,root,-)
-%{ooodir}/%basis/share/config/images_crystal.zip
+%{ooodir}/share/config/images_crystal.zip
 
 %files style-hicontrast
 %defattr(-,root,root,-)
-%{ooodir}/%basis/share/config/images_hicontrast.zip
+%{ooodir}/share/config/images_hicontrast.zip
 
 %files style-tango
 %defattr(-,root,root,-)
-%{ooodir}/%basis/share/config/images_tango.zip
+%{ooodir}/share/config/images_tango.zip
 
 %files style-oxygen
 %defattr(-,root,root,-)
-%{ooodir}/%basis/share/config/images_oxygen.zip
+%{ooodir}/share/config/images_oxygen.zip
 
 %files writer -f file-lists/writer_list.txt
 %defattr(-,root,root,-)
@@ -4124,25 +4150,37 @@ fi
 # %{_libdir}/mono/ooo-%{mdvsuffix}
 %endif
 
+%if %extensionenabled
+
 %files pdfimport
 %defattr(-,root,root,-)
-%{ooodir}/extensions/pdfimport.oxt
+%{ooodir}/share/extensions/pdfimport
 
 %files presenter-screen
 %defattr(-,root,root,-)
-%{ooodir}/extensions/presenter-screen.oxt
+%{ooodir}/share/extensions/presenter-screen
 
-# %files report-builder
-# %defattr(-,root,root,-)
-# %{ooodir}/sun-report-builder.oxt
+%files report-builder
+%defattr(-,root,root,-)
+%{ooodir}/share/extensions/report-builder
 
 %files wiki-publisher
 %defattr(-,root,root,-)
-%{ooodir}/extensions/wiki-publisher.oxt
+%{ooodir}/share/extensions/wiki-publisher
 
 %files presentation-minimizer
 %defattr(-,root,root,-)
-%{ooodir}/extensions/presentation-minimizer.oxt
+%{ooodir}/share/extensions/presentation-minimizer
+
+%endif
+
+%files postgresql
+%defattr(-,root,root,-)
+%{ooodir}/program/postgresql-sdbc.uno.so
+%{ooodir}/program/postgresql-sdbc-impl.uno.so
+%{ooodir}/program/postgresql-sdbc.ini
+%{ooodir}/program/services/postgresql-sdbc.rdb
+%{ooodir}/share/registry/postgresqlsdbc.xcd
 
 %if %l10n
 %files l10n-it -f file-lists/lang_it_list.txt
