@@ -209,7 +209,7 @@ BuildRequires:	libwpd-devel >= 0.9.0
 BuildRequires:	libwpg-devel
 BuildRequires:	libwps-devel
 BuildRequires:	icu
-BuildRequires:  icu-devel >= 49.0
+BuildRequires:  icu-devel
 BuildRequires:  xulrunner-devel
 BuildRequires:  libvigra-devel
 BuildRequires:  hunspell-devel
@@ -242,8 +242,6 @@ BuildConflicts: java-devel >= 0:1.7.0
 BuildRequires:  pkgconfig(ORBit-2.0)
 BuildRequires:  pkgconfig(gconf-2.0)
 BuildRequires:  pkgconfig(gnome-vfs-2.0)
-# recent enough rpm with broken unpackaged subpackage check no longer erroring out
-BuildRequires:	rpm-build >= 1:5.4.4-27
 # BuildRequires:  jakarta-commons-logging
 
 ####################################################################
