@@ -21,18 +21,18 @@
 %define _binary_payload w1.xzdio
 %define _source_payload w1.xzdio
 
-%define version		3.5.2
+%define version		3.5.4
 
 %if %mandriva_branch == Cooker
 # Cooker
-%define release %mkrel 4
+%define release %mkrel 1
 %else
 # Old distros
 %define subrel 1
 %define release %mkrel 0
 %endif
 
-%define buildver	3.5.2.2
+%define buildver	3.5.4.2
 %define jdkver		1_5_0_11
 %define ooodir		%{_libdir}/libreoffice
 %define libdbver	4.2
