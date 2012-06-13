@@ -25,7 +25,7 @@
 
 %if %mandriva_branch == Cooker
 # Cooker
-%define release %mkrel 1
+%define release %mkrel 4
 %else
 # Old distros
 %define subrel 1
@@ -279,7 +279,7 @@ Source54:	http://hg.services.openoffice.org/binaries/ada24d37d8d638b3d8a9985e80b
 Source55:	http://download.go-oo.org/src/ea570af93c284aa9e5621cd563f54f4d-bsh-2.0b1-src.tar.gz
 Source62:	http://dev-www.libreoffice.org/src/e1c178b18f130b40494561f02bc1a948-libexttextcat-3.2.0.tar.bz2
 Source63:	http://dev-www.libreoffice.org/src/7c2549f6b0a8bb604e6c4c729ffdcfe6-libcmis-0.1.0.tar.gz
-Source64:	http://dev-www.libreoffice.org/src/d28864eb2b59bb57b034c0d4662a3cee-libvisio-0.0.15.tar.bz2
+Source64:	http://dev-www.libreoffice.org/src/2fa6028324347860e684e75310818d43-libvisio-0.0.16.tar.bz2
 
 # jfreereport
 Source65:	http://dev-www.libreoffice.org/src/39bb3fcea1514f1369fcfc87542390fd-sacjava-1.3.zip
