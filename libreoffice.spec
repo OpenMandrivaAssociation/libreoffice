@@ -242,6 +242,8 @@ BuildConflicts: java-devel >= 0:1.7.0
 BuildRequires:  pkgconfig(ORBit-2.0)
 BuildRequires:  pkgconfig(gconf-2.0)
 BuildRequires:  pkgconfig(gnome-vfs-2.0)
+BuildRequires:  mspub-devel
+BuildRequires:  exttextcat-devel
 # BuildRequires:  jakarta-commons-logging
 
 ####################################################################
@@ -277,7 +279,6 @@ Source51:	http://hg.services.openoffice.org/binaries/26b3e95ddf3d9c077c480ea4587
 Source52:	http://hg.services.openoffice.org/binaries/18f577b374d60b3c760a3a3350407632-STLport-4.5.tar.gz
 Source54:	http://hg.services.openoffice.org/binaries/ada24d37d8d638b3d8a9985e80bc2978-source-9.0.0.7-bj.zip
 Source55:	http://download.go-oo.org/src/ea570af93c284aa9e5621cd563f54f4d-bsh-2.0b1-src.tar.gz
-Source62:	http://dev-www.libreoffice.org/src/e1c178b18f130b40494561f02bc1a948-libexttextcat-3.2.0.tar.bz2
 Source63:	http://dev-www.libreoffice.org/src/7c2549f6b0a8bb604e6c4c729ffdcfe6-libcmis-0.1.0.tar.gz
 Source64:	http://dev-www.libreoffice.org/src/a9a1db27688bad49418667b434d29c1f-libvisio-0.0.18.tar.bz2
 
@@ -3554,7 +3555,6 @@ ln -sf %{SOURCE52} src/
 ln -sf %{SOURCE54} src/
 ln -sf %{SOURCE55} src/
 ln -sf %{SOURCE56} src/
-ln -sf %{SOURCE62} src/
 ln -sf %{SOURCE63} src/
 ln -sf %{SOURCE64} src/
 ln -sf %{SOURCE65} src/
