@@ -3484,6 +3484,7 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 	--with-external-hyph-dir=%{_datadir}/dict/ooo \
 	--with-external-thes-dir=%{_datadir}/dict/ooo \
 	--with-system-poppler \
+	--with-system-libexttextcat \
 %if !%extensionenabled
 	--disable-ext-pdfimport \
 	--disable-ext-presenter-minimizer \
