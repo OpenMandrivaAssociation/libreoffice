@@ -21,21 +21,20 @@
 %define _binary_payload w1.xzdio
 %define _source_payload w1.xzdio
 
-%define version		3.5.5
+%define version		3.6.0
 
 %if %mandriva_branch == Cooker
 # Cooker
-%define release 2
+%define release 1
 %else
 # Old distros
 %define subrel 1
 %define release %mkrel 0
 %endif
 
-%define buildver	3.5.5.3
+%define buildver	3.6.0.4
 %define jdkver		1_5_0_11
 %define ooodir		%{_libdir}/libreoffice
-%define libdbver	4.2
 %if %l10n
 %define langs	"en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru sh si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu"
 %else
@@ -208,6 +207,8 @@ BuildRequires:	zip
 BuildRequires:	libwpd-devel >= 0.9.0
 BuildRequires:	libwpg-devel
 BuildRequires:	libwps-devel
+BuildRequires:	pkgconfig(lcms2)
+BuildRequires:	clucene-devel %{_lib}clucene-contribs-lib2
 BuildRequires:	icu
 BuildRequires:  icu-devel
 BuildRequires:  xulrunner-devel
@@ -263,7 +264,7 @@ Source31:       http://download.go-oo.org/DEV300/ooo_oxygen_images-2009-06-17.ta
 Source32: 	http://hg.services.openoffice.org/binaries/fdb27bfe2dbe2e7b57ae194d9bf36bab-SampleICC-1.3.2.tar.gz
 Source36: 	http://download.go-oo.org/src/0ff7d225d087793c8c2c680d77aac3e7-mdds_0.5.3.tar.bz2
 Source37: 	http://download.go-oo.org/src/0f63ee487fda8f21fafa767b3c447ac9-ixion-0.2.0.tar.gz
-Source38:	http://hg.services.openoffice.org/binaries/067201ea8b126597670b5eff72e1f66c-mythes-1.2.0.tar.gz
+Source38:	http://dev-www.libreoffice.org/src/e1e255dc43dbcbb34cb19e8a0eba90ae-mythes-1.2.2.tar.gz
 Source39: 	http://download.go-oo.org/extern/185d60944ea767075d27247c3162b3bc-unowinreg.dll
 Source40: 	http://hg.services.openoffice.org/binaries/48d8169acc35f97e05d8dcdfd45be7f2-lucene-2.3.2.tar.gz
 Source42:	http://hg.services.openoffice.org/binaries/2a177023f9ea8ec8bd00837605c5df1b-jakarta-tomcat-5.0.30-src.tar.gz
@@ -271,16 +272,17 @@ Source43: 	http://hg.services.openoffice.org/binaries/284e768eeda0e2898b0d5bf7e2
 Source44:	http://hg.services.openoffice.org/binaries/fca8706f2c4619e2fa3f8f42f8fc1e9d-rasqal-0.9.16.tar.gz 
 Source45:	http://hg.services.openoffice.org/binaries/1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz
 Source46:	http://hg.services.openoffice.org/binaries/1f24ab1d39f4a51faf22244c94a6203f-xmlsec1-1.2.14.tar.gz	
-Source47:   http://hg.services.openoffice.org/binaries/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
+Source47:	http://hg.services.openoffice.org/binaries/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
 Source48:	http://hg.services.openoffice.org/binaries/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
 Source49:	http://hg.services.openoffice.org/binaries/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
-Source50:	http://hg.services.openoffice.org/binaries/48a9f787f43a09c0a9b7b00cd1fddbbf-hyphen-2.7.1.tar.gz
+Source50:	http://dev-www.libreoffice.org/src/86261f06c097d3e425a2f6d0b0635380-hyphen-2.8.3.tar.gz
 Source51:	http://hg.services.openoffice.org/binaries/26b3e95ddf3d9c077c480ea45874b3b8-lp_solve_5.5.tar.gz
 Source52:	http://hg.services.openoffice.org/binaries/18f577b374d60b3c760a3a3350407632-STLport-4.5.tar.gz
 Source54:	http://hg.services.openoffice.org/binaries/ada24d37d8d638b3d8a9985e80bc2978-source-9.0.0.7-bj.zip
 Source55:	http://download.go-oo.org/src/ea570af93c284aa9e5621cd563f54f4d-bsh-2.0b1-src.tar.gz
-Source63:	http://dev-www.libreoffice.org/src/7c2549f6b0a8bb604e6c4c729ffdcfe6-libcmis-0.1.0.tar.gz
+Source63:	http://dev-www.libreoffice.org/src/0d2dcdfbf28d6208751b33057f5361f0-libcmis-0.2.3.tar.gz
 Source64:	http://dev-www.libreoffice.org/src/a9a1db27688bad49418667b434d29c1f-libvisio-0.0.18.tar.bz2
+Source76:	http://dev-www.libreoffice.org/src/ce5a1def34578b75959ac31210f031f6-libcdr-0.0.8.tar.bz2
 
 # jfreereport
 Source65:	http://dev-www.libreoffice.org/src/39bb3fcea1514f1369fcfc87542390fd-sacjava-1.3.zip
@@ -308,7 +310,6 @@ Source100:	libreoffice.rpmlintrc
 # Upstream:
 # http://cgit.freedesktop.org/libreoffice/core/patch/?id=0c08a84c04b166ab6479716e2c33cd444d7e3dbe
 Patch3:		libreoffice-3.5.2.2-icu-49.patch
-Patch4:		xulrunner-to-mozila-plugin.pc.diff
 Patch5:		libreoffice-3.5.2-no-slackwareicons.patch
 # bug fix 64789
 Patch13: 	help-images-mdv64789.patch
@@ -3357,9 +3358,8 @@ tar -xjvf %{SOURCE60}
 %endif
 
 %patch3 -p1 -b .icu~
-%patch4 -p0 -b .xul
 %patch5 -p1 -b .noslack~
-%patch13 -p0 -b .xmlhelp
+%patch13 -p1 -b .xmlhelp~
 
 # Add lzma support (REVIEW)
 %if %{oootarext} == "lzma"
@@ -3438,6 +3438,8 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 	--enable-binfilter \
 	--with-system-mozilla=xulrunner \
 	--with-system-icu \
+	--with-system-lcms2 \
+	--with-system-clucene \
 	--with-system-jpeg \
 	--with-system-hunspell \
 	--with-system-zlib \
@@ -3558,6 +3560,7 @@ ln -sf %{SOURCE55} src/
 ln -sf %{SOURCE56} src/
 ln -sf %{SOURCE63} src/
 ln -sf %{SOURCE64} src/
+ln -sf %{SOURCE76} src/
 ln -sf %{SOURCE65} src/
 ln -sf %{SOURCE66} src/
 ln -sf %{SOURCE67} src/
