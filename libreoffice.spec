@@ -21,7 +21,7 @@
 %define _binary_payload w1.xzdio
 %define _source_payload w1.xzdio
 
-%define version		3.6.0
+%define version		3.6.2
 
 %if %mandriva_branch == Cooker
 # Cooker
@@ -32,8 +32,7 @@
 %define release %mkrel 0
 %endif
 
-%define buildver	3.6.0.4
-%define jdkver		1_5_0_11
+%define buildver	3.6.2.2
 %define ooodir		%{_libdir}/libreoffice
 %if %l10n
 %define langs	"en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru sh si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu"
@@ -47,10 +46,8 @@
 
 %ifarch x86_64
 %define distroname      Mandriva64
-%define jdkver          1.4.2
 %else
 %define distroname      Mandriva
-%define jdkver          1_5_0_11
 %endif
 
 %define use_icecream    0	
@@ -281,7 +278,7 @@ Source52:	http://hg.services.openoffice.org/binaries/18f577b374d60b3c760a3a33504
 Source54:	http://hg.services.openoffice.org/binaries/ada24d37d8d638b3d8a9985e80bc2978-source-9.0.0.7-bj.zip
 Source55:	http://download.go-oo.org/src/ea570af93c284aa9e5621cd563f54f4d-bsh-2.0b1-src.tar.gz
 Source63:	http://dev-www.libreoffice.org/src/0d2dcdfbf28d6208751b33057f5361f0-libcmis-0.2.3.tar.gz
-Source64:	http://dev-www.libreoffice.org/src/a9a1db27688bad49418667b434d29c1f-libvisio-0.0.18.tar.bz2
+Source64:	http://dev-www.libreoffice.org/src/94e7f271e38c976462558b4278590178-libvisio-0.0.19.tar.bz2
 Source76:	http://dev-www.libreoffice.org/src/ce5a1def34578b75959ac31210f031f6-libcdr-0.0.8.tar.bz2
 
 # jfreereport
@@ -307,6 +304,7 @@ Source61:	http://hg.services.openoffice.org/binaries/17410483b5b5f267aa18b7e00b6
 
 Source100:	libreoffice.rpmlintrc
 
+Patch1:		libreoffice-3.6.2-non-fatal-error-during-test.patch
 # Upstream:
 # http://cgit.freedesktop.org/libreoffice/core/patch/?id=0c08a84c04b166ab6479716e2c33cd444d7e3dbe
 Patch3:		libreoffice-3.5.2.2-icu-49.patch
@@ -3357,6 +3355,7 @@ for a in */*; do mv `pwd`/$a .; done
 tar -xjvf %{SOURCE60}
 %endif
 
+%patch1 -p1 -b .nonfatal~
 %patch3 -p1 -b .icu~
 %patch5 -p1 -b .noslack~
 %patch13 -p1 -b .xmlhelp~
@@ -3476,6 +3475,7 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 %endif
 %if %{use_systemboost}
 	--with-system-boost \
+	--with-system-boost-for-build \
 %endif
 	--with-lang=%{langs} \
 	--with-system-sane \
