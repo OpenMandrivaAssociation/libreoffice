@@ -1,0 +1,39 @@
+--- libreoffice-3.6.0/xmlhelp/source/cxxhelp/provider/databases.cxx.xmlhelp	2012-07-27 14:37:04.000000000 +0200
++++ libreoffice-3.6.0/xmlhelp/source/cxxhelp/provider/databases.cxx	2012-08-14 21:19:17.753127645 +0200
+@@ -302,17 +302,32 @@ rtl::OString Databases::getImagesZipFile
+             bool bFound = false;
+             if ( !aSymbolsStyleName.isEmpty() )
+             {
+-                rtl::OUString aZipName = rtl::OUString( "images_" );
+-                aZipName += aSymbolsStyleName;
+-                aZipName += rtl::OUString( ".zip" );
+-
++                rtl::OUString aZipName;
++                if (aSymbolsStyleName.equals( ::rtl::OUString(RTL_CONSTASCII_USTRINGPARAM("default")) )) {
++                    aZipName = ::rtl::OUString(RTL_CONSTASCII_USTRINGPARAM( "images.zip" ));
++                } else {
++                    aZipName = rtl::OUString( "images_" );
++                    aZipName += aSymbolsStyleName;
++                    aZipName += rtl::OUString( ".zip" );
++                }
+                 bFound = impl_getZipFile( m_aImagesZipPaths, aZipName, aImageZip );
+             }
+ 
++            // Fallbacks in case the configured style file was not found
++            if ( ! bFound )
++                bFound = impl_getZipFile( m_aImagesZipPaths, rtl::OUString(RTL_CONSTASCII_USTRINGPARAM( "images_oxygen.zip" )), aImageZip );
++            if ( ! bFound )
++                bFound = impl_getZipFile( m_aImagesZipPaths, rtl::OUString(RTL_CONSTASCII_USTRINGPARAM( "images_crystal.zip" )), aImageZip );
++
+             if ( ! bFound )
+                 bFound = impl_getZipFile( m_aImagesZipPaths, rtl::OUString( "images.zip" ), aImageZip );
+ 
+             if ( ! bFound )
++                bFound = impl_getZipFile( m_aImagesZipPaths, rtl::OUString(RTL_CONSTASCII_USTRINGPARAM( "images_tango.zip" )), aImageZip );
++            if ( ! bFound )
++                bFound = impl_getZipFile( m_aImagesZipPaths, rtl::OUString(RTL_CONSTASCII_USTRINGPARAM( "images_hicontrast.zip" )), aImageZip );
++
++            if ( ! bFound )
+                 aImageZip = rtl::OUString();
+ 
+             m_aImagesZipFileURL = rtl::OUStringToOString(

@@ -1,0 +1,11 @@
+--- libreoffice-3.5.2/sysui/desktop/slackware/makefile.mk.bero	2012-04-06 16:49:47.906638015 +0200
++++ libreoffice-3.5.2/sysui/desktop/slackware/makefile.mk	2012-04-06 16:49:52.325637730 +0200
+@@ -46,7 +46,7 @@ MENUFILES=$(PKGDIR)$/{$(PRODUCTLIST)}$(P
+ 
+ .INCLUDE :  target.mk
+ 
+-.IF "$(OS)" == "LINUX"
++.IF "$(OS)" == "SLACKWARELINUX"
+ 
+ ALLTAR : $(MENUFILES) 
+ 
