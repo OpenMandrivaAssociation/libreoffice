@@ -142,7 +142,7 @@ BuildRequires:	dbus-devel >= 0.60
 BuildRequires:	ed
 BuildRequires:	expat-devel
 BuildRequires:	flex
-BuildRequires:	freetype2-devel >= 2.1.3-3mdk
+BuildRequires:	freetype-devel >= 2.1.3-3mdk
 BuildRequires:	gcc >= 3.2-0.3mdk
 BuildRequires:	gcc-c++ >= 3.2-0.3mdk
 BuildRequires:	glitz-devel
