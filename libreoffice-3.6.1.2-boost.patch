@@ -1,0 +1,11 @@
+--- libreoffice-3.6.1/tail_build/Makefile.bero	2012-09-11 14:39:15.249292107 +0200
++++ libreoffice-3.6.1/tail_build/Makefile	2012-09-11 14:39:27.238357865 +0200
+@@ -33,6 +33,8 @@ endif
+ 
+ include $(SOLARENV)/gbuild/gbuild.mk
+ 
++gb_LinkTarget_LDFLAGS += -lboost_system
++
+ $(eval $(call gb_Module_make_global_targets,$(SRCDIR)/Module_tail_build.mk))
+ 
+ # vim: set noet sw=4 ts=4:
