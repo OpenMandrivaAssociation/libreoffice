@@ -6,10 +6,10 @@
 %{?_without_l10n: %global l10n 0}
 
 %define javaless 1
-%define extensionenabled 1
+# As of 4.0, doesn't work -- probably the extensions need porting
+%define extensionenabled 0
 
 %define	ooname      libreoffice
-%define name        libreoffice
 
 #define _binary_payload w1.gzdio
 #define _binary_payload w9.bzdio
@@ -21,8 +21,6 @@
 %define _binary_payload w1.xzdio
 %define _source_payload w1.xzdio
 
-%define version		3.6.2
-
 %if %mandriva_branch == Cooker
 # Cooker
 %define release 1
@@ -32,7 +30,7 @@
 %define release %mkrel 0
 %endif
 
-%define buildver	3.6.2.2
+%define buildver	%version.2
 %define ooodir		%{_libdir}/libreoffice
 %if %l10n
 %define langs	"en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru sh si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu"
@@ -93,14 +91,13 @@
 #define unopkg  %{_bindir}/unopkg
 
 Summary:	Office suite 
-Name:		%{name}
+Name:		libreoffice
 Epoch:		1
-Version:	%{version}
-Release:	%{release}
+Version:	4.0.0
+Release:	1
 URL:		http://www.libreoffice.org
 License:	(MPLv1.1 or LGPLv3+) and LGPLv3 and LGPLv2+ and BSD and (MPLv1.1 or GPLv2 or LGPLv2 or Netscape) and Public Domain and ASL 2.0 and Artistic
 Group:		Office
-Vendor:		Mandriva
 # Requres to all our packages
 Requires:	%{name}-base = %{EVRD}
 Requires:	%{name}-calc = %{EVRD}
@@ -142,7 +139,7 @@ BuildRequires:	dbus-devel >= 0.60
 BuildRequires:	ed
 BuildRequires:	expat-devel
 BuildRequires:	flex
-BuildRequires:	freetype2-devel >= 2.1.3-3mdk
+BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	gcc >= 3.2-0.3mdk
 BuildRequires:	gcc-c++ >= 3.2-0.3mdk
 BuildRequires:	glitz-devel
@@ -249,19 +246,18 @@ BuildRequires:  exttextcat-devel
 # Sources
 #
 ####################################################################
-Source0:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-binfilter-%{buildver}.tar.%{oootarext}
-Source1:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-core-%{buildver}.tar.%{oootarext}
-Source2:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-dictionaries-%{buildver}.tar.%{oootarext}
-Source3:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-help-%{buildver}.tar.%{oootarext}
-Source4:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-translations-%{buildver}.tar.%{oootarext}
+Source0:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-%{buildver}.tar.%{oootarext}
+Source1:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-dictionaries-%{buildver}.tar.%{oootarext}
+Source2:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-help-%{buildver}.tar.%{oootarext}
+Source3:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-translations-%{buildver}.tar.%{oootarext}
 
 Source20: 	Mandriva-Rosa_Icons.tar.bz2
 
 Source31:       http://download.go-oo.org/DEV300/ooo_oxygen_images-2009-06-17.tar.gz
 Source32: 	http://hg.services.openoffice.org/binaries/fdb27bfe2dbe2e7b57ae194d9bf36bab-SampleICC-1.3.2.tar.gz
-Source36: 	http://download.go-oo.org/src/0ff7d225d087793c8c2c680d77aac3e7-mdds_0.5.3.tar.bz2
+Source36: 	http://dev-www.libreoffice.org/src/9f9e15966b5624834157fe3d748312bc-mdds_0.6.1.tar.bz2
 Source37: 	http://download.go-oo.org/src/0f63ee487fda8f21fafa767b3c447ac9-ixion-0.2.0.tar.gz
-Source38:	http://dev-www.libreoffice.org/src/e1e255dc43dbcbb34cb19e8a0eba90ae-mythes-1.2.2.tar.gz
+Source38:	http://dev-www.libreoffice.org/src/46e92b68e31e858512b680b3b61dc4c1-mythes-1.2.3.tar.gz
 Source39: 	http://download.go-oo.org/extern/185d60944ea767075d27247c3162b3bc-unowinreg.dll
 Source40: 	http://hg.services.openoffice.org/binaries/48d8169acc35f97e05d8dcdfd45be7f2-lucene-2.3.2.tar.gz
 Source42:	http://hg.services.openoffice.org/binaries/2a177023f9ea8ec8bd00837605c5df1b-jakarta-tomcat-5.0.30-src.tar.gz
@@ -272,14 +268,19 @@ Source46:	http://hg.services.openoffice.org/binaries/1f24ab1d39f4a51faf22244c94a
 Source47:	http://hg.services.openoffice.org/binaries/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
 Source48:	http://hg.services.openoffice.org/binaries/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
 Source49:	http://hg.services.openoffice.org/binaries/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
-Source50:	http://dev-www.libreoffice.org/src/86261f06c097d3e425a2f6d0b0635380-hyphen-2.8.3.tar.gz
+Source50:	http://dev-www.libreoffice.org/src/a2f6010987e1c601274ab5d63b72c944-hyphen-2.8.4.tar.gz
 Source51:	http://hg.services.openoffice.org/binaries/26b3e95ddf3d9c077c480ea45874b3b8-lp_solve_5.5.tar.gz
 Source52:	http://hg.services.openoffice.org/binaries/18f577b374d60b3c760a3a3350407632-STLport-4.5.tar.gz
 Source54:	http://hg.services.openoffice.org/binaries/ada24d37d8d638b3d8a9985e80bc2978-source-9.0.0.7-bj.zip
 Source55:	http://download.go-oo.org/src/ea570af93c284aa9e5621cd563f54f4d-bsh-2.0b1-src.tar.gz
-Source63:	http://dev-www.libreoffice.org/src/0d2dcdfbf28d6208751b33057f5361f0-libcmis-0.2.3.tar.gz
-Source64:	http://dev-www.libreoffice.org/src/94e7f271e38c976462558b4278590178-libvisio-0.0.19.tar.bz2
-Source76:	http://dev-www.libreoffice.org/src/ce5a1def34578b75959ac31210f031f6-libcdr-0.0.8.tar.bz2
+Source63:	http://dev-www.libreoffice.org/src/b2371dc7cf4811c9d32146eec913d296-libcmis-0.3.0.tar.gz
+Source64:	http://dev-www.libreoffice.org/src/libvisio-0.0.24.tar.bz2
+Source76:	http://dev-www.libreoffice.org/src/libcdr-0.0.9.tar.bz2
+Source78:	http://dev-www.libreoffice.org/src/4a660ce8466c9df01f19036435425c3a-glibc-2.1.3-stub.tar.gz
+Source79:	http://dev-www.libreoffice.org/src/54e578c91b1b68e69c72be22adcb2195-liblangtag-0.4.0.tar.bz2
+Source80:	http://dev-www.libreoffice.org/src/804c6cb5698db30b75ad0ff1c25baefd-openldap-2.4.31.tgz
+Source81:	http://dev-www.libreoffice.org/src/8755aac23317494a9028569374dc87b2-liborcus_0.3.0.tar.bz2
+Source82:	http://dev-www.libreoffice.org/src/0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz
 
 # jfreereport
 Source65:	http://dev-www.libreoffice.org/src/39bb3fcea1514f1369fcfc87542390fd-sacjava-1.3.zip
@@ -293,6 +294,7 @@ Source72:	http://dev-www.libreoffice.org/src/3404ab6b1792ae5f16bbd603bd1e1d03-li
 Source73:	http://dev-www.libreoffice.org/src/db60e4fde8dd6d6807523deb71ee34dc-liblayout-0.2.10.zip
 Source74:	http://dev-www.libreoffice.org/src/ace6ab49184e329db254e454a010f56d-libxml-1.1.7.zip
 Source75:	http://dev-www.libreoffice.org/src/ba2930200c9f019c2d93a8c88c651a0f-flow-engine-0.9.4.zip
+Source77:	http://dev-www.libreoffice.org/src/libmspub-0.0.3.tar.bz2
 
 #javaless
 Source56:	http://hg.services.openoffice.org/binaries/3c219630e4302863a9a83d0efde889db-commons-logging-1.1.1-src.tar.gz
@@ -460,6 +462,8 @@ This package contains the architecture-independent files of LibreOffice.
 %package core
 Group: Office
 Summary: LibreOffice office suite architecture dependent files
+# binfilter has been removed in 4.0
+Obsoletes: %name-filter-binfilter < %EVRD
 # Due to the split
 Conflicts: openoffice.org <= 2.1.0
 Conflicts: openoffice.org-base <= 2.3.0.5-1mdv
@@ -564,39 +568,6 @@ near drop-in replacement for Microsoft(R) Office.
 
 This package contains the Document Type Definition (DTD) of the LibreOffice
 1.x(!) XML file format.
-
-%package filter-binfilter
-Group: Office
-Summary: Legacy filters (e.g. StarOffice 5.2) for LibreOffice
-Requires: %{name}-core = %{EVRD}
-Requires: %{name}-common = %{EVRD}
-# Due to the split
-Conflicts: openoffice.org <= 2.2.1
-Obsoletes: openoffice.org-filter-mobiledev <= 2.3.0.5
-Conflicts: openoffice.org-filter-mobiledev <= 2.3.0.5
-Conflicts: openoffice.org-common <= 2.3.0.5-1mdv
-Conflicts: openoffice.org-core <= 2.3.0.5-1mdv
-Obsoletes: openoffice.org-filter-binfilter < 1:3.3-1:2011.0 
-%ifarch x86_64
-Conflicts: openoffice.org64 <= 2.2.1
-Conflicts: openoffice.org64-common <= 2.3.0.5-1mdv
-Conflicts: openoffice.org64-core <= 2.3.0.5-1mdv
-Obsoletes: openoffice.org64-filter-mobiledev <= 2.3.0.5
-Obsoletes: openoffice.org64-filter-binfilter <= 1:3.1-4
-%endif
-
-
-%description filter-binfilter
-LibreOffice is a full-featured office productivity suite that provides
- a near drop-in replacement for Microsoft(R) Office.
-
-This package contains the "binfilters", legacy filters for
- - the old StarOffice 5.2 formats
- - StarWriter 1.0/2.0
- - StarWriter/DOS
- - *Writer* filters for
-   + Excel
-   + Lotus
 
 %package gnome
 Group: Office
@@ -2190,6 +2161,24 @@ possible language. You can switch user interface language using the
 standard locales system.
 
 
+%package l10n-qtz
+Summary:	QTZ language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+Requires:	urw-fonts
+Provides: 	LibreOffice-l10n_qtz
+Suggests:	%{ooname}-help-qtz = %{EVRD} 
+
+%description l10n-qtz
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localization of LibreOffice in QTZ.
+
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+
 %package l10n-ro
 Summary:	Romanian language support for LibreOffice
 Group:		Office
@@ -3197,6 +3186,30 @@ This package contains the localized help files of LibreOffice in Portuguese
 Brazilian.
 
 
+%package help-qtz
+Summary:	QTZ help for LibreOffice
+Group:		Office
+Provides:	%{ooname}-help = %{EVRD}
+Requires:	%{ooname}-l10n-qtz = %{EVRD}
+Provides:	LibreOffice-help-qtz
+
+%description help-qtz
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localized help files of LibreOffice in QTZ
+
+%package help-ro
+Summary:        Romanian help for LibreOffice
+Group:          Office
+Provides:	%{ooname}-help = %{EVRD}
+Requires:	%{ooname}-l10n-ro = %{EVRD}
+Provides:	LibreOffice-help-ro
+
+%description help-ro
+LibreOffice is an Open Source, community-developed, office suite.
+
+This package contains the localized help files of LibreOffice in Romanian.
+
 %package help-ru
 Summary:        Russian help for LibreOffice
 Group:          Office
@@ -3346,7 +3359,7 @@ Traditional.
 %endif
 
 %prep
-%setup -q -c -a 0 -a 1 -a 2 -a 3 -a 4
+%setup -q -c -a 0 -a 1 -a 2 -a 3
 rm -rf git-hooks */git-hooks
 for a in */*; do mv `pwd`/$a .; done
 
@@ -3426,7 +3439,7 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 	--mandir=%{_mandir} \
 	--infodir=%{_infodir} \
 	--with-distro=%{distroname} \
-	--with-vendor=Mandriva \
+	--with-vendor=OpenMandriva \
 	--with-build-version="%{buildver}" \
 	--with-system-stdlibs \
 	--enable-lockdown \
@@ -3534,6 +3547,8 @@ export NO_HIDS=TRUE
 export MAXPROCESS=4 
 
 mkdir -p src
+ln -sf %{SOURCE2} src/
+ln -sf %{SOURCE3} src/
 ln -sf %{SOURCE31} src/
 ln -sf %{SOURCE32} src/
 #ln -sf %{SOURCE33} src/
@@ -3561,6 +3576,12 @@ ln -sf %{SOURCE56} src/
 ln -sf %{SOURCE63} src/
 ln -sf %{SOURCE64} src/
 ln -sf %{SOURCE76} src/
+ln -sf %{SOURCE77} src/
+ln -sf %{SOURCE78} src/
+ln -sf %{SOURCE79} src/
+ln -sf %{SOURCE80} src/
+ln -sf %{SOURCE81} src/
+ln -sf %{SOURCE82} src/
 ln -sf %{SOURCE65} src/
 ln -sf %{SOURCE66} src/
 ln -sf %{SOURCE67} src/
@@ -3800,14 +3821,15 @@ echo '%ooodir/program/gconfbe1.uno.so' >>file-lists/gnome_list.txt
 sort -u file-lists/gnome_list.txt > file-lists/gnome_list.uniq.sorted.txt 
 sort -u file-lists/sdk_list.txt   > file-lists/sdk_list.uniq.sorted.txt 
 
+# Fix weirdo filenames wreaking havoc because they're regular expressions
+sed -i -e 's/\[/?/g;s/\]/?/g' file-lists/sdk*.txt
+
+
 ## oxygen should be in the style
 sed -i '/^.*images_oxygen\.zip$/d' file-lists/common_list.txt 
 ## merge en-US with common
 cat file-lists/lang_en_US_list.txt >> file-lists/common_list.txt
 sort -u file-lists/common_list.txt >  file-lists/common_list.uniq.sorted.txt 
-
-## extra binfilter files
-sed -i '/^.*-US.res$/d' file-lists/filter-binfilter_list.txt
 
 # # does not package lo original desktop files (Review)
 # sed -i '/^.*libreoffice-writer.desktop$/d'  file-lists/writer_list.txt 
@@ -3816,12 +3838,6 @@ sed -i '/^.*-US.res$/d' file-lists/filter-binfilter_list.txt
 # sed -i '/^.*libreoffice-draw.desktop$/d'    file-lists/draw_list.txt 
 # sed -i '/^.*libreoffice-base.desktop$/d'    file-lists/base_list.txt 
 # sed -i '/^.*libreoffice-math.desktop$/d'    file-lists/math_list.txt 
-
-#rpmlint: E: non-standard-executable-perm
-chmod 0755 %{buildroot}%{ooodir}/share/extensions/pdfimport/xpdfimport
-
-%clean
-rm -rf %{buildroot}
 
 %post common
 
@@ -4077,18 +4093,6 @@ fi
 
 %files dtd-officedocument1.0 -f file-lists/dtd_list.txt
 
-%files filter-binfilter -f file-lists/filter-binfilter_list.txt
-%defattr(-,root,root,-)
-%{ooodir}/program/resource/bf_frmen-US.res
-%{ooodir}/program/resource/bf_ofaen-US.res
-%{ooodir}/program/resource/bf_scen-US.res
-%{ooodir}/program/resource/bf_schen-US.res
-%{ooodir}/program/resource/bf_sden-US.res
-%{ooodir}/program/resource/bf_smen-US.res
-%{ooodir}/program/resource/bf_svten-US.res
-%{ooodir}/program/resource/bf_svxen-US.res
-%{ooodir}/program/resource/bf_swen-US.res
-
 %files gnome -f file-lists/gnome_list.uniq.sorted.txt
 
 %files impress -f file-lists/impress_list.txt
@@ -4101,6 +4105,9 @@ fi
 %{_datadir}/icons/hicolor/scalable/apps/mandriva-rosa-lo-impress_72.svg
 
 %files java-common -f file-lists/java_common_list.txt
+%_libdir/libreoffice/program/classes/ScriptProviderForBeanShell.jar
+%_libdir/libreoffice/program/classes/bsh.jar
+%_libdir/libreoffice/program/services/scriptproviderforbeanshell.rdb
 
 %files kde4 -f file-lists/kde4_list.txt
 
@@ -4114,7 +4121,6 @@ fi
 
 %files pyuno -f file-lists/pyuno_list.txt
 %defattr(-,root,root,-)
-%{ooodir}/share/extensions/script-provider-for-python
 
 #%files qa-api-tests
 #%{ooodir}/qadevOOo
@@ -4337,6 +4343,9 @@ fi
 %files l10n-pt_BR -f file-lists/lang_pt_BR_list.txt
 %defattr(-,root,root)
 
+%files l10n-qtz -f file-lists/lang_qtz_list.txt
+%defattr(-,root,root)
+
 %files l10n-ro -f file-lists/lang_ro_list.txt
 %defattr(-,root,root)
 
@@ -4494,6 +4503,12 @@ fi
 %defattr(-,root,root)
 
 %files help-pt_BR -f file-lists/help_pt_BR_list.txt
+%defattr(-,root,root)
+
+%files help-qtz -f file-lists/help_qtz_list.txt
+%defattr(-,root,root)
+
+%files help-ro -f file-lists/help_ro_list.txt
 %defattr(-,root,root)
 
 %files help-ru -f file-lists/help_ru_list.txt
