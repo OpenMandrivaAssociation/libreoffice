@@ -254,12 +254,12 @@ Source3:	 http://download.documentfoundation.org/libreoffice/src/%version/%{oona
 
 Source20: 	Mandriva-Rosa_Icons.tar.bz2
 
-Source31:       http://download.go-oo.org/DEV300/ooo_oxygen_images-2009-06-17.tar.gz
+Source31:       ftp://ftp.iij.ad.jp/pub/linux/momonga/updates/6.1/SOURCES/ooo_oxygen_images-2009-06-17.tar.gz
 Source32: 	http://hg.services.openoffice.org/binaries/fdb27bfe2dbe2e7b57ae194d9bf36bab-SampleICC-1.3.2.tar.gz
 Source36: 	http://dev-www.libreoffice.org/src/9f9e15966b5624834157fe3d748312bc-mdds_0.6.1.tar.bz2
-Source37: 	http://download.go-oo.org/src/0f63ee487fda8f21fafa767b3c447ac9-ixion-0.2.0.tar.gz
+Source37: 	http://kohei.us/files/ixion/src/libixion_0.3.0.tar.bz2
 Source38:	http://dev-www.libreoffice.org/src/46e92b68e31e858512b680b3b61dc4c1-mythes-1.2.3.tar.gz
-Source39: 	http://download.go-oo.org/extern/185d60944ea767075d27247c3162b3bc-unowinreg.dll
+Source39: 	http://www.openoffice.org/tools/unowinreg_prebuild/680/unowinreg.dll
 Source40: 	http://hg.services.openoffice.org/binaries/48d8169acc35f97e05d8dcdfd45be7f2-lucene-2.3.2.tar.gz
 Source42:	http://hg.services.openoffice.org/binaries/2a177023f9ea8ec8bd00837605c5df1b-jakarta-tomcat-5.0.30-src.tar.gz
 Source43: 	http://hg.services.openoffice.org/binaries/284e768eeda0e2898b0d5bf7e26a016e-raptor-1.4.18.tar.gz
@@ -273,7 +273,7 @@ Source50:	http://dev-www.libreoffice.org/src/a2f6010987e1c601274ab5d63b72c944-hy
 Source51:	http://hg.services.openoffice.org/binaries/26b3e95ddf3d9c077c480ea45874b3b8-lp_solve_5.5.tar.gz
 Source52:	http://hg.services.openoffice.org/binaries/18f577b374d60b3c760a3a3350407632-STLport-4.5.tar.gz
 Source54:	http://hg.services.openoffice.org/binaries/ada24d37d8d638b3d8a9985e80bc2978-source-9.0.0.7-bj.zip
-Source55:	http://download.go-oo.org/src/ea570af93c284aa9e5621cd563f54f4d-bsh-2.0b1-src.tar.gz
+Source55:	http://ooo-extras.apache-extras.org.codespot.com/files/ea570af93c284aa9e5621cd563f54f4d-bsh-2.0b1-src.tar.gz
 Source63:	http://dev-www.libreoffice.org/src/b2371dc7cf4811c9d32146eec913d296-libcmis-0.3.0.tar.gz
 Source64:	http://dev-www.libreoffice.org/src/libvisio-0.0.24.tar.bz2
 Source76:	http://dev-www.libreoffice.org/src/libcdr-0.0.9.tar.bz2
