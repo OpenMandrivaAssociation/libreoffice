@@ -30,7 +30,7 @@
 %define release %mkrel 0
 %endif
 
-%define buildver	%version.2
+%define buildver	%version.3
 %define ooodir		%{_libdir}/libreoffice
 %if %l10n
 %define langs	"en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru sh si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu"
