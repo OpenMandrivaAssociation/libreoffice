@@ -181,7 +181,7 @@ BuildRequires:	perl-Archive-Zip
 BuildRequires:	perl-MDK-Common
 BuildRequires:	perl-HTML-Parser
 BuildRequires:	perl-XML-Twig
-BuildRequires:	python-devel
+BuildRequires:	python3-devel
 BuildRequires:	readline-devel
 BuildRequires:	recode
 BuildRequires:	sane-devel
