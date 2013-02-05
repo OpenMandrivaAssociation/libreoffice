@@ -3441,7 +3441,7 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 	--mandir=%{_mandir} \
 	--infodir=%{_infodir} \
 	--with-distro=%{distroname} \
-	--with-vendor=OpenMandriva \
+	--with-vendor=Mandriva \
 	--with-build-version="%{buildver}" \
 	--with-system-stdlibs \
 	--enable-lockdown \
