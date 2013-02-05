@@ -157,6 +157,7 @@ BuildConflicts: libdbjava4.2
 %endif
 BuildRequires:	curl-devel
 BuildRequires:	gtk+2-devel pkgconfig(gdk-pixbuf-xlib-2.0)
+BuildRequires:	git
 BuildRequires:	libsvg-devel
 BuildRequires:	libgstreamer-plugins-base-devel
 BuildRequires:	xaw-devel
