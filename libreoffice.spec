@@ -499,6 +499,11 @@ Group: Office
 Summary: LibreOffice SDK - development files
 Requires: %{name}-core = %{EVRD}
 Requires: %{name}-common = %{EVRD}
+%if "%_lib" == "lib64"
+Provides: devel(libxmlreader(64bit))
+%else
+Provides: devel(libxmlreader)
+%endif
 Obsoletes: openoffice.org-devel < 1:3.3-1:2011.0 
 
 %description devel
