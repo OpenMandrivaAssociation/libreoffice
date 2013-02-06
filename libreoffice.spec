@@ -33,7 +33,7 @@
 %define buildver	%version.3
 %define ooodir		%{_libdir}/libreoffice
 %if %l10n
-%define langs	"en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru sh si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu"
+%define langs	"en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru shs si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu"
 %else
 %define langs	"en-US"
 %endif
@@ -2227,16 +2227,16 @@ possible language. You can switch user interface language using the
 standard locales system.
 
 
-%package l10n-sh
+%package l10n-shs
 Summary:	Secwepemctsin language support for LibreOffice
 Group:		Office
 Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
-Requires:	locales-sh
-Provides: 	LibreOffice-l10n-sh
-Suggests:	%{ooname}-help-sh = %{EVRD} 
+Requires:	locales-shs
+Provides: 	LibreOffice-l10n-shs
+Suggests:	%{ooname}-help-shs = %{EVRD} 
 
-%description l10n-sh
+%description l10n-shs
 LibreOffice is an Open Source, community-developed, office suite.
 
 This package contains the localization of LibreOffice in Secwepemctsin.
