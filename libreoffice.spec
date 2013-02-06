@@ -4354,7 +4354,7 @@ fi
 %files l10n-ru -f file-lists/lang_ru_list.txt
 %defattr(-,root,root)
 
-%files l10n-sh -f file-lists/lang_sh_list.txt
+%files l10n-shs -f file-lists/lang_shs_list.txt
 %defattr(-,root,root)
 
 %files l10n-si -f file-lists/lang_si_list.txt
