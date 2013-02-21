@@ -220,6 +220,7 @@ BuildRequires:  task-kde4-devel
 BuildRequires:  cppunit-devel
 BuildRequires:  redland-devel
 BuildRequires:  postgresql-devel
+BuildRequires:	postgresql-server
 BuildRequires:  librsvg-devel
 %if !%{javaless}
 BuildRequires:  ant
