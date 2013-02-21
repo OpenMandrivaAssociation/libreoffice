@@ -316,6 +316,7 @@ Patch3:		libreoffice-3.5.2.2-icu-49.patch
 Patch5:		libreoffice-3.5.2-no-slackwareicons.patch
 # bug fix 64789
 Patch13: 	help-images-mdv64789.patch
+Patch14:	libreoffice-4.0.0-orcus_boost153.patch
 
 %description
 LibreOffice is an Open Source, community-developed, multi-platform
@@ -3382,6 +3383,7 @@ tar -xjvf %{SOURCE60}
 %patch3 -p1 -b .icu~
 %patch5 -p1 -b .noslack~
 %patch13 -p1 -b .xmlhelp~
+%patch14 -p1 -b .boost153
 
 # Add lzma support (REVIEW)
 %if %{oootarext} == "lzma"
