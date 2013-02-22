@@ -3460,6 +3460,7 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 	--with-build-version="%{buildver}" \
 	--with-system-stdlibs \
 	--enable-lockdown \
+	--disable-gstreamer-0.10 \
 	--enable-gstreamer \
 	--enable-opengl \
 	--enable-odk \
