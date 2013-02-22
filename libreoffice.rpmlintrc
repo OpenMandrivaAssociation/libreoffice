@@ -3,3 +3,7 @@ addFilter("E: binary-or-shlib-defines-rpath")
 addFilter("E: outside-libdir-files")
 # Workaround for various empty files in lang packs
 addFilter("E: zero-length")
+addFilter("E: incoherent-version-in-name")
+#false positive
+addFilter("E: no-dependency-on")
+

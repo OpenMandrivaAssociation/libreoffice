@@ -159,7 +159,7 @@ BuildRequires:	curl-devel
 BuildRequires:	gtk+2-devel pkgconfig(gdk-pixbuf-xlib-2.0)
 BuildRequires:	git
 BuildRequires:	libsvg-devel
-BuildRequires:	libgstreamer-plugins-base-devel
+BuildRequires:	gstreamer-plugins-base-devel
 BuildRequires:	xaw-devel
 BuildRequires:	openldap-devel
 BuildRequires:	portaudio-devel >= 18.1
@@ -3857,8 +3857,6 @@ sort -u file-lists/common_list.txt >  file-lists/common_list.uniq.sorted.txt
 # sed -i '/^.*libreoffice-math.desktop$/d'    file-lists/math_list.txt 
 
 %post common
-
-%{update_desktop_database}
 %update_icon_cache gnome
 %update_icon_cache hicolor
 
@@ -3873,7 +3871,6 @@ update-alternatives \
   %{ooodir}/program/libnpsoplugin.so 1
 
 %postun common
-%{clean_desktop_database}
 %clean_icon_cache gnome
 %clean_icon_cache hicolor
 
@@ -3883,31 +3880,6 @@ then
   update-alternatives --remove %{firefox_plugin} \
   %{ooodir}/program/libnpsoplugin.so
 fi
-
-%post base
-%{update_desktop_database}
-%postun base
-%{clean_desktop_database}
-%post calc
-%{update_desktop_database}
-%postun calc
-%{clean_desktop_database}
-%post draw
-%{update_desktop_database}
-%postun draw
-%{clean_desktop_database}
-%post impress
-%{update_desktop_database}
-%postun impress
-%{clean_desktop_database}
-%post math
-%{update_desktop_database}
-%postun math
-%{clean_desktop_database}
-%post writer
-%{update_desktop_database}
-%postun writer
-%{clean_desktop_database}
 
 %if %extensionenabled
 
