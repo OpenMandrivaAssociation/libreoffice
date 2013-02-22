@@ -317,6 +317,9 @@ Patch5:		libreoffice-3.5.2-no-slackwareicons.patch
 # bug fix 64789
 Patch13: 	help-images-mdv64789.patch
 Patch14:	libreoffice-4.0.0-orcus_boost153.patch
+# fixes for boost 1.53 from fedora
+Patch15: 0001-Work-around-problem-with-boost-shared_array-NULL-cto.patch
+Patch16: 0001-fix-compile-for-change-to-boost-1.53.0-declaring-sma.patch
 
 %description
 LibreOffice is an Open Source, community-developed, multi-platform
@@ -3384,6 +3387,8 @@ tar -xjvf %{SOURCE60}
 %patch5 -p1 -b .noslack~
 %patch13 -p1 -b .xmlhelp~
 %patch14 -p1 -b .boost153
+%patch15 -p1 -b .Work-around-problem-with-boost-shared_array-NULL-cto.patch
+%patch16 -p1 -b .fix-compile-for-change-to-boost-1.53.0-declaring-sma.patch
 
 # Add lzma support (REVIEW)
 %if %{oootarext} == "lzma"
