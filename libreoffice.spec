@@ -30,7 +30,7 @@
 %define release %mkrel 0
 %endif
 
-%define buildver	%version.3
+%define buildver	%version.2
 %define ooodir		%{_libdir}/libreoffice
 %if %l10n
 %define langs	"en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru sh si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu"
@@ -93,8 +93,8 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	4.0.0
-Release:	2
+Version:	4.0.1
+Release:	1
 URL:		http://www.libreoffice.org
 License:	(MPLv1.1 or LGPLv3+) and LGPLv3 and LGPLv2+ and BSD and (MPLv1.1 or GPLv2 or LGPLv2 or Netscape) and Public Domain and ASL 2.0 and Artistic
 Group:		Office
@@ -277,8 +277,8 @@ Source52:	http://hg.services.openoffice.org/binaries/18f577b374d60b3c760a3a33504
 Source54:	http://hg.services.openoffice.org/binaries/ada24d37d8d638b3d8a9985e80bc2978-source-9.0.0.7-bj.zip
 Source55:	http://ooo-extras.apache-extras.org.codespot.com/files/ea570af93c284aa9e5621cd563f54f4d-bsh-2.0b1-src.tar.gz
 Source63:	http://dev-www.libreoffice.org/src/b2371dc7cf4811c9d32146eec913d296-libcmis-0.3.0.tar.gz
-Source64:	http://dev-www.libreoffice.org/src/libvisio-0.0.24.tar.bz2
-Source76:	http://dev-www.libreoffice.org/src/libcdr-0.0.9.tar.bz2
+Source64:	http://dev-www.libreoffice.org/src/libvisio-0.0.25.tar.bz2
+Source76:	http://dev-www.libreoffice.org/src/libcdr-0.0.10.tar.bz2
 Source78:	http://dev-www.libreoffice.org/src/4a660ce8466c9df01f19036435425c3a-glibc-2.1.3-stub.tar.gz
 Source79:	http://dev-www.libreoffice.org/src/54e578c91b1b68e69c72be22adcb2195-liblangtag-0.4.0.tar.bz2
 Source80:	http://dev-www.libreoffice.org/src/804c6cb5698db30b75ad0ff1c25baefd-openldap-2.4.31.tgz
@@ -297,7 +297,7 @@ Source72:	http://dev-www.libreoffice.org/src/3404ab6b1792ae5f16bbd603bd1e1d03-li
 Source73:	http://dev-www.libreoffice.org/src/db60e4fde8dd6d6807523deb71ee34dc-liblayout-0.2.10.zip
 Source74:	http://dev-www.libreoffice.org/src/ace6ab49184e329db254e454a010f56d-libxml-1.1.7.zip
 Source75:	http://dev-www.libreoffice.org/src/ba2930200c9f019c2d93a8c88c651a0f-flow-engine-0.9.4.zip
-Source77:	http://dev-www.libreoffice.org/src/libmspub-0.0.3.tar.bz2
+Source77:	http://dev-www.libreoffice.org/src/libmspub-0.0.5.tar.bz2
 
 #javaless
 Source56:	http://hg.services.openoffice.org/binaries/3c219630e4302863a9a83d0efde889db-commons-logging-1.1.1-src.tar.gz
