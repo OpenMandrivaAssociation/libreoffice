@@ -93,7 +93,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	4.0.1
+Version:	4.0.2
 Release:	1
 URL:		http://www.libreoffice.org
 License:	(MPLv1.1 or LGPLv3+) and LGPLv3 and LGPLv2+ and BSD and (MPLv1.1 or GPLv2 or LGPLv2 or Netscape) and Public Domain and ASL 2.0 and Artistic
@@ -233,8 +233,7 @@ BuildRequires:  graphite2-devel
 BuildRequires:	python-translate >= 1.9.0
 # STLport-devel 4.5 + private patches are needed
 BuildConflicts:	STLport-devel
-BuildRequires:	java-devel = 0:1.6.0
-BuildConflicts: java-devel >= 0:1.7.0
+BuildRequires:	java-devel
 #Gnome Stuff
 BuildRequires:  pkgconfig(ORBit-2.0)
 BuildRequires:  pkgconfig(gconf-2.0)
@@ -278,7 +277,7 @@ Source54:	http://hg.services.openoffice.org/binaries/ada24d37d8d638b3d8a9985e80b
 Source55:	http://ooo-extras.apache-extras.org.codespot.com/files/ea570af93c284aa9e5621cd563f54f4d-bsh-2.0b1-src.tar.gz
 Source63:	http://dev-www.libreoffice.org/src/b2371dc7cf4811c9d32146eec913d296-libcmis-0.3.0.tar.gz
 Source64:	http://dev-www.libreoffice.org/src/libvisio-0.0.25.tar.bz2
-Source76:	http://dev-www.libreoffice.org/src/libcdr-0.0.10.tar.bz2
+Source76:	http://dev-www.libreoffice.org/src/libcdr-0.0.11.tar.bz2
 Source78:	http://dev-www.libreoffice.org/src/4a660ce8466c9df01f19036435425c3a-glibc-2.1.3-stub.tar.gz
 Source79:	http://dev-www.libreoffice.org/src/54e578c91b1b68e69c72be22adcb2195-liblangtag-0.4.0.tar.bz2
 Source80:	http://dev-www.libreoffice.org/src/804c6cb5698db30b75ad0ff1c25baefd-openldap-2.4.31.tgz
