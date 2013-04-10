@@ -239,7 +239,7 @@ BuildRequires:  pkgconfig(ORBit-2.0)
 BuildRequires:  pkgconfig(gconf-2.0)
 BuildRequires:  pkgconfig(gnome-vfs-2.0)
 BuildRequires:  mspub-devel
-BuildRequires:  exttextcat-devel
+BuildRequires:  pkgconfig(libexttextcat)
 BuildRequires:	doxygen
 # BuildRequires:  jakarta-commons-logging
 
