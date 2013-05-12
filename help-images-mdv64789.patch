@@ -1,13 +1,13 @@
---- libreoffice-3.6.0/xmlhelp/source/cxxhelp/provider/databases.cxx.xmlhelp	2012-07-27 14:37:04.000000000 +0200
-+++ libreoffice-3.6.0/xmlhelp/source/cxxhelp/provider/databases.cxx	2012-08-14 21:19:17.753127645 +0200
-@@ -302,17 +302,32 @@ rtl::OString Databases::getImagesZipFile
-             bool bFound = false;
-             if ( !aSymbolsStyleName.isEmpty() )
-             {
+--- libreoffice-4.0.3/xmlhelp/source/cxxhelp/provider/databases.cxx.xmlhelp~	2013-05-09 10:26:13.196563921 +0200
++++ libreoffice-4.0.3/xmlhelp/source/cxxhelp/provider/databases.cxx	2013-05-09 10:36:02.041202350 +0200
+@@ -285,17 +285,34 @@ rtl::OString Databases::getImagesZipFile
+                     else
+                         aSymbolsStyleName = "tango";
+                 }
 -                rtl::OUString aZipName = rtl::OUString( "images_" );
 -                aZipName += aSymbolsStyleName;
 -                aZipName += rtl::OUString( ".zip" );
--
++
 +                rtl::OUString aZipName;
 +                if (aSymbolsStyleName.equals( ::rtl::OUString(RTL_CONSTASCII_USTRINGPARAM("default")) )) {
 +                    aZipName = ::rtl::OUString(RTL_CONSTASCII_USTRINGPARAM( "images.zip" ));
@@ -16,6 +16,7 @@
 +                    aZipName += aSymbolsStyleName;
 +                    aZipName += rtl::OUString( ".zip" );
 +                }
+ 
                  bFound = impl_getZipFile( m_aImagesZipPaths, aZipName, aImageZip );
              }
  

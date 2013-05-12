@@ -1,3 +1,10 @@
+removed_sources:
+  libcdr-0.0.11.tar.bz2: c81f419abf104328956dd804c8380c37fce0dba9
+  libreoffice-4.0.2.2.tar.xz: bb8dbcb7c678bf048c9b241b9493b3f23aa8d1fc
+  libreoffice-dictionaries-4.0.2.2.tar.xz: b31258e2f0ebbe2fe96e87b7e7d9ede43be8de31
+  libreoffice-help-4.0.2.2.tar.xz: 7d4b9527e0194a496d237a1b734f0f4dbb9947fd
+  libreoffice-translations-4.0.2.2.tar.xz: 50b49d9c3141bf65702f4f47b9604a1eddb5944b
+  libvisio-0.0.25.tar.bz2: f9b87716f53094059a5c7a2c3c8c0b2621b33f05
 sources:
   0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz: 452eba922e4f41603539c9dc39947d2271e47093
   17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip: 7168b0f40aa5c72267899601c116d2348d2f56ec
@@ -41,12 +48,12 @@ sources:
   f94d9870737518e3b597f9265f4e9803-libserializer-1.1.6.zip: 5ecb895ffc1eff2c381fa78d2197d0c57422b3df
   fca8706f2c4619e2fa3f8f42f8fc1e9d-rasqal-0.9.16.tar.gz: 55e08ee78c15de417cbfccb9e748747095994886
   fdb27bfe2dbe2e7b57ae194d9bf36bab-SampleICC-1.3.2.tar.gz: 6e836945719e137596df1ca82f0afa809e8a2e88
-  libcdr-0.0.11.tar.bz2: c81f419abf104328956dd804c8380c37fce0dba9
+  libcdr-0.0.12.tar.bz2: ca16b3710c2d53d13d8fc4f5ed333538f13598d6
   libixion_0.3.0.tar.bz2: ac1fa915303ed8492ac50d6f0aa4d974e8405954
   libmspub-0.0.5.tar.bz2: c4e4354a5725983d0b8ddb94ab6899484ceabe2a
-  libreoffice-4.0.2.2.tar.xz: bb8dbcb7c678bf048c9b241b9493b3f23aa8d1fc
-  libreoffice-dictionaries-4.0.2.2.tar.xz: b31258e2f0ebbe2fe96e87b7e7d9ede43be8de31
-  libreoffice-help-4.0.2.2.tar.xz: 7d4b9527e0194a496d237a1b734f0f4dbb9947fd
-  libreoffice-translations-4.0.2.2.tar.xz: 50b49d9c3141bf65702f4f47b9604a1eddb5944b
-  libvisio-0.0.25.tar.bz2: f9b87716f53094059a5c7a2c3c8c0b2621b33f05
+  libreoffice-4.0.3.3.tar.xz: 97041d60009135d028b6bc062e6f441606c692bf
+  libreoffice-dictionaries-4.0.3.3.tar.xz: 336cb0ddc317dec2e37c2daf97e08a1020cd2ccd
+  libreoffice-help-4.0.3.3.tar.xz: 8135b32b47bc0577d95eb5ec03483f63459e701c
+  libreoffice-translations-4.0.3.3.tar.xz: c81a03210abc634f428c73cc5f50bf4c12b38913
+  libvisio-0.0.26.tar.bz2: fcd9d7e15589cf9fd3cce310c1d218ba108b1efa
   ooo_oxygen_images-2009-06-17.tar.gz: c3dd261bfe366ac514a019b0fa829369b833c0c7
