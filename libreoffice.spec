@@ -107,16 +107,16 @@ Requires:	%{name}-math = %{EVRD}
 Requires:	%{name}-writer = %{EVRD}
 Suggests:	%{name}-dtd-officedocument1.0 = %{EVRD}
 %if %extensionenabled
-Suggests: 	%{name}-pdfimport = %{EVRD}
+Suggests:	%{name}-pdfimport = %{EVRD}
 %endif
 Obsoletes:	%{ooname}-go-ooo <= %{version}
 %ifarch x86_64
-Obsoletes:     openoffice.org64 <= 1:3.1-4
-Obsoletes:     openoffice.org64-go-ooo < 3.1-4
+Obsoletes:	openoffice.org64 <= 1:3.1-4
+Obsoletes:	openoffice.org64-go-ooo < 3.1-4
 %endif
 Provides:	LibreOffice
 Provides:	LibreOffice-libs
-Obsoletes:      openoffice.org < 1:3.3-1:2011.0 
+Obsoletes:	openoffice.org < 1:3.3-1:2011.0 
 
 # Requirements for building
 %if %{use_icecream}
@@ -125,123 +125,112 @@ BuildRequires:	icecream
 %if %{use_ccache}
 BuildRequires:	ccache
 %endif
-BuildRequires:	automake1.8
-BuildRequires:	autoconf
 %if %{use_systemboost}
 BuildRequires:	boost-devel
 %endif
-BuildRequires:	bison >= 1.32-2mdk
 %if %{use_openclipart}
 BuildRequires:	clipart-openclipart
 %endif
-BuildRequires:	cups-devel
-BuildRequires:	dbus-devel >= 0.60
+BuildRequires:	bison
+BuildRequires:	desktop-file-utils
+BuildRequires:	doxygen
 BuildRequires:	ed
-BuildRequires:	expat-devel
 BuildRequires:	flex
-BuildRequires:	pkgconfig(freetype2)
-BuildRequires:	gcc >= 3.2-0.3mdk
-BuildRequires:	gcc-c++ >= 3.2-0.3mdk
-BuildRequires:	glitz-devel
-BuildRequires:	gnutls-devel
-BuildRequires:	gperf
-BuildRequires:	imagemagick
-%if %{use_systemdb}
-%if %mdkversion < 201020
-# this is pulled by db-devel >= 4.8, and libdbcxx?.? does not provide libdbcxx at all
-BuildRequires:	libdbcxx >= 4.2.5-4mdk
-%endif
-BuildRequires:	db-devel >= 4.2.5-4mdk
-%else
-BuildConflicts: libdbjava4.2
-%endif
-BuildRequires:	curl-devel
-BuildRequires:	pkgconfig(gtk+-2.0) pkgconfig(gdk-pixbuf-xlib-2.0)
 BuildRequires:	git
-BuildRequires:	libsvg-devel
-BuildRequires:	gstreamer-plugins-base-devel
-BuildRequires:	xaw-devel
-BuildRequires:	openldap-devel
-BuildRequires:	portaudio-devel >= 18.1
-BuildRequires:	sndfile-devel
-BuildRequires:	unixODBC-devel
-BuildRequires:  libxslt-proc >= 1.0.19
-BuildRequires:  libxslt-devel
-BuildRequires:  libxml2-devel
-%if %{use_mono}
-BuildRequires:	mono-devel
-BuildRequires:	mono-data-sqlite
-%endif
-BuildRequires:	nss-devel
-BuildRequires:	nspr-devel
-BuildRequires:	nas-devel
-BuildRequires:	neon-devel >= 0.27
-BuildRequires:	pam-devel
+BuildRequires:	gperf
+BuildRequires:	icu
+BuildRequires:	imagemagick
 BuildRequires:	perl
 BuildRequires:	perl-Archive-Zip
 BuildRequires:	perl-MDK-Common
 BuildRequires:	perl-HTML-Parser
 BuildRequires:	perl-XML-Twig
-BuildRequires:	python3-devel
-BuildRequires:	readline-devel
-BuildRequires:	recode
-BuildRequires:	sane-devel
+BuildRequires:	python-translate >= 1.9.0
 BuildRequires:	sharutils
-BuildRequires:	startup-notification-devel
-%if %{oootarext} == "lzma"
-BuildRequires:	lzma
-BuildRequires:	tar >= 1.15.1-7mdk
-%endif
-BuildRequires:	tcsh >= 6.12-2mdk
+BuildRequires:	recode
+BuildRequires:	tcsh
 BuildRequires:	unzip
-BuildRequires:	XFree86
 BuildRequires:	x11-server-xvfb
-BuildRequires:	xpm-devel
-BuildRequires:	zlib-devel
+BuildRequires:	XFree86
+BuildRequires:	xsltproc >= 1.0.19
 BuildRequires:	zip
+BuildRequires:	cups-devel
+BuildRequires:	java-devel
 BuildRequires:	libwpd-devel >= 0.9.0
 BuildRequires:	libwpg-devel
 BuildRequires:	libwps-devel
-BuildRequires:	pkgconfig(lcms2)
-BuildRequires:	clucene-devel %{_lib}clucene-contribs-lib2
-BuildRequires:	icu
-BuildRequires:  icu-devel
-BuildRequires:  xulrunner-devel
-BuildRequires:  libvigra-devel
-BuildRequires:  hunspell-devel
-BuildRequires:	%{mklibname poppler-devel}
-BuildRequires:	%{mklibname poppler-glib-devel}
-BuildRequires:	%{mklibname poppler-cpp-devel}
-BuildRequires:	%{mklibname xtst-devel}
-BuildRequires:  desktop-file-utils
-BuildRequires:  mesaglu-devel
-BuildRequires:  qt4-devel
-BuildRequires:  task-kde4-devel
-BuildRequires:  cppunit-devel
-BuildRequires:  redland-devel
-BuildRequires:  postgresql-devel
-BuildRequires:	postgresql-server
-BuildRequires:  librsvg-devel
-%if !%{javaless}
-BuildRequires:  ant
-BuildRequires:	hsqldb
-BuildRequires:  jakarta-commons-codec
-BuildRequires:  jakarta-commons-lang
-BuildRequires:  jakarta-commons-httpclient
-%endif 
-BuildRequires:  graphite2-devel
-BuildRequires:	python-translate >= 1.9.0
+BuildRequires:	nas-devel
+BuildRequires:	openldap-devel
+BuildRequires:	pam-devel
+BuildRequires:	postgresql-devel
+BuildRequires:	qt4-devel
+BuildRequires:	readline-devel
 # STLport-devel 4.5 + private patches are needed
 BuildConflicts:	STLport-devel
-BuildRequires:	java-devel
-#Gnome Stuff
-BuildRequires:  pkgconfig(ORBit-2.0)
-BuildRequires:  pkgconfig(gconf-2.0)
-BuildRequires:  pkgconfig(gnome-vfs-2.0)
-BuildRequires:  mspub-devel
-BuildRequires:  pkgconfig(libexttextcat)
-BuildRequires:	doxygen
-# BuildRequires:  jakarta-commons-logging
+BuildRequires:	task-kde4-devel
+BuildRequires:	unixODBC-devel
+BuildRequires:	vigra-devel
+BuildRequires:	pkgconfig(cppunit)
+BuildRequires:	pkgconfig(dbus-1)
+BuildRequires:	pkgconfig(expat)
+BuildRequires:	pkgconfig(freetype2)
+BuildRequires:	pkgconfig(gconf-2.0)
+BuildRequires:	pkgconfig(glitz)
+BuildRequires:	pkgconfig(glu)
+BuildRequires:	pkgconfig(gnome-vfs-2.0)
+BuildRequires:	pkgconfig(gnutls)
+BuildRequires:	pkgconfig(gdk-pixbuf-xlib-2.0)
+BuildRequires:	pkgconfig(graphite2)
+BuildRequires:	pkgconfig(gstreamer-plugins-base-1.0)
+BuildRequires:	pkgconfig(gtk+-2.0)
+BuildRequires:	pkgconfig(hunspell)
+BuildRequires:	pkgconfig(icu-le)
+BuildRequires:	pkgconfig(lcms2)
+BuildRequires:	pkgconfig(libclucene-core)
+BuildRequires:	pkgconfig(libcurl)
+BuildRequires:	pkgconfig(libexttextcat)
+BuildRequires:	pkgconfig(libmspub-0.0)
+BuildRequires:	pkgconfig(librsvg-2.0)
+BuildRequires:	pkgconfig(libstartup-notification-1.0)
+BuildRequires:	pkgconfig(libsvg)
+BuildRequires:	pkgconfig(libxml-2.0)
+BuildRequires:	pkgconfig(libxslt)
+BuildRequires:	pkgconfig(libxul)
+BuildRequires:	pkgconfig(neon)
+BuildRequires:	pkgconfig(nspr)
+BuildRequires:	pkgconfig(nss)
+BuildRequires:	pkgconfig(ORBit-2.0)
+BuildRequires:	pkgconfig(poppler)
+BuildRequires:	pkgconfig(poppler-glib)
+BuildRequires:	pkgconfig(poppler-cpp)
+BuildRequires:	pkgconfig(portaudio-2.0)
+BuildRequires:	pkgconfig(python3)
+BuildRequires:	pkgconfig(redland)
+BuildRequires:	pkgconfig(sane-backends)
+BuildRequires:	pkgconfig(sndfile)
+BuildRequires:	pkgconfig(xaw7)
+BuildRequires:	pkgconfig(xpm)
+BuildRequires:	pkgconfig(xtst)
+BuildRequires:	pkgconfig(zlib)
+%if %{use_systemdb}
+BuildRequires:	db-devel
+%else
+BuildConflicts:	libdbjava4.2
+%endif
+%if %{use_mono}
+BuildRequires:	pkgconfig(mono)
+BuildRequires:	mono-data-sqlite
+%endif
+%if %{oootarext} == "lzma"
+BuildRequires:	lzma
+%endif
+%if !%{javaless}
+BuildRequires:	ant
+BuildRequires:	hsqldb
+BuildRequires:	jakarta-commons-codec
+BuildRequires:	jakarta-commons-lang
+BuildRequires:	jakarta-commons-httpclient
+%endif 
 
 ####################################################################
 #
@@ -253,17 +242,17 @@ Source1:	 http://download.documentfoundation.org/libreoffice/src/%version/%{oona
 Source2:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-help-%{buildver}.tar.%{oootarext}
 Source3:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-translations-%{buildver}.tar.%{oootarext}
 
-Source20: 	Mandriva-Rosa_Icons.tar.bz2
+Source20:	Mandriva-Rosa_Icons.tar.bz2
 
-Source31:       ftp://ftp.iij.ad.jp/pub/linux/momonga/updates/6.1/SOURCES/ooo_oxygen_images-2009-06-17.tar.gz
-Source32: 	http://hg.services.openoffice.org/binaries/fdb27bfe2dbe2e7b57ae194d9bf36bab-SampleICC-1.3.2.tar.gz
-Source36: 	http://dev-www.libreoffice.org/src/9f9e15966b5624834157fe3d748312bc-mdds_0.6.1.tar.bz2
-Source37: 	http://kohei.us/files/ixion/src/libixion_0.3.0.tar.bz2
+Source31:	ftp://ftp.iij.ad.jp/pub/linux/momonga/updates/6.1/SOURCES/ooo_oxygen_images-2009-06-17.tar.gz
+Source32:	http://hg.services.openoffice.org/binaries/fdb27bfe2dbe2e7b57ae194d9bf36bab-SampleICC-1.3.2.tar.gz
+Source36:	http://dev-www.libreoffice.org/src/9f9e15966b5624834157fe3d748312bc-mdds_0.6.1.tar.bz2
+Source37:	http://kohei.us/files/ixion/src/libixion_0.3.0.tar.bz2
 Source38:	http://dev-www.libreoffice.org/src/46e92b68e31e858512b680b3b61dc4c1-mythes-1.2.3.tar.gz
-Source39: 	http://dev-www.libreoffice.org/extern/185d60944ea767075d27247c3162b3bc-unowinreg.dll
-Source40: 	http://hg.services.openoffice.org/binaries/48d8169acc35f97e05d8dcdfd45be7f2-lucene-2.3.2.tar.gz
+Source39:	http://dev-www.libreoffice.org/extern/185d60944ea767075d27247c3162b3bc-unowinreg.dll
+Source40:	http://hg.services.openoffice.org/binaries/48d8169acc35f97e05d8dcdfd45be7f2-lucene-2.3.2.tar.gz
 Source42:	http://hg.services.openoffice.org/binaries/2a177023f9ea8ec8bd00837605c5df1b-jakarta-tomcat-5.0.30-src.tar.gz
-Source43: 	http://hg.services.openoffice.org/binaries/284e768eeda0e2898b0d5bf7e26a016e-raptor-1.4.18.tar.gz
+Source43:	http://hg.services.openoffice.org/binaries/284e768eeda0e2898b0d5bf7e26a016e-raptor-1.4.18.tar.gz
 Source44:	http://hg.services.openoffice.org/binaries/fca8706f2c4619e2fa3f8f42f8fc1e9d-rasqal-0.9.16.tar.gz 
 Source45:	http://hg.services.openoffice.org/binaries/1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz
 Source46:	http://hg.services.openoffice.org/binaries/1f24ab1d39f4a51faf22244c94a6203f-xmlsec1-1.2.14.tar.gz	
@@ -314,11 +303,11 @@ Patch1:		libreoffice-3.6.2-non-fatal-error-during-test.patch
 Patch3:		libreoffice-3.5.2.2-icu-49.patch
 Patch5:		libreoffice-3.5.2-no-slackwareicons.patch
 # bug fix 64789
-Patch13: 	help-images-mdv64789.patch
+Patch13:	help-images-mdv64789.patch
 Patch14:	libreoffice-4.0.0-orcus_boost153.patch
 # fixes for boost 1.53 from fedora
-Patch15: 0001-Work-around-problem-with-boost-shared_array-NULL-cto.patch
-Patch16: 0001-fix-compile-for-change-to-boost-1.53.0-declaring-sma.patch
+Patch15:	0001-Work-around-problem-with-boost-shared_array-NULL-cto.patch
+Patch16:	0001-fix-compile-for-change-to-boost-1.53.0-declaring-sma.patch
 
 %description
 LibreOffice is an Open Source, community-developed, multi-platform
