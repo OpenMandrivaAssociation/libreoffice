@@ -30,7 +30,7 @@
 %define release %mkrel 0
 %endif
 
-%define buildver	%version.3
+%define buildver	%{version}.3
 %define ooodir		%{_libdir}/libreoffice
 %if %l10n
 %define langs	"en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru sh si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu"
@@ -98,10 +98,10 @@ Release:	1
 License:	(MPLv1.1 or LGPLv3+) and LGPLv3 and LGPLv2+ and BSD and (MPLv1.1 or GPLv2 or LGPLv2 or Netscape) and Public Domain and ASL 2.0 and Artistic
 Group:		Office
 Url:		http://www.libreoffice.org
-Source0:	http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-%{buildver}.tar.%{oootarext}
-Source1:	http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-dictionaries-%{buildver}.tar.%{oootarext}
-Source2:	http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-help-%{buildver}.tar.%{oootarext}
-Source3:	http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-translations-%{buildver}.tar.%{oootarext}
+Source0:	http://download.documentfoundation.org/libreoffice/src/%{version}/%{ooname}-%{buildver}.tar.%{oootarext}
+Source1:	http://download.documentfoundation.org/libreoffice/src/%{version}/%{ooname}-dictionaries-%{buildver}.tar.%{oootarext}
+Source2:	http://download.documentfoundation.org/libreoffice/src/%{version}/%{ooname}-help-%{buildver}.tar.%{oootarext}
+Source3:	http://download.documentfoundation.org/libreoffice/src/%{version}/%{ooname}-translations-%{buildver}.tar.%{oootarext}
 
 Source20:	Mandriva-Rosa_Icons.tar.bz2
 
@@ -402,7 +402,7 @@ This package contains the architecture-independent files of LibreOffice.
 Summary:	LibreOffice office suite architecture dependent files
 Group:		Office
 # binfilter has been removed in 4.0
-Obsoletes:	%name-filter-binfilter < %EVRD
+Obsoletes:	%{name}-filter-binfilter < %{EVRD}
 Obsoletes:	openoffice.org-core < 1:3.3-1:2011.0 
 
 %description core
@@ -417,7 +417,7 @@ Summary:	LibreOffice SDK - development files
 Group:		Office
 Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
-%if "%_lib" == "lib64"
+%if "%{_lib}" == "lib64"
 Provides:	devel(libxmlreader(64bit))
 Provides:	devel(libreg(64bit))
 %else
@@ -3284,7 +3284,7 @@ find %{buildroot} -type f \( -name '*.so' -o -name '*.so.*' \) -exec chmod a+x '
 # First make sure there is no actual data pre-existing in this directory,
 # as that will be lost due to the ghostification:
 # [ $(find %{buildroot}%{ooodir}/share/uno_packages/cache -type f | wc -l) -eq 0 ]
-# %{buildroot}%{ooodir}/program/unopkg add --shared %{_builddir}/libreoffice-%version/solver/340/unxlng*/bin/pdfimport/pdfimport.oxt
+# %{buildroot}%{ooodir}/program/unopkg add --shared %{_builddir}/libreoffice-%{version}/solver/340/unxlng*/bin/pdfimport/pdfimport.oxt
 # %{buildroot}%{ooodir}/program/unopkg remove --shared pdfimport.oxt
 # # clean cache
 # %{buildroot}%{ooodir}/program/unopkg list --shared
@@ -3330,10 +3330,10 @@ echo 'ProgressSize=377,9' >> %{buildroot}%{ooodir}/program/sofficerc
 %if %extensionenabled
 # # copy extensions 
 # install -d -m755 %{buildroot}%{ooodir}/extensions
-# cp %{_builddir}/libreoffice-%version/solver/unxlng*/bin/pdfimport/pdfimport.oxt %{buildroot}%{ooodir}/extensions/
-# cp %{_builddir}/libreoffice-%version/solver/unxlng*/bin/presenter/presenter-screen.oxt %{buildroot}%{ooodir}/extensions/
-# cp %{_builddir}/libreoffice-%version/solver/unxlng*/bin/wiki-publisher.oxt %{buildroot}%{ooodir}/extensions/
-# cp %{_builddir}/libreoffice-%version/solver/unxlng*/bin/minimizer/presentation-minimizer.oxt %{buildroot}%{ooodir}/extensions/
+# cp %{_builddir}/libreoffice-%{version}/solver/unxlng*/bin/pdfimport/pdfimport.oxt %{buildroot}%{ooodir}/extensions/
+# cp %{_builddir}/libreoffice-%{version}/solver/unxlng*/bin/presenter/presenter-screen.oxt %{buildroot}%{ooodir}/extensions/
+# cp %{_builddir}/libreoffice-%{version}/solver/unxlng*/bin/wiki-publisher.oxt %{buildroot}%{ooodir}/extensions/
+# cp %{_builddir}/libreoffice-%{version}/solver/unxlng*/bin/minimizer/presentation-minimizer.oxt %{buildroot}%{ooodir}/extensions/
 %endif
 
 # libre
@@ -3614,9 +3614,9 @@ fi
 %{_datadir}/icons/hicolor/scalable/apps/mandriva-rosa-lo-impress_72.svg
 
 %files java-common -f file-lists/java_common_list.txt
-%_libdir/libreoffice/program/classes/ScriptProviderForBeanShell.jar
-%_libdir/libreoffice/program/classes/bsh.jar
-%_libdir/libreoffice/program/services/scriptproviderforbeanshell.rdb
+%{_lib}dir/libreoffice/program/classes/ScriptProviderForBeanShell.jar
+%{_lib}dir/libreoffice/program/classes/bsh.jar
+%{_lib}dir/libreoffice/program/services/scriptproviderforbeanshell.rdb
 
 %files kde4 -f file-lists/kde4_list.txt
 
