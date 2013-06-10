@@ -98,10 +98,10 @@ Release:	1
 License:	(MPLv1.1 or LGPLv3+) and LGPLv3 and LGPLv2+ and BSD and (MPLv1.1 or GPLv2 or LGPLv2 or Netscape) and Public Domain and ASL 2.0 and Artistic
 Group:		Office
 Url:		http://www.libreoffice.org
-Source0:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-%{buildver}.tar.%{oootarext}
-Source1:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-dictionaries-%{buildver}.tar.%{oootarext}
-Source2:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-help-%{buildver}.tar.%{oootarext}
-Source3:	 http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-translations-%{buildver}.tar.%{oootarext}
+Source0:	http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-%{buildver}.tar.%{oootarext}
+Source1:	http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-dictionaries-%{buildver}.tar.%{oootarext}
+Source2:	http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-help-%{buildver}.tar.%{oootarext}
+Source3:	http://download.documentfoundation.org/libreoffice/src/%version/%{ooname}-translations-%{buildver}.tar.%{oootarext}
 
 Source20:	Mandriva-Rosa_Icons.tar.bz2
 
@@ -2739,7 +2739,7 @@ This package contains the localized help files of LibreOffice in QTZ
 
 %package help-ro
 Summary:	Romanian help for LibreOffice
-Group:	         Office
+Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-ro = %{EVRD}
 Provides:	LibreOffice-help-ro
@@ -2751,7 +2751,7 @@ This package contains the localized help files of LibreOffice in Romanian.
 
 %package help-ru
 Summary:	Russian help for LibreOffice
-Group:	         Office
+Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-ru = %{EVRD}
 %ifarch x86_64
@@ -2984,43 +2984,48 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 	--with-vendor=Mandriva \
 	--with-build-version="%{buildver}" \
 	--with-system-stdlibs \
-	--enable-lockdown \
+	--enable-binfilter \
 	--disable-gstreamer-0.10 \
 	--enable-gstreamer \
-	--enable-opengl \
-	--enable-odk \
-	--enable-split-app-modules \
-  	--enable-split-opt-features \
-	--enable-binfilter \
-	--with-system-mozilla=xulrunner \
-	--with-system-icu \
-	--with-system-lcms2 \
-	--with-system-clucene \
-	--with-system-jpeg \
-	--with-system-hunspell \
-	--with-system-zlib \
-	--with-system-openssl \
-	--with-system-expat \
-	--with-system-libxml \
-	--enable-python=system \
-	--with-system-curl \
-	--with-system-vigra \
-	--with-system-neon \
-	--with-system-libwpd \
-	--with-system-libwps \
-	--with-system-libwpg \
-	--with-system-graphite \
-	--without-junit \
-	--with-system-cppunit \
-	--with-system-redland \
-	--with-system-nss \
-	--with-system-postgresql \
-	--enable-librsvg=system \
-	--with-openldap \
 	--disable-kde \
 	--enable-kde4 \
+	--enable-librsvg=system \
+	--enable-lockdown \
+	--enable-opengl \
+	--enable-odk \
+	--enable-python=system \
+	--enable-split-app-modules \
+  	--enable-split-opt-features \
+	--with-system-cairo \
+	--with-system-clucene \
+	--with-system-cppunit \
+	--with-system-curl \
+	--with-system-expat \
+	--with-system-graphite \
+	--with-system-hunspell \
+	--with-system-icu \
+	--with-system-jpeg \
+	--with-system-lcms2 \
+	--with-system-libexttextcat \
+	--with-system-libwpd \
+	--with-system-libwpg \
+	--with-system-libwps \
+	--with-system-libxml \
+	--with-system-mozilla=xulrunner \
+	--with-system-neon \
+	--with-system-nss \
+	--with-system-openssl \
+	--with-system-poppler \
+	--with-system-postgresql \
+	--with-system-redland \
+	--with-system-sane \
+	--with-system-vigra \
+	--with-system-zlib \
+	--with-openldap \
 	--with-intro-bitmaps="%{SOURCE27}" \
 	--with-about-bitmaps="%{SOURCE28}" \
+	--without-fonts \
+	--without-junit \
 %if %{javaless}
 	--with-ant-home="%{antpath}" \
 %else
@@ -3035,15 +3040,11 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 	--with-system-boost-for-build \
 %endif
 	--with-lang=%{langs} \
-	--with-system-sane \
-	--with-system-cairo \
 	--without-myspell-dicts \
 	--with-system-dicts \
 	--with-external-dict-dir=%{_datadir}/dict/ooo \
 	--with-external-hyph-dir=%{_datadir}/dict/ooo \
 	--with-external-thes-dir=%{_datadir}/dict/ooo \
-	--with-system-poppler \
-	--with-system-libexttextcat \
 %if !%extensionenabled
 	--disable-ext-pdfimport \
 	--disable-ext-presenter-minimizer \
@@ -3052,7 +3053,6 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 %else
 	--enable-ext-wiki-publisher \
 %endif
-	--without-fonts \
 %if %{use_openclipart}
     	--with-openclipart=%{_datadir}/images/openclipart \
 %endif
@@ -3157,11 +3157,9 @@ echo "Make end at: "`date` >> ooobuildtime.log
 echo "Install start at: "`date` >> ooobuildtime.log 
 
 %install
-
 # sbin due to icu stuff there
 PATH=$PATH:/usr/sbin
 
-rm -rf %{buildroot}
 make DESTDIR=%{buildroot} distro-pack-install
 rm -rf %{buildroot}/opt
 
