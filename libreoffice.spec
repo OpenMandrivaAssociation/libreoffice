@@ -109,11 +109,6 @@ Suggests:	%{name}-dtd-officedocument1.0 = %{EVRD}
 %if %extensionenabled
 Suggests:	%{name}-pdfimport = %{EVRD}
 %endif
-Obsoletes:	%{ooname}-go-ooo <= %{version}
-%ifarch x86_64
-Obsoletes:	openoffice.org64 <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo < 3.1-4
-%endif
 Provides:	LibreOffice
 Provides:	LibreOffice-libs
 Obsoletes:	openoffice.org < 1:3.3-1:2011.0 
@@ -165,8 +160,6 @@ BuildRequires:	pam-devel
 BuildRequires:	postgresql-devel
 BuildRequires:	qt4-devel
 BuildRequires:	readline-devel
-# STLport-devel 4.5 + private patches are needed
-BuildConflicts:	STLport-devel
 BuildRequires:	task-kde4-devel
 BuildRequires:	unixODBC-devel
 BuildRequires:	vigra-devel
@@ -231,6 +224,8 @@ BuildRequires:	jakarta-commons-codec
 BuildRequires:	jakarta-commons-lang
 BuildRequires:	jakarta-commons-httpclient
 %endif 
+# STLport-devel 4.5 + private patches are needed
+BuildConflicts:	STLport-devel
 
 ####################################################################
 #
@@ -328,16 +323,7 @@ Requires:	%{name}-common = %{EVRD}
 Requires:	hsqldb
 %endif
 Suggests:	%{name}-java-common = %{EVRD}
-# Due to the split
-Conflicts:	openoffice.org <= 2.2.1
-Conflicts:	openoffice.org-common <= 2.3.0.5-1mdv
 Obsoletes:	openoffice.org-base < 1:3.3-1:2011.0 
-# Provides:	openoffice.org-base = 1:3.3-1:2011.0
-%ifarch x86_64
-Conflicts:	openoffice.org64 <= 2.2.1
-Conflicts:	openoffice.org64-common <= 2.3.0.5-1mdv
-Obsoletes:	openoffice.org64-base <= 1:3.1-4
-%endif
 
 %description base
 LibreOffice is a full-featured office productivity suite that provides a
@@ -367,17 +353,7 @@ Summary:	LibreOffice office suite - spreadsheet
 Group:		Office
 Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
-# Due to the split
-Conflicts:	openoffice.org <= 2.2.1
-Conflicts:	openoffice.org-common <= 2.3.0.5-1mdv
 Obsoletes:	openoffice.org-calc < 1:3.3-1:2011.0 
-# Provides:	openoffice.org-calc = 1:3.3-1:2011.0
-# Provides:	openoffice.org-calc = %{EVRD}
-%ifarch x86_64
-Conflicts:	openoffice.org64 <= 2.2.1
-Conflicts:	openoffice.org64-common <= 2.3.0.5-1mdv
-Obsoletes:	openoffice.org64-calc <= 1:3.1-4
-%endif
 
 %description calc
 LibreOffice is a full-featured office productivity suite that provides a
@@ -410,22 +386,7 @@ Requires:	sane-backends
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	update-alternatives
 
-# Due to the split
-Conflicts:	openoffice.org <= 2.1.0
-Conflicts:	openoffice.org-devel <= 2.3.0.5-1mdv
-Conflicts:	openoffice.org-math <= 2.3.0.5-1mdv
-Conflicts:	openoffice.org-core <= 2.3.99.4-1mdv
-Conflicts:	openoffice.org-gnome < 3.0svn13581-2mdv
 Obsoletes:	openoffice.org-common < 1:3.3-1:2011.0 
-# Provides:	openoffice.org-common = 1:3.3-1:2011.0
-%ifarch x86_64
-Conflicts:	openoffice.org64 <= 2.1.0
-Conflicts:	openoffice.org64-devel <= 2.3.0.5-1mdv
-Conflicts:	openoffice.org64-math <= 2.3.0.5-1mdv
-Conflicts:	openoffice.org64-core <= 2.3.99.4-1mdv
-Conflicts:	openoffice.org64-gnome < 3.0svn13581-2mdv
-Obsoletes:	openoffice.org64-common <= 1:3.1-4
-%endif
 Conflicts:	%{name}-common = 1:3.2-rc4.0
 
 # Upstream dropped this packages in 3.4
@@ -449,26 +410,7 @@ Summary:	LibreOffice office suite architecture dependent files
 Group:		Office
 # binfilter has been removed in 4.0
 Obsoletes:	%name-filter-binfilter < %EVRD
-# Due to the split
-Conflicts:	openoffice.org <= 2.1.0
-Conflicts:	openoffice.org-base <= 2.3.0.5-1mdv
-Conflicts:	openoffice.org-common <= 2.3.1-1mdv
-Conflicts:	openoffice.org-devel <= 2.3.0.5-1mdv
-Conflicts:	openoffice.org-draw <= 2.3.0.5-1mdv
-Conflicts:	openoffice.org-impress <= 2.3.0.5-1mdv
-Conflicts:	openoffice.org-kde <= 2.3.0.5-1mdv
-Conflicts:	openoffice.org-writer <= 2.3.0.5-1mdv
 Obsoletes:	openoffice.org-core < 1:3.3-1:2011.0 
-%ifarch x86_64
-Conflicts:	openoffice.org64 <= 2.1.0
-Conflicts:	openoffice.org64-base <= 2.3.0.5-1mdv
-Conflicts:	openoffice.org64-common <= 2.3.1-1mdv
-Conflicts:	openoffice.org64-devel <= 2.3.0.5-1mdv
-Conflicts:	openoffice.org64-draw <= 2.3.0.5-1mdv
-Conflicts:	openoffice.org64-impress <= 2.3.0.5-1mdv
-Conflicts:	openoffice.org64-writer <= 2.3.0.5-1mdv
-Obsoletes:	openoffice.org64-core <= 1:3.1-4
-%endif
 
 %description core
 LibreOffice is a full-featured office productivity suite that provides a
@@ -502,14 +444,7 @@ zipped source of the UNO Java libraries for use in IDEs like eclipse.
 %package devel-doc
 Summary:	LibreOffice SDK - documentation
 Group:		Office
-# Due to the split
-Conflicts:	openoffice.org <= 2.2.1
 Obsoletes:	openoffice.org-devel-doc < 1:3.3-1:2011.0 
-
-%ifarch x86_64
-Conflicts:	openoffice.org64 <= 2.2.1
-Obsoletes:	openoffice.org64-devel-doc <= 1:3.1-4
-%endif
 
 %description devel-doc
 LibreOffice is a full-featured office productivity suite that provides
@@ -524,22 +459,11 @@ This package contains the documentation of the LibreOffice SDK:
 It also contains the gsicheck utility.
 
 %package draw
-Group:	Office
+Group:		Office
 Summary:	LibreOffice office suite - drawing
 Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
-# Due to the split
-Conflicts:	openoffice.org <= 2.2.1
-Conflicts:	openoffice.org-common <= 2.3.0.5-1mdv
-Conflicts:	openoffice.org-impress <= 2.3.0.5-1mdv
 Obsoletes:	openoffice.org-draw < 1:3.3-1:2011.0 
-# Provides:	openoffice.org-draw = 1:3.3-1:2011.0
-%ifarch x86_64
-Conflicts:	openoffice.org64 <= 2.2.1
-Conflicts:	openoffice.org64-common <= 2.3.0.5-1mdv
-Conflicts:	openoffice.org64-impress <= 2.3.0.5-1mdv
-Obsoletes:	openoffice.org64-draw <= 1:3.1-4
-%endif
 
 %description draw
 LibreOffice is a full-featured office productivity suite that provides a
@@ -548,11 +472,8 @@ near drop-in replacement for Microsoft(R) Office.
 This package contains the drawing component for LibreOffice.
 
 %package dtd-officedocument1.0
-Group:	Office
+Group:		Office
 Summary:	OfficeDocument 1.0 DTD
-# due to the split
-Conflicts:	openoffice.org <= 2.2.1
-# no need to require -core or -common, see #37559
 
 %description dtd-officedocument1.0
 LibreOffice is a full-featured office productivity suite that provides a
@@ -562,28 +483,11 @@ This package contains the Document Type Definition (DTD) of the LibreOffice
 1.x(!) XML file format.
 
 %package gnome
-Group:	Office
+Group:		Office
 Summary:	GNOME Integration for LibreOffice (VFS, GConf)
 Requires:	%{name}-common = %{EVRD}
 Requires:	%{name}-core = %{EVRD}
-# Due to the split
-Conflicts:	openoffice.org <= 2.2.1
-Obsoletes:	openoffice.org-gtk <= 2.3.0.5
-Conflicts:	openoffice.org-gtk <= 2.3.0.5
-Obsoletes:	openoffice.org-qstart <= 2.3.0.5
-Conflicts:	openoffice.org-qstart <= 2.3.0.5
-Obsoletes:	openoffice.org-evolution <= 2.3.0.5
-Conflicts:	openoffice.org-evolution <= 2.3.0.5
-# Suggests:	%{name}-style-tango = %{version}
 Obsoletes:	openoffice.org-gnome < 1:3.3-1:2011.0 
-# Provides:	openoffice.org-gnome = 1:3.3-1:2011.0
-%ifarch x86_64
-Conflicts:	openoffice.org64 <= 2.2.1
-Obsoletes:	openoffice.org64-gtk <= 2.3.0.5
-Obsoletes:	openoffice.org64-qstart <= 2.3.0.5
-Obsoletes:	openoffice.org64-evolution <= 2.3.0.5
-Obsoletes:	openoffice.org64-gnome <= 1:3.1-4
-%endif
 
 %description gnome
 LibreOffice is a full-featured office productivity suite that provides a
@@ -593,20 +497,12 @@ This package contains the GNOME VFS support and a GConf backend.
 
 
 %package impress
-Group:	Office
+Group:		Office
 Summary:	LibreOffice office suite - presentation
 Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD} 
 Requires:	%{name}-draw = %{EVRD}
-Conflicts:	openoffice.org <= 2.2.1
-Conflicts:	openoffice.org-common <= 2.3.0.5-1mdv
 Obsoletes:	openoffice.org-impress < 1:3.3-1:2011.0 
-# Provides:	openoffice.org-impress = 1:3.3-1:2011.0
-%ifarch x86_64
-Conflicts:	openoffice.org64 <= 2.2.1
-Conflicts:	openoffice.org64-common <= 2.3.0.5-1mdv
-Obsoletes:	openoffice.org64-impress <= 1:3.1-4
-%endif
 
 %description impress
 LibreOffice is a full-featured office productivity suite that provides a
@@ -615,17 +511,12 @@ near drop-in replacement for Microsoft(R) Office.
 This package contains the presentation component for LibreOffice.
 
 %package kde4
-Group:	Office
+Group:		Office
 Summary:	KDE4 Integration for LibreOffice (Widgets, Dialogs, Addressbook)
 Requires:	%{name}-common = %{EVRD}
 Requires:	%{name}-core = %{EVRD}
 Suggests:	%{name}-style-oxygen = %{EVRD} 
 Obsoletes:	openoffice.org-kde4 < 1:3.3-1:2011.0 
-# Provides:	openoffice.org-kde4 = 1:3.3-1:2011.0
-%ifarch x86_64
-Conflicts:	openoffice.org64 <= 2.2.1
-Obsoletes:	openoffice.org64-kde <= 1:3.1-4
-%endif
 Conflicts:	openoffice.org-core <= %{version}-beta1.0mdv
 
 %description kde4
@@ -636,21 +527,12 @@ This package contains the KDE4 plugin for drawing LibreOffice widgets with
 KDE4/Qt4.x and a KDEish File Picker when running under KDE4.
  
 %package java-common
-Group:	Office
+Group:		Office
 Summary:	LibreOffice office suite Java support arch. independent files
 Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
 Requires:	java
-# Due to the split
-Conflicts:	openoffice.org <= 2.2.1
-Conflicts:	openoffice.org-common <= 2.3.0.5-1mdv
 Obsoletes:	openoffice.org-java-common < 1:3.3-1:2011.0 
-#Provides:	openoffice.org-java-common = 1:3.3-1:2011.0
-%ifarch x86_64
-Conflicts:	openoffice.org64 <= 2.2.1
-Conflicts:	openoffice.org64-common <= 2.3.0.5-1mdv
-Obsoletes:	openoffice.org64-java-common <= 1:3.1-4
-%endif
 
 %description java-common
 LibreOffice is a full-featured office productivity suite that provides a
@@ -663,20 +545,11 @@ Also contains the LibreOffice Office Bean for embedding LibreOffice in
 custom Java applications.
 
 %package math
-Group:	Office
+Group:		Office
 Summary:	LibreOffice office suite - equation editor
 Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
-# Due to the split
-Conflicts:	openoffice.org <= 2.2.1
-Conflicts:	openoffice.org-common <= 2.3.0.5-1mdv
 Obsoletes:	openoffice.org-math < 1:3.3-1:2011.0 
-#Provides:	openoffice.org-math = 1:3.3-1:2011.0
-%ifarch x86_64
-Conflicts:	openoffice.org64 <= 2.2.1
-Conflicts:	openoffice.org64-common <= 2.3.0.5-1mdv
-Obsoletes:	openoffice.org64-math <= 1:3.1-4
-%endif
 
 %description math
 LibreOffice is a full-featured office productivity suite that provides a
@@ -685,18 +558,11 @@ near drop-in replacement for Microsoft(R) Office.
 This package contains the equation editor component for LibreOffice.
 
 %package openclipart
-Group:	Office
+Group:		Office
 Summary:	LibreOffice Open Clipart data
 Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
-Conflicts:	openoffice.org <= 2.2.1
-Obsoletes:	openoffice.org-galleries <= 2.2.1
 Obsoletes:	openoffice.org-openclipart < 1:3.3-1:2011.0 
-%ifarch x86_64
-Conflicts:	openoffice.org64 <= 2.2.1
-Obsoletes:	openoffice.org64-galleries <= 2.2.1
-Obsoletes:	openoffice.org64-openclipart <= 1:3.1-4
-%endif
 
 %description openclipart
 LibreOffice is a full-featured office productivity suite that provides a
@@ -706,16 +572,11 @@ This package contains the LibreOffice Open Clipart data, including images
 and sounds.
 
 %package pyuno
-Group:	Office
+Group:		Office
 Summary:	Python bindings for UNO library
 Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
-Conflicts:	openoffice.org-common <= 2.3.0.5-1mdv
 Obsoletes:	openoffice.org-pyuno < 1:3.3-1:2011.0 
-%ifarch x86_64
-Conflicts:	openoffice.org64-common <= 2.3.0.5-1mdv
-Obsoletes:	openoffice.org64-pyuno <= 1:3.1-4
-%endif
 
 %description pyuno
 LibreOffice is a full-featured office productivity suite that provides a
@@ -723,34 +584,13 @@ near drop-in replacement for Microsoft(R) Office.
 
 This package contains the Python bindings for the UNO library.
 
-#%package qa-api-tests
-#Group:	Office
-#Summary:	LibreOffice API Test Data
-#Requires:	%{name}-common = %{version}-%{release}
-## Due to the split
-#Conflicts:	%{name} <= 2.2.1
-#
-#%description qa-api-tests
-#LibreOffice is a full-featured office productivity suite that provides a
-#near drop-in replacement for Microsoft(R) Office.
-#
-#This package contains the test data for the OpenOffice.org Java and Basic APIs.
-
 %package style-galaxy
-Group:	Office
+Group:		Office
 Summary:	Default symbol style for LibreOffice
 Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
 Provides:	%{name}-style = %{EVRD}
-# Due to the split
-Conflicts:	openoffice.org <= 2.2.1
-Obsoletes:	openoffice.org-style-andromeda <= %{version}
 Obsoletes:	openoffice.org-style-galaxy < 1:3.3-1:2011.0 
-#Provides:	openoffice.org-style-galaxy = 1:3.3-1:2011.0
-%ifarch x86_64
-Conflicts:	openoffice.org64 <= 2.2.1
-Obsoletes:	openoffice.org64-style-galaxy <= 1:3.1-4
-%endif
 
 %description style-galaxy
 LibreOffice is a full-featured office productivity suite that provides a
@@ -761,19 +601,12 @@ MS Windows (tm) and when not using GNOME or KDE. Needs to be manually enabled
 in the LibreOffice option menu.
 
 %package style-crystal
-Group:	Office
+Group:		Office
 Summary:	Crystal symbol style for LibreOffice
 Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
 Provides:	%{name}-style = %{EVRD}
-# Due to the split
-Conflicts:	openoffice.org <= 2.2.1
 Obsoletes:	openoffice.org-style-crystal < 1:3.3-1:2011.0 
-#Provides:	openoffice.org-style-crystal = 1:3.3-1:2011.0
-%ifarch x86_64
-Conflicts:	openoffice.org64 <= 2.2.1
-Obsoletes:	openoffice.org64-style-crystal <= 1:3.1-4
-%endif
 
 %description style-crystal
 LibreOffice is a full-featured office productivity suite that provides a
@@ -782,19 +615,12 @@ near drop-in replacement for Microsoft(R) Office.
 This package contains the "crystal" symbol style, default style for KDE.
 
 %package style-hicontrast
-Group:	Office
+Group:		Office
 Summary:	Hicontrast symbol style for LibreOffice
 Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
 Provides:	%{name}-style = %{EVRD}
-# Due to the split
-Conflicts:	openoffice.org <= 2.2.1
 Obsoletes:	openoffice.org-style-hicontrast < 1:3.3-1:2011.0 
-#Provides:	openoffice.org-style-hicontrast = 1:3.3-1:2011.0
-%ifarch x86_64
-Conflicts:	openoffice.org64 <= 2.2.1
-Obsoletes:	openoffice.org64-style-hicontrast <= 1:3.1-4
-%endif
 
 %description style-hicontrast
 LibreOffice is a full-featured office productivity suite that provides a
@@ -804,19 +630,12 @@ This package contains the "hicontrast" symbol style, needs to be manually
 enabled in the LibreOffice option menu.
 
 %package style-tango
-Group:	Office
+Group:		Office
 Summary:	Tango symbol style for LibreOffice
 Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
 Provides:	%{name}-style = %{EVRD}
-# Due to the split
-Conflicts:	openoffice.org <= 2.2.1
 Obsoletes:	openoffice.org-style-tango < 1:3.3-1:2011.0 
-# Provides:	openoffice.org-style-tango = 1:3.3-1:2011.0
-%ifarch x86_64
-Conflicts:	openoffice.org64 <= 2.2.1
-Obsoletes:	openoffice.org64-style-tango <= 1:3.1-4
-%endif
 
 %description style-tango
 LibreOffice is a full-featured office productivity suite that provides a
@@ -825,15 +644,12 @@ near drop-in replacement for Microsoft(R) Office.
 This package contains the "tango" symbol style, default style for GTK/Gnome.
 
 %package style-oxygen
-Group:	Office
+Group:		Office
 Summary:	Oxygen symbol style for LibreOffice
 Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
 Provides:	%{name}-style = %{EVRD}
-# Due to the split
-Conflicts:	openoffice.org = 2.2.1
 Obsoletes:	openoffice.org-style-oxygen < 1:3.3-1:2011.0 
-#Provides:	openoffice.org-style-oxygen = 1:3.3-1:2011.0
 
 %description style-oxygen
 LibreOffice is a full-featured office productivity suite that provides a
@@ -842,21 +658,11 @@ near drop-in replacement for Microsoft(R) Office.
 This package contains the "oxygen" symbol style, default style for KDE4.
 
 %package writer
-Group:	Office
+Group:		Office
 Summary:	LibreOffice office suite - word processor
 Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
-# Due to the split
-Conflicts:	openoffice.org <= 2.2.1
-Conflicts:	openoffice.org-common <= 2.3.0.5-1mdv
-Conflicts:	openoffice.org-core <= 2.3.0.5-1mdv
 Obsoletes:	openoffice.org-writer < 1:3.3-1:2011.0 
-#Provides:	openoffice.org-writer = 1:3.3-1:2011.0
-%ifarch x86_64
-Conflicts:	openoffice.org64 <= 2.2.1
-Conflicts:	openoffice.org64-common <= 2.3.0.5-1mdv
-Obsoletes:	openoffice.org64-writer <= 1:3.1-4
-%endif
 
 %description writer
 LibreOffice is a full-featured office productivity suite that provides a
@@ -868,11 +674,7 @@ This package contains the wordprocessor component for LibreOffice.
 Summary:	Mono UNO Bridge for LibreOffice
 Group:		Office
 Requires:	%{ooname} = %{version}
-Obsoletes:	openoffice.org-go-ooo-mono <= %{version}
 Obsoletes:	openoffice.org-mono < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-mono <= 1:3.1-4
-%endif
 
 %description mono
 The Mono/UNO binding allows a Mono application to access the complete
@@ -884,46 +686,24 @@ not supported.
 %if %extensionenabled
 
 %package pdfimport
-Group:	Office
+Group:		Office
 Summary:	LibreOffice office suite - PDF Import extension
 Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
 Requires:	%{name}-draw = %{EVRD}
-# Due to the split
-Conflicts:	openoffice.org <= 2.2.1
-Conflicts:	openoffice.org-common <= 2.3.0.5-1mdv
-Conflicts:	openoffice.org-core <= 2.3.0.5-1mdv
 Obsoletes:	openoffice.org-pdfimport < 1:3.3-1:2011.0 
-#Provides:	openoffice.org-pdfimport = 1:3.3-1:2011.0
-%ifarch x86_64
-Conflicts:	openoffice.org64 <= 2.2.1
-Conflicts:	openoffice.org64-common <= 2.3.0.5-1mdv
-Conflicts:	openoffice.org64-core <= 2.3.0.5-1mdv
-Obsoletes:	openoffice.org64-pdfimport <= 1:3.1-4
-%endif
-Conflicts:	openoffice.org-pdfimport <= 1:3.2-rc4.0
 
 %description pdfimport
 PDF import extension enables PDF documments importing and basic editing of PDF
 documments by using LibreOffice-draw application.
 
 %package presenter-screen
-Group:	Office
+Group:		Office
 Summary:	LibreOffice office suite - Presenter Screen extension
 Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
 Requires:	%{name}-impress = %{EVRD}
-# Due to the split
-Conflicts:	openoffice.org <= 2.2.1
-Conflicts:	openoffice.org-common <= 2.3.0.5-1mdv
-Conflicts:	openoffice.org-core <= 2.3.0.5-1mdv
 Obsoletes:	openoffice.org-presenter-screen < 1:3.3-1:2011.0 
-%ifarch x86_64
-Conflicts:	openoffice.org64 <= 2.2.1
-Conflicts:	openoffice.org64-common <= 2.3.0.5-1mdv
-Conflicts:	openoffice.org64-core <= 2.3.0.5-1mdv
-Obsoletes:	openoffice.org64-presenter-screen <= 1:3.1-4
-%endif
 Conflicts:	%{name}-presenter-screen <= 1:3.2-rc4.0
 
 %description presenter-screen
@@ -931,20 +711,11 @@ Presenter Screen extension helps users to see upcoming slides and slide notes
 of presentations inside a second view not visible for the spectators.
 
 %package report-builder
-Group:	Office
+Group:		Office
 Summary:	LibreOffice office suite - Report Builder extension
 Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
 Requires:	%{name}-base = %{EVRD}
-# Due to the split
-Conflicts:	openoffice.org <= 2.2.1
-Conflicts:	openoffice.org-common <= 2.3.0.5-1mdv
-Conflicts:	openoffice.org-core <= 2.3.0.5-1mdv
-%ifarch x86_64
-Conflicts:	openoffice.org64 <= 2.2.1
-Conflicts:	openoffice.org64-common <= 2.3.0.5-1mdv
-Conflicts:	openoffice.org64-core <= 2.3.0.5-1mdv
-%endif
 
 %description report-builder
 By using %{name}-base the Report Builder extesion enables creating of smart and 
@@ -952,7 +723,7 @@ professional looking reports. Further the reports can be exported to PDF or
 OpenDocuments formats.
 
 %package wiki-publisher
-Group:	Office
+Group:		Office
 Summary:	LibreOffice office suite - Wiki Publisher extension
 Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
@@ -961,18 +732,7 @@ Requires:	%{name}-writer = %{EVRD}
 Requires:	jakarta-commons-codec, jakarta-commons-httpclient
 Requires:	jakarta-commons-lang, jakarta-commons-logging
 %endif
-# Due to the split
-Conflicts:	openoffice.org <= 2.2.1
-Conflicts:	openoffice.org-common <= 2.3.0.5-1mdv
-Conflicts:	openoffice.org-core <= 2.3.0.5-1mdv
 Obsoletes:	openoffice.org-wiki-publisher < 1:3.3-1:2011.0 
-%ifarch x86_64
-Conflicts:	openoffice.org64 <= 2.2.1
-Conflicts:	openoffice.org64-common <= 2.3.0.5-1mdv
-Conflicts:	openoffice.org64-core <= 2.3.0.5-1mdv
-Obsoletes:	openoffice.org64-wiki-publisher <= 1:3.1-4
-%endif
-Conflicts:	openoffice.org-wiki-publisher <= 1:3.2-rc4.0
 
 %description wiki-publisher
 With Wiki Publisher extesion is possible by using %{name}-writer to create 
@@ -981,23 +741,12 @@ MediaWiki markup language. This extension also enables publishing of the
 wiki pages.
 
 %package presentation-minimizer
-Group:	Office
+Group:		Office
 Summary:	LibreOffice office suite - Presentation Minimizer extension
 Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
 Requires:	%{name}-impress = %{EVRD}
-# Due to the split
-Conflicts:	openoffice.org <= 2.2.1
-Conflicts:	openoffice.org-common <= 2.3.0.5-1mdv
-Conflicts:	openoffice.org-core <= 2.3.0.5-1mdv
 Obsoletes:	openoffice.org-presentation-minimizer < 1:3.3-1:2011.0 
-%ifarch x86_64
-Conflicts:	openoffice.org64 <= 2.2.1
-Conflicts:	openoffice.org64-common <= 2.3.0.5-1mdv
-Conflicts:	openoffice.org64-core <= 2.3.0.5-1mdv
-Obsoletes:	openoffice.org64-presentation-minimizer <= 1:3.1-4
-%endif
-Conflicts:	openoffice.org-presentation-minimizer <= 1:3.2-rc4.0
 
 %description presentation-minimizer
 With Presentation Minimizer extesion is possible to reduce the file size 
@@ -1010,7 +759,7 @@ Microsoft PowerPoint presentations.
 
 %package postgresql
 Summary:	PostgreSQL connector for LibreOffice
-Group:	Office
+Group:		Office
 Requires:	%{name}-base = %{EVRD}
 
 %description postgresql
@@ -1028,12 +777,7 @@ Requires:	locales-af
 Requires:	urw-fonts
 Requires:	myspell-af
 Provides:	LibreOffice-l10n-af
-Obsoletes:	openoffice.org-go-ooo-l10n-af <= %{version}
 Obsoletes:	openoffice.org-l10n-af < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-af <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-af <= 3.1-4
-%endif
 
 %description l10n-af
 LibreOffice is an Open Source, community-developed, office suite.
@@ -1053,12 +797,7 @@ Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-ar
 Requires:	fonts-ttf-arabic
 Provides:	LibreOffice-l10n-ar
-Obsoletes:	openoffice.org-go-ooo-l10n-ar <= %{version}
 Obsoletes:	openoffice.org-l10n-ar < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-ar <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-ar <= 3.1-4
-%endif
 
 %description l10n-ar
 LibreOffice is an Open Source, community-developed, office suite.
@@ -1094,13 +833,8 @@ Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-bg
 Provides:	LibreOffice-l10n-bg
-Obsoletes:	openoffice.org-go-ooo-l10n-bg <= %{version}
 Suggests:	%{ooname}-help-bg = %{EVRD}
 Obsoletes:	openoffice.org-l10n-bg < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-bg <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-bg <= 3.1-4
-%endif
 
 %description l10n-bg
 LibreOffice is an Open Source, community-developed, office suite.
@@ -1138,12 +872,7 @@ Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-br
 Provides:	LibreOffice-l10n-br
-Obsoletes:	openoffice.org-go-ooo-l10n-br <= %{version}
 Obsoletes:	openoffice.org-l10n-br < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-br <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-br <= 3.1-4
-%endif
 
 %description l10n-br
 LibreOffice is an Open Source, community-developed, office suite.
@@ -1162,13 +891,8 @@ Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-bs
 Provides:	LibreOffice-l10n-bs
-Obsoletes:	openoffice.org-go-ooo-l10n-bs <= %{version}
 Suggests:	%{ooname}-help-bs = %{EVRD}
 Obsoletes:	openoffice.org-l10n-bs < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-bs <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-bs <= 3.1-4
-%endif
 
 %description l10n-bs
 LibreOffice is an Open Source, community-developed, office suite.
@@ -1189,13 +913,8 @@ Requires:	locales-ca
 Requires:	urw-fonts
 Requires:	myspell-ca
 Provides:	LibreOffice-l10n-ca
-Obsoletes:	openoffice.org-go-ooo-l10n-ca <= %{version}
 Suggests:	%{ooname}-help-ca = %{EVRD}
 Obsoletes:	openoffice.org-l10n-ca < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-ca <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-ca <= 3.1-4
-%endif
 
 %description l10n-ca
 LibreOffice is an Open Source, community-developed, office suite.
@@ -1217,13 +936,8 @@ Requires:	urw-fonts
 Requires:	myspell-cs
 Requires:	myspell-hyph-cs
 Provides:	LibreOffice-l10n-cs
-Obsoletes:	openoffice.org-go-ooo-l10n-cs <= %{version}
 Suggests:	%{ooname}-help-cs = %{EVRD}
 Obsoletes:	openoffice.org-l10n-cs < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-cs <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-cs <= 3.1-4
-%endif
 
 %description l10n-cs
 LibreOffice is an Open Source, community-developed, office suite.
@@ -1244,12 +958,7 @@ Requires:	locales-cy
 Requires:	urw-fonts
 Requires:	myspell-cy
 Provides:	LibreOffice-l10n-cy
-Obsoletes:	openoffice.org-go-ooo-l10n-cy <= %{version}
 Obsoletes:	openoffice.org-l10n-cy < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-cy <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-cy <= 3.1-4
-%endif
 
 %description l10n-cy
 LibreOffice is an Open Source, community-developed, office suite.
@@ -1271,13 +980,8 @@ Requires:	fonts-ttf-dejavu
 Requires:	urw-fonts
 Requires:	myspell-da, myspell-hyph-da
 Provides:	LibreOffice-l10n-da
-Obsoletes:	openoffice.org-go-ooo-l10n-da <= %{version}
 Suggests:	%{ooname}-help-da = %{EVRD}
 Obsoletes:	openoffice.org-l10n-da < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-da <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-da <= 3.1-4
-%endif
 
 %description l10n-da
 LibreOffice is an Open Source, community-developed, office suite.
@@ -1300,13 +1004,8 @@ Requires:	urw-fonts
 Requires:	myspell-de
 Requires:	myspell-hyph-de
 Provides:	LibreOffice-l10n-de
-Obsoletes:	openoffice.org-go-ooo-l10n-de <= %{version}
 Suggests:	%{ooname}-help-de = %{EVRD} 
 Obsoletes:	openoffice.org-l10n-de < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-de <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-de <= 3.1-4
-%endif
 
 %description l10n-de
 LibreOffice is an Open Source, community-developed, office suite.
@@ -1345,13 +1044,8 @@ Requires:	fonts-type1-greek
 Requires:	myspell-el
 Requires:	myspell-hyph-el
 Provides:	LibreOffice-l10n-el
-Obsoletes:	openoffice.org-go-ooo-l10n-el <= %{version}
 Suggests:	%{ooname}-help-el = %{EVRD} 
 Obsoletes:	openoffice.org-l10n-el < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-el <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-el <= 3.1-4
-%endif
 
 %description l10n-el
 LibreOffice is an Open Source, community-developed, office suite.
@@ -1373,13 +1067,8 @@ Requires:	urw-fonts
 Requires:	myspell-en_GB
 Requires:	myspell-hyph-en
 Provides:	LibreOffice-l10n-en_GB
-Obsoletes:	openoffice.org-go-ooo-l10n-en_GB <= %{version}
 Suggests:	%{ooname}-help-en_GB = %{EVRD} 
 Obsoletes:	openoffice.org-l10n-en_GB < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-en_GB <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-en_GB <= 3.1-4
-%endif
 
 %description l10n-en_GB
 LibreOffice is an Open Source, community-developed, office suite.
@@ -1402,13 +1091,8 @@ Requires:	urw-fonts
 Requires:	myspell-es
 Requires:	myspell-hyph-es
 Provides:	LibreOffice-l10n-es
-Obsoletes:	openoffice.org-go-ooo-l10n-es <= %{version}
 Suggests:	%{ooname}-help-es = %{EVRD} 
 Obsoletes:	openoffice.org-l10n-es < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-es <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-es <= 3.1-4
-%endif
 
 %description l10n-es
 LibreOffice is an Open Source, community-developed, office suite.
@@ -1431,13 +1115,8 @@ Requires:	urw-fonts
 Requires:	myspell-et
 Requires:	myspell-hyph-et
 Provides:	LibreOffice-l10n-et
-Obsoletes:	openoffice.org-go-ooo-l10n-et <= %{version}
 Suggests:	%{ooname}-help-et = %{EVRD} 
 Obsoletes:	openoffice.org-l10n-et < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-et <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-et <= 3.1-4
-%endif
 
 %description l10n-et
 LibreOffice is an Open Source, community-developed, office suite.
@@ -1458,13 +1137,8 @@ Requires:	locales-eu
 Requires:	fonts-ttf-dejavu
 Requires:	urw-fonts
 Provides:	LibreOffice-l10n-eu
-Obsoletes:	openoffice.org-go-ooo-l10n-eu <= %{version}
 Suggests:	%{ooname}-help-eu = %{EVRD} 
 Obsoletes:	openoffice.org-l10n-eu < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-eu <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-eu <= 3.1-4
-%endif
 
 %description l10n-eu
 LibreOffice is an Open Source, community-developed, office suite.
@@ -1502,13 +1176,8 @@ Requires:	locales-fi
 Requires:	fonts-ttf-dejavu
 Requires:	urw-fonts
 Provides:	LibreOffice-l10n-fi
-Obsoletes:	openoffice.org-go-ooo-l10n-fi <= %{version}
 Suggests:	%{ooname}-help-fi = %{EVRD} 
 Obsoletes:	openoffice.org-l10n-fi < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-fi <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-fi <= 3.1-4
-%endif
 
 %description l10n-fi
 LibreOffice is an Open Source, community-developed, office suite.
@@ -1531,13 +1200,8 @@ Requires:	urw-fonts
 Requires:	myspell-fr
 Requires:	myspell-hyph-fr
 Provides:	LibreOffice-l10n-fr
-Obsoletes:	openoffice.org-go-ooo-l10n-fr <= %{version}
 Suggests:	%{ooname}-help-fr = %{EVRD} 
 Obsoletes:	openoffice.org-l10n-fr < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-fr <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-fr <= 3.1-4
-%endif
 
 %description l10n-fr
 LibreOffice is an Open Source, community-developed, office suite.
@@ -1612,13 +1276,8 @@ Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-he
 Requires:	urw-fonts
 Provides:	LibreOffice-l10n-he
-Obsoletes:	openoffice.org-go-ooo-l10n-he <= %{version}
 Suggests:	%{ooname}-help-he = %{EVRD} 
 Obsoletes:	openoffice.org-l10n-he < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-he <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-he <= 3.1-4
-%endif
 
 %description l10n-he
 LibreOffice is an Open Source, community-developed, office suite.
@@ -1638,13 +1297,8 @@ Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-hi
 Requires:	urw-fonts
 Provides:	LibreOffice-l10n-hi
-Obsoletes:	openoffice.org-go-ooo-l10n-hi <= %{version}
 Suggests:	%{ooname}-help-hi = %{EVRD} 
 Obsoletes:	openoffice.org-l10n-hi < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-hi <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-hi <= 3.1-4
-%endif
 
 %description l10n-hi
 LibreOffice is an Open Source, community-developed, office suite.
@@ -1684,13 +1338,8 @@ Requires:	urw-fonts
 Requires:	myspell-hu
 Requires:	myspell-hyph-hu
 Provides:	LibreOffice-l10n-hu
-Obsoletes:	openoffice.org-go-ooo-l10n-hu <= %{version}
 Suggests:	%{ooname}-help-hu = %{EVRD} 
 Obsoletes:	openoffice.org-l10n-hu < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-hu <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-hu <= 3.1-4
-%endif
 
 %description l10n-hu
 LibreOffice is an Open Source, community-developed, office suite.
@@ -1712,13 +1361,8 @@ Requires:	urw-fonts
 Requires:	myspell-it
 Requires:	myspell-hyph-it
 Provides:	LibreOffice-l10n-it
-Obsoletes:	openoffice.org-go-ooo-l10n-it <= %{version}
 Suggests:	%{ooname}-help-it = %{EVRD}
 Obsoletes:	openoffice.org-l10n-it < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-it <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-it <= 3.1-4
-%endif
 
 %description l10n-it
 LibreOffice is an Open Source, community-developed, office suite.
@@ -1738,13 +1382,8 @@ Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-ja
 Requires:	fonts-ttf-japanese >= 0.20020727-1mdk
 Provides:	LibreOffice-l10n-ja
-Obsoletes:	openoffice.org-go-ooo-l10n-ja <= %{version}
 Suggests:	%{ooname}-help-ja = %{EVRD} 
 Obsoletes:	openoffice.org-l10n-ja < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-ja <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-ja <= 3.1-4
-%endif
 
 %description l10n-ja
 LibreOffice is an Open Source, community-developed, office suite.
@@ -1782,13 +1421,8 @@ Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-ko
 Requires:	fonts-ttf-korean >= 2.1
 Provides:	LibreOffice-l10n-ko
-Obsoletes:	openoffice.org-go-ooo-l10n-ko <= %{version}
 Suggests:	%{ooname}-help-ko = %{EVRD} 
 Obsoletes:	openoffice.org-l10n-ko < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-ko <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-ko <= 3.1-4
-%endif
 
 %description l10n-ko
 LibreOffice is an Open Source, community-developed, office suite.
@@ -1879,13 +1513,8 @@ Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-mk
 Provides:	LibreOffice-l10n-mk
-Obsoletes:	openoffice.org-go-ooo-l10n-mk <= %{version}
 Suggests:	%{ooname}-help-mk = %{EVRD} 
 Obsoletes:	openoffice.org-l10n-mk < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-mk <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-mk <= 3.1-4
-%endif
 
 %description l10n-mk
 LibreOffice is an Open Source, community-developed, office suite.
@@ -1923,13 +1552,8 @@ Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-no
 Requires:	urw-fonts
 Provides:	LibreOffice-l10n-nb
-Obsoletes:	openoffice.org-go-ooo-l10n-nb <= %{version}
 Suggests:	%{ooname}-help-nb = %{EVRD} 
 Obsoletes:	openoffice.org-l10n-nb < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-nb <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-nb <= 3.1-4
-%endif
 
 %description l10n-nb
 LibreOffice is an Open Source, community-developed, office suite.
@@ -1952,13 +1576,8 @@ Requires:	urw-fonts
 Requires:	myspell-nl
 Requires:	myspell-hyph-nl
 Provides:	LibreOffice-l10n-nl
-Obsoletes:	openoffice.org-go-ooo-l10n-nl <= %{version}
 Suggests:	%{ooname}-help-nl = %{EVRD} 
 Obsoletes:	openoffice.org-l10n-nl < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-nl <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-nl <= 3.1-4
-%endif
 
 %description l10n-nl
 LibreOffice is an Open Source, community-developed, office suite.
@@ -1978,13 +1597,8 @@ Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-no
 Requires:	urw-fonts
 Provides:	LibreOffice-l10n-nn
-Obsoletes:	openoffice.org-go-ooo-l10n-nn <= %{version}
 Suggests:	%{ooname}-help-nn = %{EVRD} 
 Obsoletes:	openoffice.org-l10n-nn < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-nn <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-nn <= 3.1-4
-%endif
 
 %description l10n-nn
 LibreOffice is an Open Source, community-developed, office suite.
@@ -2079,13 +1693,8 @@ Requires:	urw-fonts
 Requires:	myspell-pl
 Requires:	myspell-hyph-pl
 Provides:	LibreOffice-l10n-pl
-Obsoletes:	openoffice.org-go-ooo-l10n-pl <= %{version}
 Suggests:	%{ooname}-help-pl = %{EVRD} 
 Obsoletes:	openoffice.org-l10n-pl < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-pl <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-pl <= 3.1-4
-%endif
 
 %description l10n-pl
 LibreOffice is an Open Source, community-developed, office suite.
@@ -2108,13 +1717,8 @@ Requires:	urw-fonts
 Requires:	myspell-pt
 Requires:	myspell-hyph-pt
 Provides:	LibreOffice-l10n-pt
-Obsoletes:	openoffice.org-go-ooo-l10n-pt <= %{version}
 Suggests:	%{ooname}-help-pt = %{EVRD} 
 Obsoletes:	openoffice.org-l10n-pt < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-pt <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-pt <= 3.1-4
-%endif
 
 %description l10n-pt
 LibreOffice is an Open Source, community-developed, office suite.
@@ -2134,13 +1738,8 @@ Requires:	locales-pt
 Requires:	urw-fonts
 Requires:	myspell-pt_BR
 Provides:	LibreOffice-l10n_pt_BR
-Obsoletes:	openoffice.org-go-ooo-l10n-pt_BR <= %{version}
 Suggests:	%{ooname}-help-pt_BR = %{EVRD} 
 Obsoletes:	openoffice.org-l10n-pt_BR < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-pt_BR <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-pt_BR <= 3.1-4
-%endif
 
 %description l10n-pt_BR
 LibreOffice is an Open Source, community-developed, office suite.
@@ -2199,13 +1798,8 @@ Requires:	urw-fonts >= 2.0-6mdk
 Requires:	myspell-ru
 Requires:	myspell-hyph-ru
 Provides:	LibreOffice-l10n-ru
-Obsoletes:	openoffice.org-go-ooo-l10n-ru <= %{version}
 Suggests:	%{ooname}-help-ru = %{EVRD} 
 Obsoletes:	openoffice.org-l10n-ru < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-ru <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-ru <= 3.1-4
-%endif
 
 %description l10n-ru
 LibreOffice is an Open Source, community-developed, office suite.
@@ -2265,13 +1859,8 @@ Requires:	urw-fonts
 Requires:	myspell-sk
 Requires:	myspell-hyph-sk
 Provides:	LibreOffice-l10n-sk
-Obsoletes:	openoffice.org-go-ooo-l10n-sk <= %{version}
 Suggests:	%{ooname}-help-sk = %{EVRD} 
 Obsoletes:	openoffice.org-l10n-sk < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-sk <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-sk <= 3.1-4
-%endif
 
 %description l10n-sk
 LibreOffice is an Open Source, community-developed, office suite.
@@ -2292,13 +1881,8 @@ Requires:	locales-sl
 Requires:	urw-fonts
 Requires:	myspell-sl, myspell-hyph-sl
 Provides:	LibreOffice-l10n-sl
-Obsoletes:	openoffice.org-go-ooo-l10n-sl <= %{version}
 Suggests:	%{ooname}-help-sl = %{EVRD} 
 Obsoletes:	openoffice.org-l10n-sl < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-sl <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-sl <= 3.1-4
-%endif
 
 %description l10n-sl
 LibreOffice is an Open Source, community-developed, office suite.
@@ -2375,13 +1959,8 @@ Requires:	urw-fonts
 Requires:	myspell-sv
 Requires:	myspell-hyph-sv
 Provides:	LibreOffice-l10n-sv
-Obsoletes:	openoffice.org-go-ooo-l10n-sv <= %{version}
 Suggests:	%{ooname}-help-sv = %{EVRD} 
 Obsoletes:	openoffice.org-l10n-sv < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-sv <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-sv <= 3.1-4
-%endif
 
 %description l10n-sv
 LibreOffice is an Open Source, community-developed, office suite.
@@ -2401,12 +1980,7 @@ Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-ta
 Requires:	urw-fonts
 Provides:	LibreOffice-l10n-ta
-Obsoletes:	openoffice.org-go-ooo-l10n-ta <= %{version}
 Obsoletes:	openoffice.org-l10n-ta < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-ta <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-ta <= 3.1-4
-%endif
 
 %description l10n-ta
 LibreOffice is an Open Source, community-developed, office suite.
@@ -2480,13 +2054,8 @@ Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-tr
 Requires:	urw-fonts
 Provides:	LibreOffice-l10n-tr
-Obsoletes:	openoffice.org-go-ooo-l10n-tr <= %{version}
 Suggests:	%{ooname}-help-tr = %{EVRD} 
 Obsoletes:	openoffice.org-l10n-tr < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-tr <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-tr <= 3.1-4
-%endif
 
 %description l10n-tr
 LibreOffice is an Open Source, community-developed, office suite.
@@ -2579,13 +2148,8 @@ Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-zh
 Requires:	fonts-ttf-chinese
 Provides:	LibreOffice-l10n-zh_CN
-Obsoletes:	openoffice.org-go-ooo-l10n-zh_CN <= %{version}
 Suggests:	%{ooname}-help-zh_CN = %{EVRD} 
 Obsoletes:	openoffice.org-l10n-zh_CN < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-zh_CN <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-zh_CN <= 3.1-4
-%endif
 
 %description l10n-zh_CN
 LibreOffice is an Open Source, community-developed, office suite.
@@ -2605,13 +2169,8 @@ Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-zh
 Requires:	fonts-ttf-chinese
 Provides:	LibreOffice-l10n-zh_TW
-Obsoletes:	openoffice.org-go-ooo-l10n-zh_TW <= %{version}
 Suggests:	%{ooname}-help-zh_TW = %{EVRD}
 Obsoletes:	openoffice.org-l10n-zh_TW < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-zh_TW <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-zh_TW <= 3.1-4
-%endif
 
 %description l10n-zh_TW
 LibreOffice is an Open Source, community-developed, office suite.
@@ -2633,12 +2192,7 @@ Requires:	locales-zu
 Requires:	urw-fonts
 Requires:	myspell-zu
 Provides:	LibreOffice-l10n-zu
-Obsoletes:	openoffice.org-go-ooo-l10n-zu <= %{version}
 Obsoletes:	openoffice.org-l10n-zu < 1:3.3-1:2011.0 
-%ifarch x86_64
-Obsoletes:	openoffice.org64-l10n-zu <= 1:3.1-4
-Obsoletes:	openoffice.org64-go-ooo-l10n-zu <= 3.1-4
-%endif
 
 %description l10n-zu
 LibreOffice is an Open Source, community-developed, office suite.
@@ -4377,5 +3931,3 @@ fi
 %files help-en_US -f file-lists/help_en_US_list.txt
 %endif
 
-#removed --with-system-hsqldb
-# BuildRequires:	ant-apache-regexp
