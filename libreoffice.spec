@@ -3057,9 +3057,7 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
     	--with-openclipart=%{_datadir}/images/openclipart \
 %endif
 %if %{use_mono}
-# dev300
 	--enable-mono \
-#	--with-mono-gac-root=%{_libdir} \
 %endif
 %if %{use_smp}
 	--with-num-cpus=${RPM_BUILD_NCPUS:-1} \
@@ -3253,26 +3251,6 @@ find %{buildroot} -type f \( -name '*.so' -o -name '*.so.*' \) -exec chmod a+x '
 # Anssi patch
 # remove /usr/bin/soffice (made with update-alternatives)
 # rm -f %{buildroot}%{_bindir}/soffice
-
-# Anssi patch
-# Versionify bash_completion (ooo-wrapper.sh)
-# if [ -f %{buildroot}%{_sysconfdir}/bash_completion.d/ooo-wrapper.sh ]; then
-# mv %{buildroot}%{_sysconfdir}/bash_completion.d/ooo-wrapper.sh \
-# 	%{buildroot}%{_sysconfdir}/bash_completion.d/ooo-wrapper%{mdvsuffix}
-# fi
-
-# Versionify bash_completion (ooffice.sh)
-# if [ -f %{buildroot}%{_sysconfdir}/bash_completion.d/ooffice*.sh ]; then
-# mv %{buildroot}%{_sysconfdir}/bash_completion.d/ooffice*.sh \
-# 	%{buildroot}%{_sysconfdir}/bash_completion.d/ooffice%{mdvsuffix}
-# fi
-
-# dev 300 2.3 ???
-# %if %{use_mono}
-# Versionify mono-ooo.pc
-# mv %{buildroot}%{_libdir}/pkgconfig/mono-ooo-%{mdvsuffix}.pc \
-#   %{buildroot}%{_libdir}/pkgconfig/mono-ooo%{mdvsuffix}-2.3.pc
-# %endif
 
 # Anssi 
 # Install a random UNO extension into BUILDROOT and remove it, so that unopkg
@@ -3661,9 +3639,6 @@ fi
 %if %{use_mono}
 %files mono -f file-lists/mono_list.txt
 %{_libdir}/pkgconfig/mono-ooo.pc
-# %{_libdir}/pkgconfig/mono-ooo%{mdvsuffix}-2.3.pc
-# %{_libdir}/mono/*/*/*
-# %{_libdir}/mono/ooo-%{mdvsuffix}
 %endif
 
 %if %extensionenabled
