@@ -2202,9 +2202,6 @@ Summary:	Bulgarian help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-bg = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-bg <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-bg
 Obsoletes:	openoffice.org-help-bg < 1:3.3-1:2011.0 
 
@@ -2231,9 +2228,6 @@ Summary:	Bosnian help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-bs = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-bs <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-bs
 Obsoletes:	openoffice.org-help-bs < 1:3.3-1:2011.0 
 
@@ -2248,9 +2242,6 @@ Summary:	Catalan help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-ca = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-ca <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-ca
 Obsoletes:	openoffice.org-help-ca < 1:3.3-1:2011.0 
 
@@ -2265,9 +2256,6 @@ Summary:	Czech help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-cs = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-cs <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-cs
 Obsoletes:	openoffice.org-help-cs < 1:3.3-1:2011.0 
 
@@ -2282,9 +2270,6 @@ Summary:	Danish help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-da = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-da <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-da
 Obsoletes:	openoffice.org-help-da < 1:3.3-1:2011.0 
 
@@ -2299,9 +2284,6 @@ Summary:	German help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-de = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-de <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-de
 Obsoletes:	openoffice.org-help-de < 1:3.3-1:2011.0 
 
@@ -2328,9 +2310,6 @@ Summary:	Greek help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-el = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-el <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-el
 Obsoletes:	openoffice.org-help-el < 1:3.3-1:2011.0 
 
@@ -2346,9 +2325,6 @@ Summary:	British help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-en_GB = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-en_GB <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-en_GB
 Obsoletes:	openoffice.org-help-en_GB < 1:3.3-1:2011.0 
 
@@ -2363,12 +2339,8 @@ Summary:	American English help for LibreOffice
 Group:		Office 
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-en_US <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-en_US
 Obsoletes:	openoffice.org-help-en_US < 1:3.3-1:2011.0 
-#Provides:	openoffice.org-help-en_US = 1:3.3-1:2011.0
 
 %description help-en_US
 LibreOffice is an Open Source, community-developed, office suite.
@@ -2382,9 +2354,6 @@ Summary:	Spanish help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-es = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-es <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-es
 Obsoletes:	openoffice.org-help-es < 1:3.3-1:2011.0 
 
@@ -2399,9 +2368,6 @@ Summary:	Estonian help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-et = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-et <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-et
 Obsoletes:	openoffice.org-help-et < 1:3.3-1:2011.0 
 
@@ -2416,9 +2382,6 @@ Summary:	Basque help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-eu = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-eu <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-eu
 Obsoletes:	openoffice.org-help-eu < 1:3.3-1:2011.0 
 
@@ -2433,9 +2396,6 @@ Summary:	Finnish help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-fi = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-fi <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-fi
 Obsoletes:	openoffice.org-help-fi < 1:3.3-1:2011.0 
 
@@ -2450,9 +2410,6 @@ Summary:	French help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-fr = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-fr <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-fr
 Obsoletes:	openoffice.org-help-fr < 1:3.3-1:2011.0 
 
@@ -2493,9 +2450,6 @@ Summary:	Hebrew help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-he = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-he <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-he
 Obsoletes:	openoffice.org-help-he < 1:3.3-1:2011.0 
 
@@ -2510,9 +2464,6 @@ Summary:	Hindi help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-hi = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-hi <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-hi
 Obsoletes:	openoffice.org-help-hi < 1:3.3-1:2011.0 
 
@@ -2540,9 +2491,6 @@ Summary:	Hungarian help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-hu = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-hu <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-hu
 Obsoletes:	openoffice.org-help-hu < 1:3.3-1:2011.0 
 
@@ -2557,9 +2505,6 @@ Summary:	Italian help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-it = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-it <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-it
 Obsoletes:	openoffice.org-help-it < 1:3.3-1:2011.0 
 
@@ -2574,9 +2519,6 @@ Summary:	Japanese help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-ja = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-ja <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-ja
 Obsoletes:	openoffice.org-help-ja < 1:3.3-1:2011.0 
 
@@ -2591,9 +2533,6 @@ Summary:	Korean help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-ko = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-ko <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-ko
 Obsoletes:	openoffice.org-help-ko < 1:3.3-1:2011.0 
 
@@ -2608,9 +2547,6 @@ Summary:	Macedonian help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-mk = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-mk <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-mk
 Obsoletes:	openoffice.org-help-mk < 1:3.3-1:2011.0 
 
@@ -2625,9 +2561,6 @@ Summary:	Norwegian Bokmal help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-nb = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-nb <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-nb
 Obsoletes:	openoffice.org-help-nb < 1:3.3-1:2011.0 
 
@@ -2643,9 +2576,6 @@ Summary:	Dutch help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-nl = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-nl <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-nl
 Obsoletes:	openoffice.org-help-nl < 1:3.3-1:2011.0 
 
@@ -2660,9 +2590,6 @@ Summary:	Norwegian Nynorsk help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-nn = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-nn <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-nn
 Obsoletes:	openoffice.org-help-nn < 1:3.3-1:2011.0 
 
@@ -2678,9 +2605,6 @@ Summary:	Polish help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-pl = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-pl <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-pl
 Obsoletes:	openoffice.org-help-pl < 1:3.3-1:2011.0 
 
@@ -2695,9 +2619,6 @@ Summary:	Portuguese help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-pt = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-pt <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-pt
 Obsoletes:	openoffice.org-help-pt < 1:3.3-1:2011.0 
 
@@ -2712,9 +2633,6 @@ Summary:	Portuguese Brazilian help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-pt_BR = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-pt_BR <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-pt_BR
 Obsoletes:	openoffice.org-help-pt_BR < 1:3.3-1:2011.0 
 
@@ -2754,9 +2672,6 @@ Summary:	Russian help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-ru = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-ru <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-ru
 Obsoletes:	openoffice.org-help-ru < 1:3.3-1:2011.0 
 
@@ -2784,9 +2699,6 @@ Summary:	Slovak help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-sk = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-sk <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-sk
 Obsoletes:	openoffice.org-help-sk < 1:3.3-1:2011.0 
 
@@ -2801,9 +2713,6 @@ Summary:	Slovenian help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-sl = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-sl <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-sl
 Obsoletes:	openoffice.org-help-sl < 1:3.3-1:2011.0 
 
@@ -2818,9 +2727,6 @@ Summary:	Swedish help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-sv = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-sv <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-sv
 Obsoletes:	openoffice.org-help-sv < 1:3.3-1:2011.0 
 
@@ -2835,9 +2741,6 @@ Summary:	Turkish help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-tr = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-tr <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-tr
 Obsoletes:	openoffice.org-help-tr < 1:3.3-1:2011.0 
 
@@ -2865,9 +2768,6 @@ Summary:	Chinese Simplified help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-zh_CN = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-zh_CN <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-zn_CN
 Obsoletes:	openoffice.org-help-zn_CN < 1:3.3-1:2011.0 
 
@@ -2883,9 +2783,6 @@ Summary:	Chinese Traditional help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-zh_TW = %{EVRD}
-%ifarch x86_64
-Obsoletes:	openoffice.org64-help-zh_TW <= 1:3.1-4
-%endif
 Provides:	LibreOffice-help-zn_CT
 Obsoletes:	openoffice.org-help-zn_CT < 1:3.3-1:2011.0 
 
@@ -3331,11 +3228,11 @@ done;
 ## drop GTK dependency from -core
 sed -i -e '/^.*libqstart_gtklo.so$/d' file-lists/core_list.txt
 sed -i -e '/^.*pluginapp.bin$/d' file-lists/core_list.txt
-echo '%ooodir/program/libqstart_gtklo.so' >>file-lists/gnome_list.txt
-echo '%ooodir/program/pluginapp.bin' >>file-lists/gnome_list.txt
+echo '%{ooodir}/program/libqstart_gtklo.so' >>file-lists/gnome_list.txt
+echo '%{ooodir}/program/pluginapp.bin' >>file-lists/gnome_list.txt
 ## GConf too
 sed -i -e '/^.*gconfbe1.uno.so$/d' file-lists/core_list.txt
-echo '%ooodir/program/gconfbe1.uno.so' >>file-lists/gnome_list.txt
+echo '%{ooodir}/program/gconfbe1.uno.so' >>file-lists/gnome_list.txt
 
 ## sort removing duplicates
 sort -u file-lists/gnome_list.txt > file-lists/gnome_list.uniq.sorted.txt 
