@@ -3128,8 +3128,8 @@ rm -rf %{buildroot}/opt
 #   --dir %{buildroot}%{_datadir}/applications %{buildroot}%{ooodir}/share/xdg/base*desktop
 
 # Mandriva Rosa icons
-mkdir -p %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/
-tar -xjvf %{SOURCE20} --exclude Libre_Office* -C %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/
+mkdir -p %{buildroot}%{_iconsdir}/hicolor/scalable/apps/
+tar -xjvf %{SOURCE20} --exclude Libre_Office* -C %{buildroot}%{_iconsdir}/hicolor/scalable/apps/
 
 sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-calc_72/'    %{buildroot}%{ooodir}/share/xdg/calc.desktop
 sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-writer_72/'  %{buildroot}%{ooodir}/share/xdg/writer.desktop 
@@ -3187,12 +3187,12 @@ echo 'ProgressSize=377,9' >> %{buildroot}%{ooodir}/program/sofficerc
 
 #libre 
 # remove icons we dont have these sizes yet
-# rm -rf %{buildroot}%{_datadir}/icons/hicolor/22x22/apps/*
-# rm -rf %{buildroot}%{_datadir}/icons/hicolor/24x24/apps/*
+# rm -rf %{buildroot}%{_iconsdir}/hicolor/22x22/apps/*
+# rm -rf %{buildroot}%{_iconsdir}/hicolor/24x24/apps/*
 
 #libre 
 # remove scalables icons since we dont have yet
-# rm -rf %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/*
+# rm -rf %{buildroot}%{_iconsdir}/hicolor/scalable/apps/*
 
 # libre
 # Fixes japanese translations on desktop files
@@ -3383,7 +3383,7 @@ fi
 %files base -f file-lists/base_list.txt
 %{_mandir}/man1/lobase*
 # %{_datadir}/applications/base.desktop
-%{_datadir}/icons/hicolor/scalable/apps/mandriva-rosa-lo-base_72.svg
+%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-base_72.svg
 
 %files calc -f file-lists/calc_list.txt
 #libre 
@@ -3391,10 +3391,10 @@ fi
 # %{_datadir}/templates/.source/ooo-spreadsheet.ods
 %{_mandir}/man1/localc*
 # %{_datadir}/applications/calc.desktop
-%{_datadir}/icons/hicolor/scalable/apps/mandriva-rosa-lo-calc_72.svg
+%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-calc_72.svg
 
 %files common -f file-lists/common_list.uniq.sorted.txt 
-%{_datadir}/icons/hicolor/scalable/apps/mandriva-rosa-lo_72.svg
+%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo_72.svg
 
 # libre
 # %{_sysconfdir}/bash_completion.d/libreoffice3.3.sh
@@ -3438,7 +3438,7 @@ fi
 # %{_datadir}/templates/ooo-drawing.desktop
 # %{_datadir}/templates/.source/ooo-drawing.odg
 %{_mandir}/man1/lodraw*
-%{_datadir}/icons/hicolor/scalable/apps/mandriva-rosa-lo-draw_72.svg
+%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-draw_72.svg
 
 %files dtd-officedocument1.0 -f file-lists/dtd_list.txt
 
@@ -3450,7 +3450,7 @@ fi
 # %{_datadir}/templates/ooo-presentation.desktop
 # %{_datadir}/templates/.source/ooo-presentation.odp
 %{_mandir}/man1/loimpress*
-%{_datadir}/icons/hicolor/scalable/apps/mandriva-rosa-lo-impress_72.svg
+%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-impress_72.svg
 
 %files java-common -f file-lists/java_common_list.txt
 %{_lib}dir/libreoffice/program/classes/ScriptProviderForBeanShell.jar
@@ -3462,7 +3462,7 @@ fi
 %files math -f file-lists/math_list.txt
 # %{_datadir}/applications/math.desktop
 %{_mandir}/man1/lomath*
-%{_datadir}/icons/hicolor/scalable/apps/mandriva-rosa-lo-math_72.svg
+%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-math_72.svg
 
 %files openclipart -f file-lists/gallery_list.txt
 
@@ -3492,7 +3492,7 @@ fi
 # %{_datadir}/templates/.source/ooo-text.odt
 %{_mandir}/man1/loweb*
 %{_mandir}/man1/lowriter*
-%{_datadir}/icons/hicolor/scalable/apps/mandriva-rosa-lo-writer_72.svg
+%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-writer_72.svg
 
 %if %{use_mono}
 %files mono -f file-lists/mono_list.txt
