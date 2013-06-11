@@ -3434,30 +3434,7 @@ fi
 # 		%unopkg list --shared &> /dev/null
 # 	fi
 # fi
-# 
-# # %post report-builder
-# # upgrade 
-# # if [ $1 -ge 1 ];then
-# #	idextension=$(%unopkg list --shared 2> /dev/null | sed -ne 's/^Identifier: \(com.sun.reportdesigner\)/\1/p');
-# #	if [ "z$idextension" != "z" ]; then
-# #		%unopkg remove --shared $idextension 2> /dev/null
-# #		%unopkg list --shared &> /dev/null
-# #	fi
-# # fi
-# #install 
-# # %unopkg add --shared %{ooodir}/sun-report-builder.oxt 2> /dev/null
-# # %unopkg list --shared &> /dev/null 
-# 
-# #uninstall
-# # %preun report-builder
-# # if [ $1 -eq 0 ];then
-# #	idextension=$(%unopkg list --shared 2> /dev/null | sed -ne 's/^Identifier: \(com.sun.reportdesigner\)/\1/p');
-# #	if [ "z$idextension" != "z" ]; then
-# #		%unopkg remove --shared $idextension 2> /dev/null
-# #		%unopkg list --shared &> /dev/null
-# #	fi
-# # fi
-# 
+
 # %post wiki-publisher
 # # upgrade 
 # if [ $1 -ge 2 ];then
@@ -3532,13 +3509,6 @@ fi
 # %{_datadir}/applications/template*.desktop
 
 # new icons
-# %{_datadir}/icons/hicolor/*/apps/openofficeorg3-*.png
-# moved to mandriva-kde-config 
-#%{_datadir}/icons/hicolor/*/mimetypes/openofficeorg3-*.png
-# %{_datadir}/icons/gnome/*/apps/openofficeorg3-*.png
-# %{_datadir}/icons/gnome/*/mimetypes/openofficeorg3-*.png
-
-
 # libre
 # %{_datadir}/pixmaps/ooo-base3.3.png
 # %{_datadir}/pixmaps/ooo-calc3.3.png
@@ -3553,12 +3523,6 @@ fi
 %{_mandir}/man1/loffice*
 %{_mandir}/man1/lofromtemplate*
 %{_mandir}/man1/libreoffice*
-
-#dev300 
-# %ghost %{ooodir}/share/uno_packages
-# %ghost %{ooodir}/program/bootstraprc
-# %ghost %{ooodir}/program/versionrc
-# %ghost %{ooodir}/%basis/share/registry/data/org/openoffice/Setup.xcu
 
 %{_mandir}/man1/unopkg.1*
 
@@ -3606,9 +3570,6 @@ fi
 %files openclipart -f file-lists/gallery_list.txt
 
 %files pyuno -f file-lists/pyuno_list.txt
-
-#%files qa-api-tests
-#%{ooodir}/qadevOOo
 
 %files style-galaxy
 %{ooodir}/share/config/images.zip
