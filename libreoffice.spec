@@ -57,10 +57,6 @@
 %{?_with_ccache: %global use_ccache 1}
 %{?_without_ccache: %global use_ccache 0}
 
-%define use_smp		1
-%{?_with_smp: %global use_smp 1}
-%{?_without_smp: %global use_smp 0}
-
 %define use_mono	0
 %{?_with_mono: %global use_mono 1}
 %{?_without_mono: %global use_mono 0}
@@ -207,6 +203,7 @@ BuildRequires:	zip
 BuildRequires:	cups-devel
 BuildRequires:	hyphen-devel
 BuildRequires:	java-devel
+BuildRequires:	kdelibs4-devel
 BuildRequires:	libwpd-devel >= 0.9.0
 BuildRequires:	libwpg-devel
 BuildRequires:	libwps-devel
@@ -2892,13 +2889,10 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 	--with-distro=%{distroname} \
 	--with-vendor=Mandriva \
 	--with-build-version="%{buildver}" \
-	--with-system-stdlibs \
-	--enable-binfilter \
 	--disable-gstreamer-0.10 \
 	--enable-gstreamer \
 	--disable-kde \
 	--enable-kde4 \
-	--enable-librsvg=system \
 	--enable-lockdown \
 	--enable-opengl \
 	--enable-odk \
@@ -2930,7 +2924,6 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 	--with-system-sane \
 	--with-system-vigra \
 	--with-system-zlib \
-	--with-openldap \
 	--with-intro-bitmaps="%{SOURCE27}" \
 	--with-about-bitmaps="%{SOURCE28}" \
 	--without-fonts \
@@ -2955,9 +2948,7 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 	--with-external-hyph-dir=%{_datadir}/dict/ooo \
 	--with-external-thes-dir=%{_datadir}/dict/ooo \
 %if !%extensionenabled
-	--disable-ext-pdfimport \
 	--disable-ext-presenter-minimizer \
-	--disable-ext-presenter-console \
 	--disable-ext-report-builder \
 %else
 	--enable-ext-wiki-publisher \
@@ -2967,9 +2958,6 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 %endif
 %if %{use_mono}
 	--enable-mono \
-%endif
-%if %{use_smp}
-	--with-num-cpus=${RPM_BUILD_NCPUS:-1} \
 %endif
 %if %{use_ccache} && !%{use_icecream}
 	--with-gcc-speedup=ccache \
