@@ -107,32 +107,32 @@ Source20:	Mandriva-Rosa_Icons.tar.bz2
 
 Source31:	ftp://ftp.iij.ad.jp/pub/linux/momonga/updates/6.1/SOURCES/ooo_oxygen_images-2009-06-17.tar.gz
 Source32:	http://hg.services.openoffice.org/binaries/fdb27bfe2dbe2e7b57ae194d9bf36bab-SampleICC-1.3.2.tar.gz
-Source36:	http://dev-www.libreoffice.org/src/9f9e15966b5624834157fe3d748312bc-mdds_0.6.1.tar.bz2
-Source37:	http://kohei.us/files/ixion/src/libixion_0.3.0.tar.bz2
-Source38:	http://dev-www.libreoffice.org/src/46e92b68e31e858512b680b3b61dc4c1-mythes-1.2.3.tar.gz
+#Source36:	http://dev-www.libreoffice.org/src/9f9e15966b5624834157fe3d748312bc-mdds_0.6.1.tar.bz2
+#Source37:	http://kohei.us/files/ixion/src/libixion_0.3.0.tar.bz2
+#Source38:	http://dev-www.libreoffice.org/src/46e92b68e31e858512b680b3b61dc4c1-mythes-1.2.3.tar.gz
 Source39:	http://dev-www.libreoffice.org/extern/185d60944ea767075d27247c3162b3bc-unowinreg.dll
 Source40:	http://hg.services.openoffice.org/binaries/48d8169acc35f97e05d8dcdfd45be7f2-lucene-2.3.2.tar.gz
 Source42:	http://hg.services.openoffice.org/binaries/2a177023f9ea8ec8bd00837605c5df1b-jakarta-tomcat-5.0.30-src.tar.gz
-Source43:	http://hg.services.openoffice.org/binaries/284e768eeda0e2898b0d5bf7e26a016e-raptor-1.4.18.tar.gz
-Source44:	http://hg.services.openoffice.org/binaries/fca8706f2c4619e2fa3f8f42f8fc1e9d-rasqal-0.9.16.tar.gz 
+#Source43:	http://hg.services.openoffice.org/binaries/284e768eeda0e2898b0d5bf7e26a016e-raptor-1.4.18.tar.gz
+#Source44:	http://hg.services.openoffice.org/binaries/fca8706f2c4619e2fa3f8f42f8fc1e9d-rasqal-0.9.16.tar.gz 
 Source45:	http://hg.services.openoffice.org/binaries/1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz
-Source46:	http://hg.services.openoffice.org/binaries/1f24ab1d39f4a51faf22244c94a6203f-xmlsec1-1.2.14.tar.gz	
+#Source46:	http://hg.services.openoffice.org/binaries/1f24ab1d39f4a51faf22244c94a6203f-xmlsec1-1.2.14.tar.gz	
 Source47:	http://hg.services.openoffice.org/binaries/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
 Source48:	http://hg.services.openoffice.org/binaries/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
 Source49:	http://hg.services.openoffice.org/binaries/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
-Source50:	http://dev-www.libreoffice.org/src/a2f6010987e1c601274ab5d63b72c944-hyphen-2.8.4.tar.gz
-Source51:	http://hg.services.openoffice.org/binaries/26b3e95ddf3d9c077c480ea45874b3b8-lp_solve_5.5.tar.gz
+#Source50:	http://dev-www.libreoffice.org/src/a2f6010987e1c601274ab5d63b72c944-hyphen-2.8.4.tar.gz
+#Source51:	http://hg.services.openoffice.org/binaries/26b3e95ddf3d9c077c480ea45874b3b8-lp_solve_5.5.tar.gz
 Source52:	http://hg.services.openoffice.org/binaries/18f577b374d60b3c760a3a3350407632-STLport-4.5.tar.gz
 Source54:	http://hg.services.openoffice.org/binaries/ada24d37d8d638b3d8a9985e80bc2978-source-9.0.0.7-bj.zip
 Source55:	http://ooo-extras.apache-extras.org.codespot.com/files/ea570af93c284aa9e5621cd563f54f4d-bsh-2.0b1-src.tar.gz
-Source63:	http://dev-www.libreoffice.org/src/b2371dc7cf4811c9d32146eec913d296-libcmis-0.3.0.tar.gz
-Source64:	http://dev-www.libreoffice.org/src/libvisio-0.0.26.tar.bz2
-Source76:	http://dev-www.libreoffice.org/src/libcdr-0.0.12.tar.bz2
+#Source63:	http://dev-www.libreoffice.org/src/b2371dc7cf4811c9d32146eec913d296-libcmis-0.3.0.tar.gz
+#Source64:	http://dev-www.libreoffice.org/src/libvisio-0.0.26.tar.bz2
+#Source76:	http://dev-www.libreoffice.org/src/libcdr-0.0.12.tar.bz2
 Source78:	http://dev-www.libreoffice.org/src/4a660ce8466c9df01f19036435425c3a-glibc-2.1.3-stub.tar.gz
-Source79:	http://dev-www.libreoffice.org/src/54e578c91b1b68e69c72be22adcb2195-liblangtag-0.4.0.tar.bz2
-Source80:	http://dev-www.libreoffice.org/src/804c6cb5698db30b75ad0ff1c25baefd-openldap-2.4.31.tgz
-Source81:	http://dev-www.libreoffice.org/src/8755aac23317494a9028569374dc87b2-liborcus_0.3.0.tar.bz2
-Source82:	http://dev-www.libreoffice.org/src/0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz
+#Source79:	http://dev-www.libreoffice.org/src/54e578c91b1b68e69c72be22adcb2195-liblangtag-0.4.0.tar.bz2
+#Source80:	http://dev-www.libreoffice.org/src/804c6cb5698db30b75ad0ff1c25baefd-openldap-2.4.31.tgz
+#Source81:	http://dev-www.libreoffice.org/src/8755aac23317494a9028569374dc87b2-liborcus_0.3.0.tar.bz2
+#Source82:	http://dev-www.libreoffice.org/src/0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz
 
 # jfreereport
 Source65:	http://dev-www.libreoffice.org/src/39bb3fcea1514f1369fcfc87542390fd-sacjava-1.3.zip
@@ -201,22 +201,23 @@ BuildRequires:	sharutils
 BuildRequires:	recode
 BuildRequires:	tcsh
 BuildRequires:	unzip
-BuildRequires:	x11-server-xvfb
-BuildRequires:	XFree86
+#BuildRequires:	x11-server-xvfb
 BuildRequires:	xsltproc >= 1.0.19
 BuildRequires:	zip
 BuildRequires:	cups-devel
+BuildRequires:	hyphen-devel
 BuildRequires:	java-devel
 BuildRequires:	libwpd-devel >= 0.9.0
 BuildRequires:	libwpg-devel
 BuildRequires:	libwps-devel
+BuildRequires:	lpsolve-devel
+BuildRequires:	mdds-devel
 BuildRequires:	nas-devel
 BuildRequires:	openldap-devel
 BuildRequires:	pam-devel
 BuildRequires:	postgresql-devel
 BuildRequires:	qt4-devel
 BuildRequires:	readline-devel
-BuildRequires:	task-kde4-devel
 BuildRequires:	unixODBC-devel
 BuildRequires:	vigra-devel
 BuildRequires:	pkgconfig(cppunit)
@@ -236,15 +237,23 @@ BuildRequires:	pkgconfig(hunspell)
 BuildRequires:	pkgconfig(icu-le)
 BuildRequires:	pkgconfig(lcms2)
 BuildRequires:	pkgconfig(libclucene-core)
+BuildRequires:	pkgconfig(libcmis-0.3)
 BuildRequires:	pkgconfig(libcurl)
+BuildRequires:	pkgconfig(libcdr-0.0)
 BuildRequires:	pkgconfig(libexttextcat)
+BuildRequires:	pkgconfig(libixion-0.6)
+BuildRequires:	pkgconfig(liblangtag)
 BuildRequires:	pkgconfig(libmspub-0.0)
+BuildRequires:	pkgconfig(liborcus-0.6)
 BuildRequires:	pkgconfig(librsvg-2.0)
 BuildRequires:	pkgconfig(libstartup-notification-1.0)
 BuildRequires:	pkgconfig(libsvg)
+BuildRequires:	pkgconfig(libucpp)
+BuildRequires:	pkgconfig(libvisio-0.0)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(libxslt)
 BuildRequires:	pkgconfig(libxul)
+BuildRequires:	pkgconfig(mythes)
 BuildRequires:	pkgconfig(neon)
 BuildRequires:	pkgconfig(nspr)
 BuildRequires:	pkgconfig(nss)
@@ -254,10 +263,13 @@ BuildRequires:	pkgconfig(poppler-glib)
 BuildRequires:	pkgconfig(poppler-cpp)
 BuildRequires:	pkgconfig(portaudio-2.0)
 BuildRequires:	pkgconfig(python3)
+BuildRequires:	pkgconfig(raptor)
+BuildRequires:	pkgconfig(rasqal)
 BuildRequires:	pkgconfig(redland)
 BuildRequires:	pkgconfig(sane-backends)
 BuildRequires:	pkgconfig(sndfile)
 BuildRequires:	pkgconfig(xaw7)
+BuildRequires:	pkgconfig(xmlsec1)
 BuildRequires:	pkgconfig(xpm)
 BuildRequires:	pkgconfig(xtst)
 BuildRequires:	pkgconfig(zlib)
@@ -2993,34 +3005,34 @@ ln -sf %{SOURCE32} src/
 #ln -sf %{SOURCE33} src/
 #ln -sf %{SOURCE34} src/
 #ln -sf %{SOURCE35} src/
-ln -sf %{SOURCE36} src/
-ln -sf %{SOURCE37} src/
-ln -sf %{SOURCE38} src/
+#ln -sf %{SOURCE36} src/
+#ln -sf %{SOURCE37} src/
+#ln -sf %{SOURCE38} src/
 ln -sf %{SOURCE39} src/
 ln -sf %{SOURCE40} src/
 ln -sf %{SOURCE42} src/
-ln -sf %{SOURCE43} src/
-ln -sf %{SOURCE44} src/
+#ln -sf %{SOURCE43} src/
+#ln -sf %{SOURCE44} src/
 ln -sf %{SOURCE45} src/
-ln -sf %{SOURCE46} src/
+#ln -sf %{SOURCE46} src/
 ln -sf %{SOURCE47} src/
 ln -sf %{SOURCE48} src/
 ln -sf %{SOURCE49} src/
-ln -sf %{SOURCE50} src/
-ln -sf %{SOURCE51} src/
+#ln -sf %{SOURCE50} src/
+#ln -sf %{SOURCE51} src/
 ln -sf %{SOURCE52} src/
 ln -sf %{SOURCE54} src/
 ln -sf %{SOURCE55} src/
 ln -sf %{SOURCE56} src/
-ln -sf %{SOURCE63} src/
-ln -sf %{SOURCE64} src/
-ln -sf %{SOURCE76} src/
+#ln -sf %{SOURCE63} src/
+#ln -sf %{SOURCE64} src/
+#ln -sf %{SOURCE76} src/
 ln -sf %{SOURCE77} src/
 ln -sf %{SOURCE78} src/
-ln -sf %{SOURCE79} src/
-ln -sf %{SOURCE80} src/
-ln -sf %{SOURCE81} src/
-ln -sf %{SOURCE82} src/
+#ln -sf %{SOURCE79} src/
+#ln -sf %{SOURCE80} src/
+#ln -sf %{SOURCE81} src/
+#ln -sf %{SOURCE82} src/
 ln -sf %{SOURCE65} src/
 ln -sf %{SOURCE66} src/
 ln -sf %{SOURCE67} src/
@@ -3453,9 +3465,9 @@ fi
 %{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-impress_72.svg
 
 %files java-common -f file-lists/java_common_list.txt
-%{_lib}dir/libreoffice/program/classes/ScriptProviderForBeanShell.jar
-%{_lib}dir/libreoffice/program/classes/bsh.jar
-%{_lib}dir/libreoffice/program/services/scriptproviderforbeanshell.rdb
+%{_libdir}/libreoffice/program/classes/ScriptProviderForBeanShell.jar
+%{_libdir}/libreoffice/program/classes/bsh.jar
+%{_libdir}/libreoffice/program/services/scriptproviderforbeanshell.rdb
 
 %files kde4 -f file-lists/kde4_list.txt
 
