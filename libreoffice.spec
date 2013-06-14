@@ -1,52 +1,28 @@
 %define _enable_debug_packages %{nil}
 %define debug_package          %{nil}
-
-%define l10n   1
-%{?_with_l10n: %global l10n 1}
-%{?_without_l10n: %global l10n 0}
-
-%define javaless 1
-# As of 4.0, doesn't work -- probably the extensions need porting
-%define extensionenabled 0
-
-%define	ooname      libreoffice
-
-#define _binary_payload w1.gzdio
-#define _binary_payload w9.bzdio
-#define _binary_payload w9.lzdio
-#define _source_payload w9.bzdio
-#define _binary_payload w1.gzdio
-#define _source_payload w1.gzdio
-
 %define _binary_payload w1.xzdio
 %define _source_payload w1.xzdio
 
-%if %mandriva_branch == Cooker
-# Cooker
-%define release 1
-%else
-# Old distros
-%define subrel 1
-%define release %mkrel 0
-%endif
-
-%define buildver	%{version}.3
-%define ooodir		%{_libdir}/libreoffice
+%define l10n	1
+%{?_with_l10n: %global l10n 1}
+%{?_without_l10n: %global l10n 0}
 %if %l10n
 %define langs	"en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru sh si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu"
 %else
 %define langs	"en-US"
 %endif
 
-%define firefox_plugin  libnpsoplugin.so
+%define javaless 1
+# As of 4.0, doesn't work -- probably the extensions need porting
+%define extensionenabled 0
 
-%define oootarext	xz
-
-%ifarch x86_64
-%define distroname      Mandriva64
-%else
-%define distroname      Mandriva
-%endif
+%define distroname	Mandriva
+%define	ooname		libreoffice
+%define buildver	%{version}.3
+%define ooodir		%{_libdir}/libreoffice
+%define firefox_plugin	libnpsoplugin.so
+%define antpath		%{_builddir}/libreoffice-%{version}/apache-ant-1.8.1
+#define unopkg		%{_bindir}/unopkg
 
 %define use_icecream    0	
 %{?_with_icecream: %global use_icecream 1}
@@ -57,23 +33,6 @@
 %{?_with_ccache: %global use_ccache 1}
 %{?_without_ccache: %global use_ccache 0}
 
-%define use_mono	0
-%{?_with_mono: %global use_mono 1}
-%{?_without_mono: %global use_mono 0}
-
-# main cleanup
-%define use_openclipart	0
-%{?_with_clipart: %global use_openclipart 1}
-%{?_without_clipart: %global use_openclipart 0}
-
-%define use_systemdb	1
-%{?_with_systemdb: %global use_systemdb 1}
-%{?_without_systemdb: %global use_systemdb 0}
-
-%define use_systemboost 1
-%{?_with_systemboost: %global use_systemboost 1}
-%{?_without_systemboost: %global use_systemboost 0}
-
 %if %{_use_internal_dependency_generator}
 %define __noautoreq libjawt.so\\|libmyspell.so\\|libstlport_gcc.so\\|libmono.so\\|mono
 %define __noautoprov libsndfile.so\\|libportaudio.so\\|libdb-4.2.so\\|libdb_java-4.2.so\\|libmyspell.so\\|libstlport_gcc.so\\|librdf.so.0\\|libraptor.so.1\\|libxmlsec1-nss.so.1\\|libxmlsec1.so.1
@@ -81,10 +40,6 @@
 %define _requires_exceptions libjawt.so\\|libmyspell.so\\|libstlport_gcc.so\\|libmono.so\\|mono
 %define _provides_exceptions libsndfile.so\\|libportaudio.so\\|libdb-4.2.so\\|libdb_java-4.2.so\\|libmyspell.so\\|libstlport_gcc.so\\|librdf.so.0\\|libraptor.so.1\\|libxmlsec1-nss.so.1\\|libxmlsec1.so.1
 %endif
-
-%define antpath    %{_builddir}/libreoffice-%{version}/apache-ant-1.8.1
-
-#define unopkg  %{_bindir}/unopkg
 
 Summary:	Office suite 
 Name:		libreoffice
@@ -94,10 +49,10 @@ Release:	1
 License:	(MPLv1.1 or LGPLv3+) and LGPLv3 and LGPLv2+ and BSD and (MPLv1.1 or GPLv2 or LGPLv2 or Netscape) and Public Domain and ASL 2.0 and Artistic
 Group:		Office
 Url:		http://www.libreoffice.org
-Source0:	http://download.documentfoundation.org/libreoffice/src/%{version}/%{ooname}-%{buildver}.tar.%{oootarext}
-Source1:	http://download.documentfoundation.org/libreoffice/src/%{version}/%{ooname}-dictionaries-%{buildver}.tar.%{oootarext}
-Source2:	http://download.documentfoundation.org/libreoffice/src/%{version}/%{ooname}-help-%{buildver}.tar.%{oootarext}
-Source3:	http://download.documentfoundation.org/libreoffice/src/%{version}/%{ooname}-translations-%{buildver}.tar.%{oootarext}
+Source0:	http://download.documentfoundation.org/libreoffice/src/%{version}/%{ooname}-%{buildver}.tar.xz
+Source1:	http://download.documentfoundation.org/libreoffice/src/%{version}/%{ooname}-dictionaries-%{buildver}.tar.xz
+Source2:	http://download.documentfoundation.org/libreoffice/src/%{version}/%{ooname}-help-%{buildver}.tar.xz
+Source3:	http://download.documentfoundation.org/libreoffice/src/%{version}/%{ooname}-translations-%{buildver}.tar.xz
 
 Source20:	Mandriva-Rosa_Icons.tar.bz2
 
@@ -142,7 +97,7 @@ Source72:	http://dev-www.libreoffice.org/src/3404ab6b1792ae5f16bbd603bd1e1d03-li
 Source73:	http://dev-www.libreoffice.org/src/db60e4fde8dd6d6807523deb71ee34dc-liblayout-0.2.10.zip
 Source74:	http://dev-www.libreoffice.org/src/ace6ab49184e329db254e454a010f56d-libxml-1.1.7.zip
 Source75:	http://dev-www.libreoffice.org/src/ba2930200c9f019c2d93a8c88c651a0f-flow-engine-0.9.4.zip
-Source77:	http://dev-www.libreoffice.org/src/libmspub-0.0.5.tar.bz2
+#Source77:	http://dev-www.libreoffice.org/src/libmspub-0.0.5.tar.bz2
 
 #javaless
 Source56:	http://hg.services.openoffice.org/binaries/3c219630e4302863a9a83d0efde889db-commons-logging-1.1.1-src.tar.gz
@@ -172,12 +127,7 @@ BuildRequires:	icecream
 %if %{use_ccache}
 BuildRequires:	ccache
 %endif
-%if %{use_systemboost}
 BuildRequires:	boost-devel
-%endif
-%if %{use_openclipart}
-BuildRequires:	clipart-openclipart
-%endif
 BuildRequires:	bison
 BuildRequires:	desktop-file-utils
 BuildRequires:	doxygen
@@ -270,18 +220,7 @@ BuildRequires:	pkgconfig(xmlsec1)
 BuildRequires:	pkgconfig(xpm)
 BuildRequires:	pkgconfig(xtst)
 BuildRequires:	pkgconfig(zlib)
-%if %{use_systemdb}
 BuildRequires:	db-devel
-%else
-BuildConflicts:	libdbjava4.2
-%endif
-%if %{use_mono}
-BuildRequires:	pkgconfig(mono)
-BuildRequires:	mono-data-sqlite
-%endif
-%if %{oootarext} == "lzma"
-BuildRequires:	lzma
-%endif
 %if !%{javaless}
 BuildRequires:	ant
 BuildRequires:	hsqldb
@@ -672,21 +611,7 @@ near drop-in replacement for Microsoft(R) Office.
 
 This package contains the wordprocessor component for LibreOffice.
 
-%package mono
-Summary:	Mono UNO Bridge for LibreOffice
-Group:		Office
-Requires:	%{ooname} = %{version}
-Obsoletes:	openoffice.org-mono < 1:3.3-1:2011.0 
-
-%description mono
-The Mono/UNO binding allows a Mono application to access the complete
-set of APIs exposed by LibreOffice via UNO.
-
-Currently the use of Mono for add-ins & scripting inside LibreOffice itself is
-not supported.
-
 %if %extensionenabled
-
 %package pdfimport
 Group:		Office
 Summary:	LibreOffice office suite - PDF Import extension
@@ -731,8 +656,10 @@ Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
 Requires:	%{name}-writer = %{EVRD}
 %if !%{javaless}
-Requires:	jakarta-commons-codec, jakarta-commons-httpclient
-Requires:	jakarta-commons-lang, jakarta-commons-logging
+Requires:	jakarta-commons-codec
+Requires:	jakarta-commons-httpclient
+Requires:	jakarta-commons-lang
+Requires:	jakarta-commons-logging
 %endif
 Obsoletes:	openoffice.org-wiki-publisher < 1:3.3-1:2011.0 
 
@@ -1382,7 +1309,7 @@ Group:		Office
 Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-ja
-Requires:	fonts-ttf-japanese >= 0.20020727-1mdk
+Requires:	fonts-ttf-japanese
 Provides:	LibreOffice-l10n-ja
 Suggests:	%{ooname}-help-ja = %{EVRD} 
 Obsoletes:	openoffice.org-l10n-ja < 1:3.3-1:2011.0 
@@ -2812,19 +2739,7 @@ for a in */*; do mv `pwd`/$a .; done
 %if %{javaless}
 tar -xjvf %{SOURCE60}
 %endif
-
-%patch1 -p1 -b .nonfatal~
-%patch3 -p1 -b .icu~
-%patch5 -p1 -b .noslack~
-%patch13 -p1 -b .xmlhelp~
-%patch14 -p1 -b .boost153
-%patch15 -p1 -b .Work-around-problem-with-boost-shared_array-NULL-cto.patch
-%patch16 -p1 -b .fix-compile-for-change-to-boost-1.53.0-declaring-sma.patch
-
-# Add lzma support (REVIEW)
-%if %{oootarext} == "lzma"
-%patch1 -p1 -b .lzma
-%endif
+%apply_patches
 
 # to make the friggin cppunit tests work
 mkdir -p ~/tmp
@@ -2888,6 +2803,7 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 	--infodir=%{_infodir} \
 	--with-distro=%{distroname} \
 	--with-vendor=Mandriva \
+	%{?_smp_mflags:--with-parallelism="`getconf _NPROCESSORS_ONLN`"} \
 	--with-build-version="%{buildver}" \
 	--disable-gstreamer-0.10 \
 	--enable-gstreamer \
@@ -2924,8 +2840,6 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 	--with-system-sane \
 	--with-system-vigra \
 	--with-system-zlib \
-	--with-intro-bitmaps="%{SOURCE27}" \
-	--with-about-bitmaps="%{SOURCE28}" \
 	--without-fonts \
 	--without-junit \
 %if %{javaless}
@@ -2934,30 +2848,20 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 	--with-system-hsqldb \
 	--with-system-apache-commons \
 %endif
-%if %{use_systemdb}
-	--with-system-db \
-%endif
-%if %{use_systemboost}
 	--with-system-boost \
 	--with-system-boost-for-build \
-%endif
 	--with-lang=%{langs} \
 	--without-myspell-dicts \
 	--with-system-dicts \
 	--with-external-dict-dir=%{_datadir}/dict/ooo \
 	--with-external-hyph-dir=%{_datadir}/dict/ooo \
 	--with-external-thes-dir=%{_datadir}/dict/ooo \
+	--with-system-libs \
 %if !%extensionenabled
 	--disable-ext-presenter-minimizer \
 	--disable-ext-report-builder \
 %else
 	--enable-ext-wiki-publisher \
-%endif
-%if %{use_openclipart}
-    	--with-openclipart=%{_datadir}/images/openclipart \
-%endif
-%if %{use_mono}
-	--enable-mono \
 %endif
 %if %{use_ccache} && !%{use_icecream}
 	--with-gcc-speedup=ccache \
@@ -2993,7 +2897,7 @@ ln -sf %{SOURCE32} src/
 #ln -sf %{SOURCE33} src/
 #ln -sf %{SOURCE34} src/
 #ln -sf %{SOURCE35} src/
-#ln -sf %{SOURCE36} src/
+#ln -sf %{SOURCE36} src
 #ln -sf %{SOURCE37} src/
 #ln -sf %{SOURCE38} src/
 ln -sf %{SOURCE39} src/
@@ -3015,7 +2919,7 @@ ln -sf %{SOURCE56} src/
 #ln -sf %{SOURCE63} src/
 #ln -sf %{SOURCE64} src/
 #ln -sf %{SOURCE76} src/
-ln -sf %{SOURCE77} src/
+#ln -sf %{SOURCE77} src/
 ln -sf %{SOURCE78} src/
 #ln -sf %{SOURCE79} src/
 #ln -sf %{SOURCE80} src/
@@ -3282,7 +3186,6 @@ then
 fi
 
 %if %extensionenabled
-
 # %post pdfimport
 # # upgrade 
 # if [ $1 -ge 2 ];then
@@ -3375,56 +3278,24 @@ fi
 # 		%unopkg list --shared &> /dev/null
 # 	fi
 # fi
-
 %endif
 
 %files
 
 %files base -f file-lists/base_list.txt
 %{_mandir}/man1/lobase*
-# %{_datadir}/applications/base.desktop
 %{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-base_72.svg
 
 %files calc -f file-lists/calc_list.txt
-#libre 
-# %{_datadir}/templates/ooo-spreadsheet.desktop
-# %{_datadir}/templates/.source/ooo-spreadsheet.ods
 %{_mandir}/man1/localc*
-# %{_datadir}/applications/calc.desktop
 %{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-calc_72.svg
 
 %files common -f file-lists/common_list.uniq.sorted.txt 
 %{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo_72.svg
-
-# libre
-# %{_sysconfdir}/bash_completion.d/libreoffice3.3.sh
-# %{_sysconfdir}/profile.d/openoffice.org.*
-# %{_bindir}/ooconfig3.3
-# %{_bindir}/ootool3.3
-
-# libre
-# %{_datadir}/applications/template*.desktop
-
-# new icons
-# libre
-# %{_datadir}/pixmaps/ooo-base3.3.png
-# %{_datadir}/pixmaps/ooo-calc3.3.png
-# %{_datadir}/pixmaps/ooo-draw3.3.png
-# %{_datadir}/pixmaps/ooo-gulls3.3.png
-# %{_datadir}/pixmaps/ooo-impress3.3.png
-# %{_datadir}/pixmaps/ooo-math3.3.png
-# %{_datadir}/pixmaps/ooo-template3.3.png
-# %{_datadir}/pixmaps/ooo-web3.3.png
-# %{_datadir}/pixmaps/ooo-writer3.3.png
-
 %{_mandir}/man1/loffice*
 %{_mandir}/man1/lofromtemplate*
 %{_mandir}/man1/libreoffice*
-
 %{_mandir}/man1/unopkg.1*
-
-# libre
-# %{_datadir}/applications/ooo-extension-manager*.desktop
 
 %files core -f file-lists/core_list.txt
 
@@ -3433,24 +3304,16 @@ fi
 %files devel-doc -f file-lists/sdk_doc_list.txt
 
 %files draw -f file-lists/draw_list.txt
-# %{_datadir}/applications/draw.desktop
-# libre
-# %{_datadir}/templates/ooo-drawing.desktop
-# %{_datadir}/templates/.source/ooo-drawing.odg
-%{_mandir}/man1/lodraw*
 %{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-draw_72.svg
+%{_mandir}/man1/lodraw*
 
 %files dtd-officedocument1.0 -f file-lists/dtd_list.txt
 
 %files gnome -f file-lists/gnome_list.uniq.sorted.txt
 
 %files impress -f file-lists/impress_list.txt
-# %{_datadir}/applications/impress.desktop
-# libre 
-# %{_datadir}/templates/ooo-presentation.desktop
-# %{_datadir}/templates/.source/ooo-presentation.odp
-%{_mandir}/man1/loimpress*
 %{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-impress_72.svg
+%{_mandir}/man1/loimpress*
 
 %files java-common -f file-lists/java_common_list.txt
 %{_libdir}/libreoffice/program/classes/ScriptProviderForBeanShell.jar
@@ -3460,9 +3323,8 @@ fi
 %files kde4 -f file-lists/kde4_list.txt
 
 %files math -f file-lists/math_list.txt
-# %{_datadir}/applications/math.desktop
-%{_mandir}/man1/lomath*
 %{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-math_72.svg
+%{_mandir}/man1/lomath*
 
 %files openclipart -f file-lists/gallery_list.txt
 
@@ -3484,23 +3346,11 @@ fi
 %{ooodir}/share/config/images_oxygen.zip
 
 %files writer -f file-lists/writer_list.txt
-# %{_datadir}/applications/writer.desktop
-# libre
-#%{_datadir}/applications/web.desktop
-# libre
-# %{_datadir}/templates/ooo-text.desktop
-# %{_datadir}/templates/.source/ooo-text.odt
+%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-writer_72.svg
 %{_mandir}/man1/loweb*
 %{_mandir}/man1/lowriter*
-%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-writer_72.svg
-
-%if %{use_mono}
-%files mono -f file-lists/mono_list.txt
-%{_libdir}/pkgconfig/mono-ooo.pc
-%endif
 
 %if %extensionenabled
-
 %files pdfimport
 %{ooodir}/share/extensions/pdfimport
 
