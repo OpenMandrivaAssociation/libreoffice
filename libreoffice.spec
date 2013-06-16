@@ -166,6 +166,7 @@ BuildRequires:	qt4-devel
 BuildRequires:	readline-devel
 BuildRequires:	unixODBC-devel
 BuildRequires:	vigra-devel
+BuildRequires:	pkgconfig(bluez)
 BuildRequires:	pkgconfig(cppunit)
 BuildRequires:	pkgconfig(dbus-1)
 BuildRequires:	pkgconfig(expat)
