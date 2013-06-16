@@ -1,5 +1,5 @@
 %define _enable_debug_packages %{nil}
-%define debug_package          %{nil}
+%define debug_package %{nil}
 %define _binary_payload w1.xzdio
 %define _source_payload w1.xzdio
 
@@ -147,7 +147,6 @@ BuildRequires:	sharutils
 BuildRequires:	recode
 BuildRequires:	tcsh
 BuildRequires:	unzip
-#BuildRequires:	x11-server-xvfb
 BuildRequires:	xsltproc >= 1.0.19
 BuildRequires:	zip
 BuildRequires:	cups-devel
@@ -303,9 +302,6 @@ Group:		Office
 Requires:	%{name}-core = %{EVRD}
 # Require at least one style to be installed
 Requires:	%{name}-style = %{EVRD}
-# And suggest the galaxy one
-# dev 300
-# Suggests:	%{name}-style-galaxy = %{version}
 # Also suggest java-common, as it may be used by some macros
 Suggests:	%{name}-java-common = %{EVRD}
 Suggests:	%{name}-help-en_US = %{EVRD}
@@ -354,11 +350,11 @@ Group:		Office
 Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
 %if "%{_lib}" == "lib64"
-Provides:	devel(libxmlreader(64bit))
-Provides:	devel(libreg(64bit))
+Provides:	devel(libxmlreader(64bit)) = %{EVRD}
+Provides:	devel(libreg(64bit)) = %{EVRD}
 %else
-Provides:	devel(libxmlreader)
-Provides:	devel(libreg)
+Provides:	devel(libxmlreader) = %{EVRD}
+Provides:	devel(libreg) = %{EVRD}
 %endif
 Obsoletes:	openoffice.org-devel < 1:3.3-1:2011.0 
 
@@ -2692,23 +2688,6 @@ sed -i '/^ProgressPosition/d;/^ProgressSize/d' \
 echo 'ProgressPosition=10,307' >> %{buildroot}%{ooodir}/program/sofficerc
 echo 'ProgressSize=377,9' >> %{buildroot}%{ooodir}/program/sofficerc
 
-#libre 
-# remove icons we dont have these sizes yet
-# rm -rf %{buildroot}%{_iconsdir}/hicolor/22x22/apps/*
-# rm -rf %{buildroot}%{_iconsdir}/hicolor/24x24/apps/*
-
-#libre 
-# remove scalables icons since we dont have yet
-# rm -rf %{buildroot}%{_iconsdir}/hicolor/scalable/apps/*
-
-# libre
-# Fixes japanese translations on desktop files
-## patch -p0 -d %{buildroot} < %{SOURCE102}
-
-# libre
-# # templates for kde "create new" context menu
-# # tar xjf %{SOURCE31} -C %{buildroot}%{_datadir}
-
 %if %extensionenabled
 # # copy extensions 
 # install -d -m755 %{buildroot}%{ooodir}/extensions
@@ -2718,14 +2697,6 @@ echo 'ProgressSize=377,9' >> %{buildroot}%{ooodir}/program/sofficerc
 # cp %{_builddir}/libreoffice-%{version}/solver/unxlng*/bin/minimizer/presentation-minimizer.oxt %{buildroot}%{ooodir}/extensions/
 %endif
 
-# libre
-# #fixes #56439
-# sed -i 's/^Icon=.*$/Icon=ooo-calc/' %{buildroot}%{_datadir}/templates/ooo-spreadsheet.desktop
-# sed -i 's/^Icon=.*$/Icon=ooo-writer/' %{buildroot}%{_datadir}/templates/ooo-text.desktop
-# sed -i 's/^Icon=.*$/Icon=ooo-impress/' %{buildroot}%{_datadir}/templates/ooo-presentation.desktop
-# sed -i 's/^Icon=.*$/Icon=ooo-draw/' %{buildroot}%{_datadir}/templates/ooo-drawing.desktop
-
-## Libre (Temporary), will better handled inside (bin/distro-install-file-lists) 
 ## Installation fixes
 ## remove fix wrong manpages files, extension gz->xz
 for p in common base calc writer impress draw math; do
@@ -2753,14 +2724,6 @@ sed -i '/^.*images_oxygen\.zip$/d' file-lists/common_list.txt
 ## merge en-US with common
 cat file-lists/lang_en_US_list.txt >> file-lists/common_list.txt
 sort -u file-lists/common_list.txt >  file-lists/common_list.uniq.sorted.txt 
-
-# # does not package lo original desktop files (Review)
-# sed -i '/^.*libreoffice-writer.desktop$/d'  file-lists/writer_list.txt 
-# sed -i '/^.*libreoffice-calc.desktop$/d'    file-lists/calc_list.txt 
-# sed -i '/^.*libreoffice-impress.desktop$/d' file-lists/impress_list.txt 
-# sed -i '/^.*libreoffice-draw.desktop$/d'    file-lists/draw_list.txt 
-# sed -i '/^.*libreoffice-base.desktop$/d'    file-lists/base_list.txt 
-# sed -i '/^.*libreoffice-math.desktop$/d'    file-lists/math_list.txt 
 
 %post common
 %update_icon_cache gnome
