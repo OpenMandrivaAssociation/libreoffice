@@ -12,7 +12,7 @@
 %define langs	"en-US"
 %endif
 
-%define javaless 1
+%define javaless 0
 # As of 4.0, doesn't work -- probably the extensions need porting
 %define extensionenabled 0
 
@@ -2339,7 +2339,7 @@ for a in */*; do mv `pwd`/$a .; done
 
 #ant
 %if %{javaless}
-tar -xjvf %{SOURCE60}
+#tar -xjvf %{SOURCE60}
 %endif
 %apply_patches
 
@@ -2416,6 +2416,7 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 	--enable-python=system \
 	--enable-split-app-modules \
   	--enable-split-opt-features \
+%if 0
 	--with-system-cairo \
 	--with-system-clucene \
 	--with-system-cppunit \
@@ -2441,6 +2442,7 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 	--with-system-sane \
 	--with-system-vigra \
 	--with-system-zlib \
+%endif
 	--without-fonts \
 	--without-junit \
 %if %{javaless}
@@ -2493,55 +2495,55 @@ export MAXPROCESS=4
 mkdir -p src
 ln -sf %{SOURCE2} src/
 ln -sf %{SOURCE3} src/
-ln -sf %{SOURCE31} src/
-ln -sf %{SOURCE32} src/
+#ln -sf %{SOURCE31} src/
+#ln -sf %{SOURCE32} src/
 #ln -sf %{SOURCE33} src/
 #ln -sf %{SOURCE34} src/
 #ln -sf %{SOURCE35} src/
 #ln -sf %{SOURCE36} src
 #ln -sf %{SOURCE37} src/
 #ln -sf %{SOURCE38} src/
-ln -sf %{SOURCE39} src/
-ln -sf %{SOURCE40} src/
-ln -sf %{SOURCE42} src/
+#ln -sf %{SOURCE39} src/
+#ln -sf %{SOURCE40} src/
+#ln -sf %{SOURCE42} src/
 #ln -sf %{SOURCE43} src/
 #ln -sf %{SOURCE44} src/
-ln -sf %{SOURCE45} src/
+#ln -sf %{SOURCE45} src/
 #ln -sf %{SOURCE46} src/
-ln -sf %{SOURCE47} src/
-ln -sf %{SOURCE48} src/
-ln -sf %{SOURCE49} src/
+#ln -sf %{SOURCE47} src/
+#ln -sf %{SOURCE48} src/
+#ln -sf %{SOURCE49} src/
 #ln -sf %{SOURCE50} src/
 #ln -sf %{SOURCE51} src/
-ln -sf %{SOURCE52} src/
-ln -sf %{SOURCE54} src/
-ln -sf %{SOURCE55} src/
-ln -sf %{SOURCE56} src/
+#ln -sf %{SOURCE52} src/
+#ln -sf %{SOURCE54} src/
+#ln -sf %{SOURCE55} src/
+#ln -sf %{SOURCE56} src/
 #ln -sf %{SOURCE63} src/
 #ln -sf %{SOURCE64} src/
 #ln -sf %{SOURCE76} src/
 #ln -sf %{SOURCE77} src/
-ln -sf %{SOURCE78} src/
+#ln -sf %{SOURCE78} src/
 #ln -sf %{SOURCE79} src/
 #ln -sf %{SOURCE80} src/
 #ln -sf %{SOURCE81} src/
 #ln -sf %{SOURCE82} src/
-ln -sf %{SOURCE65} src/
-ln -sf %{SOURCE66} src/
-ln -sf %{SOURCE67} src/
-ln -sf %{SOURCE68} src/
-ln -sf %{SOURCE69} src/
-ln -sf %{SOURCE70} src/
-ln -sf %{SOURCE71} src/
-ln -sf %{SOURCE72} src/
-ln -sf %{SOURCE73} src/
-ln -sf %{SOURCE74} src/
-ln -sf %{SOURCE75} src/
+#ln -sf %{SOURCE65} src/
+#ln -sf %{SOURCE66} src/
+#ln -sf %{SOURCE67} src/
+#ln -sf %{SOURCE68} src/
+#ln -sf %{SOURCE69} src/
+#ln -sf %{SOURCE70} src/
+#ln -sf %{SOURCE71} src/
+#ln -sf %{SOURCE72} src/
+#ln -sf %{SOURCE73} src/
+#ln -sf %{SOURCE74} src/
+#ln -sf %{SOURCE75} src/
 %if %{javaless}
-ln -sf %{SOURCE57} src/
-ln -sf %{SOURCE58} src/
-ln -sf %{SOURCE59} src/
-ln -sf %{SOURCE61} src/
+#ln -sf %{SOURCE57} src/
+#ln -sf %{SOURCE58} src/
+#ln -sf %{SOURCE59} src/
+#ln -sf %{SOURCE61} src/
 %endif
 touch src.downloaded
 ./bootstrap
