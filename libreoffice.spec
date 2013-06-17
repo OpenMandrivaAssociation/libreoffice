@@ -129,6 +129,7 @@ BuildRequires:	ccache
 %endif
 BuildRequires:	boost-devel
 BuildRequires:	bison
+BuildRequires:	bsh
 BuildRequires:	desktop-file-utils
 BuildRequires:	doxygen
 BuildRequires:	ed
