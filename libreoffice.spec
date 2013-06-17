@@ -12,7 +12,7 @@
 %define langs	"en-US"
 %endif
 
-%define javaless 0
+%define javaless 1
 # As of 4.0, doesn't work -- probably the extensions need porting
 %define extensionenabled 0
 
@@ -2339,7 +2339,7 @@ for a in */*; do mv `pwd`/$a .; done
 
 #ant
 %if %{javaless}
-#tar -xjvf %{SOURCE60}
+tar -xjvf %{SOURCE60}
 %endif
 %apply_patches
 
@@ -2413,46 +2413,13 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 	--enable-lockdown \
 	--enable-opengl \
 	--enable-odk \
-	--enable-python=system \
 	--enable-split-app-modules \
   	--enable-split-opt-features \
-%if 0
-	--with-system-cairo \
-	--with-system-clucene \
-	--with-system-cppunit \
-	--with-system-curl \
-	--with-system-expat \
-	--with-system-graphite \
-	--with-system-hunspell \
-	--with-system-icu \
-	--with-system-jpeg \
-	--with-system-lcms2 \
-	--with-system-libexttextcat \
-	--with-system-libwpd \
-	--with-system-libwpg \
-	--with-system-libwps \
-	--with-system-libxml \
-	--with-system-mozilla=xulrunner \
-	--with-system-neon \
-	--with-system-nss \
-	--with-system-openssl \
-	--with-system-poppler \
-	--with-system-postgresql \
-	--with-system-redland \
-	--with-system-sane \
-	--with-system-vigra \
-	--with-system-zlib \
-%endif
 	--without-fonts \
 	--without-junit \
 %if %{javaless}
 	--with-ant-home="%{antpath}" \
-%else
-	--with-system-hsqldb \
-	--with-system-apache-commons \
 %endif
-	--with-system-boost \
-	--with-system-boost-for-build \
 	--with-lang=%{langs} \
 	--without-myspell-dicts \
 	--with-system-dicts \
@@ -2540,10 +2507,10 @@ ln -sf %{SOURCE3} src/
 #ln -sf %{SOURCE74} src/
 #ln -sf %{SOURCE75} src/
 %if %{javaless}
-#ln -sf %{SOURCE57} src/
-#ln -sf %{SOURCE58} src/
-#ln -sf %{SOURCE59} src/
-#ln -sf %{SOURCE61} src/
+ln -sf %{SOURCE57} src/
+ln -sf %{SOURCE58} src/
+ln -sf %{SOURCE59} src/
+ln -sf %{SOURCE61} src/
 %endif
 touch src.downloaded
 ./bootstrap
