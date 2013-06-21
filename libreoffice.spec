@@ -437,6 +437,7 @@ Summary:	LibreOffice office suite Java support arch. independent files
 Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
 Requires:	java
+Requires:	bsh
 Obsoletes:	openoffice.org-java-common < 1:3.3-1:2011.0 
 
 %description java-common
@@ -2853,7 +2854,7 @@ fi
 
 %files java-common -f file-lists/java_common_list.txt
 %{_libdir}/libreoffice/program/classes/ScriptProviderForBeanShell.jar
-%{_libdir}/libreoffice/program/classes/bsh.jar
+#{_libdir}/libreoffice/program/classes/bsh.jar
 %{_libdir}/libreoffice/program/services/scriptproviderforbeanshell.rdb
 
 %files kde4 -f file-lists/kde4_list.txt
