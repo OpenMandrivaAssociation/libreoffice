@@ -53,54 +53,8 @@ Source0:	http://download.documentfoundation.org/libreoffice/src/%{version}/%{oon
 Source1:	http://download.documentfoundation.org/libreoffice/src/%{version}/%{ooname}-dictionaries-%{buildver}.tar.xz
 Source2:	http://download.documentfoundation.org/libreoffice/src/%{version}/%{ooname}-help-%{buildver}.tar.xz
 Source3:	http://download.documentfoundation.org/libreoffice/src/%{version}/%{ooname}-translations-%{buildver}.tar.xz
-
 Source20:	Mandriva-Rosa_Icons.tar.bz2
-
-Source31:	ftp://ftp.iij.ad.jp/pub/linux/momonga/updates/6.1/SOURCES/ooo_oxygen_images-2009-06-17.tar.gz
-Source32:	http://hg.services.openoffice.org/binaries/fdb27bfe2dbe2e7b57ae194d9bf36bab-SampleICC-1.3.2.tar.gz
-#Source36:	http://dev-www.libreoffice.org/src/9f9e15966b5624834157fe3d748312bc-mdds_0.6.1.tar.bz2
-#Source37:	http://kohei.us/files/ixion/src/libixion_0.3.0.tar.bz2
-#Source38:	http://dev-www.libreoffice.org/src/46e92b68e31e858512b680b3b61dc4c1-mythes-1.2.3.tar.gz
-Source39:	http://dev-www.libreoffice.org/extern/185d60944ea767075d27247c3162b3bc-unowinreg.dll
-Source40:	http://hg.services.openoffice.org/binaries/48d8169acc35f97e05d8dcdfd45be7f2-lucene-2.3.2.tar.gz
-Source42:	http://hg.services.openoffice.org/binaries/2a177023f9ea8ec8bd00837605c5df1b-jakarta-tomcat-5.0.30-src.tar.gz
-#Source43:	http://hg.services.openoffice.org/binaries/284e768eeda0e2898b0d5bf7e26a016e-raptor-1.4.18.tar.gz
-#Source44:	http://hg.services.openoffice.org/binaries/fca8706f2c4619e2fa3f8f42f8fc1e9d-rasqal-0.9.16.tar.gz 
-Source45:	http://hg.services.openoffice.org/binaries/1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz
-#Source46:	http://hg.services.openoffice.org/binaries/1f24ab1d39f4a51faf22244c94a6203f-xmlsec1-1.2.14.tar.gz	
-Source47:	http://hg.services.openoffice.org/binaries/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
-Source48:	http://hg.services.openoffice.org/binaries/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
-Source49:	http://hg.services.openoffice.org/binaries/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
-#Source50:	http://dev-www.libreoffice.org/src/a2f6010987e1c601274ab5d63b72c944-hyphen-2.8.4.tar.gz
-#Source51:	http://hg.services.openoffice.org/binaries/26b3e95ddf3d9c077c480ea45874b3b8-lp_solve_5.5.tar.gz
-Source52:	http://hg.services.openoffice.org/binaries/18f577b374d60b3c760a3a3350407632-STLport-4.5.tar.gz
-Source54:	http://hg.services.openoffice.org/binaries/ada24d37d8d638b3d8a9985e80bc2978-source-9.0.0.7-bj.zip
-Source55:	http://ooo-extras.apache-extras.org.codespot.com/files/ea570af93c284aa9e5621cd563f54f4d-bsh-2.0b1-src.tar.gz
-#Source63:	http://dev-www.libreoffice.org/src/b2371dc7cf4811c9d32146eec913d296-libcmis-0.3.0.tar.gz
-#Source64:	http://dev-www.libreoffice.org/src/libvisio-0.0.26.tar.bz2
-#Source76:	http://dev-www.libreoffice.org/src/libcdr-0.0.12.tar.bz2
-Source78:	http://dev-www.libreoffice.org/src/4a660ce8466c9df01f19036435425c3a-glibc-2.1.3-stub.tar.gz
-#Source79:	http://dev-www.libreoffice.org/src/54e578c91b1b68e69c72be22adcb2195-liblangtag-0.4.0.tar.bz2
-#Source80:	http://dev-www.libreoffice.org/src/804c6cb5698db30b75ad0ff1c25baefd-openldap-2.4.31.tgz
-#Source81:	http://dev-www.libreoffice.org/src/8755aac23317494a9028569374dc87b2-liborcus_0.3.0.tar.bz2
-#Source82:	http://dev-www.libreoffice.org/src/0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz
-
-# jfreereport
-Source65:	http://dev-www.libreoffice.org/src/39bb3fcea1514f1369fcfc87542390fd-sacjava-1.3.zip
-Source66:	http://dev-www.libreoffice.org/src/d8bd5eed178db6e2b18eeed243f85aa8-flute-1.1.6.zip
-Source67:	http://dev-www.libreoffice.org/src/eeb2c7ddf0d302fba4bfc6e97eac9624-libbase-1.1.6.zip
-Source68:	http://dev-www.libreoffice.org/src/8ce2fcd72becf06c41f7201d15373ed9-librepository-1.1.6.zip
-Source69:	http://dev-www.libreoffice.org/src/f94d9870737518e3b597f9265f4e9803-libserializer-1.1.6.zip
-Source70:	http://dev-www.libreoffice.org/src/97b2d4dba862397f446b217e2b623e71-libloader-1.1.6.zip
-Source71:	http://dev-www.libreoffice.org/src/3bdf40c0d199af31923e900d082ca2dd-libfonts-1.1.6.zip
-Source72:	http://dev-www.libreoffice.org/src/3404ab6b1792ae5f16bbd603bd1e1d03-libformula-1.1.7.zip
-Source73:	http://dev-www.libreoffice.org/src/db60e4fde8dd6d6807523deb71ee34dc-liblayout-0.2.10.zip
-Source74:	http://dev-www.libreoffice.org/src/ace6ab49184e329db254e454a010f56d-libxml-1.1.7.zip
-Source75:	http://dev-www.libreoffice.org/src/ba2930200c9f019c2d93a8c88c651a0f-flow-engine-0.9.4.zip
-#Source77:	http://dev-www.libreoffice.org/src/libmspub-0.0.5.tar.bz2
-
 #javaless
-Source56:	http://hg.services.openoffice.org/binaries/3c219630e4302863a9a83d0efde889db-commons-logging-1.1.1-src.tar.gz
 Source57:	http://dev-www.libreoffice.org/ooo_external/af3c3acf618de6108d65fcdc92b492e1-commons-codec-1.3-src.tar.gz
 Source58:	http://hg.services.openoffice.org/binaries/2c9b0f83ed5890af02c0df1c1776f39b-commons-httpclient-3.1-src.tar.gz 
 Source59:	http://hg.services.openoffice.org/binaries/2ae988b339daec234019a7066f96733e-commons-lang-2.3-src.tar.gz 
@@ -2463,50 +2417,6 @@ export MAXPROCESS=4
 mkdir -p src
 ln -sf %{SOURCE2} src/
 ln -sf %{SOURCE3} src/
-#ln -sf %{SOURCE31} src/
-#ln -sf %{SOURCE32} src/
-#ln -sf %{SOURCE33} src/
-#ln -sf %{SOURCE34} src/
-#ln -sf %{SOURCE35} src/
-#ln -sf %{SOURCE36} src
-#ln -sf %{SOURCE37} src/
-#ln -sf %{SOURCE38} src/
-#ln -sf %{SOURCE39} src/
-#ln -sf %{SOURCE40} src/
-#ln -sf %{SOURCE42} src/
-#ln -sf %{SOURCE43} src/
-#ln -sf %{SOURCE44} src/
-#ln -sf %{SOURCE45} src/
-#ln -sf %{SOURCE46} src/
-#ln -sf %{SOURCE47} src/
-#ln -sf %{SOURCE48} src/
-#ln -sf %{SOURCE49} src/
-#ln -sf %{SOURCE50} src/
-#ln -sf %{SOURCE51} src/
-#ln -sf %{SOURCE52} src/
-#ln -sf %{SOURCE54} src/
-#ln -sf %{SOURCE55} src/
-#ln -sf %{SOURCE56} src/
-#ln -sf %{SOURCE63} src/
-#ln -sf %{SOURCE64} src/
-#ln -sf %{SOURCE76} src/
-#ln -sf %{SOURCE77} src/
-#ln -sf %{SOURCE78} src/
-#ln -sf %{SOURCE79} src/
-#ln -sf %{SOURCE80} src/
-#ln -sf %{SOURCE81} src/
-#ln -sf %{SOURCE82} src/
-#ln -sf %{SOURCE65} src/
-#ln -sf %{SOURCE66} src/
-#ln -sf %{SOURCE67} src/
-#ln -sf %{SOURCE68} src/
-#ln -sf %{SOURCE69} src/
-#ln -sf %{SOURCE70} src/
-#ln -sf %{SOURCE71} src/
-#ln -sf %{SOURCE72} src/
-#ln -sf %{SOURCE73} src/
-#ln -sf %{SOURCE74} src/
-#ln -sf %{SOURCE75} src/
 %if %{javaless}
 ln -sf %{SOURCE57} src/
 ln -sf %{SOURCE58} src/
