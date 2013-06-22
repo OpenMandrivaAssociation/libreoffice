@@ -20,7 +20,7 @@
 %define devurl		http://dev-www.libreoffice.org/ooo_external
 %define distroname	Mandriva
 %define	ooname		libreoffice
-%define buildver	%{version}.3
+%define buildver	%{version}.1
 %define ooodir		%{_libdir}/libreoffice
 %define firefox_plugin	libnpsoplugin.so
 %define antpath		%{_builddir}/libreoffice-%{version}/apache-ant-1.8.1
@@ -380,7 +380,6 @@ Requires:	%{name}-common = %{EVRD}
 Requires:	%{name}-core = %{EVRD}
 Suggests:	%{name}-style-oxygen = %{EVRD} 
 Obsoletes:	openoffice.org-kde4 < 1:3.3-1:2011.0 
-Conflicts:	openoffice.org-core <= %{version}-beta1.0mdv
 
 %description kde4
 This package contains the KDE4 plugin for drawing LibreOffice widgets with
