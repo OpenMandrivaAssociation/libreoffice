@@ -16,6 +16,8 @@
 # As of 4.0, doesn't work -- probably the extensions need porting
 %define extensionenabled 0
 
+%define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
+%define devurl		http://dev-www.libreoffice.org/ooo_external
 %define distroname	Mandriva
 %define	ooname		libreoffice
 %define buildver	%{version}.3
@@ -44,23 +46,22 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	4.0.3
-Release:	2
+Version:	4.1.0
+Release:	1
 License:	(MPLv1.1 or LGPLv3+) and LGPLv3 and LGPLv2+ and BSD and (MPLv1.1 or GPLv2 or LGPLv2 or Netscape) and Public Domain and ASL 2.0 and Artistic
 Group:		Office
 Url:		http://www.libreoffice.org
-Source0:	http://download.documentfoundation.org/libreoffice/src/%{version}/%{ooname}-%{buildver}.tar.xz
-Source1:	http://download.documentfoundation.org/libreoffice/src/%{version}/%{ooname}-dictionaries-%{buildver}.tar.xz
-Source2:	http://download.documentfoundation.org/libreoffice/src/%{version}/%{ooname}-help-%{buildver}.tar.xz
-Source3:	http://download.documentfoundation.org/libreoffice/src/%{version}/%{ooname}-translations-%{buildver}.tar.xz
-Source20:	Mandriva-Rosa_Icons.tar.bz2
+Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
+Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
+Source2:	%{relurl}/%{ooname}-help-%{buildver}.tar.xz
+Source3:	%{relurl}/%{ooname}-translations-%{buildver}.tar.xz
+Source10:	Mandriva-Rosa_Icons.tar.bz2
 #javaless
-Source57:	http://dev-www.libreoffice.org/ooo_external/af3c3acf618de6108d65fcdc92b492e1-commons-codec-1.3-src.tar.gz
-Source58:	http://hg.services.openoffice.org/binaries/2c9b0f83ed5890af02c0df1c1776f39b-commons-httpclient-3.1-src.tar.gz 
-Source59:	http://hg.services.openoffice.org/binaries/2ae988b339daec234019a7066f96733e-commons-lang-2.3-src.tar.gz 
-Source60:	http://archive.apache.org/dist/ant/binaries/apache-ant-1.8.1-bin.tar.bz2
-Source61:	http://hg.services.openoffice.org/binaries/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
-
+Source20:	http://archive.apache.org/dist/ant/binaries/apache-ant-1.8.1-bin.tar.bz2
+Source30:	%{devurl}/af3c3acf618de6108d65fcdc92b492e1-commons-codec-1.3-src.tar.gz
+Source31:	%{devurl}/2c9b0f83ed5890af02c0df1c1776f39b-commons-httpclient-3.1-src.tar.gz 
+Source32:	%{devurl}/2ae988b339daec234019a7066f96733e-commons-lang-2.3-src.tar.gz 
+Source33:	%{devurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
 Source100:	libreoffice.rpmlintrc
 
 Patch1:		libreoffice-3.6.2-non-fatal-error-during-test.patch
@@ -2294,7 +2295,7 @@ for a in */*; do mv `pwd`/$a .; done
 
 #ant
 %if %{javaless}
-tar -xjvf %{SOURCE60}
+tar -xjvf %{SOURCE20}
 %endif
 %apply_patches
 
@@ -2418,10 +2419,10 @@ mkdir -p src
 ln -sf %{SOURCE2} src/
 ln -sf %{SOURCE3} src/
 %if %{javaless}
-ln -sf %{SOURCE57} src/
-ln -sf %{SOURCE58} src/
-ln -sf %{SOURCE59} src/
-ln -sf %{SOURCE61} src/
+ln -sf %{SOURCE30} src/
+ln -sf %{SOURCE31} src/
+ln -sf %{SOURCE32} src/
+ln -sf %{SOURCE33} src/
 %endif
 touch src.downloaded
 ./bootstrap
@@ -2514,7 +2515,7 @@ rm -rf %{buildroot}/opt
 
 # Mandriva Rosa icons
 mkdir -p %{buildroot}%{_iconsdir}/hicolor/scalable/apps/
-tar -xjvf %{SOURCE20} --exclude Libre_Office* -C %{buildroot}%{_iconsdir}/hicolor/scalable/apps/
+tar -xjvf %{SOURCE10} --exclude Libre_Office* -C %{buildroot}%{_iconsdir}/hicolor/scalable/apps/
 
 sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-calc_72/'    %{buildroot}%{ooodir}/share/xdg/calc.desktop
 sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-writer_72/'  %{buildroot}%{ooodir}/share/xdg/writer.desktop 
