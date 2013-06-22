@@ -5,3 +5,7 @@ sources:
   2c9b0f83ed5890af02c0df1c1776f39b-commons-httpclient-3.1-src.tar.gz: 5c604f102e0716597b3d2659ac3e77f80a02f22d
   2ae988b339daec234019a7066f96733e-commons-lang-2.3-src.tar.gz: efc1ab026e8e9ac4cd150cb4cf1b7e4663cddc84
   17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip: 7168b0f40aa5c72267899601c116d2348d2f56ec
+  libreoffice-4.1.0.1.tar.xz: 84cdd219bbdfef2cea0cdf0a3cbfa958706d5a0b
+  libreoffice-dictionaries-4.1.0.1.tar.xz: 32c6c2612c03b1c49d2cb4c334f64d11d1654d65
+  libreoffice-help-4.1.0.1.tar.xz: ce19229062414d0d5058c59b7304d2a980624005
+  libreoffice-translations-4.1.0.1.tar.xz: eff6157f81ffc757ceebf374158170315df61e3a
