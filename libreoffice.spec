@@ -64,17 +64,9 @@ Source32:	%{devurl}/2ae988b339daec234019a7066f96733e-commons-lang-2.3-src.tar.gz
 Source33:	%{devurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
 Source100:	libreoffice.rpmlintrc
 
-Patch1:		libreoffice-3.6.2-non-fatal-error-during-test.patch
-# Upstream:
-# http://cgit.freedesktop.org/libreoffice/core/patch/?id=0c08a84c04b166ab6479716e2c33cd444d7e3dbe
-Patch3:		libreoffice-3.5.2.2-icu-49.patch
-Patch5:		libreoffice-3.5.2-no-slackwareicons.patch
-# bug fix 64789
-Patch13:	help-images-mdv64789.patch
-Patch14:	libreoffice-4.0.0-orcus_boost153.patch
-# fixes for boost 1.53 from fedora
-Patch15:	0001-Work-around-problem-with-boost-shared_array-NULL-cto.patch
-Patch16:	0001-fix-compile-for-change-to-boost-1.53.0-declaring-sma.patch
+Patch0:		libreoffice-4.1.0.1-non-fatal-error-during-test.patch
+Patch1:		libreoffice-3.5.2.2-icu-49.patch
+Patch2:		help-images-mdv64789.patch
 
 %if %{use_icecream}
 BuildRequires:	icecream
@@ -147,6 +139,8 @@ BuildRequires:	pkgconfig(libexttextcat)
 BuildRequires:	pkgconfig(libixion-0.6)
 BuildRequires:	pkgconfig(liblangtag)
 BuildRequires:	pkgconfig(libmspub-0.0)
+BuildRequires:	pkgconfig(libmwaw-0.1)
+BuildRequires:	pkgconfig(libodfgen-0.0)
 BuildRequires:	pkgconfig(liborcus-0.4)
 BuildRequires:	pkgconfig(librsvg-2.0)
 BuildRequires:	pkgconfig(libstartup-notification-1.0)
@@ -2288,7 +2282,7 @@ Traditional.
 %endif
 
 %prep
-%setup -q -c -a 0 -a 1 -a 2 -a 3
+%setup -q -c -a 1 -a 2 -a 3
 rm -rf git-hooks */git-hooks
 for a in */*; do mv `pwd`/$a .; done
 
@@ -2384,7 +2378,6 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 	--with-system-libs \
 %if !%extensionenabled
 	--disable-ext-presenter-minimizer \
-	--disable-ext-report-builder \
 %else
 	--enable-ext-wiki-publisher \
 %endif
