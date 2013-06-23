@@ -105,7 +105,6 @@ BuildRequires:	libwpd-devel >= 0.9.0
 BuildRequires:	libwpg-devel
 BuildRequires:	libwps-devel
 BuildRequires:	lpsolve-devel
-BuildRequires:	mdds-devel
 BuildRequires:	nas-devel
 BuildRequires:	openldap-devel
 BuildRequires:	pam-devel
@@ -141,7 +140,7 @@ BuildRequires:	pkgconfig(liblangtag)
 BuildRequires:	pkgconfig(libmspub-0.0)
 BuildRequires:	pkgconfig(libmwaw-0.1)
 BuildRequires:	pkgconfig(libodfgen-0.0)
-BuildRequires:	pkgconfig(liborcus-0.4)
+BuildRequires:	pkgconfig(liborcus-0.6)
 BuildRequires:	pkgconfig(librsvg-2.0)
 BuildRequires:	pkgconfig(libstartup-notification-1.0)
 BuildRequires:	pkgconfig(libsvg)
@@ -150,6 +149,7 @@ BuildRequires:	pkgconfig(libvisio-0.0)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(libxslt)
 BuildRequires:	pkgconfig(libxul)
+BuildRequires:	pkgconfig(mdds)
 BuildRequires:	pkgconfig(mythes)
 BuildRequires:	pkgconfig(neon)
 BuildRequires:	pkgconfig(nspr)
