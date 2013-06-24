@@ -85,6 +85,7 @@ BuildRequires:	git
 BuildRequires:	gperf
 BuildRequires:	icu
 BuildRequires:	imagemagick
+BuildRequires:	pentaho-libxml
 BuildRequires:	perl
 BuildRequires:	perl-Archive-Zip
 BuildRequires:	perl-MDK-Common
