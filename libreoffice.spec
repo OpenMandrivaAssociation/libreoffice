@@ -93,6 +93,7 @@ BuildRequires:	perl-XML-Twig
 BuildRequires:	python-translate >= 1.9.0
 BuildRequires:	sharutils
 BuildRequires:	recode
+BuildRequires:	sac
 BuildRequires:	tcsh
 BuildRequires:	unzip
 BuildRequires:	xsltproc >= 1.0.19
@@ -165,6 +166,7 @@ BuildRequires:	pkgconfig(rasqal)
 BuildRequires:	pkgconfig(redland)
 BuildRequires:	pkgconfig(sane-backends)
 BuildRequires:	pkgconfig(sndfile)
+BuildRequires:	pkgconfig(telepathy-glib)
 BuildRequires:	pkgconfig(xaw7)
 BuildRequires:	pkgconfig(xmlsec1)
 BuildRequires:	pkgconfig(xpm)
