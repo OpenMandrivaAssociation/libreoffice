@@ -81,6 +81,7 @@ BuildRequires:	desktop-file-utils
 BuildRequires:	doxygen
 BuildRequires:	ed
 BuildRequires:	flex
+BuildRequires:	flute
 BuildRequires:	git
 BuildRequires:	gperf
 BuildRequires:	icu
