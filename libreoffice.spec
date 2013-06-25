@@ -94,6 +94,7 @@ BuildRequires:	perl-MDK-Common
 BuildRequires:	perl-HTML-Parser
 BuildRequires:	perl-XML-Twig
 BuildRequires:	python-translate >= 1.9.0
+BuildRequires:	servlet
 BuildRequires:	sharutils
 BuildRequires:	recode
 BuildRequires:	sac
