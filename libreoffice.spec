@@ -2369,6 +2369,7 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 	--enable-odk \
 	--enable-split-app-modules \
   	--enable-split-opt-features \
+	--enable-telepathy \
 	--without-fonts \
 	--without-junit \
 %if %{javaless}
