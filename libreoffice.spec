@@ -14,7 +14,7 @@
 
 %define javaless 1
 # As of 4.0, doesn't work -- probably the extensions need porting
-%define extensionenabled 0
+%define extensionenabled 1
 
 %define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
 %define devurl		http://dev-www.libreoffice.org/ooo_external
@@ -2344,23 +2344,26 @@ echo "Configure start at: "`date` >> ooobuildtime.log
 
 ENVCFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-aliasing" \
 ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive -fvisibility-inlines-hidden " \
-./autogen.sh \
- 	--prefix=%{_prefix} \
-	--exec-prefix=%{_prefix} \
-	--bindir=%{_bindir} \
-	--sbindir=%{_sbindir} \
-	--sysconfdir=%{_sysconfdir} \
-	--datadir=%{_datadir} \
-	--includedir=%{_includedir} \
-	--libdir=%{_libdir} \
-	--libexecdir=%{_libdir} \
-	--localstatedir=/var \
-	--mandir=%{_mandir} \
-	--infodir=%{_infodir} \
+#./autogen.sh \
+# 	--prefix=%{_prefix} \
+#	--exec-prefix=%{_prefix} \
+#	--bindir=%{_bindir} \
+#	--sbindir=%{_sbindir} \
+#	--sysconfdir=%{_sysconfdir} \
+#	--datadir=%{_datadir} \
+#	--includedir=%{_includedir} \
+#	--libdir=%{_libdir} \
+#	--libexecdir=%{_libdir} \
+#	--localstatedir=/var \
+#	--mandir=%{_mandir} \
+#	--infodir=%{_infodir} \
+touch autogen.lastrun
+%configure2_5x \
 	--with-distro=%{distroname} \
 	--with-vendor=Mandriva \
 	%{?_smp_mflags:--with-parallelism="`getconf _NPROCESSORS_ONLN`"} \
 	--with-build-version="%{buildver}" \
+	--disable-fetch-external \
 	--disable-gstreamer-0.10 \
 	--enable-gstreamer \
 	--disable-kde \
@@ -2387,6 +2390,7 @@ ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-alia
 	--disable-ext-presenter-minimizer \
 %else
 	--enable-ext-wiki-publisher \
+	--with-servlet-api-jar=/usr/share/java/tomcat6-servlet-api.jar \
 %endif
 %if %{use_ccache} && !%{use_icecream}
 	--with-gcc-speedup=ccache \
