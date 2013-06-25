@@ -14,7 +14,7 @@
 
 %define javaless 1
 # As of 4.0, doesn't work -- probably the extensions need porting
-%define extensionenabled 0
+%define extensionenabled 1
 
 %define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
 %define devurl		http://dev-www.libreoffice.org/ooo_external
@@ -2422,9 +2422,7 @@ ln -sf %{SOURCE32} src/
 ln -sf %{SOURCE33} src/
 %endif
 touch src.downloaded
-./bootstrap
 
-# %make 
 make \
 	ARCH_FLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing" \
 	ARCH_FLAGS_CC="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing" \
