@@ -14,7 +14,7 @@
 
 %define javaless 1
 # As of 4.0, doesn't work -- probably the extensions need porting
-%define extensionenabled 1
+%define extensionenabled 0
 
 %define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
 %define devurl		http://dev-www.libreoffice.org/ooo_external
