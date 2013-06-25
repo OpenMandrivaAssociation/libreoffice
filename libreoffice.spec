@@ -2390,7 +2390,7 @@ touch autogen.lastrun
 	--disable-ext-presenter-minimizer \
 %else
 	--enable-ext-wiki-publisher \
-	--with-servlet-api-jar=/usr/share/java/tomcat6-servlet-api.jar \
+	--with-servlet-api-jar=/usr/share/java/tomcat6-servlet-2.5-api.jar \
 %endif
 %if %{use_ccache} && !%{use_icecream}
 	--with-gcc-speedup=ccache \
