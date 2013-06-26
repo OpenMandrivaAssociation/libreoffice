@@ -12,7 +12,7 @@
 %define langs	"en-US"
 %endif
 
-%define javaless 1
+%define javaless 0
 # As of 4.0, doesn't work -- probably the extensions need porting
 %define extensionenabled 1
 
@@ -57,11 +57,13 @@ Source2:	%{relurl}/%{ooname}-help-%{buildver}.tar.xz
 Source3:	%{relurl}/%{ooname}-translations-%{buildver}.tar.xz
 Source10:	Mandriva-Rosa_Icons.tar.bz2
 #javaless
+%if %{javaless}
 Source20:	http://archive.apache.org/dist/ant/binaries/apache-ant-1.8.1-bin.tar.bz2
 Source30:	%{devurl}/af3c3acf618de6108d65fcdc92b492e1-commons-codec-1.3-src.tar.gz
 Source31:	%{devurl}/2c9b0f83ed5890af02c0df1c1776f39b-commons-httpclient-3.1-src.tar.gz 
 Source32:	%{devurl}/2ae988b339daec234019a7066f96733e-commons-lang-2.3-src.tar.gz 
 Source33:	%{devurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
+%endif
 Source100:	libreoffice.rpmlintrc
 
 Patch0:		libreoffice-4.1.0.1-non-fatal-error-during-test.patch
