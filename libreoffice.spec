@@ -2388,6 +2388,7 @@ touch autogen.lastrun
 	--with-external-hyph-dir=%{_datadir}/dict/ooo \
 	--with-external-thes-dir=%{_datadir}/dict/ooo \
 	--with-system-libs \
+	--with-system-ucpp \
 %if !%extensionenabled
 	--disable-ext-presenter-minimizer \
 %else
