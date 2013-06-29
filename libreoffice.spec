@@ -2382,6 +2382,8 @@ touch autogen.lastrun
 	--without-junit \
 %if %{javaless}
 	--with-ant-home="%{antpath}" \
+%else
+	--with-system-hsqldb \
 %endif
 	--with-lang=%{langs} \
 	--without-myspell-dicts \
