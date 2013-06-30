@@ -183,7 +183,7 @@ BuildRequires:	pkgconfig(zlib)
 BuildRequires:	db-devel
 %if !%{javaless}
 BuildRequires:	ant
-BuildRequires:	hsqldb
+BuildRequires:	hsqldb1.8.0
 BuildRequires:	jakarta-commons-codec
 BuildRequires:	jakarta-commons-lang
 BuildRequires:	jakarta-commons-httpclient
@@ -221,7 +221,7 @@ Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
 # Heavy java deps
 %if !%{javaless}
-Requires:	hsqldb
+Requires:	hsqldb1.8.0
 %endif
 Suggests:	%{name}-java-common = %{EVRD}
 Obsoletes:	openoffice.org-base < 1:3.3-1:2011.0 
