@@ -12,7 +12,7 @@
 %define langs	"en-US"
 %endif
 
-%define javaless 0
+%define javaless 1
 # As of 4.0, doesn't work -- probably the extensions need porting
 %define extensionenabled 1
 
