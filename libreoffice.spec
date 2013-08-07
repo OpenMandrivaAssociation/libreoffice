@@ -55,6 +55,8 @@ Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
 Source2:	%{relurl}/%{ooname}-help-%{buildver}.tar.xz
 Source3:	%{relurl}/%{ooname}-translations-%{buildver}.tar.xz
+Source4:        http://dev-www.libreoffice.org/extern/185d60944ea767075d27247c3162b3bc-unowinreg.dll
+
 Source10:	Mandriva-Rosa_Icons.tar.bz2
 #javaless
 %if %{javaless}
@@ -2434,6 +2436,7 @@ export MAXPROCESS=4
 mkdir -p src
 ln -sf %{SOURCE2} src/
 ln -sf %{SOURCE3} src/
+ln -sf %{SOURCE4} src/
 %if %{javaless}
 ln -sf %{SOURCE30} src/
 ln -sf %{SOURCE31} src/
