@@ -66,6 +66,10 @@ Source33:	%{devurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
 %endif
 Source34:	%{devurl}/1f24ab1d39f4a51faf22244c94a6203f-xmlsec1-1.2.14.tar.gz
 Source35:	%{devurl}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
+Source36:       %{devurl}/0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz
+Source37:       %{devurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
+Source38:       %{devurl}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
+
 # External Download Sources
 Source40:	http://hg.services.openoffice.org/binaries/1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz
 Source100:	libreoffice.rpmlintrc
@@ -2438,6 +2442,10 @@ ln -sf %{SOURCE33} src/
 %endif
 ln -sf %{SOURCE34} src/
 ln -sf %{SOURCE35} src/
+ln -sf %{SOURCE36} src/
+ln -sf %{SOURCE37} src/
+ln -sf %{SOURCE38} src/
+
 ln -sf %{SOURCE40} src/
 touch src.downloaded
 
