@@ -7,7 +7,7 @@
 -                OUString aZipName = OUString( "images_" );
 -                aZipName += aSymbolsStyleName;
 -                aZipName += OUString( ".zip" );
-+		OUString aZipName
++		OUString aZipName;
 +		if (aSymbolsStyleName.equals( OUString(RTL_CONSTASCII_USTRINGPARAM("default")) )) {
 +                    aZipName = OUString(RTL_CONSTASCII_USTRINGPARAM( "images.zip" ));
 +		} else {
