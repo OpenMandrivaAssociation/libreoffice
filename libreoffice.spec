@@ -64,6 +64,7 @@ Source31:	%{devurl}/2c9b0f83ed5890af02c0df1c1776f39b-commons-httpclient-3.1-src.
 Source32:	%{devurl}/2ae988b339daec234019a7066f96733e-commons-lang-2.3-src.tar.gz 
 Source33:	%{devurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
 %endif
+Source34:	%{devurl}/1f24ab1d39f4a51faf22244c94a6203f-xmlsec1-1.2.14.tar.gz
 # External Download Sources
 Source40:	http://hg.services.openoffice.org/binaries/1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz
 Source100:	libreoffice.rpmlintrc
@@ -2434,6 +2435,7 @@ ln -sf %{SOURCE31} src/
 ln -sf %{SOURCE32} src/
 ln -sf %{SOURCE33} src/
 %endif
+ln -sf %{SOURCE34} src/
 ln -sf %{SOURCE40} src/
 touch src.downloaded
 
