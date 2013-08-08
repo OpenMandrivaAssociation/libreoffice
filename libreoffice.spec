@@ -206,9 +206,6 @@ Requires:	%{name}-impress = %{EVRD}
 Requires:	%{name}-math = %{EVRD}
 Requires:	%{name}-writer = %{EVRD}
 Suggests:	%{name}-dtd-officedocument1.0 = %{EVRD}
-%if %extensionenabled
-Suggests:	%{name}-pdfimport = %{EVRD}
-%endif
 Provides:	LibreOffice = %{EVRD}
 Provides:	LibreOffice-libs = %{EVRD}
 Obsoletes:	openoffice.org < 1:3.3-1:2011.0 
@@ -513,42 +510,6 @@ Obsoletes:	openoffice.org-writer < 1:3.3-1:2011.0
 This package contains the wordprocessor component for LibreOffice.
 
 %if %extensionenabled
-%package pdfimport
-Group:		Office
-Summary:	LibreOffice office suite - PDF Import extension
-Requires:	%{name}-core = %{EVRD}
-Requires:	%{name}-common = %{EVRD}
-Requires:	%{name}-draw = %{EVRD}
-Obsoletes:	openoffice.org-pdfimport < 1:3.3-1:2011.0 
-
-%description pdfimport
-PDF import extension enables PDF documments importing and basic editing of PDF
-documments by using LibreOffice-draw application.
-
-%package presenter-screen
-Group:		Office
-Summary:	LibreOffice office suite - Presenter Screen extension
-Requires:	%{name}-core = %{EVRD}
-Requires:	%{name}-common = %{EVRD}
-Requires:	%{name}-impress = %{EVRD}
-Obsoletes:	openoffice.org-presenter-screen < 1:3.3-1:2011.0 
-Conflicts:	%{name}-presenter-screen <= 1:3.2-rc4.0
-
-%description presenter-screen
-Presenter Screen extension helps users to see upcoming slides and slide notes
-of presentations inside a second view not visible for the spectators.
-
-%package report-builder
-Group:		Office
-Summary:	LibreOffice office suite - Report Builder extension
-Requires:	%{name}-core = %{EVRD}
-Requires:	%{name}-common = %{EVRD}
-Requires:	%{name}-base = %{EVRD}
-
-%description report-builder
-By using %{name}-base the Report Builder extesion enables creating of smart and 
-professional looking reports. Further the reports can be exported to PDF or 
-OpenDocuments formats.
 
 %package wiki-publisher
 Group:		Office
@@ -2396,6 +2357,7 @@ touch autogen.lastrun
 	--with-lang=%{langs} \
 	--without-myspell-dicts \
 	--with-system-dicts \
+	--with-help \
 	--with-external-dict-dir=%{_datadir}/dict/ooo \
 	--with-external-hyph-dir=%{_datadir}/dict/ooo \
 	--with-external-thes-dir=%{_datadir}/dict/ooo \
@@ -2617,7 +2579,7 @@ echo '%{ooodir}/program/libqstart_gtklo.so' >>file-lists/gnome_list.txt
 echo '%{ooodir}/program/pluginapp.bin' >>file-lists/gnome_list.txt
 ## GConf too
 sed -i -e '/^.*gconfbe1.uno.so$/d' file-lists/core_list.txt
-echo '%{ooodir}/program/gconfbe1.uno.so' >>file-lists/gnome_list.txt
+echo '%{ooodir}/program/libgconfbe1.uno.so' >>file-lists/gnome_list.txt
 
 ## sort removing duplicates
 sort -u file-lists/gnome_list.txt > file-lists/gnome_list.uniq.sorted.txt 
@@ -2823,14 +2785,6 @@ fi
 %{_mandir}/man1/lowriter*
 
 %if %extensionenabled
-%files pdfimport
-%{ooodir}/share/extensions/pdfimport
-
-%files presenter-screen
-%{ooodir}/share/extensions/presenter-screen
-
-%files report-builder
-%{ooodir}/share/extensions/report-builder
 
 %files wiki-publisher
 %{ooodir}/share/extensions/wiki-publisher
@@ -2841,8 +2795,8 @@ fi
 %endif
 
 %files postgresql
-%{ooodir}/program/postgresql-sdbc.uno.so
-%{ooodir}/program/postgresql-sdbc-impl.uno.so
+%{ooodir}/program/libpostgresql-sdbclo.so
+%{ooodir}/program/libpostgresql-sdbc-impllo.so
 %{ooodir}/program/postgresql-sdbc.ini
 %{ooodir}/program/services/postgresql-sdbc.rdb
 %{ooodir}/share/registry/postgresqlsdbc.xcd
