@@ -106,7 +106,7 @@ BuildRequires:	perl-MDK-Common
 BuildRequires:	perl-HTML-Parser
 BuildRequires:	perl-XML-Twig
 BuildRequires:	python-translate >= 1.9.0
-BuildRequires:	servlet
+BuildRequires:	servlet3
 BuildRequires:	sharutils
 BuildRequires:	recode
 BuildRequires:	sac
@@ -2367,7 +2367,7 @@ touch autogen.lastrun
 	--disable-ext-presenter-minimizer \
 %else
 	--enable-ext-wiki-publisher \
-	--with-servlet-api-jar=/usr/share/java/tomcat6-servlet-2.5-api.jar \
+	--with-servlet-api-jar=/usr/share/java/tomcat-servlet-3.0-api.jar \
 %endif
 %if %{use_ccache} && !%{use_icecream}
 	--with-gcc-speedup=ccache \
