@@ -2149,16 +2149,6 @@ Provides:	LibreOffice-help-qtz = %{EVRD}
 %description help-qtz
 This package contains the localized help files of LibreOffice in QTZ
 
-%package help-ro
-Summary:	Romanian help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-ro = %{EVRD}
-Provides:	LibreOffice-help-ro = %{EVRD}
-
-%description help-ro
-This package contains the localized help files of LibreOffice in Romanian.
-
 %package help-ru
 Summary:	Russian help for LibreOffice
 Group:		Office
@@ -2579,7 +2569,6 @@ echo '%{ooodir}/program/libqstart_gtklo.so' >>file-lists/gnome_list.txt
 echo '%{ooodir}/program/pluginapp.bin' >>file-lists/gnome_list.txt
 ## GConf too
 sed -i -e '/^.*gconfbe1.uno.so$/d' file-lists/core_list.txt
-echo '%{ooodir}/program/libgconfbe1.uno.so' >>file-lists/gnome_list.txt
 
 ## sort removing duplicates
 sort -u file-lists/gnome_list.txt > file-lists/gnome_list.uniq.sorted.txt 
@@ -3007,8 +2996,6 @@ fi
 %files help-pt_BR -f file-lists/help_pt_BR_list.txt
 
 %files help-qtz -f file-lists/help_qtz_list.txt
-
-%files help-ro -f file-lists/help_ro_list.txt
 
 %files help-ru -f file-lists/help_ru_list.txt
 
