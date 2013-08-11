@@ -1,18 +1,23 @@
-sources:
-  Mandriva-Rosa_Icons.tar.bz2: 53448c079fcb3008d1fdec7f95305fe392460c1f
-  apache-ant-1.8.1-bin.tar.bz2: 0e0359f04b3d84fed75b3a1ab02cbc415c8864a1
-  af3c3acf618de6108d65fcdc92b492e1-commons-codec-1.3-src.tar.gz: d490a9bb30ea9e8b95c250f4d96842e0ce0c60d7
-  2c9b0f83ed5890af02c0df1c1776f39b-commons-httpclient-3.1-src.tar.gz: 5c604f102e0716597b3d2659ac3e77f80a02f22d
-  2ae988b339daec234019a7066f96733e-commons-lang-2.3-src.tar.gz: efc1ab026e8e9ac4cd150cb4cf1b7e4663cddc84
-  17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip: 7168b0f40aa5c72267899601c116d2348d2f56ec
+removed_sources:
   libreoffice-4.1.0.1.tar.xz: 84cdd219bbdfef2cea0cdf0a3cbfa958706d5a0b
   libreoffice-dictionaries-4.1.0.1.tar.xz: 32c6c2612c03b1c49d2cb4c334f64d11d1654d65
   libreoffice-help-4.1.0.1.tar.xz: ce19229062414d0d5058c59b7304d2a980624005
   libreoffice-translations-4.1.0.1.tar.xz: eff6157f81ffc757ceebf374158170315df61e3a
-  1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz: 28d4ec24dfda4eb41b6ceaa0cfcfca41b578f3b3
-  1f24ab1d39f4a51faf22244c94a6203f-xmlsec1-1.2.14.tar.gz: 8f949ae74a6d66278a595bd063f13e0ad196d14a
-  798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip: 8a90669029e107b61953b90ba11545fef586c2ca
+sources:
   0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz: 452eba922e4f41603539c9dc39947d2271e47093
-  a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip: 2d49e11b0b711970f494294dc3698f05eb294853
-  35c94d2df8893241173de1d16b6034c0-swingExSrc.zip: 1acea86fd399ed7817879d36370d3d1f8b109050
+  17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip: 7168b0f40aa5c72267899601c116d2348d2f56ec
+  1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz: 28d4ec24dfda4eb41b6ceaa0cfcfca41b578f3b3
   185d60944ea767075d27247c3162b3bc-unowinreg.dll: 0619ed3a89644bef318df67db12045b2b590585b
+  1f24ab1d39f4a51faf22244c94a6203f-xmlsec1-1.2.14.tar.gz: 8f949ae74a6d66278a595bd063f13e0ad196d14a
+  2ae988b339daec234019a7066f96733e-commons-lang-2.3-src.tar.gz: efc1ab026e8e9ac4cd150cb4cf1b7e4663cddc84
+  2c9b0f83ed5890af02c0df1c1776f39b-commons-httpclient-3.1-src.tar.gz: 5c604f102e0716597b3d2659ac3e77f80a02f22d
+  35c94d2df8893241173de1d16b6034c0-swingExSrc.zip: 1acea86fd399ed7817879d36370d3d1f8b109050
+  798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip: 8a90669029e107b61953b90ba11545fef586c2ca
+  Mandriva-Rosa_Icons.tar.bz2: 53448c079fcb3008d1fdec7f95305fe392460c1f
+  a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip: 2d49e11b0b711970f494294dc3698f05eb294853
+  af3c3acf618de6108d65fcdc92b492e1-commons-codec-1.3-src.tar.gz: d490a9bb30ea9e8b95c250f4d96842e0ce0c60d7
+  apache-ant-1.8.1-bin.tar.bz2: 0e0359f04b3d84fed75b3a1ab02cbc415c8864a1
+  libreoffice-4.1.0.4.tar.xz: 24b5facfe0f1f745d0227272cfa85caf92af666a
+  libreoffice-dictionaries-4.1.0.4.tar.xz: aee75b2818ed637ae401512b638cb9d559469abe
+  libreoffice-help-4.1.0.4.tar.xz: 4f3134b3b5629098d1f2855352def6113ab7d280
+  libreoffice-translations-4.1.0.4.tar.xz: 23f815f166d6edb113bdb2ca3f56c26f3b558219
