@@ -36,7 +36,7 @@
 %{?_without_ccache: %global use_ccache 0}
 
 %if %{_use_internal_dependency_generator}
-%define __noautoreq libjawt.so\\|libmyspell.so\\|libstlport_gcc.so\\|libmono.so\\|mono\\|devel\\(libunoidl(.*)
+%define __noautoreq 'libjawt.so|libmyspell.so|libstlport_gcc.so|libmono.so|mono|devel\\(libunoidl(.*)'
 %define __noautoprov libsndfile.so\\|libportaudio.so\\|libdb-4.2.so\\|libdb_java-4.2.so\\|libmyspell.so\\|libstlport_gcc.so\\|librdf.so.0\\|libraptor.so.1\\|libxmlsec1-nss.so.1\\|libxmlsec1.so.1
 %else
 %define _requires_exceptions libjawt.so\\|libmyspell.so\\|libstlport_gcc.so\\|libmono.so\\|mono\\|devel(libunoidl)\\|devel(libunoidl(64bit))
