@@ -1461,7 +1461,6 @@ Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-shs
 Provides:	LibreOffice-l10n-shs = %{EVRD}
-Suggests:	%{ooname}-help-shs = %{EVRD} 
 
 %description l10n-shs
 This package contains the localization of LibreOffice in Secwepemctsin.
