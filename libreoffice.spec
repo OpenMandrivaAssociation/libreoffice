@@ -47,7 +47,7 @@ Summary:	Office suite
 Name:		libreoffice
 Epoch:		1
 Version:	4.1.0
-Release:	2
+Release:	3
 License:	(MPLv1.1 or LGPLv3+) and LGPLv3 and LGPLv2+ and BSD and (MPLv1.1 or GPLv2 or LGPLv2 or Netscape) and Public Domain and ASL 2.0 and Artistic
 Group:		Office
 Url:		http://www.libreoffice.org
@@ -1121,7 +1121,7 @@ Group:		Office
 Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-ko
-Requires:	fonts-ttf-korean >= 2.1
+Requires:	fonts-ttf-korean >= 1.0.2
 Provides:	LibreOffice-l10n-ko = %{EVRD}
 Suggests:	%{ooname}-help-ko = %{EVRD} 
 Obsoletes:	openoffice.org-l10n-ko < 1:3.3-1:2011.0 
