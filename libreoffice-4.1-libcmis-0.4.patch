@@ -82,6 +82,24 @@
              throw ( ucb::ContentCreationException )
          : ContentImplHelper( rxContext, pProvider, Identifier ),
          m_pProvider( pProvider ),
+@@ -172,7 +172,7 @@ namespace cmis
+ 
+         if ( !m_sRepositoryId.isEmpty() )
+         {
+-            for ( list< libcmis::RepositoryPtr >::iterator it = m_aRepositories.begin( );
++            for ( vector< libcmis::RepositoryPtr >::iterator it = m_aRepositories.begin( );
+                     it != m_aRepositories.end( ) && NULL == repo.get( ); ++it )
+             {
+                 if ( STD_TO_OUSTR( ( *it )->getId( ) ) == m_sRepositoryId )
+@@ -352,7 +352,7 @@ namespace cmis
+ 
+         if ( m_sRepositoryId.isEmpty( ) )
+         {
+-            for ( list< libcmis::RepositoryPtr >::iterator it = m_aRepositories.begin( );
++            for ( vector< libcmis::RepositoryPtr >::iterator it = m_aRepositories.begin( );
+                     it != m_aRepositories.end(); ++it )
+             {
+                 URL aUrl( m_aURL );
 --- libreoffice-4.1.0/ucb/source/ucp/cmis/cmis_repo_content.hxx.omv~	2013-08-30 03:50:48.639388911 +0200
 +++ libreoffice-4.1.0/ucb/source/ucp/cmis/cmis_repo_content.hxx	2013-08-30 03:51:45.660317315 +0200
 @@ -26,6 +26,7 @@
@@ -110,21 +128,3 @@
              throw ( com::sun::star::ucb::ContentCreationException );
  
      virtual ~RepoContent();
-@@ -172,7 +172,7 @@ namespace cmis
- 
-         if ( !m_sRepositoryId.isEmpty() )
-         {
--            for ( list< libcmis::RepositoryPtr >::iterator it = m_aRepositories.begin( );
-+            for ( vector< libcmis::RepositoryPtr >::iterator it = m_aRepositories.begin( );
-                     it != m_aRepositories.end( ) && NULL == repo.get( ); ++it )
-             {
-                 if ( STD_TO_OUSTR( ( *it )->getId( ) ) == m_sRepositoryId )
-@@ -352,7 +352,7 @@ namespace cmis
- 
-         if ( m_sRepositoryId.isEmpty( ) )
-         {
--            for ( list< libcmis::RepositoryPtr >::iterator it = m_aRepositories.begin( );
-+            for ( vector< libcmis::RepositoryPtr >::iterator it = m_aRepositories.begin( );
-                     it != m_aRepositories.end(); ++it )
-             {
-                 URL aUrl( m_aURL );
