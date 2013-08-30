@@ -1,8 +1,3 @@
-removed_sources:
-  libreoffice-4.1.0.1.tar.xz: 84cdd219bbdfef2cea0cdf0a3cbfa958706d5a0b
-  libreoffice-dictionaries-4.1.0.1.tar.xz: 32c6c2612c03b1c49d2cb4c334f64d11d1654d65
-  libreoffice-help-4.1.0.1.tar.xz: ce19229062414d0d5058c59b7304d2a980624005
-  libreoffice-translations-4.1.0.1.tar.xz: eff6157f81ffc757ceebf374158170315df61e3a
 sources:
   0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz: 452eba922e4f41603539c9dc39947d2271e47093
   17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip: 7168b0f40aa5c72267899601c116d2348d2f56ec

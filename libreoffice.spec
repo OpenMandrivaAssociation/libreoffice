@@ -78,6 +78,8 @@ Source100:	libreoffice.rpmlintrc
 Patch0:		libreoffice-4.1.0.1-non-fatal-error-during-test.patch
 Patch1:		libreoffice-3.5.2.2-icu-49.patch
 Patch2:		help-images-mdv64789.patch
+Patch3:		libreoffice-4.1-libcmis-0.4.patch
+Patch4:		libreoffice-4.1-poppler-0.24.patch
 
 %if %{use_icecream}
 BuildRequires:	icecream
@@ -142,6 +144,7 @@ BuildRequires:	pkgconfig(gnutls)
 BuildRequires:	pkgconfig(gdk-pixbuf-xlib-2.0)
 BuildRequires:	pkgconfig(graphite2)
 BuildRequires:	pkgconfig(gstreamer-plugins-base-1.0)
+BuildRequires:	pkgconfig(egl)
 BuildRequires:	pkgconfig(gtk+-2.0)
 BuildRequires:	pkgconfig(hunspell)
 BuildRequires:	pkgconfig(icu-le)
