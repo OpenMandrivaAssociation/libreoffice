@@ -18,7 +18,7 @@
 
 %define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
 %define devurl		http://dev-www.libreoffice.org/ooo_external
-%define distroname	Mandriva
+%define distroname	OpenMandriva
 %define	ooname		libreoffice
 %define buildver	%{version}.4
 %define ooodir		%{_libdir}/libreoffice
