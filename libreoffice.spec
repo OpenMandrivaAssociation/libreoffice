@@ -1406,22 +1406,6 @@ features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
 
-%package l10n-qtz
-Summary:	QTZ language support for LibreOffice
-Group:		Office
-Provides:	%{ooname}-l10n = %{EVRD}
-Requires:	urw-fonts
-Provides:	LibreOffice-l10n_qtz = %{EVRD}
-Suggests:	%{ooname}-help-qtz = %{EVRD} 
-
-%description l10n-qtz
-This package contains the localization of LibreOffice in QTZ.
-
-It contains the user interface, the templates and the autotext
-features. Please note that not all of these are available for all
-possible language. You can switch user interface language using the
-standard locales system.
-
 %package l10n-ro
 Summary:	Romanian language support for LibreOffice
 Group:		Office
@@ -2139,16 +2123,6 @@ Obsoletes:	openoffice.org-help-pt_BR < 1:3.3-1:2011.0
 %description help-pt_BR
 This package contains the localized help files of LibreOffice in Portuguese
 Brazilian.
-
-%package help-qtz
-Summary:	QTZ help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-qtz = %{EVRD}
-Provides:	LibreOffice-help-qtz = %{EVRD}
-
-%description help-qtz
-This package contains the localized help files of LibreOffice in QTZ
 
 %package help-ru
 Summary:	Russian help for LibreOffice
@@ -2889,8 +2863,6 @@ fi
 
 %files l10n-pt_BR -f file-lists/lang_pt_BR_list.txt
 
-%files l10n-qtz -f file-lists/lang_qtz_list.txt
-
 %files l10n-ro -f file-lists/lang_ro_list.txt
 
 %files l10n-ru -f file-lists/lang_ru_list.txt
@@ -2996,8 +2968,6 @@ fi
 %files help-pt -f file-lists/help_pt_list.txt
 
 %files help-pt_BR -f file-lists/help_pt_BR_list.txt
-
-%files help-qtz -f file-lists/help_qtz_list.txt
 
 %files help-ru -f file-lists/help_ru_list.txt
 
