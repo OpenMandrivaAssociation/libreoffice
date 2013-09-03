@@ -47,7 +47,7 @@ Summary:	Office suite
 Name:		libreoffice
 Epoch:		1
 Version:	4.1.0
-Release:	3
+Release:	4
 License:	(MPLv1.1 or LGPLv3+) and LGPLv3 and LGPLv2+ and BSD and (MPLv1.1 or GPLv2 or LGPLv2 or Netscape) and Public Domain and ASL 2.0 and Artistic
 Group:		Office
 Url:		http://www.libreoffice.org
@@ -2333,6 +2333,7 @@ touch autogen.lastrun
 	--disable-kde \
 	--enable-kde4 \
 	--enable-lockdown \
+	--enable-release-build \
 	--enable-opengl \
 	--enable-odk \
 	--enable-split-app-modules \
