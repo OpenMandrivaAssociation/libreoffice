@@ -13,14 +13,14 @@
 %endif
 
 %define javaless 0
-# As of 4.0, doesn't work -- probably the extensions need porting
-%define extensionenabled 1
 
 %define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
 %define devurl		http://dev-www.libreoffice.org/ooo_external
+%define srcurl		http://dev-www.libreoffice.org/src/
+%define oxyurl		http://ooo.itc.hu/oxygenoffice/download/libreoffice/
 %define distroname	OpenMandriva
 %define	ooname		libreoffice
-%define buildver	%{version}.4
+%define buildver	%{version}.2
 %define ooodir		%{_libdir}/libreoffice
 %define firefox_plugin	libnpsoplugin.so
 %define antpath		%{_builddir}/libreoffice-%{version}/apache-ant-1.8.1
@@ -46,8 +46,8 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	4.1.0
-Release:	4
+Version:	4.1.1
+Release:	1
 License:	(MPLv1.1 or LGPLv3+) and LGPLv3 and LGPLv2+ and BSD and (MPLv1.1 or GPLv2 or LGPLv2 or Netscape) and Public Domain and ASL 2.0 and Artistic
 Group:		Office
 Url:		http://www.libreoffice.org
@@ -73,13 +73,33 @@ Source37:       %{devurl}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
 
 # External Download Sources
 Source40:	http://hg.services.openoffice.org/binaries/1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz
-Source100:	libreoffice.rpmlintrc
+
+# Extensions
+Source50:	%{srcurl}451ccf439a36a568653b024534669971-ConvertTextToNumber-1.3.2.oxt
+Source51:	%{srcurl}b63e6340a02ff1cacfeadb2c42286161-JLanguageTool-1.7.0.tar.bz2
+Source52:	%{oxyurl}3ed18025a766f1e955707b969c8113a5-Barcode_1.3.5.0.oxt
+Source53:	%{oxyurl}8d74685d41f8bffe8c3e71fe8deac09d-SmART_0.9.5.oxt
+Source54:	%{oxyurl}b632bdd25649cc4067bcb410bae23d2b-hunart_0.3.oxt
+Source55:	%{srcurl}27211596cf0ad97cab7321239406fde0-gdocs_3.0.1_modified.oxt
+Source56:	%{srcurl}b7cae45ad2c23551fd6ccb8ae2c1f59e-numbertext_0.9.5.oxt
+Source57:	%{oxyurl}9d60b6cfa3ef1926848710bbcd11115b-typo_0.4.2.oxt
+Source58:	%{oxyurl}bbdd5639ada63e3130761daaecae1a10-Validator_1.1.0.0.oxt
+Source59:	%{oxyurl}23bd75552206dfcd8fd4e29137dcac84-WatchWindow_1.2.0.0.oxt
+Source60:	%{oxyurl}af9314c5972d95a5d6da23ffad818f68-OOOP-gallery-pack-2.8.0.0.zip
+Source61:	%{oxyurl}1be202fbbbc13f10592a98f70a4a87fb-OOOP-templates-pack-2.9.0.0.zip
+Source62:	%{oxyurl}53ca5e56ccd4cab3693ad32c6bd13343-Sun-ODF-Template-Pack-de_1.0.0.oxt
+Source63:	%{oxyurl}472ffb92d82cf502be039203c606643d-Sun-ODF-Template-Pack-en-US_1.0.0.oxt
+Source64:	%{oxyurl}4ad003e7bbda5715f5f38fde1f707af2-Sun-ODF-Template-Pack-es_1.0.0.oxt
+Source65:	%{oxyurl}a53080dc876edcddb26eb4c3c7537469-Sun-ODF-Template-Pack-fr_1.0.0.oxt
+Source66:	%{oxyurl}09ec2dac030e1dcd5ef7fa1692691dc0-Sun-ODF-Template-Pack-hu_1.0.0.oxt
+Source67:	%{oxyurl}b33775feda3bcf823cad7ac361fd49a6-Sun-ODF-Template-Pack-it_1.0.0.oxt
+
+Source1000:	libreoffice.rpmlintrc
 
 Patch0:		libreoffice-4.1.0.1-non-fatal-error-during-test.patch
 Patch1:		libreoffice-3.5.2.2-icu-49.patch
 Patch2:		help-images-mdv64789.patch
 Patch3:		libreoffice-4.1-libcmis-0.4.patch
-Patch4:		libreoffice-4.1-poppler-0.24.patch
 
 %if %{use_icecream}
 BuildRequires:	icecream
@@ -99,6 +119,7 @@ BuildRequires:	git
 BuildRequires:	gperf
 BuildRequires:	icu
 BuildRequires:	imagemagick
+BuildRequires:	mysql-connector-c++-devel
 BuildRequires:	pentaho-libxml
 BuildRequires:	pentaho-reporting-flow-engine
 BuildRequires:	perl
@@ -207,7 +228,6 @@ Requires:	%{name}-draw = %{EVRD}
 Requires:	%{name}-impress = %{EVRD}
 Requires:	%{name}-math = %{EVRD}
 Requires:	%{name}-writer = %{EVRD}
-Suggests:	%{name}-dtd-officedocument1.0 = %{EVRD}
 Provides:	LibreOffice = %{EVRD}
 Provides:	LibreOffice-libs = %{EVRD}
 Obsoletes:	openoffice.org < 1:3.3-1:2011.0 
@@ -224,13 +244,11 @@ formats, including Microsoft Office.
 %package base
 Summary:	LibreOffice office suite - database
 Group:		Office
-Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
 # Heavy java deps
 %if !%{javaless}
 Requires:	hsqldb1.8.0
 %endif
-Suggests:	%{name}-java-common = %{EVRD}
 Obsoletes:	openoffice.org-base < 1:3.3-1:2011.0 
 
 %description base
@@ -256,7 +274,6 @@ packages:
 %package calc
 Summary:	LibreOffice office suite - spreadsheet
 Group:		Office
-Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
 Obsoletes:	openoffice.org-calc < 1:3.3-1:2011.0 
 
@@ -264,14 +281,10 @@ Obsoletes:	openoffice.org-calc < 1:3.3-1:2011.0
 This package contains the spreadsheet component for LibreOffice.
 
 %package common
-Summary:	LibreOffice office suite architecture independent files
+Summary:	LibreOffice office suite common files
 Group:		Office
-# Require the architecture dependant stuff
-Requires:	%{name}-core = %{EVRD}
 # Require at least one style to be installed
 Requires:	%{name}-style = %{EVRD}
-# Also suggest java-common, as it may be used by some macros
-Suggests:	%{name}-java-common = %{EVRD}
 Suggests:	%{name}-help-en_US = %{EVRD}
 # And then general requires for OOo follows
 Requires:	ghostscript
@@ -288,6 +301,11 @@ Requires(post,postun):	update-alternatives
 Obsoletes:	openoffice.org-common < 1:3.3-1:2011.0 
 Conflicts:	%{name}-common = 1:3.2-rc4.0
 
+# Upstream merged in 4.1.1
+Obsoletes:	%{name}-core < %{EVRD}
+Obsoletes:	%{name}-java-common < %{EVRD}
+Obsoletes:	%{name}-dtd-officedocument1.0 < %{EVRD}
+
 # Upstream dropped this packages in 3.4
 Obsoletes:	%{name}-l10n-pt_AO = 1:3.3.2-1
 Obsoletes:	%{name}-help-pt_AO = 1:3.3.2-1
@@ -297,25 +315,16 @@ Obsoletes:	%{name}-help-cy    = 1:3.3.2-1
 Obsoletes:	%{name}-help-ar    = 1:3.3.2-1
 Obsoletes:	%{name}-help-af    = 1:3.3.2-1
 Obsoletes:	%{name}-help-br    = 1:3.3.2-1
+# Upstream dropped in 4.1.1
+Obsoletes:	%{name}-l10n-qtz < %{EVRD}
+Obsoletes:	%{name}-help-qtz < %{EVRD}
 
 %description common
-This package contains the architecture-independent files of LibreOffice.
-
-%package core
-Summary:	LibreOffice office suite architecture dependent files
-Group:		Office
-# binfilter has been removed in 4.0
-Obsoletes:	%{name}-filter-binfilter < %{EVRD}
-Obsoletes:	openoffice.org-core < 1:3.3-1:2011.0 
-
-%description core
-This package contains the architecture-dependent core files of LibreOffice.
-See the libreoffice package for more information.
+This package contains the application-independent files of LibreOffice.
 
 %package devel
 Summary:	LibreOffice SDK - development files
 Group:		Office
-Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
 %if "%{_lib}" == "lib64"
 Provides:	devel(libxmlreader(64bit)) = %{EVRD}
@@ -348,26 +357,16 @@ It also contains the gsicheck utility.
 %package draw
 Group:		Office
 Summary:	LibreOffice office suite - drawing
-Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
 Obsoletes:	openoffice.org-draw < 1:3.3-1:2011.0 
 
 %description draw
 This package contains the drawing component for LibreOffice.
 
-%package dtd-officedocument1.0
-Group:		Office
-Summary:	OfficeDocument 1.0 DTD
-
-%description dtd-officedocument1.0
-This package contains the Document Type Definition (DTD) of the LibreOffice
-1.x(!) XML file format.
-
 %package gnome
 Group:		Office
 Summary:	GNOME Integration for LibreOffice (VFS, GConf)
 Requires:	%{name}-common = %{EVRD}
-Requires:	%{name}-core = %{EVRD}
 Obsoletes:	openoffice.org-gnome < 1:3.3-1:2011.0 
 
 %description gnome
@@ -376,7 +375,6 @@ This package contains the GNOME VFS support and a GConf backend.
 %package impress
 Group:		Office
 Summary:	LibreOffice office suite - presentation
-Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD} 
 Requires:	%{name}-draw = %{EVRD}
 Obsoletes:	openoffice.org-impress < 1:3.3-1:2011.0 
@@ -388,7 +386,6 @@ This package contains the presentation component for LibreOffice.
 Group:		Office
 Summary:	KDE4 Integration for LibreOffice (Widgets, Dialogs, Addressbook)
 Requires:	%{name}-common = %{EVRD}
-Requires:	%{name}-core = %{EVRD}
 Suggests:	%{name}-style-oxygen = %{EVRD} 
 Obsoletes:	openoffice.org-kde4 < 1:3.3-1:2011.0 
 
@@ -396,26 +393,9 @@ Obsoletes:	openoffice.org-kde4 < 1:3.3-1:2011.0
 This package contains the KDE4 plugin for drawing LibreOffice widgets with
 KDE4/Qt4.x and a KDEish File Picker when running under KDE4.
  
-%package java-common
-Group:		Office
-Summary:	LibreOffice office suite Java support arch. independent files
-Requires:	%{name}-core = %{EVRD}
-Requires:	%{name}-common = %{EVRD}
-Requires:	java
-Requires:	bsh
-Obsoletes:	openoffice.org-java-common < 1:3.3-1:2011.0 
-
-%description java-common
-This package contains the architecture-independent files of the Java support
-for LibreOffice (Java classes, scripts, config snippets).
-
-Also contains the LibreOffice Office Bean for embedding LibreOffice in
-custom Java applications.
-
 %package math
 Group:		Office
 Summary:	LibreOffice office suite - equation editor
-Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
 Obsoletes:	openoffice.org-math < 1:3.3-1:2011.0 
 
@@ -425,7 +405,6 @@ This package contains the equation editor component for LibreOffice.
 %package openclipart
 Group:		Office
 Summary:	LibreOffice Open Clipart data
-Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
 Obsoletes:	openoffice.org-openclipart < 1:3.3-1:2011.0 
 
@@ -436,7 +415,6 @@ and sounds.
 %package pyuno
 Group:		Office
 Summary:	Python bindings for UNO library
-Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
 Obsoletes:	openoffice.org-pyuno < 1:3.3-1:2011.0 
 
@@ -446,7 +424,6 @@ This package contains the Python bindings for the UNO library.
 %package style-galaxy
 Group:		Office
 Summary:	Default symbol style for LibreOffice
-Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
 Provides:	%{name}-style = %{EVRD}
 Obsoletes:	openoffice.org-style-galaxy < 1:3.3-1:2011.0 
@@ -459,7 +436,6 @@ in the LibreOffice option menu.
 %package style-crystal
 Group:		Office
 Summary:	Crystal symbol style for LibreOffice
-Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
 Provides:	%{name}-style = %{EVRD}
 Obsoletes:	openoffice.org-style-crystal < 1:3.3-1:2011.0 
@@ -470,7 +446,6 @@ This package contains the "crystal" symbol style, default style for KDE.
 %package style-hicontrast
 Group:		Office
 Summary:	Hicontrast symbol style for LibreOffice
-Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
 Provides:	%{name}-style = %{EVRD}
 Obsoletes:	openoffice.org-style-hicontrast < 1:3.3-1:2011.0 
@@ -482,7 +457,6 @@ enabled in the LibreOffice option menu.
 %package style-tango
 Group:		Office
 Summary:	Tango symbol style for LibreOffice
-Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
 Provides:	%{name}-style = %{EVRD}
 Obsoletes:	openoffice.org-style-tango < 1:3.3-1:2011.0 
@@ -493,7 +467,6 @@ This package contains the "tango" symbol style, default style for GTK/Gnome.
 %package style-oxygen
 Group:		Office
 Summary:	Oxygen symbol style for LibreOffice
-Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
 Provides:	%{name}-style = %{EVRD}
 Obsoletes:	openoffice.org-style-oxygen < 1:3.3-1:2011.0 
@@ -504,19 +477,15 @@ This package contains the "oxygen" symbol style, default style for KDE4.
 %package writer
 Group:		Office
 Summary:	LibreOffice office suite - word processor
-Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
 Obsoletes:	openoffice.org-writer < 1:3.3-1:2011.0 
 
 %description writer
 This package contains the wordprocessor component for LibreOffice.
 
-%if %extensionenabled
-
 %package wiki-publisher
 Group:		Office
 Summary:	LibreOffice office suite - Wiki Publisher extension
-Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
 Requires:	%{name}-writer = %{EVRD}
 %if !%{javaless}
@@ -533,10 +502,151 @@ wiki page articles on MediaWiki servers without having to know the syntax of
 MediaWiki markup language. This extension also enables publishing of the
 wiki pages.
 
+
+%package extension-xsltfilter
+Summary: XSLT based export filters for XHTML and Docbook formats
+Group: Office
+Requires: %{name}-common = %{EVRD}
+
+%description extension-xsltfilter
+XSLT based export filters for XHTML and Docbook formats
+
+
+%package extension-typo
+Summary: Typographic toolbar for Libreoffice
+Group: Office
+Requires: %{name}-common = %{EVRD}
+
+%description extension-typo
+Typographic toolbar for Libreoffice
+
+
+%package extension-numbertext
+Summary: Number-to-Text conversion function for Libreoffice calc
+Group: Office
+Requires: %{name}-common = %{EVRD}
+Requires: %{name}-calc = %{EVRD}
+
+%description extension-numbertext
+Number-to-Text conversion function for Libreoffice calc
+
+
+%package extension-nlpsolver
+Summary: Solver extension for Libreoffice Calc
+Group: Office
+Requires: %{name}-common = %{EVRD}
+Requires: %{name}-calc = %{EVRD}
+
+%description extension-nlpsolver
+Extension integrating a solver engine for optimizing
+nonlinear programming models into Calc
+
+
+%package extension-hunart
+Summary: Hungarian cross-reference toolbar extension
+Group: Office
+Requires: %{name}-common = %{EVRD}
+
+%description extension-hunart
+Hungarian cross-reference toolbar extension
+
+
+%package extension-gdocs
+Summary: Libreoffice Import/Export filter for Google Docs
+Group: Office
+Requires: %{name}-common = %{EVRD}
+
+%description extension-gdocs
+Libreoffice Import/Export filter for Google Docs
+
+
+%package extension-watchwindow
+Summary: Macro debugging tool for Libreoffice
+Group: Office
+Requires: %{name}-common = %{EVRD}
+
+%description extension-watchwindow
+The Watch window allows you to observe the value of variables during the
+execution of a program. Define the variable in the Watch text box.
+Click on Enable Watch to add the variable to the list box and to display
+its values.
+
+
+%package extension-validator
+Summary: A LibreOffice Calc extension that validates cells based on selected rules
+Group: Office
+Requires: %{name}-calc = %{EVRD}
+
+%description extension-validator
+A LibreOffice Calc extension that validates cells based on selected rules
+
+
+%package extension-languagetool
+Summary: A LibreOffice extension for style and grammar proofreading
+Group: Office
+Requires: %{name}-writer = %{EVRD}
+
+%description extension-languagetool
+A LibreOffice extension for style and grammar proofreading
+
+
+%package extension-diagram
+Summary: Diagram extension for LibreOffice Impress and Draw
+Group: Office
+Requires: %{name}-common = %{EVRD}
+
+%description extension-diagram
+SmART Gallery extension is the advanced version of Diagram
+(aka. Diagram 2) for LibreOffice and OpenOffice.org office suites.
+
+This Extension is designed to create your favorite diagrams
+with few clicks in Draw and Impress applications.
+
+%package extension-converttexttonumber
+Summary: Text to number converter for LibreOffice
+Group: Office
+Requires: %{name}-calc = %{EVRD}
+
+%description extension-converttexttonumber
+ConvertTextToNumber replaces numbers and dates, formatted as text, with
+real numbers.
+
+Choices can be made about marking of cells, including cells with
+non-default decimal separators, conversion of dates, and more.
+
+As a result of the conversion, the text cells will become real numbers,
+and then will be counted as expected in formulas Calc.
+
+%package extension-barcode
+Summary: LibreOffice extension for generating barcodes
+Group: Office
+
+%description extension-barcode
+LibreOffice extension for generating barcodes
+
+
+%package extension-mysql
+Summary: MySQL/MariaDB connector for LibreOffice
+Group: Office
+
+%description extension-mysql
+MySQL/MariaDB connector for LibreOffice
+
+
+%package mailmerge
+Summary:	Tool for mailing a LO document to a database of addresses
+Group:		Office
+Requires:	%{name}-writer = %{EVRD}
+Requires:	%{name}-calc = %{EVRD}
+Requires:	%{name}-base = %{EVRD}
+
+%description mailmerge
+Tool for mailing a LO document to a database of addresses
+
+
 %package presentation-minimizer
 Group:		Office
 Summary:	LibreOffice office suite - Presentation Minimizer extension
-Requires:	%{name}-core = %{EVRD}
 Requires:	%{name}-common = %{EVRD}
 Requires:	%{name}-impress = %{EVRD}
 Obsoletes:	openoffice.org-presentation-minimizer < 1:3.3-1:2011.0 
@@ -548,7 +658,6 @@ a automatizated way.
 
 Note: The Presentation Minimizer also works on 
 Microsoft PowerPoint presentations. 
-%endif
 
 %package postgresql
 Summary:	PostgreSQL connector for LibreOffice
@@ -558,6 +667,13 @@ Requires:	%{name}-base = %{EVRD}
 %description postgresql
 A PostgreSQl connector for the database front-end for LibreOffice. Allows
 creation and management of PostgreSQL databases through a GUI.
+
+%package templates-common
+Summary:	Files used by LibreOffice templates
+Group:		Office
+
+%description templates-common
+Files used by LibreOffice templates
 
 %if %l10n
 %package l10n-af
@@ -715,6 +831,14 @@ features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
 
+%package templates-cs
+Summary:	Czech templates for LibreOffice
+Group:		Office
+Requires:	%{name}-templates-common = %{EVRD}
+
+%description templates-cs
+Czech templates for LibreOffice
+
 %package l10n-cy
 Summary:	Welsh language support for LibreOffice
 Group:		Office
@@ -774,6 +898,14 @@ features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
 
+%package templates-de
+Summary:	German templates for LibreOffice
+Group:		Office
+Requires:	%{name}-templates-common = %{EVRD}
+
+%description templates-de
+German templates for LibreOffice
+
 %package l10n-dz
 Summary:	Dzongkha language support for LibreOffice
 Group:		Office
@@ -830,6 +962,14 @@ features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
 
+%package templates-en_US
+Summary:	US English templates for LibreOffice
+Group:		Office
+Requires:	%{name}-templates-common = %{EVRD}
+
+%description templates-en_US
+US English templates for LibreOffice
+
 %package l10n-es
 Summary:	Spanish language support for LibreOffice
 Group:		Office
@@ -850,6 +990,15 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+
+%package templates-es
+Summary:	Spanish templates for LibreOffice
+Group:		Office
+Requires:	%{name}-templates-common = %{EVRD}
+
+%description templates-es
+Spanish templates for LibreOffice
+
 
 %package l10n-et
 Summary:	Estonian language support for LibreOffice
@@ -925,6 +1074,14 @@ features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
 
+%package templates-fi
+Summary:	Finnish templates for LibreOffice
+Group:		Office
+Requires:	%{name}-templates-common = %{EVRD}
+
+%description templates-fi
+Finnish templates for LibreOffice
+
 %package l10n-fr
 Summary:	French language support for LibreOffice
 Group:		Office
@@ -945,6 +1102,15 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+
+%package templates-fr
+Summary:	French templates for LibreOffice
+Group:		Office
+Requires:	%{name}-templates-common = %{EVRD}
+
+%description templates-fr
+French templates for LibreOffice
+
 
 %package l10n-ga
 Summary:	Irish language support for LibreOffice
@@ -1065,6 +1231,15 @@ features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
 
+%package templates-hu
+Summary:	Hungarian templates for LibreOffice
+Group:		Office
+Requires:	%{name}-templates-common = %{EVRD}
+
+%description templates-hu
+Hungarian templates for LibreOffice
+
+
 %package l10n-it
 Summary:	Italian language support for LibreOffice
 Group:		Office
@@ -1085,6 +1260,14 @@ features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
 
+%package templates-it
+Summary:	Italian templates for LibreOffice
+Group:		Office
+Requires:	%{name}-templates-common = %{EVRD}
+
+%description templates-it
+Italian templates for LibreOffice
+
 %package l10n-ja
 Summary:	Japanese language support for LibreOffice
 Group:		Office
@@ -1102,6 +1285,14 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+
+%package templates-ja
+Summary:	Japanese templates for LibreOffice
+Group:		Office
+Requires:	%{name}-templates-common = %{EVRD}
+
+%description templates-ja
+Japanese templates for LibreOffice
 
 %package l10n-kn
 Summary:	Kannada language support for LibreOffice
@@ -1267,6 +1458,14 @@ features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
 
+%package templates-nl
+Summary:	Dutch templates for LibreOffice
+Group:		Office
+Requires:	%{name}-templates-common = %{EVRD}
+
+%description templates-nl
+Dutch templates for LibreOffice
+
 %package l10n-nn
 Summary:	Norwegian Nynorsk language support for LibreOffice
 Group:		Office
@@ -1366,6 +1565,14 @@ features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
 
+%package templates-pl
+Summary:	Polish templates for LibreOffice
+Group:		Office
+Requires:	%{name}-templates-common = %{EVRD}
+
+%description templates-pl
+Polish templates for LibreOffice
+
 %package l10n-pt
 Summary:	Portuguese language support for LibreOffice
 Group:		Office
@@ -1405,6 +1612,15 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+
+%package templates-pt_BR
+Summary:	Brazilian Portuguese templates for LibreOffice
+Group:		Office
+Requires:	%{name}-templates-common = %{EVRD}
+
+%description templates-pt_BR
+Brazilian Portuguese templates for LibreOffice
+
 
 %package l10n-ro
 Summary:	Romanian language support for LibreOffice
@@ -1577,6 +1793,14 @@ features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
 
+%package templates-sv
+Summary:	Swedish templates for LibreOffice
+Group:		Office
+Requires:	%{name}-templates-common = %{EVRD}
+
+%description templates-sv
+Swedish templates for LibreOffice
+
 %package l10n-ta
 Summary:	Tamil language support for LibreOffice
 Group:		Office
@@ -1657,6 +1881,14 @@ features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
 
+%package templates-tr
+Summary:	Turkish templates for LibreOffice
+Group:		Office
+Requires:	%{name}-templates-common = %{EVRD}
+
+%description templates-tr
+Turkish templates for LibreOffice
+
 %package l10n-ts
 Summary:	Tsonga language support for LibreOffice
 Group:		Office
@@ -1735,6 +1967,14 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+
+%package templates-zh_CN
+Summary:	Simplified Chinese templates for LibreOffice
+Group:		Office
+Requires:	%{name}-templates-common = %{EVRD}
+
+%description templates-zh_CN
+Simplified Chinese templates for LibreOffice
 
 %package l10n-zh_TW
 Summary:	Chinese Traditional language support for LibreOffice
@@ -2280,39 +2520,26 @@ export ARCH_FLAGS_OPT="%{optflags} -O2"
 
 echo "Configure start at: "`date` >> ooobuildtime.log 
 
-ENVCFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-aliasing" \
-ENVCXXFLAGS="%{optflags} %{optsafe} -g0 -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive -fvisibility-inlines-hidden " \
-#./autogen.sh \
-# 	--prefix=%{_prefix} \
-#	--exec-prefix=%{_prefix} \
-#	--bindir=%{_bindir} \
-#	--sbindir=%{_sbindir} \
-#	--sysconfdir=%{_sysconfdir} \
-#	--datadir=%{_datadir} \
-#	--includedir=%{_includedir} \
-#	--libdir=%{_libdir} \
-#	--libexecdir=%{_libdir} \
-#	--localstatedir=/var \
-#	--mandir=%{_mandir} \
-#	--infodir=%{_infodir} \
 touch autogen.lastrun
 %configure2_5x \
-	--with-distro=%{distroname} \
-	--with-vendor=Mandriva \
 	%{?_smp_mflags:--with-parallelism="`getconf _NPROCESSORS_ONLN`"} \
-	--with-build-version="%{buildver}" \
+	--with-vendor=OpenMandriva \
+	--with-build-version="OpenMandriva %{version}-%{release}" \
 	--disable-fetch-external \
 	--disable-gstreamer-0.10 \
 	--enable-gstreamer \
+	--enable-release-build \
 	--disable-kde \
 	--enable-kde4 \
 	--enable-lockdown \
-	--enable-release-build \
 	--enable-opengl \
 	--enable-odk \
 	--enable-split-app-modules \
   	--enable-split-opt-features \
 	--enable-telepathy \
+	--enable-extra-gallery \
+	--enable-extra-template \
+	--with-sun-templates \
 	--without-fonts \
 	--without-junit \
 %if %{javaless}
@@ -2329,12 +2556,20 @@ touch autogen.lastrun
 	--with-external-thes-dir=%{_datadir}/dict/ooo \
 	--with-system-libs \
 	--with-system-ucpp \
-%if !%extensionenabled
-	--disable-ext-presenter-minimizer \
-%else
+	--enable-ext-watch-window \
+	--enable-ext-diagram \
+	--enable-ext-validator \
+	--enable-ext-barcode \
+	--enable-ext-ct2n \
+	--enable-ext-numbertext \
+	--enable-ext-hunart \
+	--enable-ext-typo \
+	--enable-ext-google-docs \
+	--enable-ext-nlpsolver \
+	--enable-ext-languagetool \
 	--enable-ext-wiki-publisher \
+	--enable-ext-mariadb-connector \
 	--with-servlet-api-jar=/usr/share/java/tomcat-servlet-3.0-api.jar \
-%endif
 %if %{use_ccache} && !%{use_icecream}
 	--with-gcc-speedup=ccache \
 %else
@@ -2377,6 +2612,26 @@ ln -sf %{SOURCE36} src/
 ln -sf %{SOURCE37} src/
 
 ln -sf %{SOURCE40} src/
+
+ln -sf %{SOURCE50} src/
+ln -sf %{SOURCE51} src/
+ln -sf %{SOURCE52} src/
+ln -sf %{SOURCE53} src/
+ln -sf %{SOURCE54} src/
+ln -sf %{SOURCE55} src/
+ln -sf %{SOURCE56} src/
+ln -sf %{SOURCE57} src/
+ln -sf %{SOURCE58} src/
+ln -sf %{SOURCE59} src/
+ln -sf %{SOURCE60} src/
+ln -sf %{SOURCE61} src/
+ln -sf %{SOURCE62} src/
+ln -sf %{SOURCE63} src/
+ln -sf %{SOURCE64} src/
+ln -sf %{SOURCE65} src/
+ln -sf %{SOURCE66} src/
+ln -sf %{SOURCE67} src/
+
 touch src.downloaded
 
 make \
@@ -2399,71 +2654,6 @@ rm -rf %{buildroot}/opt
 # rm -rf %{buildroot}%{ooodir}/share/dict/ooo
 # ln -s %{_datadir}/dict/ooo %{buildroot}%{ooodir}/share/dict
 
-# # (Review)
-# # desktop files
-# desktop-file-install --vendor="" \
-#   --remove-category="Application" \
-#   --add-category="Office" \
-#   --add-category="X-MandrivaLinux-CrossDesktop" \
-#   --add-mime-type="application/vnd.ms-works;application/x-msworks-wp;zz-application/zz-winassoc-wps" \
-#   --add-mime-type="application/vnd.openxmlformats-officedocument.wordprocessingml.document" \
-#   --add-mime-type="application/vnd.ms-word.document.macroEnabled.12" \
-#   --dir %{buildroot}%{_datadir}/applications %{buildroot}%{ooodir}/share/xdg/writer*desktop
-# 
-# desktop-file-install --vendor="" \
-#   --remove-category="Application" \
-#   --add-category="Office" \
-#   --add-category="X-MandrivaLinux-CrossDesktop" \
-#   --add-mime-type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" \
-#   --add-mime-type="application/vnd.ms-excel.sheet.macroEnabled.12" \
-#   --dir %{buildroot}%{_datadir}/applications %{buildroot}%{ooodir}/share/xdg/calc*desktop
-# 
-# desktop-file-install --vendor="" \
-#   --remove-category="Application" \
-#   --remove-category="Graphics" \
-#   --remove-category="VectorGraphics" \
-#   --add-category="Office" \
-#   --add-category="X-MandrivaLinux-CrossDesktop" \
-#   --dir %{buildroot}%{_datadir}/applications %{buildroot}%{ooodir}/share/xdg/draw*desktop
-# 
-# desktop-file-install --vendor="" \
-#   --remove-category="Application" \
-#   --add-category="Office" \
-#   --add-category="X-MandrivaLinux-CrossDesktop" \
-#   --add-mime-type="application/vnd.openxmlformats-officedocument.presentationml.presentation" \
-#   --add-mime-type="application/vnd.ms-powerpoint.presentation.macroEnabled.12" \
-#   --dir %{buildroot}%{_datadir}/applications %{buildroot}%{ooodir}/share/xdg/impress*desktop
-# 
-# desktop-file-install --vendor="" \
-#   --remove-category="Application" \
-#   --add-category="Office" \
-#   --add-category="X-MandrivaLinux-CrossDesktop" \
-#   --dir %{buildroot}%{_datadir}/applications %{buildroot}%{ooodir}/share/xdg/math*desktop
-# 
-# # desktop-file-install --vendor="" \
-# #   --remove-category="Application" \
-# #   --remove-category="Network" \
-# #   --remove-category="WebDevelopment" \
-# #   --add-category="Office" \
-# #   --add-category="X-MandrivaLinux-CrossDesktop" \
-# #   --dir %{buildroot}%{_datadir}/applications %{buildroot}%{ooodir}/share/xdg/web*desktop
-# # #  --dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/web*desktop
-# 
-# # libre
-# # desktop-file-install --vendor="" \
-# #   --remove-category="Application" \
-# #   --add-category="Office" \
-# #   --add-category="X-MandrivaLinux-CrossDesktop" \
-# #   --dir %{buildroot}%{_datadir}/applications %{buildroot}%{ooodir}/share/xdg/template*desktop
-# # #  --dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/template*desktop
-# 
-# desktop-file-install --vendor="" \
-#   --remove-category="Application" \
-#   --remove-category="Database" \
-#   --add-category="Office" \
-#   --add-category="X-MandrivaLinux-CrossDesktop" \
-#   --dir %{buildroot}%{_datadir}/applications %{buildroot}%{ooodir}/share/xdg/base*desktop
-
 # Mandriva Rosa icons
 mkdir -p %{buildroot}%{_iconsdir}/hicolor/scalable/apps/
 tar -xjvf %{SOURCE10} --exclude Libre_Office* -C %{buildroot}%{_iconsdir}/hicolor/scalable/apps/
@@ -2475,6 +2665,9 @@ sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-draw_72/'    %{buildroot}%{ooodir}/sha
 sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-base_72/'    %{buildroot}%{ooodir}/share/xdg/base.desktop  
 sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-math_72/'    %{buildroot}%{ooodir}/share/xdg/math.desktop  
 sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo_72/'         %{buildroot}%{ooodir}/share/xdg/startcenter.desktop
+
+# some genius committed commit log files...
+rm %{buildroot}%{ooodir}/share/template/common/svn-commit*.tmp
 
 # fix permissions for stripping
 find %{buildroot} -type f -exec chmod u+rw '{}' \;
@@ -2522,14 +2715,10 @@ sed -i '/^ProgressPosition/d;/^ProgressSize/d' \
 echo 'ProgressPosition=10,307' >> %{buildroot}%{ooodir}/program/sofficerc
 echo 'ProgressSize=377,9' >> %{buildroot}%{ooodir}/program/sofficerc
 
-%if %extensionenabled
-# # copy extensions 
-# install -d -m755 %{buildroot}%{ooodir}/extensions
-# cp %{_builddir}/libreoffice-%{version}/solver/unxlng*/bin/pdfimport/pdfimport.oxt %{buildroot}%{ooodir}/extensions/
-# cp %{_builddir}/libreoffice-%{version}/solver/unxlng*/bin/presenter/presenter-screen.oxt %{buildroot}%{ooodir}/extensions/
-# cp %{_builddir}/libreoffice-%{version}/solver/unxlng*/bin/wiki-publisher.oxt %{buildroot}%{ooodir}/extensions/
-# cp %{_builddir}/libreoffice-%{version}/solver/unxlng*/bin/minimizer/presentation-minimizer.oxt %{buildroot}%{ooodir}/extensions/
-%endif
+# common shouldn't depend on writer...
+# but common does depend on libswdlo.so
+grep libswdlo.so file-lists/writer_list.txt >>file-lists/common_list.txt
+sed -i -e '/libswdlo.so/d' file-lists/writer_list.txt
 
 ## Installation fixes
 ## remove fix wrong manpages files, extension gz->xz
@@ -2537,13 +2726,9 @@ for p in common base calc writer impress draw math; do
 	sed -i '/^.*man.*\.gz$/d' file-lists/${p}_list.txt 
 done;
 
-## drop GTK dependency from -core
-sed -i -e '/^.*libqstart_gtklo.so$/d' file-lists/core_list.txt
-sed -i -e '/^.*pluginapp.bin$/d' file-lists/core_list.txt
-echo '%{ooodir}/program/libqstart_gtklo.so' >>file-lists/gnome_list.txt
+## drop GTK dependency from -common
+sed -i -e '/^.*pluginapp.bin$/d' file-lists/common_list.txt
 echo '%{ooodir}/program/pluginapp.bin' >>file-lists/gnome_list.txt
-## GConf too
-sed -i -e '/^.*gconfbe1.uno.so$/d' file-lists/core_list.txt
 
 ## sort removing duplicates
 sort -u file-lists/gnome_list.txt > file-lists/gnome_list.uniq.sorted.txt 
@@ -2552,8 +2737,27 @@ sort -u file-lists/sdk_list.txt   > file-lists/sdk_list.uniq.sorted.txt
 # Fix weirdo filenames wreaking havoc because they're regular expressions
 sed -i -e 's/\[/?/g;s/\]/?/g' file-lists/sdk*.txt
 
-## oxygen should be in the style
-sed -i '/^.*images_oxygen\.zip$/d' file-lists/common_list.txt 
+## styles have their own packages
+for i in oxygen galaxy crystal hicontrast tango; do
+	sed -i "/^.*images_$i\.zip$/d" file-lists/common_list.txt 
+done
+# galaxy style too
+sed -i "/^.*images\.zip$/d" file-lists/common_list.txt 
+
+## Split help
+cd file-lists
+for i in lang_*.txt; do
+	grep /help/ $i >${i/lang/help} || touch ${i/lang/help}
+	sed -i -e '/\/help\//d' $i
+done
+cd ..
+
+# Split gallery
+grep /share/gallery/ file-lists/common_list.txt >file-lists/gallery_list.txt
+sed -i -e '/\/share\/gallery\//d' file-lists/common_list.txt
+# We catch those in a regex to catch Sun Template extras
+sed -i -e '/gallery\/sg[0-9]*\..*/d' file-lists/gallery_list.txt
+
 ## merge en-US with common
 cat file-lists/lang_en_US_list.txt >> file-lists/common_list.txt
 sort -u file-lists/common_list.txt >  file-lists/common_list.uniq.sorted.txt 
@@ -2583,101 +2787,6 @@ then
   %{ooodir}/program/libnpsoplugin.so
 fi
 
-%if %extensionenabled
-# %post pdfimport
-# # upgrade 
-# if [ $1 -ge 2 ];then
-# 	# removes old installed pdfimport extension 
-# 	idpdfimport=$(%unopkg list --shared 2> /dev/null | sed -ne 's/^Identifier: \(com.sun.star.PDFImport-linux.*\)/\1/p');
-# 	if [ "z$idpdfimport" != "z" ]; then
-# 		%unopkg remove --shared $idpdfimport 2> /dev/null
-# 		%unopkg list --shared &> /dev/null
-# 	fi
-# fi
-# 
-# #install new pdfimport version
-# %unopkg add --shared %{ooodir}/extensions/pdfimport.oxt 2> /dev/null
-# %unopkg list --shared &> /dev/null 
-# 
-# #uninstall
-# %preun pdfimport 
-# if [ $1 -eq 0 ];then
-# 	idpdfimport=$(%unopkg list --shared 2> /dev/null | sed -ne 's/^Identifier: \(com.sun.star.PDFImport-linux.*\)/\1/p');
-# 	if [ "z$idpdfimport" != "z" ]; then
-# 		%unopkg remove --shared $idpdfimport 2> /dev/null
-# 		#clean footprint cache
-# 		%unopkg list --shared &> /dev/null
-# 	fi
-# fi
-# 
-# %post presenter-screen
-# # upgrade 
-# if [ $1 -ge 2 ];then
-# 	idextension=$(%unopkg list --shared 2> /dev/null | sed -ne 's/^Identifier: \(com.sun.PresenterScreen-linux.*\)/\1/p');
-# 	if [ "z$idextension" != "z" ]; then
-# 		%unopkg remove --shared $idextension 2> /dev/null
-# 		%unopkg list --shared &> /dev/null
-# 	fi
-# fi
-# #install 
-# %unopkg add --shared %{ooodir}/extensions/presenter-screen.oxt 2> /dev/null
-# %unopkg list --shared &> /dev/null 
-# 
-# 
-# %preun presenter-screen
-# if [ $1 -eq 0 ];then
-# 	idextension=$(%unopkg list --shared 2> /dev/null | sed -ne 's/^Identifier: \(com.sun.PresenterScreen-linux.*\)/\1/p');
-# 	if [ "z$idextension" != "z" ]; then
-# 		%unopkg remove --shared $idextension 2> /dev/null
-# 		%unopkg list --shared &> /dev/null
-# 	fi
-# fi
-
-# %post wiki-publisher
-# # upgrade 
-# if [ $1 -ge 2 ];then
-# 	idextension=$(%unopkg list --shared 2> /dev/null | sed -ne 's/^Identifier: \(com.sun.wiki-publisher\)/\1/p');
-# 	if [ "z$idextension" != "z" ]; then
-# 		%unopkg remove --shared $idextension 2> /dev/null
-# 		%unopkg list --shared &> /dev/null
-# 	fi
-# fi	
-# #install 
-# %unopkg add --shared %{ooodir}/extensions/wiki-publisher.oxt 2> /dev/null
-# %unopkg list --shared &> /dev/null 
-# 
-# %preun wiki-publisher
-# if [ $1 -eq 0 ];then
-# 	idextension=$(%unopkg list --shared 2> /dev/null | sed -ne 's/^Identifier: \(com.sun.wiki-publisher\)/\1/p');
-# 	if [ "z$idextension" != "z" ]; then
-# 		%unopkg remove --shared $idextension 2> /dev/null
-# 		%unopkg list --shared &> /dev/null
-# 	fi
-# fi
-# 
-# %post presentation-minimizer
-# # upgrade 
-# if [ $1 -ge 2 ];then
-# 	idextension=$(%unopkg list --shared 2> /dev/null | sed -ne 's/^Identifier: \(com.sun.star.PresentationMinimizer-linux.*\)/\1/p');
-# 	if [ "z$idextension" != "z" ]; then
-# 		%unopkg remove --shared $idextension 2> /dev/null
-# 		%unopkg list --shared &> /dev/null
-# 	fi
-# fi
-# #install 
-# %unopkg add --shared %{ooodir}/extensions/sun-presentation-minimizer.oxt 2> /dev/null
-# %unopkg list --shared &> /dev/null 
-# 
-# %preun presentation-minimizer
-# if [ $1 -eq 0 ];then
-# 	idextension=$(%unopkg list --shared 2> /dev/null | sed -ne 's/^Identifier: \(com.sun.star.PresentationMinimizer-linux.*\)/\1/p');
-# 	if [ "z$idextension" != "z" ]; then
-# 		%unopkg remove --shared $idextension 2> /dev/null
-# 		%unopkg list --shared &> /dev/null
-# 	fi
-# fi
-%endif
-
 %files
 
 %files base -f file-lists/base_list.txt
@@ -2694,8 +2803,8 @@ fi
 %{_mandir}/man1/lofromtemplate*
 %{_mandir}/man1/libreoffice*
 %{_mandir}/man1/unopkg.1*
-
-%files core -f file-lists/core_list.txt
+%{_libdir}/libreoffice/program/classes/ScriptProviderForBeanShell.jar
+%{_libdir}/libreoffice/program/services/scriptproviderforbeanshell.rdb
 
 %files devel -f file-lists/sdk_list.uniq.sorted.txt
 
@@ -2705,18 +2814,11 @@ fi
 %{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-draw_72.svg
 %{_mandir}/man1/lodraw*
 
-%files dtd-officedocument1.0 -f file-lists/dtd_list.txt
-
 %files gnome -f file-lists/gnome_list.uniq.sorted.txt
 
 %files impress -f file-lists/impress_list.txt
 %{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-impress_72.svg
 %{_mandir}/man1/loimpress*
-
-%files java-common -f file-lists/java_common_list.txt
-%{_libdir}/libreoffice/program/classes/ScriptProviderForBeanShell.jar
-#{_libdir}/libreoffice/program/classes/bsh.jar
-%{_libdir}/libreoffice/program/services/scriptproviderforbeanshell.rdb
 
 %files kde4 -f file-lists/kde4_list.txt
 %{_libdir}/libreoffice/program/libkde4be1lo.so
@@ -2726,8 +2828,56 @@ fi
 %{_mandir}/man1/lomath*
 
 %files openclipart -f file-lists/gallery_list.txt
+%{ooodir}/share/gallery/Draws
+%{ooodir}/share/gallery/Elements
+%{ooodir}/share/gallery/Photos
+%{ooodir}/share/gallery/sg[0-9]*.*
 
 %files pyuno -f file-lists/pyuno_list.txt
+
+%files extension-diagram
+%{ooodir}/share/extensions/Diagram
+
+%files extension-converttexttonumber
+%{ooodir}/share/extensions/ConvertTextToNumber
+
+%files extension-barcode
+%{ooodir}/share/extensions/Barcode
+
+%files extension-languagetool
+%{ooodir}/share/extensions/LanguageTool
+
+%files extension-validator
+%{ooodir}/share/extensions/Validator
+
+%files extension-xsltfilter
+%{ooodir}/share/registry/xsltfilter.xcd
+%{ooodir}/share/xslt/docbook
+%{ooodir}/share/xslt/export/xhtml
+%{_datadir}/applications/libreoffice-xsltfilter.desktop
+
+%files extension-typo
+%{ooodir}/share/extensions/typo
+
+%files extension-numbertext
+%{ooodir}/share/extensions/numbertext
+
+%files extension-nlpsolver
+%{ooodir}/share/extensions/nlpsolver
+
+%files extension-hunart
+%{ooodir}/share/extensions/hunart
+
+%files extension-gdocs
+%{ooodir}/share/extensions/gdocs
+
+%files extension-watchwindow
+%{ooodir}/share/extensions/WatchWindow
+
+%files extension-mysql
+%{ooodir}/share/extensions/mysql-connector-ooo
+
+%files mailmerge -f file-lists/mailmerge_list.txt
 
 %files style-galaxy
 %{ooodir}/share/config/images.zip
@@ -2749,15 +2899,11 @@ fi
 %{_mandir}/man1/loweb*
 %{_mandir}/man1/lowriter*
 
-%if %extensionenabled
-
 %files wiki-publisher
 %{ooodir}/share/extensions/wiki-publisher
 
 %files presentation-minimizer
 %{ooodir}/share/extensions/presentation-minimizer
-
-%endif
 
 %files postgresql
 %{ooodir}/program/libpostgresql-sdbclo.so
@@ -2990,3 +3136,145 @@ fi
 %files help-en_US -f file-lists/help_en_US_list.txt
 %endif
 
+%files templates-common
+%{ooodir}/share/template/common/dummy_common_templates.txt
+%{ooodir}/share/template/common/educate
+%{ooodir}/share/template/common/finance
+%{ooodir}/share/template/common/forms
+%{ooodir}/share/template/common/labels
+%{ooodir}/share/template/common/layout/31407-squares.otp
+%{ooodir}/share/template/common/layout/Blue*.otp
+%{ooodir}/share/template/common/layout/Cool_Space.otp
+%{ooodir}/share/template/common/layout/Cubes.otp
+%{ooodir}/share/template/common/layout/Doppellinie-blau.otp
+%{ooodir}/share/template/common/layout/EarthLight.otp
+%{ooodir}/share/template/common/layout/Girasoles.otp
+%{ooodir}/share/template/common/layout/Glossy.otp
+%{ooodir}/share/template/common/layout/Green.otp
+%{ooodir}/share/template/common/layout/Grey.otp
+%{ooodir}/share/template/common/layout/Hatch.otp
+%{ooodir}/share/template/common/layout/Human.otp
+%{ooodir}/share/template/common/layout/Infantil.otp
+%{ooodir}/share/template/common/layout/Lamp.otp
+%{ooodir}/share/template/common/layout/Lay_grafity.otp
+%{ooodir}/share/template/common/layout/Lay_wood.otp
+%{ooodir}/share/template/common/layout/Marble.otp
+%{ooodir}/share/template/common/layout/MediaStyle.otp
+%{ooodir}/share/template/common/layout/Mondo*.otp
+%{ooodir}/share/template/common/layout/Movie.otp
+%{ooodir}/share/template/common/layout/NavyBlue.otp
+%{ooodir}/share/template/common/layout/Notepad.otp
+%{ooodir}/share/template/common/layout/Openblue.otp
+%{ooodir}/share/template/common/layout/Orange.otp
+%{ooodir}/share/template/common/layout/PhotoFrame.otp
+%{ooodir}/share/template/common/layout/Plantillafiesta.otp
+%{ooodir}/share/template/common/layout/Praesentation_Radial_*.otp
+%{ooodir}/share/template/common/layout/Quadratisch*.otp
+%{ooodir}/share/template/common/layout/RedStar.otp
+%{ooodir}/share/template/common/layout/Sidepanel_*.otp
+%{ooodir}/share/template/common/layout/Solar.otp
+%{ooodir}/share/template/common/layout/Soleil.otp
+%{ooodir}/share/template/common/layout/Sunburst.otp
+%{ooodir}/share/template/common/layout/Worldwide*.otp
+%{ooodir}/share/template/common/layout/abstract*.otp
+%{ooodir}/share/template/common/layout/aquarius.otp
+%{ooodir}/share/template/common/layout/blau.otp
+%{ooodir}/share/template/common/layout/blue-elegance.otp
+%{ooodir}/share/template/common/layout/blue.otp
+%{ooodir}/share/template/common/layout/carton.otp
+%{ooodir}/share/template/common/layout/chalkboard*.otp
+%{ooodir}/share/template/common/layout/circulos_*.otp
+%{ooodir}/share/template/common/layout/citrus-e.otp
+%{ooodir}/share/template/common/layout/compladients.otp
+%{ooodir}/share/template/common/layout/cross_*.otp
+%{ooodir}/share/template/common/layout/edge-*.otp
+%{ooodir}/share/template/common/layout/education-*.otp
+%{ooodir}/share/template/common/layout/emotion.otp
+%{ooodir}/share/template/common/layout/emotion2.otp
+%{ooodir}/share/template/common/layout/eos.otp
+%{ooodir}/share/template/common/layout/exec-??.otp
+%{ooodir}/share/template/common/layout/fields-of-peace.otp
+%{ooodir}/share/template/common/layout/fresh-morning.otp
+%{ooodir}/share/template/common/layout/glowing-rectangles.otp
+%{ooodir}/share/template/common/layout/golthia.otp
+%{ooodir}/share/template/common/layout/green-concentration.otp
+%{ooodir}/share/template/common/layout/greenish-wallpaper.otp
+%{ooodir}/share/template/common/layout/holiday-*.otp
+%{ooodir}/share/template/common/layout/humanist_presentation.otp
+%{ooodir}/share/template/common/layout/inspire-*.otp
+%{ooodir}/share/template/common/layout/kde.otp
+%{ooodir}/share/template/common/layout/keynote.otp
+%{ooodir}/share/template/common/layout/letterpress.otp
+%{ooodir}/share/template/common/layout/line_*.otp
+%{ooodir}/share/template/common/layout/list.txt
+%{ooodir}/share/template/common/layout/macos103.otp
+%{ooodir}/share/template/common/layout/moebius-strip.otp
+%{ooodir}/share/template/common/layout/more-green.otp
+%{ooodir}/share/template/common/layout/ooo2.otp
+%{ooodir}/share/template/common/layout/ooo2_spot.otp
+%{ooodir}/share/template/common/layout/openoffice.org_gulls.otp
+%{ooodir}/share/template/common/layout/perspective-*.otp
+%{ooodir}/share/template/common/layout/reo-veo*.otp
+%{ooodir}/share/template/common/layout/schatten_*.otp
+%{ooodir}/share/template/common/layout/science-*.otp
+%{ooodir}/share/template/common/layout/sedi.otp
+%{ooodir}/share/template/common/layout/standard-*.otp
+%{ooodir}/share/template/common/layout/sun.otp
+%{ooodir}/share/template/common/layout/texture-*.jpg.otp
+%{ooodir}/share/template/common/layout/vortrag_*.otp
+%{ooodir}/share/template/common/misc
+%{ooodir}/share/template/common/officorr
+%{ooodir}/share/template/common/offimisc
+%{ooodir}/share/template/common/personal
+%{ooodir}/share/template/common/presnt
+
+%files templates-cs
+%{ooodir}/share/template/cs
+
+%files templates-de
+%{ooodir}/share/template/de
+%{ooodir}/share/extensions/Sun_ODF_Template_Pack_de
+
+%files templates-en_US
+%{ooodir}/share/template/en-US
+%{ooodir}/share/extensions/Sun_ODF_Template_Pack_en-US
+
+%files templates-es
+%{ooodir}/share/template/es
+%{ooodir}/share/extensions/Sun_ODF_Template_Pack_es
+
+%files templates-fi
+%{ooodir}/share/template/fi
+
+%files templates-fr
+%{ooodir}/share/template/fr
+%{ooodir}/share/extensions/Sun_ODF_Template_Pack_fr
+
+%files templates-hu
+%{ooodir}/share/template/hu
+%{ooodir}/share/extensions/Sun_ODF_Template_Pack_hu
+
+%files templates-it
+%{ooodir}/share/template/it
+%{ooodir}/share/extensions/Sun_ODF_Template_Pack_it
+
+%files templates-ja
+%{ooodir}/share/template/ja
+
+%files templates-nl
+%{ooodir}/share/template/nl
+
+%files templates-pl
+%{ooodir}/share/template/pl
+
+%files templates-pt_BR
+%{ooodir}/share/template/pt-BR
+
+%files templates-sv
+%{ooodir}/share/template/sv
+
+%files templates-tr
+%{ooodir}/share/template/tr
+
+%files templates-zh_CN
+%{ooodir}/share/template/zh-CN
