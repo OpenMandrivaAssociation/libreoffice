@@ -2517,6 +2517,9 @@ export ARCH_FLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing"
 export ARCH_FLAGS_CC="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing"
 export ARCH_FLAGS_CXX="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive -fvisibility-inlines-hidden"
 export ARCH_FLAGS_OPT="%{optflags} -O2"
+# Workaround for abf builds running out of memory
+export ARCH_FLAGS_CC="$ARCH_FLAGS_CC -g0"
+export ARCH_FLAGS_CXX="$ARCH_FLAGS_CC -g0"
 
 echo "Configure start at: "`date` >> ooobuildtime.log 
 
@@ -2635,10 +2638,10 @@ ln -sf %{SOURCE67} src/
 touch src.downloaded
 
 make \
-	ARCH_FLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing" \
-	ARCH_FLAGS_CC="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing" \
-	ARCH_FLAGS_CXX="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive -fvisibility-inlines-hidden" \
-	ARCH_FLAGS_OPT="%{optflags} -O2" 
+	ARCH_FLAGS="$ARCH_FLAGS" \
+	ARCH_FLAGS_CC="$ARCH_FLAGS_CC" \
+	ARCH_FLAGS_CXX="$ARCH_FLAGS_CXX" \
+	ARCH_FLAGS_OPT="$ARCH_FLAGS_OPT"
 
 echo "Make end at: "`date` >> ooobuildtime.log 
 echo "Install start at: "`date` >> ooobuildtime.log 
