@@ -2545,6 +2545,7 @@ touch autogen.lastrun
 	--with-sun-templates \
 	--without-fonts \
 	--without-junit \
+    --enable-silent-rules \
 %if %{javaless}
 	--with-ant-home="%{antpath}" \
 %else
@@ -2637,7 +2638,8 @@ ln -sf %{SOURCE67} src/
 
 touch src.downloaded
 
-make \
+# (tpg) silent output to reduce memory and free space 
+make V=0 \
 	ARCH_FLAGS="$ARCH_FLAGS" \
 	ARCH_FLAGS_CC="$ARCH_FLAGS_CC" \
 	ARCH_FLAGS_CXX="$ARCH_FLAGS_CXX" \
