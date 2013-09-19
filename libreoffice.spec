@@ -2639,7 +2639,7 @@ ln -sf %{SOURCE67} src/
 touch src.downloaded
 
 # (tpg) silent output to reduce memory and free space 
-make V=0 \
+make -r -s V=0 \
 	ARCH_FLAGS="$ARCH_FLAGS" \
 	ARCH_FLAGS_CC="$ARCH_FLAGS_CC" \
 	ARCH_FLAGS_CXX="$ARCH_FLAGS_CXX" \
