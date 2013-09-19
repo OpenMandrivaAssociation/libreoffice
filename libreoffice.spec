@@ -2572,6 +2572,8 @@ touch autogen.lastrun
 	--enable-ext-nlpsolver \
 	--enable-ext-languagetool \
 	--enable-ext-wiki-publisher \
+    --disable-verbose \
+    --enable-hardlink-deliver \
 	--enable-ext-mariadb-connector \
 	--with-servlet-api-jar=/usr/share/java/tomcat-servlet-3.0-api.jar \
 %if %{use_ccache} && !%{use_icecream}
