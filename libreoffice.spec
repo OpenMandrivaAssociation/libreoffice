@@ -2517,6 +2517,9 @@ export ARCH_FLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing"
 export ARCH_FLAGS_CC="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing"
 export ARCH_FLAGS_CXX="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive -fvisibility-inlines-hidden"
 export ARCH_FLAGS_OPT="%{optflags} -O2"
+# Workaround for abf builds running out of memory
+export ARCH_FLAGS_CC="$ARCH_FLAGS_CC -g0"
+export ARCH_FLAGS_CXX="$ARCH_FLAGS_CC -g0"
 
 echo "Configure start at: "`date` >> ooobuildtime.log 
 
@@ -2542,6 +2545,7 @@ touch autogen.lastrun
 	--with-sun-templates \
 	--without-fonts \
 	--without-junit \
+    --enable-silent-rules \
 %if %{javaless}
 	--with-ant-home="%{antpath}" \
 %else
@@ -2568,6 +2572,8 @@ touch autogen.lastrun
 	--enable-ext-nlpsolver \
 	--enable-ext-languagetool \
 	--enable-ext-wiki-publisher \
+    --disable-verbose \
+    --enable-hardlink-deliver \
 	--enable-ext-mariadb-connector \
 	--with-servlet-api-jar=/usr/share/java/tomcat-servlet-3.0-api.jar \
 %if %{use_ccache} && !%{use_icecream}
@@ -2634,11 +2640,12 @@ ln -sf %{SOURCE67} src/
 
 touch src.downloaded
 
-make \
-	ARCH_FLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing" \
-	ARCH_FLAGS_CC="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing" \
-	ARCH_FLAGS_CXX="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive -fvisibility-inlines-hidden" \
-	ARCH_FLAGS_OPT="%{optflags} -O2" 
+# (tpg) silent output to reduce memory and free space 
+make -r -s V=0 \
+	ARCH_FLAGS="$ARCH_FLAGS" \
+	ARCH_FLAGS_CC="$ARCH_FLAGS_CC" \
+	ARCH_FLAGS_CXX="$ARCH_FLAGS_CXX" \
+	ARCH_FLAGS_OPT="$ARCH_FLAGS_OPT"
 
 echo "Make end at: "`date` >> ooobuildtime.log 
 echo "Install start at: "`date` >> ooobuildtime.log 
