@@ -1,8 +1,3 @@
-removed_sources:
-  libreoffice-4.1.0.4.tar.xz: 24b5facfe0f1f745d0227272cfa85caf92af666a
-  libreoffice-dictionaries-4.1.0.4.tar.xz: aee75b2818ed637ae401512b638cb9d559469abe
-  libreoffice-help-4.1.0.4.tar.xz: 4f3134b3b5629098d1f2855352def6113ab7d280
-  libreoffice-translations-4.1.0.4.tar.xz: 23f815f166d6edb113bdb2ca3f56c26f3b558219
 sources:
   0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz: 452eba922e4f41603539c9dc39947d2271e47093
   09ec2dac030e1dcd5ef7fa1692691dc0-Sun-ODF-Template-Pack-hu_1.0.0.oxt: 42c9235d7f876645ea6553770e7572c1b0b8609a
@@ -35,7 +30,7 @@ sources:
   b63e6340a02ff1cacfeadb2c42286161-JLanguageTool-1.7.0.tar.bz2: aa8faa4f9e6721eed9bc6878862d74d0cb23251c
   b7cae45ad2c23551fd6ccb8ae2c1f59e-numbertext_0.9.5.oxt: bdec3915c01cd60e20892376aa5e5a0d3980c389
   bbdd5639ada63e3130761daaecae1a10-Validator_1.1.0.0.oxt: c89331a8d7642429f4fe3ffe07ee6d675f99561a
-  libreoffice-4.1.1.2.tar.xz: 421dfefcf2530dffdba2684c6c03b91551fd4e05
-  libreoffice-dictionaries-4.1.1.2.tar.xz: 544dc7a1cf9e3343d5fed11fd284763604145472
-  libreoffice-help-4.1.1.2.tar.xz: 6d264d6c311dd9be670920dcc5b34f7bfafa904d
-  libreoffice-translations-4.1.1.2.tar.xz: 8e19fe4d612464a6c2f9452e6d1ff83e609c7174
+  libreoffice-4.1.2.3.tar.xz: ffaf13404599a9b66ce964fab1f7c98284e8c972
+  libreoffice-translations-4.1.2.3.tar.xz: 671082673cbab07ec4a6c4fd3f1346757858deb4
+  libreoffice-dictionaries-4.1.2.3.tar.xz: e48b6bb3d3208748d4d8399a77cd9f1033030dd5
+  libreoffice-help-4.1.2.3.tar.xz: 60f394d98cab6dd85795175d840d5cdb3cf769b9
