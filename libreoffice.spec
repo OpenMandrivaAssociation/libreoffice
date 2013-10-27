@@ -40,7 +40,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	4.1.1
+Version:	4.1.2
 Release:	1
 License:	(MPLv1.1 or LGPLv3+) and LGPLv3 and LGPLv2+ and BSD and (MPLv1.1 or GPLv2 or LGPLv2 or Netscape) and Public Domain and ASL 2.0 and Artistic
 Group:		Office
@@ -94,6 +94,26 @@ Patch0:		libreoffice-4.1.0.1-non-fatal-error-during-test.patch
 Patch1:		libreoffice-3.5.2.2-icu-49.patch
 Patch2:		help-images-mdv64789.patch
 Patch3:		libreoffice-4.1-libcmis-0.4.patch
+
+# Force Qt4 event loops because with glib event loops libreoffice-kde4 doesn't
+# work well
+# Requires patched Qt4, see https://bugreports.qt-project.org/browse/QTBUG-16934
+Patch50:	libreoffice-4.1.2.2-kde-qt-event-loop.patch
+# From ROSA:
+# Hack: Don't display tiny useless scrollbars with libreoffice-kde4
+# Impress is known to crash when adding effects (segfault is triggered by 15x18 scrollbar)
+# Note: We're not currently applying this patch because the problem described
+# isn't reproducible (fixed upstream?), but let's leave it here because this
+# might depend on the theme being used...
+#Patch51:        libreoffice-4.1.2.2-impress-kde-crash-hack.patch
+
+# ROSA vendor patch
+Patch100:       libreoffice-4.1-vendor.patch
+
+# Other bugfix patches, including upstream
+Patch200:       0001-Avoid-crash-when-a-comment-contains-data-but-no-text.patch
+Patch201:       0001-Resolves-rhbz-1006850-crash-in-SwCommentRuler-GetCom.patch
+Patch202:       0001-Resolves-rhbz-968892-force-render-full-grapheme-with.patch
 
 %if %{with icecream}
 BuildRequires:	icecream

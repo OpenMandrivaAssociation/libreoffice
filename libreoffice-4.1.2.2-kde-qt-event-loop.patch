@@ -1,0 +1,21 @@
+diff -urN libreoffice-4.1.2.2/vcl/unx/kde4/KDEXLib.cxx libreoffice-4.1.2.2-patched/vcl/unx/kde4/KDEXLib.cxx
+--- libreoffice-4.1.2.2/vcl/unx/kde4/KDEXLib.cxx	2013-09-18 03:27:21.000000000 +1100
++++ libreoffice-4.1.2.2-patched/vcl/unx/kde4/KDEXLib.cxx	2013-09-19 22:26:27.331000338 +1100
+@@ -42,17 +42,8 @@
+ 
+ #include <config_kde4.h>
+ 
+-#if QT_VERSION >= QT_VERSION_CHECK( 4, 9, 0 )
+ #define QT_UNIX_EVENT_LOOP_SUPPORT 1
+-#else
+-#define QT_UNIX_EVENT_LOOP_SUPPORT 0
+-#endif
+-
+-#if KDE_HAVE_GLIB
+-#define GLIB_EVENT_LOOP_SUPPORT 1
+-#else
+ #define GLIB_EVENT_LOOP_SUPPORT 0
+-#endif
+ 
+ #if GLIB_EVENT_LOOP_SUPPORT
+ #include <glib-2.0/glib.h>
