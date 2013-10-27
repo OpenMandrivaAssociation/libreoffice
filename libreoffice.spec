@@ -3,10 +3,11 @@
 %define _binary_payload w1.xzdio
 %define _source_payload w1.xzdio
 
-%define l10n	1
-%{?_with_l10n: %global l10n 1}
-%{?_without_l10n: %global l10n 0}
-%if %l10n
+%bcond_without l10n
+%bcond_with icecream
+%bcond_with ccache
+
+%if %{with l10n}
 %define langs	"en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru sh si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu"
 %else
 %define langs	"en-US"
@@ -26,14 +27,7 @@
 %define antpath		%{_builddir}/libreoffice-%{version}/apache-ant-1.8.1
 #define unopkg		%{_bindir}/unopkg
 
-%define use_icecream    0	
-%{?_with_icecream: %global use_icecream 1}
-%{?_without_icecream: %global use_icecream 0}
-
-%define use_ccache	0
 %define ccachedir	~/.ccache-OOo
-%{?_with_ccache: %global use_ccache 1}
-%{?_without_ccache: %global use_ccache 0}
 
 %if %{_use_internal_dependency_generator}
 %define __noautoreq 'libjawt.so|libmyspell.so|libstlport_gcc.so|libmono.so|mono|devel\\(libunoidl(.*)'
@@ -55,7 +49,7 @@ Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
 Source2:	%{relurl}/%{ooname}-help-%{buildver}.tar.xz
 Source3:	%{relurl}/%{ooname}-translations-%{buildver}.tar.xz
-Source4:        http://dev-www.libreoffice.org/extern/185d60944ea767075d27247c3162b3bc-unowinreg.dll
+Source4:	http://dev-www.libreoffice.org/extern/185d60944ea767075d27247c3162b3bc-unowinreg.dll
 
 Source10:	Mandriva-Rosa_Icons.tar.bz2
 #javaless
@@ -68,8 +62,8 @@ Source33:	%{devurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
 %endif
 Source34:	%{devurl}/1f24ab1d39f4a51faf22244c94a6203f-xmlsec1-1.2.14.tar.gz
 Source35:	%{devurl}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
-Source36:       %{devurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
-Source37:       %{devurl}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
+Source36:	%{devurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
+Source37:	%{devurl}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
 
 # External Download Sources
 Source40:	http://hg.services.openoffice.org/binaries/1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz
@@ -101,10 +95,10 @@ Patch1:		libreoffice-3.5.2.2-icu-49.patch
 Patch2:		help-images-mdv64789.patch
 Patch3:		libreoffice-4.1-libcmis-0.4.patch
 
-%if %{use_icecream}
+%if %{with icecream}
 BuildRequires:	icecream
 %endif
-%if %{use_ccache}
+%if %{with ccache}
 BuildRequires:	ccache
 %endif
 BuildRequires:	boost-devel
@@ -675,7 +669,7 @@ Group:		Office
 %description templates-common
 Files used by LibreOffice templates
 
-%if %l10n
+%if %{with l10n}
 %package l10n-af
 Summary:	Afrikaans language support for LibreOffice
 Group:		Office
@@ -2502,14 +2496,14 @@ export KDE4DIR=%{_libdir}/kde4
 %endif 
 export KDE4LIB=%{_libdir}/kde4/lib
 
-%if !%{use_icecream}
+%if !%{with icecream}
 # sbin due to icu stuff there
 #PATH=/bin:/usr/bin:/usr/X11R6/bin:$QTPATH:/usr/sbin:$PATH
 PATH=$PATH:/usr/sbin
 export PATH
 %endif
 
-%if %{use_ccache}
+%if %{with ccache}
 export CCACHE_DIR=%{ccachedir}
 %endif
 
@@ -2545,7 +2539,7 @@ touch autogen.lastrun
 	--with-sun-templates \
 	--without-fonts \
 	--without-junit \
-    --enable-silent-rules \
+	--enable-silent-rules \
 %if %{javaless}
 	--with-ant-home="%{antpath}" \
 %else
@@ -2572,19 +2566,19 @@ touch autogen.lastrun
 	--enable-ext-nlpsolver \
 	--enable-ext-languagetool \
 	--enable-ext-wiki-publisher \
-    --disable-verbose \
-    --enable-hardlink-deliver \
+	--disable-verbose \
+	--enable-hardlink-deliver \
 	--enable-ext-mariadb-connector \
 	--with-servlet-api-jar=/usr/share/java/tomcat-servlet-3.0-api.jar \
-%if %{use_ccache} && !%{use_icecream}
+%if %{with ccache} && !%{with icecream}
 	--with-gcc-speedup=ccache \
 %else
- %if !%{use_ccache} && %{use_icecream}
+ %if !%{with ccache} && %{with icecream}
 	--with-gcc-speedup=icecream \
 	--with-max-jobs=10 \
 	--with-icecream-bindir=%{_libdir}/icecc/bin
  %else
-  %if %{use_ccache} && %{use_icecream}
+  %if %{with ccache} && %{with icecream}
 	--with-gcc-speedup=ccache,icecream \
 	--with-max-jobs=10 \
 	--with-icecream-bindir=%{_libdir}/icecc/bin
@@ -2919,7 +2913,7 @@ fi
 %{ooodir}/program/services/postgresql-sdbc.rdb
 %{ooodir}/share/registry/postgresqlsdbc.xcd
 
-%if %l10n
+%if %{with l10n}
 %files l10n-it -f file-lists/lang_it_list.txt
 
 %files l10n-af -f file-lists/lang_af_list.txt
