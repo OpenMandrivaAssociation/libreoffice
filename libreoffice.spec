@@ -8,9 +8,11 @@
 %bcond_with ccache
 
 %if %{with l10n}
-%define langs	"en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru sh si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu"
+%define langs	en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru sh si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu
+%define helplangs	bg bn bs ca cs da de dz el en-GB es et eu fi fr gl gu he hi hr hu it ja ko mk nb nl nn pl pt pt-BR ru si sk sl sv tr uk zh-CN zh-TW en-US
 %else
-%define langs	"en-US"
+%define langs	en-US
+%define helplangs	en-US
 %endif
 
 %define javaless 0
@@ -21,7 +23,7 @@
 %define oxyurl		http://ooo.itc.hu/oxygenoffice/download/libreoffice/
 %define distroname	OpenMandriva
 %define	ooname		libreoffice
-%define buildver	%{version}.3
+%define buildver	%{version}.2
 %define ooodir		%{_libdir}/libreoffice
 %define firefox_plugin	libnpsoplugin.so
 %define antpath		%{_builddir}/libreoffice-%{version}/apache-ant-1.8.1
@@ -40,7 +42,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	4.1.2
+Version:	4.1.3
 Release:	1
 License:	(MPLv1.1 or LGPLv3+) and LGPLv3 and LGPLv2+ and BSD and (MPLv1.1 or GPLv2 or LGPLv2 or Netscape) and Public Domain and ASL 2.0 and Artistic
 Group:		Office
@@ -111,8 +113,6 @@ Patch50:	libreoffice-4.1.2.2-kde-qt-event-loop.patch
 Patch100:       libreoffice-4.1-vendor.patch
 
 # Other bugfix patches, including upstream
-Patch200:       0001-Avoid-crash-when-a-comment-contains-data-but-no-text.patch
-Patch201:       0001-Resolves-rhbz-1006850-crash-in-SwCommentRuler-GetCom.patch
 Patch202:       0001-Resolves-rhbz-968892-force-render-full-grapheme-with.patch
 
 %if %{with icecream}
@@ -232,6 +232,7 @@ BuildRequires:	hsqldb1.8.0
 BuildRequires:	jakarta-commons-codec
 BuildRequires:	jakarta-commons-lang
 BuildRequires:	jakarta-commons-httpclient
+Suggests:	%{name}-java = %{EVRD}
 %endif 
 # STLport-devel 4.5 + private patches are needed
 BuildConflicts:	STLport-devel
@@ -329,12 +330,23 @@ Obsoletes:	%{name}-help-cy    = 1:3.3.2-1
 Obsoletes:	%{name}-help-ar    = 1:3.3.2-1
 Obsoletes:	%{name}-help-af    = 1:3.3.2-1
 Obsoletes:	%{name}-help-br    = 1:3.3.2-1
-# Upstream dropped in 4.1.1
+# This is a test locale -- shouldn't ever have shipped
 Obsoletes:	%{name}-l10n-qtz < %{EVRD}
 Obsoletes:	%{name}-help-qtz < %{EVRD}
 
 %description common
 This package contains the application-independent files of LibreOffice.
+
+%package java
+Summary:	Java dependent parts of LibreOffice
+Group:		Office
+Requires:	%{name}-common = %{EVRD}
+
+%description java
+Java dependent parts of LibreOffice.
+
+This package contains templates and other optional parts of LibreOffice
+that require a Java stack (such as OpenJDK) to be installed.
 
 %package devel
 Summary:	LibreOffice SDK - development files
@@ -2565,7 +2577,7 @@ touch autogen.lastrun
 %else
 	--with-system-hsqldb \
 %endif
-	--with-lang=%{langs} \
+	--with-lang="%{langs}" \
 	--without-myspell-dicts \
 	--with-system-dicts \
 	--with-help \
@@ -2605,6 +2617,8 @@ touch autogen.lastrun
   %endif
  %endif
 %endif
+
+sed -i -e "s,\$ENV{'MD5SUM'},md5sum,g" solenv/bin/modules/installer/systemactions.pm solenv/bin/modules/installer.pm
 
 echo "Configure end at: "`date` >> ooobuildtime.log 
 echo "Make start at: "`date` >> ooobuildtime.log 
@@ -2748,7 +2762,7 @@ for p in common base calc writer impress draw math; do
 done;
 
 ## drop GTK dependency from -common
-sed -i -e '/^.*pluginapp.bin$/d' file-lists/common_list.txt
+sed -i -e '/^.*pluginapp.bin$/d' file-lists/core_list.txt
 echo '%{ooodir}/program/pluginapp.bin' >>file-lists/gnome_list.txt
 
 ## sort removing duplicates
@@ -2782,6 +2796,7 @@ sed -i -e '/gallery\/sg[0-9]*\..*/d' file-lists/gallery_list.txt
 ## merge en-US with common
 cat file-lists/lang_en_US_list.txt >> file-lists/common_list.txt
 sort -u file-lists/common_list.txt >  file-lists/common_list.uniq.sorted.txt 
+cat file-lists/common_list.uniq.sorted.txt >>file-lists/core_list.txt
 
 %post common
 %update_icon_cache gnome
@@ -2818,7 +2833,7 @@ fi
 %{_mandir}/man1/localc*
 %{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-calc_72.svg
 
-%files common -f file-lists/common_list.uniq.sorted.txt 
+%files common -f file-lists/core_list.txt
 %{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo_72.svg
 %{_mandir}/man1/loffice*
 %{_mandir}/man1/lofromtemplate*
@@ -2830,6 +2845,8 @@ fi
 %files devel -f file-lists/sdk_list.uniq.sorted.txt
 
 %files devel-doc -f file-lists/sdk_doc_list.txt
+
+%files java -f file-lists/java_common_list.txt
 
 %files draw -f file-lists/draw_list.txt
 %{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-draw_72.svg
@@ -2934,228 +2951,10 @@ fi
 %{ooodir}/share/registry/postgresqlsdbc.xcd
 
 %if %{with l10n}
-%files l10n-it -f file-lists/lang_it_list.txt
-
-%files l10n-af -f file-lists/lang_af_list.txt
-
-%files l10n-ar -f file-lists/lang_ar_list.txt
-
-%files l10n-as -f file-lists/lang_as_list.txt
-
-%files l10n-bg -f file-lists/lang_bg_list.txt
-
-%files l10n-bn -f file-lists/lang_bn_list.txt
-
-%files l10n-br -f file-lists/lang_br_list.txt
-
-%files l10n-bs -f file-lists/lang_bs_list.txt
-
-%files l10n-ca -f file-lists/lang_ca_list.txt
-
-%files l10n-cs -f file-lists/lang_cs_list.txt
-
-%files l10n-cy -f file-lists/lang_cy_list.txt
-
-%files l10n-da -f file-lists/lang_da_list.txt
-
-%files l10n-de -f file-lists/lang_de_list.txt
-
-%files l10n-dz -f file-lists/lang_dz_list.txt
-
-%files l10n-el -f file-lists/lang_el_list.txt
-
-%files l10n-en_GB -f file-lists/lang_en_GB_list.txt
-
-%files l10n-es -f file-lists/lang_es_list.txt
-
-%files l10n-et -f file-lists/lang_et_list.txt
-
-%files l10n-eu -f file-lists/lang_eu_list.txt
-
-%files l10n-fa -f file-lists/lang_fa_list.txt
-
-%files l10n-fi -f file-lists/lang_fi_list.txt
-
-%files l10n-fr -f file-lists/lang_fr_list.txt
-
-%files l10n-ga -f file-lists/lang_ga_list.txt
-
-%files l10n-gl -f file-lists/lang_gl_list.txt
-
-%files l10n-gu -f file-lists/lang_gu_list.txt
-
-%files l10n-he -f file-lists/lang_he_list.txt
-
-%files l10n-hi -f file-lists/lang_hi_list.txt
-
-%files l10n-hr -f file-lists/lang_hr_list.txt
-
-%files l10n-hu -f file-lists/lang_hu_list.txt
-
-%files l10n-ja -f file-lists/lang_ja_list.txt
-
-%files l10n-kn -f file-lists/lang_kn_list.txt
-
-%files l10n-ko -f file-lists/lang_ko_list.txt
-
-%files l10n-lt -f file-lists/lang_lt_list.txt
-
-%files l10n-lv -f file-lists/lang_lv_list.txt
-
-%files l10n-mai -f file-lists/lang_mai_list.txt
-
-%files l10n-ml -f file-lists/lang_ml_list.txt
-
-%files l10n-mk -f file-lists/lang_mk_list.txt
-
-%files l10n-mr -f file-lists/lang_mr_list.txt
-
-%files l10n-nb -f file-lists/lang_nb_list.txt
-
-%files l10n-nl -f file-lists/lang_nl_list.txt
-
-%files l10n-nn -f file-lists/lang_nn_list.txt
-
-%files l10n-nr -f file-lists/lang_nr_list.txt
-
-%files l10n-nso -f file-lists/lang_nso_list.txt
-
-%files l10n-or -f file-lists/lang_or_list.txt
-
-%files l10n-pa_IN -f file-lists/lang_pa_IN_list.txt
-
-%files l10n-pl -f file-lists/lang_pl_list.txt
-
-%files l10n-pt -f file-lists/lang_pt_list.txt
-
-%files l10n-pt_BR -f file-lists/lang_pt_BR_list.txt
-
-%files l10n-ro -f file-lists/lang_ro_list.txt
-
-%files l10n-ru -f file-lists/lang_ru_list.txt
-
-%files l10n-shs -f file-lists/lang_sh_list.txt
-
-%files l10n-si -f file-lists/lang_si_list.txt
-
-%files l10n-sk -f file-lists/lang_sk_list.txt
-
-%files l10n-sl -f file-lists/lang_sl_list.txt
-
-%files l10n-sr -f file-lists/lang_sr_list.txt
-
-%files l10n-ss -f file-lists/lang_ss_list.txt
-
-%files l10n-st -f file-lists/lang_st_list.txt
-
-%files l10n-sv -f file-lists/lang_sv_list.txt
-
-%files l10n-ta -f file-lists/lang_ta_list.txt
-
-%files l10n-te -f file-lists/lang_te_list.txt
-
-%files l10n-th -f file-lists/lang_th_list.txt
-
-%files l10n-tn -f file-lists/lang_tn_list.txt
-
-%files l10n-tr -f file-lists/lang_tr_list.txt
-
-%files l10n-ts -f file-lists/lang_ts_list.txt
-
-%files l10n-uk -f file-lists/lang_uk_list.txt
-
-%files l10n-ve -f file-lists/lang_ve_list.txt
-
-%files l10n-xh -f file-lists/lang_xh_list.txt
-
-%files l10n-zh_CN -f file-lists/lang_zh_CN_list.txt
-
-%files l10n-zh_TW -f file-lists/lang_zh_TW_list.txt
-
-%files l10n-zu -f file-lists/lang_zu_list.txt
-
-%files help-bg -f file-lists/help_bg_list.txt
-
-%files help-bn -f file-lists/help_bn_list.txt
-
-%files help-bs -f file-lists/help_bs_list.txt
-
-%files help-ca -f file-lists/help_ca_list.txt
-
-%files help-cs -f file-lists/help_cs_list.txt
-
-%files help-da -f file-lists/help_da_list.txt
-
-%files help-de -f file-lists/help_de_list.txt
-
-%files help-dz -f file-lists/help_dz_list.txt
-
-%files help-el -f file-lists/help_el_list.txt
-
-%files help-en_GB -f file-lists/help_en_GB_list.txt
-
-%files help-es -f file-lists/help_es_list.txt
-
-%files help-et -f file-lists/help_et_list.txt
-
-%files help-eu -f file-lists/help_eu_list.txt
-
-%files help-fi -f file-lists/help_fi_list.txt
-
-%files help-fr -f file-lists/help_fr_list.txt
-
-%files help-gl -f file-lists/help_gl_list.txt
-
-%files help-gu -f file-lists/help_gu_list.txt
-
-%files help-he -f file-lists/help_he_list.txt
-
-%files help-hi -f file-lists/help_hi_list.txt
-
-%files help-hr -f file-lists/help_hr_list.txt
-
-%files help-hu -f file-lists/help_hu_list.txt
-
-%files help-it -f file-lists/help_it_list.txt
-
-%files help-ja -f file-lists/help_ja_list.txt
-
-%files help-ko -f file-lists/help_ko_list.txt
-
-%files help-mk -f file-lists/help_mk_list.txt
-
-%files help-nb -f file-lists/help_nb_list.txt
-
-%files help-nl -f file-lists/help_nl_list.txt
-
-%files help-nn -f file-lists/help_nn_list.txt
-
-%files help-pl -f file-lists/help_pl_list.txt
-
-%files help-pt -f file-lists/help_pt_list.txt
-
-%files help-pt_BR -f file-lists/help_pt_BR_list.txt
-
-%files help-ru -f file-lists/help_ru_list.txt
-
-%files help-si -f file-lists/help_si_list.txt
-
-%files help-sk -f file-lists/help_sk_list.txt
-
-%files help-sl -f file-lists/help_sl_list.txt
-
-%files help-sv -f file-lists/help_sv_list.txt
-
-%files help-tr -f file-lists/help_tr_list.txt
-
-%files help-uk -f file-lists/help_uk_list.txt
-
-%files help-zh_CN -f file-lists/help_zh_CN_list.txt
-
-%files help-zh_TW -f file-lists/help_zh_TW_list.txt
-
-%files help-en_US -f file-lists/help_en_US_list.txt
+%{expand:%(for i in %{langs}; do [ "$i" = "en-US" ] && continue; i=`echo $i |sed -e 's,-,_,g'`; [ "$i" = "sh" ] && echo "%%files l10n-shs -f file-lists/lang_${i}_list.txt" || echo "%%files l10n-$i -f file-lists/lang_${i}_list.txt"; done)}
 %endif
+
+%{expand:%(for i in %{helplangs}; do i=`echo $i |sed -e 's,-,_,g'`; echo "%%files help-$i -f file-lists/help_${i}_list.txt"; done)}
 
 %files templates-common
 %{ooodir}/share/template/common/dummy_common_templates.txt
