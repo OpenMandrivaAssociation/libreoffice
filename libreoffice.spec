@@ -43,7 +43,7 @@ Summary:	Office suite
 Name:		libreoffice
 Epoch:		1
 Version:	4.1.3
-Release:	1
+Release:	2
 License:	(MPLv1.1 or LGPLv3+) and LGPLv3 and LGPLv2+ and BSD and (MPLv1.1 or GPLv2 or LGPLv2 or Netscape) and Public Domain and ASL 2.0 and Artistic
 Group:		Office
 Url:		http://www.libreoffice.org
@@ -104,10 +104,7 @@ Patch50:	libreoffice-4.1.2.2-kde-qt-event-loop.patch
 # From ROSA:
 # Hack: Don't display tiny useless scrollbars with libreoffice-kde4
 # Impress is known to crash when adding effects (segfault is triggered by 15x18 scrollbar)
-# Note: We're not currently applying this patch because the problem described
-# isn't reproducible (fixed upstream?), but let's leave it here because this
-# might depend on the theme being used...
-#Patch51:        libreoffice-4.1.2.2-impress-kde-crash-hack.patch
+Patch51:        libreoffice-4.1.2.2-impress-kde-crash-hack.patch
 
 # ROSA vendor patch
 Patch100:       libreoffice-4.1-vendor.patch
@@ -354,9 +351,11 @@ Group:		Office
 Requires:	%{name}-common = %{EVRD}
 %if "%{_lib}" == "lib64"
 Provides:	devel(libxmlreader(64bit)) = %{EVRD}
+Provides:	devel(libxmlreaderlo(64bit)) = %{EVRD}
 Provides:	devel(libreg(64bit)) = %{EVRD}
 %else
 Provides:	devel(libxmlreader) = %{EVRD}
+Provides:	devel(libxmlreaderlo) = %{EVRD}
 Provides:	devel(libreg) = %{EVRD}
 %endif
 Obsoletes:	openoffice.org-devel < 1:3.3-1:2011.0 

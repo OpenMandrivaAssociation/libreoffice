@@ -1,0 +1,19 @@
+diff -urN libreoffice-4.1.2.2-orig/vcl/unx/kde4/KDESalGraphics.cxx libreoffice-4.1.2.2-patched/vcl/unx/kde4/KDESalGraphics.cxx
+--- libreoffice-4.1.2.2-orig/vcl/unx/kde4/KDESalGraphics.cxx	2013-09-18 03:27:21.000000000 +1100
++++ libreoffice-4.1.2.2-patched/vcl/unx/kde4/KDESalGraphics.cxx	2013-09-26 17:51:27.000000000 +1100
+@@ -167,8 +167,13 @@
+         option->state |= state;
+         option->rect = image->rect();
+ 
+-        QPainter painter(image);
+-        kapp->style()->drawComplexControl(element, option, &painter);
++        // Hack: Don't display tiny useless scrollbars
++        // Impress is known to crash when adding effects (segfault is triggered by 15x18 scrollbar)
++        if (!((option->type == QStyleOption::SO_Slider) && ((option->rect.width() * option->rect.height()) < 300)))
++        {
++            QPainter painter(image);
++            kapp->style()->drawComplexControl(element, option, &painter);
++        }
+     }
+ 
+     int getFrameWidth()
