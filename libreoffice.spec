@@ -43,7 +43,7 @@ Summary:	Office suite
 Name:		libreoffice
 Epoch:		1
 Version:	4.1.3
-Release:	5
+Release:	6
 License:	(MPLv1.1 or LGPLv3+) and LGPLv3 and LGPLv2+ and BSD and (MPLv1.1 or GPLv2 or LGPLv2 or Netscape) and Public Domain and ASL 2.0 and Artistic
 Group:		Office
 Url:		http://www.libreoffice.org
