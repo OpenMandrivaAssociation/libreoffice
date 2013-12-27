@@ -1,39 +1,35 @@
---- libreoffice-4.1.0/xmlhelp/source/cxxhelp/provider/databases.cxx.orig	2013-06-22 23:53:16.982431205 +0000
-+++ libreoffice-4.1.0/xmlhelp/source/cxxhelp/provider/databases.cxx	2013-06-22 23:53:22.756426690 +0000
-@@ -286,17 +286,33 @@
-                     else
-                         aSymbolsStyleName = "tango";
-                 }
--                OUString aZipName = OUString( "images_" );
--                aZipName += aSymbolsStyleName;
--                aZipName += OUString( ".zip" );
-+		OUString aZipName;
-+		if (aSymbolsStyleName.equals( OUString(RTL_CONSTASCII_USTRINGPARAM("default")) )) {
-+                    aZipName = OUString(RTL_CONSTASCII_USTRINGPARAM( "images.zip" ));
-+		} else {
-+                    aZipName = OUString( "images_" );
-+                    aZipName += aSymbolsStyleName;
-+                    aZipName += OUString( ".zip" );
-+		}
+--- libreoffice-4.2.0/xmlhelp/source/cxxhelp/provider/databases.cxx.0002~	2013-12-26 21:26:49.437106220 +0100
++++ libreoffice-4.2.0/xmlhelp/source/cxxhelp/provider/databases.cxx	2013-12-26 21:50:44.007125053 +0100
+@@ -274,7 +274,7 @@ OString Databases::getImagesZipFileURL()
  
+             if ( !aSymbolsStyleName.isEmpty() )
+             {
+-                if ( aSymbolsStyleName.equalsAscii("auto") )
++                if ( aSymbolsStyleName.equalsAscii("auto") || aSymbolsStyleName.equalsAscii("default") )
+                 {
+                     OUString const & env = Application::GetDesktopEnvironment();
+                     if ( env.equalsIgnoreAsciiCase("tde") ||
+@@ -290,10 +290,23 @@ OString Databases::getImagesZipFileURL()
                  bFound = impl_getZipFile( m_aImagesZipPaths, aZipName, aImageZip );
              }
  
-+             // Fallbacks in case the configured style file was not found
-+             if ( ! bFound )
-+                 bFound = impl_getZipFile( m_aImagesZipPaths, rtl::OUString(RTL_CONSTASCII_USTRINGPARAM( "images_oxygen.zip" )), aImageZip );
-+             if ( ! bFound )
-+                 bFound = impl_getZipFile( m_aImagesZipPaths, rtl::OUString(RTL_CONSTASCII_USTRINGPARAM( "images_crystal.zip" )), aImageZip );
++            // Fallbacks in case the configured style file was not found
++            if ( ! bFound )
++                bFound = impl_getZipFile( m_aImagesZipPaths, OUString( "images_oxygen.zip" ), aImageZip );
++
++            if ( ! bFound )
++                bFound = impl_getZipFile( m_aImagesZipPaths, OUString( "images_crystal.zip" ), aImageZip );
 +
              if ( ! bFound )
                  bFound = impl_getZipFile( m_aImagesZipPaths, OUString( "images.zip" ), aImageZip );
  
              if ( ! bFound )
-+                 bFound = impl_getZipFile( m_aImagesZipPaths, rtl::OUString(RTL_CONSTASCII_USTRINGPARAM( "images_tango.zip" )), aImageZip );
-+             if ( ! bFound )
-+                 bFound = impl_getZipFile( m_aImagesZipPaths, rtl::OUString(RTL_CONSTASCII_USTRINGPARAM( "images_hicontrast.zip" )), aImageZip );
-+ 
-+             if ( ! bFound )
-                 aImageZip = OUString();
++                bFound = impl_getZipFile( m_aImagesZipPaths, OUString( "images_tango.zip" ), aImageZip );
++
++            if ( ! bFound )
++                bFound = impl_getZipFile( m_aImagesZipPaths, OUString( "images_hicontrast.zip" ), aImageZip );
++
++            if ( ! bFound )
+                 aImageZip = "";
  
              m_aImagesZipFileURL = OUStringToOString(

@@ -7,6 +7,8 @@
 %bcond_with icecream
 %bcond_with ccache
 
+%define beta beta2
+
 %if %{with l10n}
 %define langs	en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru sh si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu
 %define helplangs	bg bn bs ca cs da de dz el en-GB es et eu fi fr gl gu he hi hr hu it ja ko mk nb nl nn pl pt pt-BR ru si sk sl sv tr uk zh-CN zh-TW en-US
@@ -23,7 +25,7 @@
 %define oxyurl		http://ooo.itc.hu/oxygenoffice/download/libreoffice/
 %define distroname	OpenMandriva
 %define	ooname		libreoffice
-%define buildver	%{version}.2
+%define buildver	%{version}.1
 %define ooodir		%{_libdir}/libreoffice
 %define firefox_plugin	libnpsoplugin.so
 %define antpath		%{_builddir}/libreoffice-%{version}/apache-ant-1.8.1
@@ -42,15 +44,19 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	4.1.3
-Release:	6
-License:	(MPLv1.1 or LGPLv3+) and LGPLv3 and LGPLv2+ and BSD and (MPLv1.1 or GPLv2 or LGPLv2 or Netscape) and Public Domain and ASL 2.0 and Artistic
-Group:		Office
-Url:		http://www.libreoffice.org
+Version:	4.2.0
+%if "%beta" != ""
+Release:	0.%{beta}.1
+%else
+Release:	1
+%endif
 Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
 Source2:	%{relurl}/%{ooname}-help-%{buildver}.tar.xz
 Source3:	%{relurl}/%{ooname}-translations-%{buildver}.tar.xz
+License:	(MPLv1.1 or LGPLv3+) and LGPLv3 and LGPLv2+ and BSD and (MPLv1.1 or GPLv2 or LGPLv2 or Netscape) and Public Domain and ASL 2.0 and Artistic
+Group:		Office
+Url:		http://www.libreoffice.org
 Source4:	http://dev-www.libreoffice.org/extern/185d60944ea767075d27247c3162b3bc-unowinreg.dll
 
 Source10:	Mandriva-Rosa_Icons.tar.bz2
@@ -95,7 +101,7 @@ Source1000:	libreoffice.rpmlintrc
 Patch0:		libreoffice-4.1.0.1-non-fatal-error-during-test.patch
 Patch1:		libreoffice-3.5.2.2-icu-49.patch
 Patch2:		help-images-mdv64789.patch
-Patch3:		libreoffice-4.1-libcmis-0.4.patch
+#Patch3:		libreoffice-4.1-libcmis-0.4.patch
 
 # Force Qt4 event loops because with glib event loops libreoffice-kde4 doesn't
 # work well
@@ -110,7 +116,7 @@ Patch51:        libreoffice-4.1.2.2-impress-kde-crash-hack.patch
 Patch100:       libreoffice-4.1-vendor.patch
 
 # Other bugfix patches, including upstream
-Patch202:       0001-Resolves-rhbz-968892-force-render-full-grapheme-with.patch
+# Patch202:       0001-Resolves-rhbz-968892-force-render-full-grapheme-with.patch
 
 %if %{with icecream}
 BuildRequires:	icecream
@@ -122,7 +128,7 @@ BuildRequires:	boost-devel
 BuildRequires:	bison
 BuildRequires:	bsh
 BuildRequires:	desktop-file-utils
-BuildRequires:	doxygen
+BuildRequires:	doxygen >= 1.8.4
 BuildRequires:	ed
 BuildRequires:	flex
 BuildRequires:	flute
@@ -175,7 +181,7 @@ BuildRequires:	pkgconfig(gnome-vfs-2.0)
 BuildRequires:	pkgconfig(gnutls)
 BuildRequires:	pkgconfig(gdk-pixbuf-xlib-2.0)
 BuildRequires:	pkgconfig(graphite2)
-BuildRequires:	pkgconfig(gstreamer-plugins-base-1.0)
+BuildRequires:	pkgconfig(gstreamer-plugins-base-0.10)
 BuildRequires:	pkgconfig(egl)
 BuildRequires:	pkgconfig(gtk+-2.0)
 BuildRequires:	pkgconfig(hunspell)
@@ -185,6 +191,8 @@ BuildRequires:	pkgconfig(libclucene-core)
 BuildRequires:	pkgconfig(libcmis-0.4)
 BuildRequires:	pkgconfig(libcurl)
 BuildRequires:	pkgconfig(libcdr-0.0)
+BuildRequires:	pkgconfig(libe-book-0.0)
+BuildRequires:	pkgconfig(libeot)
 BuildRequires:	pkgconfig(libexttextcat)
 BuildRequires:	pkgconfig(libixion-0.6)
 BuildRequires:	pkgconfig(liblangtag)
@@ -2554,13 +2562,14 @@ touch autogen.lastrun
 	--with-vendor=OpenMandriva \
 	--with-build-version="OpenMandriva %{version}-%{release}" \
 	--disable-fetch-external \
-	--disable-gstreamer-0.10 \
-	--enable-gstreamer \
+	--enable-gstreamer-0.10 \
+	--disable-gstreamer \
 	--enable-release-build \
 	--disable-kde \
 	--enable-kde4 \
 	--enable-lockdown \
 	--enable-opengl \
+	--enable-eot \
 	--enable-odk \
 	--enable-split-app-modules \
   	--enable-split-opt-features \
