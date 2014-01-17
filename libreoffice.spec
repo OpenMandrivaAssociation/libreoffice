@@ -353,10 +353,12 @@ Requires:	%{name}-common = %{EVRD}
 Provides:	devel(libxmlreader(64bit)) = %{EVRD}
 Provides:	devel(libxmlreaderlo(64bit)) = %{EVRD}
 Provides:	devel(libreg(64bit)) = %{EVRD}
+Provides:	devel(libreglo(64bit)) = %{EVRD}
 %else
 Provides:	devel(libxmlreader) = %{EVRD}
 Provides:	devel(libxmlreaderlo) = %{EVRD}
 Provides:	devel(libreg) = %{EVRD}
+Provides:	devel(libreglo) = %{EVRD}
 %endif
 Obsoletes:	openoffice.org-devel < 1:3.3-1:2011.0 
 
