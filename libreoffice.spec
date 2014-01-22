@@ -197,7 +197,7 @@ BuildRequires:	pkgconfig(libexttextcat)
 BuildRequires:	pkgconfig(libixion-0.6)
 BuildRequires:	pkgconfig(liblangtag)
 BuildRequires:	pkgconfig(libmspub-0.0)
-BuildRequires:	pkgconfig(libmwaw-0.1)
+BuildRequires:	pkgconfig(libmwaw-0.2)
 BuildRequires:	pkgconfig(libodfgen-0.0)
 BuildRequires:	pkgconfig(liborcus-0.6)
 BuildRequires:	pkgconfig(librsvg-2.0)
@@ -233,10 +233,12 @@ BuildRequires:	pkgconfig(zlib)
 BuildRequires:	db-devel
 %if !%{javaless}
 BuildRequires:	ant
-BuildRequires:	hsqldb1.8.0
-BuildRequires:	jakarta-commons-codec
-BuildRequires:	jakarta-commons-lang
+BuildRequires:	ant-apache-regexp
+BuildRequires:	hsqldb
+BuildRequires:	apache-commons-codec
+BuildRequires:	apache-commons-lang
 BuildRequires:	jakarta-commons-httpclient
+BuildRequires:	junit
 Suggests:	%{name}-java = %{EVRD}
 %endif 
 # STLport-devel 4.5 + private patches are needed
@@ -267,7 +269,7 @@ Group:		Office
 Requires:	%{name}-common = %{EVRD}
 # Heavy java deps
 %if !%{javaless}
-Requires:	hsqldb1.8.0
+Requires:	hsqldb
 %endif
 Obsoletes:	openoffice.org-base < 1:3.3-1:2011.0 
 
@@ -522,9 +524,9 @@ Summary:	LibreOffice office suite - Wiki Publisher extension
 Requires:	%{name}-common = %{EVRD}
 Requires:	%{name}-writer = %{EVRD}
 %if !%{javaless}
-Requires:	jakarta-commons-codec
+Requires:	apache-commons-codec
+Requires:	apache-commons-lang
 Requires:	jakarta-commons-httpclient
-Requires:	jakarta-commons-lang
 Requires:	jakarta-commons-logging
 %endif
 Obsoletes:	openoffice.org-wiki-publisher < 1:3.3-1:2011.0 
