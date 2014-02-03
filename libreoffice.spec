@@ -7,10 +7,10 @@
 %bcond_with icecream
 %bcond_with ccache
 
-%define beta beta2
+%define beta %{nil}
 
 %if %{with l10n}
-%define langs	en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru sh si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu
+%define langs	en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu
 %define helplangs	bg bn bs ca cs da de dz el en-GB es et eu fi fr gl gu he hi hr hu it ja ko mk nb nl nn pl pt pt-BR ru si sk sl sv tr uk zh-CN zh-TW en-US
 %else
 %define langs	en-US
@@ -25,7 +25,7 @@
 %define oxyurl		http://ooo.itc.hu/oxygenoffice/download/libreoffice/
 %define distroname	OpenMandriva
 %define	ooname		libreoffice
-%define buildver	%{version}.1
+%define buildver	%{version}.4
 %define ooodir		%{_libdir}/libreoffice
 %define firefox_plugin	libnpsoplugin.so
 %define antpath		%{_builddir}/libreoffice-%{version}/apache-ant-1.8.1
@@ -130,6 +130,7 @@ BuildRequires:	bsh
 BuildRequires:	desktop-file-utils
 BuildRequires:	doxygen >= 1.8.4
 BuildRequires:	ed
+BuildRequires:	firebird-devel
 BuildRequires:	flex
 BuildRequires:	flute
 BuildRequires:	git
@@ -189,6 +190,7 @@ BuildRequires:	pkgconfig(gtk+-2.0)
 BuildRequires:	pkgconfig(hunspell)
 BuildRequires:	pkgconfig(icu-le)
 BuildRequires:	pkgconfig(lcms2)
+BuildRequires:	pkgconfig(libabw-0.0)
 BuildRequires:	pkgconfig(libclucene-core)
 BuildRequires:	pkgconfig(libcmis-0.4)
 BuildRequires:	pkgconfig(libcurl)
@@ -210,7 +212,7 @@ BuildRequires:	pkgconfig(libvisio-0.0)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(libxslt)
 BuildRequires:	pkgconfig(libxul)
-BuildRequires:	pkgconfig(mdds)
+BuildRequires:	pkgconfig(mdds) >= 0.10.1
 BuildRequires:	pkgconfig(mythes)
 BuildRequires:	pkgconfig(neon)
 BuildRequires:	pkgconfig(nspr)
@@ -236,7 +238,7 @@ BuildRequires:	db-devel
 %if !%{javaless}
 BuildRequires:	ant
 BuildRequires:	ant-apache-regexp
-BuildRequires:	hsqldb
+BuildRequires:	hsqldb1.8.0
 BuildRequires:	apache-commons-codec
 BuildRequires:	apache-commons-lang
 BuildRequires:	jakarta-commons-httpclient
