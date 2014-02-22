@@ -130,7 +130,7 @@ BuildRequires:	bsh
 BuildRequires:	desktop-file-utils
 BuildRequires:	doxygen >= 1.8.4
 BuildRequires:	ed
-BuildRequires:	firebird-devel
+# BuildRequires:	firebird-devel
 BuildRequires:	flex
 BuildRequires:	flute
 BuildRequires:	git
@@ -2615,6 +2615,7 @@ touch autogen.lastrun
 	--disable-verbose \
 	--enable-hardlink-deliver \
 	--enable-ext-mariadb-connector \
+	--disable-firebird-sdbc \
 	--with-servlet-api-jar=/usr/share/java/tomcat-servlet-3.0-api.jar \
 %if %{with ccache} && !%{with icecream}
 	--with-gcc-speedup=ccache \
