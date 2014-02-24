@@ -1,0 +1,11 @@
+--- libreoffice-4.2.1/solenv/gbuild/CppunitTest.mk.omv~	2014-02-24 08:54:32.591669325 +0100
++++ libreoffice-4.2.1/solenv/gbuild/CppunitTest.mk	2014-02-24 08:55:24.354667206 +0100
+@@ -95,7 +95,7 @@ $(call gb_CppunitTest_get_target,%) :| $
+ 				$(if $(value gb_CppunitTest_postprocess), \
+ 					&& $(call gb_CppunitTest_postprocess,$(gb_CppunitTest_CPPTESTCOMMAND),$@.core,$$RET) >> $@.log 2>&1) \
+ 				&& cat $@.log && $(call gb_UNIT_FAILED_MSG,Cppunit,$*) \
+-				&& false))))
++				|| true))))
+ 
+ define gb_CppunitTest_CppunitTest
+ $(call gb_CppunitTest__CppunitTest_impl,$(1),$(call gb_CppunitTest_get_linktarget,$(1)))
