@@ -44,7 +44,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	4.2.1
+Version:	4.2.2
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
@@ -421,6 +421,7 @@ Summary:	LibreOffice office suite - presentation
 Requires:	%{name}-common = %{EVRD} 
 Requires:	%{name}-draw = %{EVRD}
 Obsoletes:	openoffice.org-impress < 1:3.3-1:2011.0 
+Obsoletes:	%{name}-presentation-minimizer < %{EVRD}
 
 %description impress
 This package contains the presentation component for LibreOffice.
@@ -597,6 +598,7 @@ Hungarian cross-reference toolbar extension
 Summary: Diagram generator for LibreOffice Draw and Impress
 Group: Office
 Requires: %{name}-common = %{EVRD}
+Obsoletes: %{name}-extension-diagram < %{EVRD}
 URL: http://extensions.libreoffice.org/extension-center/smart
 
 %description extension-SmART
@@ -645,18 +647,6 @@ Requires: %{name}-writer = %{EVRD}
 A LibreOffice extension for style and grammar proofreading
 
 
-%package extension-diagram
-Summary: Diagram extension for LibreOffice Impress and Draw
-Group: Office
-Requires: %{name}-common = %{EVRD}
-
-%description extension-diagram
-SmART Gallery extension is the advanced version of Diagram
-(aka. Diagram 2) for LibreOffice and OpenOffice.org office suites.
-
-This Extension is designed to create your favorite diagrams
-with few clicks in Draw and Impress applications.
-
 %package extension-converttexttonumber
 Summary: Text to number converter for LibreOffice
 Group: Office
@@ -698,21 +688,6 @@ Requires:	%{name}-base = %{EVRD}
 %description mailmerge
 Tool for mailing a LO document to a database of addresses
 
-
-%package presentation-minimizer
-Group:		Office
-Summary:	LibreOffice office suite - Presentation Minimizer extension
-Requires:	%{name}-common = %{EVRD}
-Requires:	%{name}-impress = %{EVRD}
-Obsoletes:	openoffice.org-presentation-minimizer < 1:3.3-1:2011.0 
-
-%description presentation-minimizer
-With Presentation Minimizer extesion is possible to reduce the file size 
-of the presentation by compressing images and removing data not needed in 
-a automatizated way.
-
-Note: The Presentation Minimizer also works on 
-Microsoft PowerPoint presentations. 
 
 %package postgresql
 Summary:	PostgreSQL connector for LibreOffice
@@ -2930,9 +2905,6 @@ fi
 
 %files pyuno -f file-lists/pyuno_list.txt
 
-%files extension-diagram
-%{ooodir}/share/extensions/Diagram
-
 %files extension-converttexttonumber
 %{ooodir}/share/extensions/ConvertTextToNumber
 
@@ -2999,9 +2971,6 @@ fi
 
 %files wiki-publisher
 %{ooodir}/share/extensions/wiki-publisher
-
-%files presentation-minimizer
-%{ooodir}/share/extensions/presentation-minimizer
 
 %files postgresql
 %{ooodir}/program/libpostgresql-sdbclo.so
