@@ -247,6 +247,7 @@ BuildRequires:	apache-commons-codec
 BuildRequires:	apache-commons-lang
 BuildRequires:	jakarta-commons-httpclient
 BuildRequires:	junit
+BuildRequires:	java-1.7.0-openjdk-devel
 Suggests:	%{name}-java = %{EVRD}
 %endif 
 # STLport-devel 4.5 + private patches are needed
