@@ -44,7 +44,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	4.2.2
+Version:	4.2.3
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
@@ -2980,7 +2980,7 @@ fi
 %{ooodir}/program/libpostgresql-sdbc-impllo.so
 %{ooodir}/program/postgresql-sdbc.ini
 %{ooodir}/program/services/postgresql-sdbc.rdb
-%{ooodir}/share/registry/postgresqlsdbc.xcd
+%{ooodir}/share/registry/postgresql.xcd
 
 %if %{with l10n}
 %{expand:%(for i in %{langs}; do
