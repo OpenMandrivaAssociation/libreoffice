@@ -48,7 +48,7 @@ Version:	4.2.3
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
-Release:	1
+Release:	2
 %endif
 Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
@@ -278,7 +278,7 @@ Group:		Office
 Requires:	%{name}-common = %{EVRD}
 # Heavy java deps
 %if !%{javaless}
-Requires:	hsqldb
+Requires:	hsqldb1.8.0
 %endif
 Obsoletes:	openoffice.org-base < 1:3.3-1:2011.0 
 
