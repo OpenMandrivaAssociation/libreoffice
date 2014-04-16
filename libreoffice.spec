@@ -538,7 +538,7 @@ Requires:	%{name}-writer = %{EVRD}
 Requires:	apache-commons-codec
 Requires:	apache-commons-lang
 Requires:	jakarta-commons-httpclient
-Requires:	jakarta-commons-logging
+Requires:	apache-commons-logging
 %endif
 Obsoletes:	openoffice.org-wiki-publisher < 1:3.3-1:2011.0 
 
