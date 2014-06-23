@@ -30,11 +30,7 @@ sources:
   b63e6340a02ff1cacfeadb2c42286161-JLanguageTool-1.7.0.tar.bz2: aa8faa4f9e6721eed9bc6878862d74d0cb23251c
   b7cae45ad2c23551fd6ccb8ae2c1f59e-numbertext_0.9.5.oxt: bdec3915c01cd60e20892376aa5e5a0d3980c389
   bbdd5639ada63e3130761daaecae1a10-Validator_1.1.0.0.oxt: c89331a8d7642429f4fe3ffe07ee6d675f99561a
-  libreoffice-4.2.3.1.tar.xz: bab0cfb0ffdf84774c24bb2fffaba39895e57ada
-  libreoffice-dictionaries-4.2.3.1.tar.xz: 21562dc917b6555d604f89adf2a39ce229ccf588
-  libreoffice-help-4.2.3.1.tar.xz: 0f7b8116acd0d1012b38c47dd76304e5c1099a2d
-  libreoffice-translations-4.2.3.1.tar.xz: a09ad7dbbced6510eb2568065dd91cc31e284dfe
-  libreoffice-translations-4.2.3.3.tar.xz: ba41fd7aff5fd554738ee1a16e2bd402c586ea51
-  libreoffice-help-4.2.3.3.tar.xz: 21dbe38a5b6504d3355b1e9dc03b1bd7983f8bdf
-  libreoffice-dictionaries-4.2.3.3.tar.xz: 39f5e3b883f66aefc772a375681599ae4c7f2ce5
-  libreoffice-4.2.3.3.tar.xz: 0dbd92f7fa212214df852cd01ffd2287b61d6b1a
+  libreoffice-4.2.5.2.tar.xz: 42b532233e4226f2b71841806cab555f05132c3f
+  libreoffice-dictionaries-4.2.5.2.tar.xz: c84fa5de085253df3e85952ee09d2726d8de3255
+  libreoffice-help-4.2.5.2.tar.xz: 8c09ab1f8c42a4aeefcb60bd782db45bc5f18e7a
+  libreoffice-translations-4.2.5.2.tar.xz: 8114da4235820205e4dd4650fcdfb049c823e516

@@ -1,7 +1,7 @@
-diff -urN libreoffice-4.1.2.2-orig/vcl/unx/kde4/KDESalGraphics.cxx libreoffice-4.1.2.2-patched/vcl/unx/kde4/KDESalGraphics.cxx
---- libreoffice-4.1.2.2-orig/vcl/unx/kde4/KDESalGraphics.cxx	2013-09-18 03:27:21.000000000 +1100
-+++ libreoffice-4.1.2.2-patched/vcl/unx/kde4/KDESalGraphics.cxx	2013-09-26 17:51:27.000000000 +1100
-@@ -167,8 +167,13 @@
+diff -urN libreoffice-4.2.5.2-orig/vcl/unx/kde4/KDESalGraphics.cxx libreoffice-4.2.5.2-patched/vcl/unx/kde4/KDESalGraphics.cxx
+--- libreoffice-4.2.5.2-orig/vcl/unx/kde4/KDESalGraphics.cxx    2013-09-18 03:27:21.000000000 +1100
++++ libreoffice-4.2.5.2-patched/vcl/unx/kde4/KDESalGraphics.cxx 2013-09-26 17:51:27.000000000 +1100
+@@ -163,8 +163,13 @@
          option->state |= state;
          option->rect = image->rect();
  
@@ -16,4 +16,4 @@ diff -urN libreoffice-4.1.2.2-orig/vcl/unx/kde4/KDESalGraphics.cxx libreoffice-4
 +        }
      }
  
-     int getFrameWidth()
+     void lcl_drawFrame(QStyle::PrimitiveElement element, QImage* image, QStyle::State state)

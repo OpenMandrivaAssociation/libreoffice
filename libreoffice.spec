@@ -24,8 +24,8 @@
 %define srcurl		http://dev-www.libreoffice.org/src/
 %define oxyurl		http://ooo.itc.hu/oxygenoffice/download/libreoffice/
 %define distroname	OpenMandriva
-%define	ooname		libreoffice
-%define buildver	%{version}.3
+%define ooname		libreoffice
+%define buildver	%{version}.2
 %define ooodir		%{_libdir}/libreoffice
 %define firefox_plugin	libnpsoplugin.so
 %define antpath		%{_builddir}/libreoffice-%{version}/apache-ant-1.8.1
@@ -44,11 +44,11 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	4.2.3
+Version:	4.2.5
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
-Release:	3
+Release:	1
 %endif
 Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
@@ -99,7 +99,7 @@ Source67:	%{oxyurl}b33775feda3bcf823cad7ac361fd49a6-Sun-ODF-Template-Pack-it_1.0
 Source1000:	libreoffice.rpmlintrc
 
 Patch0:		libreoffice-4.1.0.1-non-fatal-error-during-test.patch
-Patch1:		libreoffice-3.5.2.2-icu-49.patch
+Patch1:		libreoffice-4.2.5-icu-49.patch
 Patch2:		help-images-mdv64789.patch
 # FIXME this is wrong, but seems to be needed for now -- there seems to
 # be something wrong with the unit tests rather than the code being
@@ -110,17 +110,18 @@ Patch3:		libreoffice-4.2.1-non-fatal-test-failures.patch
 # Force Qt4 event loops because with glib event loops libreoffice-kde4 doesn't
 # work well
 # Requires patched Qt4, see https://bugreports.qt-project.org/browse/QTBUG-16934
-Patch50:	libreoffice-4.1.2.2-kde-qt-event-loop.patch
+# Patch50:	libreoffice-4.1.2.2-kde-qt-event-loop.patch
 # From ROSA:
 # Hack: Don't display tiny useless scrollbars with libreoffice-kde4
 # Impress is known to crash when adding effects (segfault is triggered by 15x18 scrollbar)
-Patch51:        libreoffice-4.1.2.2-impress-kde-crash-hack.patch
+Patch51:	libreoffice-4.2.5.2-impress-kde-crash-hack.patch
 
 # ROSA vendor patch
-Patch100:       libreoffice-4.1-vendor.patch
+Patch100:	libreoffice-4.1-vendor.patch
+Patch101:	libreoffice-4.2.5.2-desktop-categories.patch
 
 # Other bugfix patches, including upstream
-# Patch202:       0001-Resolves-rhbz-968892-force-render-full-grapheme-with.patch
+# Patch202:	0001-Resolves-rhbz-968892-force-render-full-grapheme-with.patch
 
 %if %{with icecream}
 BuildRequires:	icecream
@@ -238,6 +239,7 @@ BuildRequires:	pkgconfig(xpm)
 BuildRequires:	pkgconfig(xtst)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	db-devel
+BuildRequires:	locales-en
 %if !%{javaless}
 BuildRequires:	ant
 BuildRequires:	ant-apache-regexp
@@ -260,7 +262,6 @@ Requires:	%{name}-math = %{EVRD}
 Requires:	%{name}-writer = %{EVRD}
 Provides:	LibreOffice = %{EVRD}
 Provides:	LibreOffice-libs = %{EVRD}
-Obsoletes:	openoffice.org < 1:3.3-1:2011.0 
 
 %description
 LibreOffice is an Open Source, community-developed, multi-platform
@@ -271,6 +272,10 @@ similar to other office suites. Sophisticated and flexible,
 LibreOffice also works transparently with a variety of file
 formats, including Microsoft Office.
 
+%files
+
+#----------------------------------------------------------------------------
+
 %package base
 Summary:	LibreOffice office suite - database
 Group:		Office
@@ -279,7 +284,6 @@ Requires:	%{name}-common = %{EVRD}
 %if !%{javaless}
 Requires:	hsqldb1.8.0
 %endif
-Obsoletes:	openoffice.org-base < 1:3.3-1:2011.0 
 
 %description base
 This package contains the database component for LibreOffice.
@@ -301,14 +305,25 @@ packages:
    - PostgreSQL
    - MaxDB
 
+%files base -f file-lists/base_list.txt
+%{_mandir}/man1/lobase*
+%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-base_72.svg
+
+#----------------------------------------------------------------------------
+
 %package calc
 Summary:	LibreOffice office suite - spreadsheet
 Group:		Office
 Requires:	%{name}-common = %{EVRD}
-Obsoletes:	openoffice.org-calc < 1:3.3-1:2011.0 
 
 %description calc
 This package contains the spreadsheet component for LibreOffice.
+
+%files calc -f file-lists/calc_list.txt
+%{_mandir}/man1/localc*
+%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-calc_72.svg
+
+#----------------------------------------------------------------------------
 
 %package common
 Summary:	LibreOffice office suite common files
@@ -327,30 +342,43 @@ Requires:	sane-backends
 # Requires:	paper-utils
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	update-alternatives
-
-Obsoletes:	openoffice.org-common < 1:3.3-1:2011.0 
-Conflicts:	%{name}-common = 1:3.2-rc4.0
-
 # Upstream merged in 4.1.1
 Obsoletes:	%{name}-core < %{EVRD}
 Obsoletes:	%{name}-java-common < %{EVRD}
 Obsoletes:	%{name}-dtd-officedocument1.0 < %{EVRD}
 
-# Upstream dropped this packages in 3.4
-Obsoletes:	%{name}-l10n-pt_AO = 1:3.3.2-1
-Obsoletes:	%{name}-help-pt_AO = 1:3.3.2-1
-Obsoletes:	%{name}-help-ta    = 1:3.3.2-1
-Obsoletes:	%{name}-help-zu    = 1:3.3.2-1
-Obsoletes:	%{name}-help-cy    = 1:3.3.2-1
-Obsoletes:	%{name}-help-ar    = 1:3.3.2-1
-Obsoletes:	%{name}-help-af    = 1:3.3.2-1
-Obsoletes:	%{name}-help-br    = 1:3.3.2-1
-# This is a test locale -- shouldn't ever have shipped
-Obsoletes:	%{name}-l10n-qtz < %{EVRD}
-Obsoletes:	%{name}-help-qtz < %{EVRD}
-
 %description common
 This package contains the application-independent files of LibreOffice.
+
+%files common -f file-lists/core_list.txt
+%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo_72.svg
+%{_mandir}/man1/loffice*
+%{_mandir}/man1/lofromtemplate*
+%{_mandir}/man1/libreoffice*
+%{_mandir}/man1/unopkg.1*
+%{_libdir}/libreoffice/program/classes/ScriptProviderForBeanShell.jar
+%{_libdir}/libreoffice/program/services/scriptproviderforbeanshell.rdb
+
+%post common
+# Firefox plugin
+if [ $1 -gt 1 ]
+then
+  update-alternatives --remove %{firefox_plugin} \
+  %{ooodir}/program/libnpsoplugin.so
+fi
+update-alternatives \
+  --install %{_libdir}/mozilla/plugins/libnpsoplugin.so %{firefox_plugin} \
+  %{ooodir}/program/libnpsoplugin.so 1
+
+%postun common
+# Firefox plugin
+if [ $1 -eq 0 ]
+then
+  update-alternatives --remove %{firefox_plugin} \
+  %{ooodir}/program/libnpsoplugin.so
+fi
+
+#----------------------------------------------------------------------------
 
 %package java
 Summary:	Java dependent parts of LibreOffice
@@ -362,6 +390,10 @@ Java dependent parts of LibreOffice.
 
 This package contains templates and other optional parts of LibreOffice
 that require a Java stack (such as OpenJDK) to be installed.
+
+%files java -f file-lists/java_common_list.txt
+
+#----------------------------------------------------------------------------
 
 %package devel
 Summary:	LibreOffice SDK - development files
@@ -378,17 +410,19 @@ Provides:	devel(libxmlreaderlo) = %{EVRD}
 Provides:	devel(libreg) = %{EVRD}
 Provides:	devel(libreglo) = %{EVRD}
 %endif
-Obsoletes:	openoffice.org-devel < 1:3.3-1:2011.0 
 
 %description devel
 This package contains the files needed to build plugins/add-ons for
 LibreOffice (includes, IDL files, build tools, ...). It also contains the
 zipped source of the UNO Java libraries for use in IDEs like eclipse.
 
+%files devel -f file-lists/sdk_list.uniq.sorted.txt
+
+#----------------------------------------------------------------------------
+
 %package devel-doc
 Summary:	LibreOffice SDK - documentation
 Group:		Office
-Obsoletes:	openoffice.org-devel-doc < 1:3.3-1:2011.0 
 
 %description devel-doc
 This package contains the documentation of the LibreOffice SDK:
@@ -399,139 +433,234 @@ This package contains the documentation of the LibreOffice SDK:
 
 It also contains the gsicheck utility.
 
+%files devel-doc -f file-lists/sdk_doc_list.txt
+
+#----------------------------------------------------------------------------
+
 %package draw
-Group:		Office
 Summary:	LibreOffice office suite - drawing
+Group:		Office
 Requires:	%{name}-common = %{EVRD}
-Obsoletes:	openoffice.org-draw < 1:3.3-1:2011.0 
 
 %description draw
 This package contains the drawing component for LibreOffice.
 
+%files draw -f file-lists/draw_list.txt
+%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-draw_72.svg
+%{_mandir}/man1/lodraw*
+
+#----------------------------------------------------------------------------
+
 %package gnome
-Group:		Office
 Summary:	GNOME Integration for LibreOffice (VFS, GConf)
+Group:		Office
 Requires:	%{name}-common = %{EVRD}
-Obsoletes:	openoffice.org-gnome < 1:3.3-1:2011.0 
 
 %description gnome
 This package contains the GNOME VFS support and a GConf backend.
 
+%files gnome -f file-lists/gnome_list.uniq.sorted.txt
+
+#----------------------------------------------------------------------------
+
 %package impress
-Group:		Office
 Summary:	LibreOffice office suite - presentation
-Requires:	%{name}-common = %{EVRD} 
+Group:		Office
+Requires:	%{name}-common = %{EVRD}
 Requires:	%{name}-draw = %{EVRD}
-Obsoletes:	openoffice.org-impress < 1:3.3-1:2011.0 
 Obsoletes:	%{name}-presentation-minimizer < %{EVRD}
 
 %description impress
 This package contains the presentation component for LibreOffice.
 
+%files impress -f file-lists/impress_list.txt
+%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-impress_72.svg
+%{_mandir}/man1/loimpress*
+
+#----------------------------------------------------------------------------
+
 %package kde4
-Group:		Office
 Summary:	KDE4 Integration for LibreOffice (Widgets, Dialogs, Addressbook)
+Group:		Office
 Requires:	%{name}-common = %{EVRD}
-Suggests:	%{name}-style-oxygen = %{EVRD} 
-Obsoletes:	openoffice.org-kde4 < 1:3.3-1:2011.0 
+Suggests:	%{name}-style-oxygen = %{EVRD}
 
 %description kde4
 This package contains the KDE4 plugin for drawing LibreOffice widgets with
 KDE4/Qt4.x and a KDEish File Picker when running under KDE4.
- 
-%package math
+
+%files kde4 -f file-lists/kde4_list.txt
+%{_libdir}/libreoffice/program/libkde4be1lo.so
+
+#----------------------------------------------------------------------------
+
+%package mailmerge
+Summary:	Tool for mailing a LibreOffice document to a database of addresses
 Group:		Office
+Requires:	%{name}-writer = %{EVRD}
+Requires:	%{name}-calc = %{EVRD}
+Requires:	%{name}-base = %{EVRD}
+
+%description mailmerge
+Tool for mailing a LibreOffice document to a database of addresses.
+
+%files mailmerge -f file-lists/mailmerge_list.txt
+
+#----------------------------------------------------------------------------
+
+%package math
 Summary:	LibreOffice office suite - equation editor
+Group:		Office
 Requires:	%{name}-common = %{EVRD}
-Obsoletes:	openoffice.org-math < 1:3.3-1:2011.0 
 
 %description math
 This package contains the equation editor component for LibreOffice.
 
+%files math -f file-lists/math_list.txt
+%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-math_72.svg
+%{_mandir}/man1/lomath*
+
+#----------------------------------------------------------------------------
+
 %package openclipart
-Group:		Office
 Summary:	LibreOffice Open Clipart data
+Group:		Office
 Requires:	%{name}-common = %{EVRD}
-Obsoletes:	openoffice.org-openclipart < 1:3.3-1:2011.0 
 
 %description openclipart
 This package contains the LibreOffice Open Clipart data, including images
 and sounds.
 
+%files openclipart
+%{ooodir}/share/gallery/Draws
+%{ooodir}/share/gallery/Elements
+%{ooodir}/share/gallery/Photos
+%{ooodir}/share/gallery/apples*
+%{ooodir}/share/gallery/arrows*
+%{ooodir}/share/gallery/bigapple*
+%{ooodir}/share/gallery/bullets*
+%{ooodir}/share/gallery/computers*
+%{ooodir}/share/gallery/diagrams*
+%{ooodir}/share/gallery/education*
+%{ooodir}/share/gallery/environment*
+%{ooodir}/share/gallery/finance*
+%{ooodir}/share/gallery/flower*
+%{ooodir}/share/gallery/htmlexpo*
+%{ooodir}/share/gallery/people*
+%{ooodir}/share/gallery/sg[0-9]*.*
+%{ooodir}/share/gallery/sky.*
+%{ooodir}/share/gallery/sounds*
+%{ooodir}/share/gallery/symbols*
+%{ooodir}/share/gallery/transportation*
+%{ooodir}/share/gallery/txtshapes*
+%{ooodir}/share/gallery/www-back*
+%{ooodir}/share/gallery/www-graf*
+
+#----------------------------------------------------------------------------
+
 %package pyuno
-Group:		Office
 Summary:	Python bindings for UNO library
+Group:		Office
 Requires:	%{name}-common = %{EVRD}
-Obsoletes:	openoffice.org-pyuno < 1:3.3-1:2011.0 
 
 %description pyuno
 This package contains the Python bindings for the UNO library.
 
-%package style-galaxy
+%files pyuno -f file-lists/pyuno_list.txt
+
+#----------------------------------------------------------------------------
+
+%package style-crystal
+Summary:	Crystal symbol style for LibreOffice
 Group:		Office
-Summary:	Default symbol style for LibreOffice
 Requires:	%{name}-common = %{EVRD}
 Provides:	%{name}-style = %{EVRD}
-Obsoletes:	openoffice.org-style-galaxy < 1:3.3-1:2011.0 
+
+%description style-crystal
+This package contains the "crystal" symbol style, default style for KDE.
+
+%files style-crystal
+%{ooodir}/share/config/images_crystal.zip
+
+#----------------------------------------------------------------------------
+
+%package style-galaxy
+Summary:	Default symbol style for LibreOffice
+Group:		Office
+Requires:	%{name}-common = %{EVRD}
+Provides:	%{name}-style = %{EVRD}
 
 %description style-galaxy
 This package contains the "Galaxy" symbol style from Sun, normally used on
 MS Windows (tm) and when not using GNOME or KDE. Needs to be manually enabled
 in the LibreOffice option menu.
 
-%package style-crystal
-Group:		Office
-Summary:	Crystal symbol style for LibreOffice
-Requires:	%{name}-common = %{EVRD}
-Provides:	%{name}-style = %{EVRD}
-Obsoletes:	openoffice.org-style-crystal < 1:3.3-1:2011.0 
+%files style-galaxy
+%{ooodir}/share/config/images.zip
 
-%description style-crystal
-This package contains the "crystal" symbol style, default style for KDE.
+#----------------------------------------------------------------------------
 
 %package style-hicontrast
-Group:		Office
 Summary:	Hicontrast symbol style for LibreOffice
+Group:		Office
 Requires:	%{name}-common = %{EVRD}
 Provides:	%{name}-style = %{EVRD}
-Obsoletes:	openoffice.org-style-hicontrast < 1:3.3-1:2011.0 
 
 %description style-hicontrast
 This package contains the "hicontrast" symbol style, needs to be manually
 enabled in the LibreOffice option menu.
 
-%package style-tango
-Group:		Office
-Summary:	Tango symbol style for LibreOffice
-Requires:	%{name}-common = %{EVRD}
-Provides:	%{name}-style = %{EVRD}
-Obsoletes:	openoffice.org-style-tango < 1:3.3-1:2011.0 
+%files style-hicontrast
+%{ooodir}/share/config/images_hicontrast.zip
 
-%description style-tango
-This package contains the "tango" symbol style, default style for GTK/Gnome.
+#----------------------------------------------------------------------------
 
 %package style-oxygen
-Group:		Office
 Summary:	Oxygen symbol style for LibreOffice
+Group:		Office
 Requires:	%{name}-common = %{EVRD}
 Provides:	%{name}-style = %{EVRD}
-Obsoletes:	openoffice.org-style-oxygen < 1:3.3-1:2011.0 
 
 %description style-oxygen
 This package contains the "oxygen" symbol style, default style for KDE4.
 
-%package writer
+%files style-oxygen
+%{ooodir}/share/config/images_oxygen.zip
+
+#----------------------------------------------------------------------------
+
+%package style-tango
+Summary:	Tango symbol style for LibreOffice
 Group:		Office
-Summary:	LibreOffice office suite - word processor
 Requires:	%{name}-common = %{EVRD}
-Obsoletes:	openoffice.org-writer < 1:3.3-1:2011.0 
+Provides:	%{name}-style = %{EVRD}
+
+%description style-tango
+This package contains the "tango" symbol style, default style for GTK/Gnome.
+
+%files style-tango
+%{ooodir}/share/config/images_tango.zip
+
+#----------------------------------------------------------------------------
+
+%package writer
+Summary:	LibreOffice office suite - word processor
+Group:		Office
+Requires:	%{name}-common = %{EVRD}
 
 %description writer
-This package contains the wordprocessor component for LibreOffice.
+This package contains the word processor component for LibreOffice.
+
+%files writer -f file-lists/writer_list.txt
+%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-writer_72.svg
+%{_mandir}/man1/loweb*
+%{_mandir}/man1/lowriter*
+
+#----------------------------------------------------------------------------
 
 %package wiki-publisher
-Group:		Office
 Summary:	LibreOffice office suite - Wiki Publisher extension
+Group:		Office
 Requires:	%{name}-common = %{EVRD}
 Requires:	%{name}-writer = %{EVRD}
 %if !%{javaless}
@@ -540,7 +669,6 @@ Requires:	apache-commons-lang
 Requires:	jakarta-commons-httpclient
 Requires:	apache-commons-logging
 %endif
-Obsoletes:	openoffice.org-wiki-publisher < 1:3.3-1:2011.0 
 
 %description wiki-publisher
 With Wiki Publisher extesion is possible by using %{name}-writer to create 
@@ -548,111 +676,28 @@ wiki page articles on MediaWiki servers without having to know the syntax of
 MediaWiki markup language. This extension also enables publishing of the
 wiki pages.
 
+%files wiki-publisher
+%{ooodir}/share/extensions/wiki-publisher
 
-%package extension-xsltfilter
-Summary: XSLT based export filters for XHTML and Docbook formats
-Group: Office
-Requires: %{name}-common = %{EVRD}
+#----------------------------------------------------------------------------
 
-%description extension-xsltfilter
-XSLT based export filters for XHTML and Docbook formats
+%package extension-barcode
+Summary:	LibreOffice extension for generating barcodes
+Group:		Office
+Requires:	%{name}-common = %{EVRD}
 
+%description extension-barcode
+LibreOffice extension for generating barcodes.
 
-%package extension-typo
-Summary: Typographic toolbar for Libreoffice
-Group: Office
-Requires: %{name}-common = %{EVRD}
+%files extension-barcode
+%{ooodir}/share/extensions/Barcode
 
-%description extension-typo
-Typographic toolbar for Libreoffice
-
-
-%package extension-numbertext
-Summary: Number-to-Text conversion function for Libreoffice calc
-Group: Office
-Requires: %{name}-common = %{EVRD}
-Requires: %{name}-calc = %{EVRD}
-
-%description extension-numbertext
-Number-to-Text conversion function for Libreoffice calc
-
-
-%package extension-nlpsolver
-Summary: Solver extension for Libreoffice Calc
-Group: Office
-Requires: %{name}-common = %{EVRD}
-Requires: %{name}-calc = %{EVRD}
-
-%description extension-nlpsolver
-Extension integrating a solver engine for optimizing
-nonlinear programming models into Calc
-
-
-%package extension-hunart
-Summary: Hungarian cross-reference toolbar extension
-Group: Office
-Requires: %{name}-common = %{EVRD}
-
-%description extension-hunart
-Hungarian cross-reference toolbar extension
-
-%package extension-SmART
-Summary: Diagram generator for LibreOffice Draw and Impress
-Group: Office
-Requires: %{name}-common = %{EVRD}
-Obsoletes: %{name}-extension-diagram < %{EVRD}
-URL: http://extensions.libreoffice.org/extension-center/smart
-
-%description extension-SmART
-SmART Gallery extension is the advanced version of Diagram
-(aka. Diagram 2) for LibreOffice and OpenOffice.org office
-suites. This Extension is designed to create your favorite
-diagrams with few clicks in Draw and Impress applications. 
-
-
-%package extension-gdocs
-Summary: Libreoffice Import/Export filter for Google Docs
-Group: Office
-Requires: %{name}-common = %{EVRD}
-
-%description extension-gdocs
-Libreoffice Import/Export filter for Google Docs
-
-
-%package extension-watchwindow
-Summary: Macro debugging tool for Libreoffice
-Group: Office
-Requires: %{name}-common = %{EVRD}
-
-%description extension-watchwindow
-The Watch window allows you to observe the value of variables during the
-execution of a program. Define the variable in the Watch text box.
-Click on Enable Watch to add the variable to the list box and to display
-its values.
-
-
-%package extension-validator
-Summary: A LibreOffice Calc extension that validates cells based on selected rules
-Group: Office
-Requires: %{name}-calc = %{EVRD}
-
-%description extension-validator
-A LibreOffice Calc extension that validates cells based on selected rules
-
-
-%package extension-languagetool
-Summary: A LibreOffice extension for style and grammar proofreading
-Group: Office
-Requires: %{name}-writer = %{EVRD}
-
-%description extension-languagetool
-A LibreOffice extension for style and grammar proofreading
-
+#----------------------------------------------------------------------------
 
 %package extension-converttexttonumber
-Summary: Text to number converter for LibreOffice
-Group: Office
-Requires: %{name}-calc = %{EVRD}
+Summary:	Text to number converter for LibreOffice
+Group:		Office
+Requires:	%{name}-calc = %{EVRD}
 
 %description extension-converttexttonumber
 ConvertTextToNumber replaces numbers and dates, formatted as text, with
@@ -664,32 +709,165 @@ non-default decimal separators, conversion of dates, and more.
 As a result of the conversion, the text cells will become real numbers,
 and then will be counted as expected in formulas Calc.
 
-%package extension-barcode
-Summary: LibreOffice extension for generating barcodes
-Group: Office
+%files extension-converttexttonumber
+%{ooodir}/share/extensions/ConvertTextToNumber
 
-%description extension-barcode
-LibreOffice extension for generating barcodes
+#----------------------------------------------------------------------------
 
+%package extension-gdocs
+Summary:	LibreOffice Import/Export filter for Google Docs
+Group:		Office
+Requires:	%{name}-common = %{EVRD}
 
-%package extension-mysql
-Summary: MySQL/MariaDB connector for LibreOffice
-Group: Office
+%description extension-gdocs
+LibreOffice Import/Export filter for Google Docs.
 
-%description extension-mysql
-MySQL/MariaDB connector for LibreOffice
+%files extension-gdocs
+%{ooodir}/share/extensions/gdocs
 
+#----------------------------------------------------------------------------
 
-%package mailmerge
-Summary:	Tool for mailing a LO document to a database of addresses
+%package extension-hunart
+Summary:	Hungarian cross-reference toolbar extension for LibreOffice.
+Group:		Office
+Requires:	%{name}-common = %{EVRD}
+
+%description extension-hunart
+Hungarian cross-reference toolbar extension for LibreOffice.
+
+%files extension-hunart
+%{ooodir}/share/extensions/hunart
+
+#----------------------------------------------------------------------------
+
+%package extension-languagetool
+Summary:	A LibreOffice extension for style and grammar proofreading
 Group:		Office
 Requires:	%{name}-writer = %{EVRD}
+
+%description extension-languagetool
+A LibreOffice extension for style and grammar proofreading.
+
+%files extension-languagetool
+%{ooodir}/share/extensions/LanguageTool
+
+#----------------------------------------------------------------------------
+
+%package extension-mysql
+Summary:	MySQL/MariaDB connector for LibreOffice
+Group:		Office
+Requires:	%{name}-common = %{EVRD}
+
+%description extension-mysql
+MySQL/MariaDB connector for LibreOffice.
+
+%files extension-mysql
+%{ooodir}/share/extensions/mysql-connector-ooo
+
+#----------------------------------------------------------------------------
+
+%package extension-nlpsolver
+Summary:	Solver extension for LibreOffice Calc
+Group:		Office
 Requires:	%{name}-calc = %{EVRD}
-Requires:	%{name}-base = %{EVRD}
 
-%description mailmerge
-Tool for mailing a LO document to a database of addresses
+%description extension-nlpsolver
+Extension integrating a solver engine for optimizing nonlinear programming
+models into Calc.
 
+%files extension-nlpsolver
+%{ooodir}/share/extensions/nlpsolver
+
+#----------------------------------------------------------------------------
+
+%package extension-numbertext
+Summary:	Number-to-Text conversion function for LibreOffice Calc
+Group:		Office
+Requires:	%{name}-calc = %{EVRD}
+
+%description extension-numbertext
+Number-to-Text conversion function for LibreOffice Calc.
+
+%files extension-numbertext
+%{ooodir}/share/extensions/numbertext
+
+#----------------------------------------------------------------------------
+
+%package extension-SmART
+Summary:	Diagram generator for LibreOffice Draw and Impress
+Group:		Office
+Url:		http://extensions.libreoffice.org/extension-center/smart
+Requires:	%{name}-common = %{EVRD}
+Obsoletes:	%{name}-extension-diagram < %{EVRD}
+
+%description extension-SmART
+SmART Gallery extension is the advanced version of Diagram (aka. Diagram 2)
+for LibreOffice and OpenOffice.org office suites. This Extension is designed
+to create your favorite diagrams with few clicks in Draw and Impress
+applications.
+
+%files extension-SmART
+%{ooodir}/share/extensions/SmART
+
+#----------------------------------------------------------------------------
+
+%package extension-typo
+Summary:	Typographic toolbar for LibreOffice
+Group:		Office
+Requires:	%{name}-common = %{EVRD}
+
+%description extension-typo
+Typographic toolbar for LibreOffice.
+
+%files extension-typo
+%{ooodir}/share/extensions/typo
+
+#----------------------------------------------------------------------------
+
+%package extension-validator
+Summary:	A LibreOffice Calc extension that validates cells based on selected rules
+Group:		Office
+Requires:	%{name}-calc = %{EVRD}
+
+%description extension-validator
+A LibreOffice Calc extension that validates cells based on selected rules.
+
+%files extension-validator
+%{ooodir}/share/extensions/Validator
+
+#----------------------------------------------------------------------------
+
+%package extension-watchwindow
+Summary:	Macro debugging tool for LibreOffice
+Group:		Office
+Requires:	%{name}-common = %{EVRD}
+
+%description extension-watchwindow
+The Watch window allows you to observe the value of variables during the
+execution of a program. Define the variable in the Watch text box.
+Click on Enable Watch to add the variable to the list box and to display
+its values.
+
+%files extension-watchwindow
+%{ooodir}/share/extensions/WatchWindow
+
+#----------------------------------------------------------------------------
+
+%package extension-xsltfilter
+Summary:	XSLT based export filters for XHTML and Docbook formats
+Group:		Office
+Requires:	%{name}-common = %{EVRD}
+
+%description extension-xsltfilter
+XSLT based export filters for XHTML and Docbook formats.
+
+%files extension-xsltfilter -f file-lists/dtd_list.txt
+%{ooodir}/share/registry/xsltfilter.xcd
+%{ooodir}/share/xslt/docbook
+%{ooodir}/share/xslt/export/xhtml
+%{_datadir}/applications/libreoffice-xsltfilter.desktop
+
+#----------------------------------------------------------------------------
 
 %package postgresql
 Summary:	PostgreSQL connector for LibreOffice
@@ -700,12 +878,14 @@ Requires:	%{name}-base = %{EVRD}
 A PostgreSQl connector for the database front-end for LibreOffice. Allows
 creation and management of PostgreSQL databases through a GUI.
 
-%package templates-common
-Summary:	Files used by LibreOffice templates
-Group:		Office
+%files postgresql
+%{ooodir}/program/libpostgresql-sdbclo.so
+%{ooodir}/program/libpostgresql-sdbc-impllo.so
+%{ooodir}/program/postgresql-sdbc.ini
+%{ooodir}/program/services/postgresql-sdbc.rdb
+%{ooodir}/share/registry/postgresql.xcd
 
-%description templates-common
-Files used by LibreOffice templates
+#----------------------------------------------------------------------------
 
 %if %{with l10n}
 %package l10n-af
@@ -717,7 +897,6 @@ Requires:	locales-af
 Requires:	urw-fonts
 Requires:	myspell-af
 Provides:	LibreOffice-l10n-af = %{EVRD}
-Obsoletes:	openoffice.org-l10n-af < 1:3.3-1:2011.0 
 
 %description l10n-af
 This package contains the localization of LibreOffice in Afrikaans.
@@ -725,7 +904,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-ar
 Summary:	Arabic language support for LibreOffice
 Group:		Office
@@ -734,7 +917,6 @@ Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-ar
 Requires:	fonts-ttf-arabic
 Provides:	LibreOffice-l10n-ar = %{EVRD}
-Obsoletes:	openoffice.org-l10n-ar < 1:3.3-1:2011.0 
 
 %description l10n-ar
 This package contains the localization of LibreOffice in Arabic.
@@ -742,7 +924,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-as
 Summary:	Assamese language support for LibreOffice
 Group:		Office
@@ -757,7 +943,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-bg
 Summary:	Bulgarian language support for LibreOffice
 Group:		Office
@@ -766,7 +956,6 @@ Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-bg
 Provides:	LibreOffice-l10n-bg = %{EVRD}
 Suggests:	%{ooname}-help-bg = %{EVRD}
-Obsoletes:	openoffice.org-l10n-bg < 1:3.3-1:2011.0 
 
 %description l10n-bg
 This package contains the localization of LibreOffice in Bulgarian.
@@ -774,7 +963,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-bn
 Summary:	Bengali language support for LibreOffice
 Group:		Office
@@ -790,7 +983,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-br
 Summary:	Breton language support for LibreOffice
 Group:		Office
@@ -798,7 +995,6 @@ Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-br
 Provides:	LibreOffice-l10n-br = %{EVRD}
-Obsoletes:	openoffice.org-l10n-br < 1:3.3-1:2011.0 
 
 %description l10n-br
 This package contains the localization of LibreOffice in Breton.
@@ -806,7 +1002,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-bs
 Summary:	Bosnian language support for LibreOffice
 Group:		Office
@@ -815,7 +1015,6 @@ Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-bs
 Provides:	LibreOffice-l10n-bs = %{EVRD}
 Suggests:	%{ooname}-help-bs = %{EVRD}
-Obsoletes:	openoffice.org-l10n-bs < 1:3.3-1:2011.0 
 
 %description l10n-bs
 This package contains the localization of LibreOffice in Bosnian.
@@ -823,7 +1022,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-ca
 Summary:	Catalan language support for LibreOffice
 Group:		Office
@@ -834,7 +1037,6 @@ Requires:	urw-fonts
 Requires:	myspell-ca
 Provides:	LibreOffice-l10n-ca = %{EVRD}
 Suggests:	%{ooname}-help-ca = %{EVRD}
-Obsoletes:	openoffice.org-l10n-ca < 1:3.3-1:2011.0 
 
 %description l10n-ca
 This package contains the localization of LibreOffice in Catalan.
@@ -842,7 +1044,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-cs
 Summary:	Czech language support for LibreOffice
 Group:		Office
@@ -854,7 +1060,6 @@ Requires:	myspell-cs
 Requires:	myspell-hyph-cs
 Provides:	LibreOffice-l10n-cs = %{EVRD}
 Suggests:	%{ooname}-help-cs = %{EVRD}
-Obsoletes:	openoffice.org-l10n-cs < 1:3.3-1:2011.0 
 
 %description l10n-cs
 This package contains the localization of LibreOffice in Czech.
@@ -862,15 +1067,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
-%package templates-cs
-Summary:	Czech templates for LibreOffice
-Group:		Office
-Requires:	%{name}-templates-common = %{EVRD}
+#----------------------------------------------------------------------------
 
-%description templates-cs
-Czech templates for LibreOffice
-
+%if %{with l10n}
 %package l10n-cy
 Summary:	Welsh language support for LibreOffice
 Group:		Office
@@ -880,7 +1081,6 @@ Requires:	locales-cy
 Requires:	urw-fonts
 Requires:	myspell-cy
 Provides:	LibreOffice-l10n-cy = %{EVRD}
-Obsoletes:	openoffice.org-l10n-cy < 1:3.3-1:2011.0 
 
 %description l10n-cy
 This package contains the localization of LibreOffice in Welsh.
@@ -888,7 +1088,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-da
 Summary:	Danish language support for LibreOffice
 Group:		Office
@@ -900,7 +1104,6 @@ Requires:	urw-fonts
 Requires:	myspell-da, myspell-hyph-da
 Provides:	LibreOffice-l10n-da = %{EVRD}
 Suggests:	%{ooname}-help-da = %{EVRD}
-Obsoletes:	openoffice.org-l10n-da < 1:3.3-1:2011.0 
 
 %description l10n-da
 This package contains the localization of LibreOffice in Danish.
@@ -908,7 +1111,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-de
 Summary:	German language support for LibreOffice
 Group:		Office
@@ -920,8 +1127,7 @@ Requires:	urw-fonts
 Requires:	myspell-de
 Requires:	myspell-hyph-de
 Provides:	LibreOffice-l10n-de = %{EVRD}
-Suggests:	%{ooname}-help-de = %{EVRD} 
-Obsoletes:	openoffice.org-l10n-de < 1:3.3-1:2011.0 
+Suggests:	%{ooname}-help-de = %{EVRD}
 
 %description l10n-de
 This package contains the localization of LibreOffice in German.
@@ -929,15 +1135,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
-%package templates-de
-Summary:	German templates for LibreOffice
-Group:		Office
-Requires:	%{name}-templates-common = %{EVRD}
+#----------------------------------------------------------------------------
 
-%description templates-de
-German templates for LibreOffice
-
+%if %{with l10n}
 %package l10n-dz
 Summary:	Dzongkha language support for LibreOffice
 Group:		Office
@@ -945,7 +1147,7 @@ Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-dz
 Provides:	LibreOffice-l10n-dz = %{EVRD}
-Suggests:	%{ooname}-help-dz = %{EVRD} 
+Suggests:	%{ooname}-help-dz = %{EVRD}
 
 %description l10n-dz
 This package contains the localization of LibreOffice in Dzongkha.
@@ -953,7 +1155,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-el
 Summary:	Greek language support for LibreOffice
 Group:		Office
@@ -964,8 +1170,7 @@ Requires:	fonts-type1-greek
 Requires:	myspell-el
 Requires:	myspell-hyph-el
 Provides:	LibreOffice-l10n-el = %{EVRD}
-Suggests:	%{ooname}-help-el = %{EVRD} 
-Obsoletes:	openoffice.org-l10n-el < 1:3.3-1:2011.0 
+Suggests:	%{ooname}-help-el = %{EVRD}
 
 %description l10n-el
 This package contains the localization of LibreOffice in Greek.
@@ -973,7 +1178,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-en_GB
 Summary:	British language support for LibreOffice
 Group:		Office
@@ -984,24 +1193,19 @@ Requires:	urw-fonts
 Requires:	myspell-en_GB
 Requires:	myspell-hyph-en
 Provides:	LibreOffice-l10n-en_GB = %{EVRD}
-Suggests:	%{ooname}-help-en_GB = %{EVRD} 
-Obsoletes:	openoffice.org-l10n-en_GB < 1:3.3-1:2011.0 
+Suggests:	%{ooname}-help-en_GB = %{EVRD}
 
 %description l10n-en_GB
- package contains the localization of LibreOffice in British.
+This package contains the localization of LibreOffice in British.
 It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
-%package templates-en_US
-Summary:	US English templates for LibreOffice
-Group:		Office
-Requires:	%{name}-templates-common = %{EVRD}
+#----------------------------------------------------------------------------
 
-%description templates-en_US
-US English templates for LibreOffice
-
+%if %{with l10n}
 %package l10n-es
 Summary:	Spanish language support for LibreOffice
 Group:		Office
@@ -1013,8 +1217,7 @@ Requires:	urw-fonts
 Requires:	myspell-es
 Requires:	myspell-hyph-es
 Provides:	LibreOffice-l10n-es = %{EVRD}
-Suggests:	%{ooname}-help-es = %{EVRD} 
-Obsoletes:	openoffice.org-l10n-es < 1:3.3-1:2011.0 
+Suggests:	%{ooname}-help-es = %{EVRD}
 
 %description l10n-es
 This package contains the localization of LibreOffice in Spanish.
@@ -1022,16 +1225,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
-%package templates-es
-Summary:	Spanish templates for LibreOffice
-Group:		Office
-Requires:	%{name}-templates-common = %{EVRD}
+#----------------------------------------------------------------------------
 
-%description templates-es
-Spanish templates for LibreOffice
-
-
+%if %{with l10n}
 %package l10n-et
 Summary:	Estonian language support for LibreOffice
 Group:		Office
@@ -1043,8 +1241,7 @@ Requires:	urw-fonts
 Requires:	myspell-et
 Requires:	myspell-hyph-et
 Provides:	LibreOffice-l10n-et = %{EVRD}
-Suggests:	%{ooname}-help-et = %{EVRD} 
-Obsoletes:	openoffice.org-l10n-et < 1:3.3-1:2011.0 
+Suggests:	%{ooname}-help-et = %{EVRD}
 
 %description l10n-et
 This package contains the localization of LibreOffice in Estonian.
@@ -1052,7 +1249,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-eu
 Summary:	Basque language support for LibreOffice
 Group:		Office
@@ -1062,8 +1263,7 @@ Requires:	locales-eu
 Requires:	fonts-ttf-dejavu
 Requires:	urw-fonts
 Provides:	LibreOffice-l10n-eu = %{EVRD}
-Suggests:	%{ooname}-help-eu = %{EVRD} 
-Obsoletes:	openoffice.org-l10n-eu < 1:3.3-1:2011.0 
+Suggests:	%{ooname}-help-eu = %{EVRD}
 
 %description l10n-eu
 This package contains the localization of LibreOffice in Basque.
@@ -1071,7 +1271,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-fa
 Summary:	Farsi language support for LibreOffice
 Group:		Office
@@ -1086,7 +1290,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-fi
 Summary:	Finnish language support for LibreOffice
 Group:		Office
@@ -1096,8 +1304,7 @@ Requires:	locales-fi
 Requires:	fonts-ttf-dejavu
 Requires:	urw-fonts
 Provides:	LibreOffice-l10n-fi = %{EVRD}
-Suggests:	%{ooname}-help-fi = %{EVRD} 
-Obsoletes:	openoffice.org-l10n-fi < 1:3.3-1:2011.0 
+Suggests:	%{ooname}-help-fi = %{EVRD}
 
 %description l10n-fi
 This package contains the localization of LibreOffice in Finnish.
@@ -1105,15 +1312,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
-%package templates-fi
-Summary:	Finnish templates for LibreOffice
-Group:		Office
-Requires:	%{name}-templates-common = %{EVRD}
+#----------------------------------------------------------------------------
 
-%description templates-fi
-Finnish templates for LibreOffice
-
+%if %{with l10n}
 %package l10n-fr
 Summary:	French language support for LibreOffice
 Group:		Office
@@ -1125,8 +1328,7 @@ Requires:	urw-fonts
 Requires:	myspell-fr
 Requires:	myspell-hyph-fr
 Provides:	LibreOffice-l10n-fr = %{EVRD}
-Suggests:	%{ooname}-help-fr = %{EVRD} 
-Obsoletes:	openoffice.org-l10n-fr < 1:3.3-1:2011.0 
+Suggests:	%{ooname}-help-fr = %{EVRD}
 
 %description l10n-fr
 This package contains the localization of LibreOffice in French.
@@ -1134,16 +1336,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
-%package templates-fr
-Summary:	French templates for LibreOffice
-Group:		Office
-Requires:	%{name}-templates-common = %{EVRD}
+#----------------------------------------------------------------------------
 
-%description templates-fr
-French templates for LibreOffice
-
-
+%if %{with l10n}
 %package l10n-ga
 Summary:	Irish language support for LibreOffice
 Group:		Office
@@ -1158,7 +1355,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-gl
 Summary:	Galician language support for LibreOffice
 Group:		Office
@@ -1166,7 +1367,7 @@ Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-gl
 Provides:	LibreOffice-l10n-gl = %{EVRD}
-Suggests:	%{ooname}-help-gl = %{EVRD} 
+Suggests:	%{ooname}-help-gl = %{EVRD}
 
 %description l10n-gl
 This package contains the localization of LibreOffice in Galician.
@@ -1174,7 +1375,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-gu
 Summary:	Gujarati language support for LibreOffice
 Group:		Office
@@ -1182,15 +1387,19 @@ Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-gu
 Provides:	LibreOffice-l10n-gu = %{EVRD}
-Suggests:	%{ooname}-help-gu = %{EVRD} 
+Suggests:	%{ooname}-help-gu = %{EVRD}
 
 %description l10n-gu
 This package contains the localization of LibreOffice in Gujarati.
 It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
-standard locales system. 
+standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-he
 Summary:	Hebrew language support for LibreOffice
 Group:		Office
@@ -1199,8 +1408,7 @@ Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-he
 Requires:	urw-fonts
 Provides:	LibreOffice-l10n-he = %{EVRD}
-Suggests:	%{ooname}-help-he = %{EVRD} 
-Obsoletes:	openoffice.org-l10n-he < 1:3.3-1:2011.0 
+Suggests:	%{ooname}-help-he = %{EVRD}
 
 %description l10n-he
 This package contains the localization of LibreOffice in Hebrew.
@@ -1208,7 +1416,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-hi
 Summary:	Hindi language support for LibreOffice
 Group:		Office
@@ -1217,8 +1429,7 @@ Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-hi
 Requires:	urw-fonts
 Provides:	LibreOffice-l10n-hi = %{EVRD}
-Suggests:	%{ooname}-help-hi = %{EVRD} 
-Obsoletes:	openoffice.org-l10n-hi < 1:3.3-1:2011.0 
+Suggests:	%{ooname}-help-hi = %{EVRD}
 
 %description l10n-hi
 This package contains the localization of LibreOffice in Hindi.
@@ -1226,7 +1437,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-hr
 Summary:	Croatian language support for LibreOffice
 Group:		Office
@@ -1234,7 +1449,7 @@ Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-hr
 Provides:	LibreOffice-l10n-hr = %{EVRD}
-Suggests:	%{ooname}-help-hr = %{EVRD} 
+Suggests:	%{ooname}-help-hr = %{EVRD}
 
 %description l10n-hr
 This package contains the localization of LibreOffice in Croatian.
@@ -1242,7 +1457,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-hu
 Summary:	Hungarian language support for LibreOffice
 Group:		Office
@@ -1253,8 +1472,7 @@ Requires:	urw-fonts
 Requires:	myspell-hu
 Requires:	myspell-hyph-hu
 Provides:	LibreOffice-l10n-hu = %{EVRD}
-Suggests:	%{ooname}-help-hu = %{EVRD} 
-Obsoletes:	openoffice.org-l10n-hu < 1:3.3-1:2011.0 
+Suggests:	%{ooname}-help-hu = %{EVRD}
 
 %description l10n-hu
 This package contains the localization of LibreOffice in Hungarian.
@@ -1262,16 +1480,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
-%package templates-hu
-Summary:	Hungarian templates for LibreOffice
-Group:		Office
-Requires:	%{name}-templates-common = %{EVRD}
+#----------------------------------------------------------------------------
 
-%description templates-hu
-Hungarian templates for LibreOffice
-
-
+%if %{with l10n}
 %package l10n-it
 Summary:	Italian language support for LibreOffice
 Group:		Office
@@ -1283,7 +1496,6 @@ Requires:	myspell-it
 Requires:	myspell-hyph-it
 Provides:	LibreOffice-l10n-it = %{EVRD}
 Suggests:	%{ooname}-help-it = %{EVRD}
-Obsoletes:	openoffice.org-l10n-it < 1:3.3-1:2011.0 
 
 %description l10n-it
 This package contains the localization of LibreOffice in Italian.
@@ -1291,15 +1503,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
-%package templates-it
-Summary:	Italian templates for LibreOffice
-Group:		Office
-Requires:	%{name}-templates-common = %{EVRD}
+#----------------------------------------------------------------------------
 
-%description templates-it
-Italian templates for LibreOffice
-
+%if %{with l10n}
 %package l10n-ja
 Summary:	Japanese language support for LibreOffice
 Group:		Office
@@ -1308,8 +1516,7 @@ Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-ja
 Requires:	fonts-ttf-japanese
 Provides:	LibreOffice-l10n-ja = %{EVRD}
-Suggests:	%{ooname}-help-ja = %{EVRD} 
-Obsoletes:	openoffice.org-l10n-ja < 1:3.3-1:2011.0 
+Suggests:	%{ooname}-help-ja = %{EVRD}
 
 %description l10n-ja
 This package contains the localization of LibreOffice in Japanese.
@@ -1317,15 +1524,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
-%package templates-ja
-Summary:	Japanese templates for LibreOffice
-Group:		Office
-Requires:	%{name}-templates-common = %{EVRD}
+#----------------------------------------------------------------------------
 
-%description templates-ja
-Japanese templates for LibreOffice
-
+%if %{with l10n}
 %package l10n-kn
 Summary:	Kannada language support for LibreOffice
 Group:		Office
@@ -1340,7 +1543,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-ko
 Summary:	Korean language support for LibreOffice
 Group:		Office
@@ -1349,8 +1556,7 @@ Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-ko
 Requires:	fonts-ttf-korean >= 1.0.2
 Provides:	LibreOffice-l10n-ko = %{EVRD}
-Suggests:	%{ooname}-help-ko = %{EVRD} 
-Obsoletes:	openoffice.org-l10n-ko < 1:3.3-1:2011.0 
+Suggests:	%{ooname}-help-ko = %{EVRD}
 
 %description l10n-ko
 This package contains the localization of LibreOffice in Korean.
@@ -1358,7 +1564,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-lt
 Summary:	Lithuanian language support for LibreOffice
 Group:		Office
@@ -1373,7 +1583,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-lv
 Summary:	Latvian language support for LibreOffice
 Group:		Office
@@ -1388,7 +1602,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-mai
 Summary:	Maithili language support for LibreOffice
 Group:		Office
@@ -1403,7 +1621,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-ml
 Summary:	Malayalam language support for LibreOffice
 Group:		Office
@@ -1418,7 +1640,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-mk
 Summary:	Macedonian language support for LibreOffice
 Group:		Office
@@ -1426,8 +1652,7 @@ Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-mk
 Provides:	LibreOffice-l10n-mk = %{EVRD}
-Suggests:	%{ooname}-help-mk = %{EVRD} 
-Obsoletes:	openoffice.org-l10n-mk < 1:3.3-1:2011.0 
+Suggests:	%{ooname}-help-mk = %{EVRD}
 
 %description l10n-mk
 This package contains the localization of LibreOffice in Macedonian.
@@ -1435,7 +1660,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-mr
 Summary:	Marathi language support for LibreOffice
 Group:		Office
@@ -1450,7 +1679,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-nb
 Summary:	Norwegian Bokmal language support for LibreOffice
 Group:		Office
@@ -1459,8 +1692,7 @@ Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-no
 Requires:	urw-fonts
 Provides:	LibreOffice-l10n-nb = %{EVRD}
-Suggests:	%{ooname}-help-nb = %{EVRD} 
-Obsoletes:	openoffice.org-l10n-nb < 1:3.3-1:2011.0 
+Suggests:	%{ooname}-help-nb = %{EVRD}
 
 %description l10n-nb
 This package contains the localization of LibreOffice in Norwegian Bokmal.
@@ -1468,7 +1700,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-nl
 Summary:	Dutch language support for LibreOffice
 Group:		Office
@@ -1480,8 +1716,7 @@ Requires:	urw-fonts
 Requires:	myspell-nl
 Requires:	myspell-hyph-nl
 Provides:	LibreOffice-l10n-nl = %{EVRD}
-Suggests:	%{ooname}-help-nl = %{EVRD} 
-Obsoletes:	openoffice.org-l10n-nl < 1:3.3-1:2011.0 
+Suggests:	%{ooname}-help-nl = %{EVRD}
 
 %description l10n-nl
 This package contains the localization of LibreOffice in Dutch.
@@ -1489,15 +1724,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
-%package templates-nl
-Summary:	Dutch templates for LibreOffice
-Group:		Office
-Requires:	%{name}-templates-common = %{EVRD}
+#----------------------------------------------------------------------------
 
-%description templates-nl
-Dutch templates for LibreOffice
-
+%if %{with l10n}
 %package l10n-nn
 Summary:	Norwegian Nynorsk language support for LibreOffice
 Group:		Office
@@ -1506,8 +1737,7 @@ Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-no
 Requires:	urw-fonts
 Provides:	LibreOffice-l10n-nn = %{EVRD}
-Suggests:	%{ooname}-help-nn = %{EVRD} 
-Obsoletes:	openoffice.org-l10n-nn < 1:3.3-1:2011.0 
+Suggests:	%{ooname}-help-nn = %{EVRD}
 
 %description l10n-nn
 This package contains the localization of LibreOffice in Norwegian Nynorsk.
@@ -1515,7 +1745,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-nr
 Summary:	Ndebele language support for LibreOffice
 Group:		Office
@@ -1530,7 +1764,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-nso
 Summary:	Northern Shoto language support for LibreOffice
 Group:		Office
@@ -1545,7 +1783,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-or
 Summary:	Oriya language support for LibreOffice
 Group:		Office
@@ -1560,7 +1802,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-pa_IN
 Summary:	Punjabi language support for LibreOffice
 Group:		Office
@@ -1576,7 +1822,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-pl
 Summary:	Polish language support for LibreOffice
 Group:		Office
@@ -1587,8 +1837,7 @@ Requires:	urw-fonts
 Requires:	myspell-pl
 Requires:	myspell-hyph-pl
 Provides:	LibreOffice-l10n-pl = %{EVRD}
-Suggests:	%{ooname}-help-pl = %{EVRD} 
-Obsoletes:	openoffice.org-l10n-pl < 1:3.3-1:2011.0 
+Suggests:	%{ooname}-help-pl = %{EVRD}
 
 %description l10n-pl
 This package contains the localization of LibreOffice in Polish.
@@ -1596,15 +1845,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
-%package templates-pl
-Summary:	Polish templates for LibreOffice
-Group:		Office
-Requires:	%{name}-templates-common = %{EVRD}
+#----------------------------------------------------------------------------
 
-%description templates-pl
-Polish templates for LibreOffice
-
+%if %{with l10n}
 %package l10n-pt
 Summary:	Portuguese language support for LibreOffice
 Group:		Office
@@ -1616,8 +1861,7 @@ Requires:	urw-fonts
 Requires:	myspell-pt
 Requires:	myspell-hyph-pt
 Provides:	LibreOffice-l10n-pt = %{EVRD}
-Suggests:	%{ooname}-help-pt = %{EVRD} 
-Obsoletes:	openoffice.org-l10n-pt < 1:3.3-1:2011.0 
+Suggests:	%{ooname}-help-pt = %{EVRD}
 
 %description l10n-pt
 This package contains the localization of LibreOffice in Portuguese.
@@ -1625,7 +1869,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-pt_BR
 Summary:	Portuguese Brazilian language support for LibreOffice
 Group:		Office
@@ -1634,8 +1882,7 @@ Requires:	locales-pt
 Requires:	urw-fonts
 Requires:	myspell-pt_BR
 Provides:	LibreOffice-l10n_pt_BR = %{EVRD}
-Suggests:	%{ooname}-help-pt_BR = %{EVRD} 
-Obsoletes:	openoffice.org-l10n-pt_BR < 1:3.3-1:2011.0 
+Suggests:	%{ooname}-help-pt_BR = %{EVRD}
 
 %description l10n-pt_BR
 This package contains the localization of LibreOffice in Portuguese
@@ -1644,16 +1891,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
-%package templates-pt_BR
-Summary:	Brazilian Portuguese templates for LibreOffice
-Group:		Office
-Requires:	%{name}-templates-common = %{EVRD}
+#----------------------------------------------------------------------------
 
-%description templates-pt_BR
-Brazilian Portuguese templates for LibreOffice
-
-
+%if %{with l10n}
 %package l10n-ro
 Summary:	Romanian language support for LibreOffice
 Group:		Office
@@ -1668,19 +1910,22 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-ru
 Summary:	Russian language support for LibreOffice
 Group:		Office
 Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-ru
-Requires:	urw-fonts >= 2.0-6mdk
+Requires:	urw-fonts
 Requires:	myspell-ru
 Requires:	myspell-hyph-ru
 Provides:	LibreOffice-l10n-ru = %{EVRD}
-Suggests:	%{ooname}-help-ru = %{EVRD} 
-Obsoletes:	openoffice.org-l10n-ru < 1:3.3-1:2011.0 
+Suggests:	%{ooname}-help-ru = %{EVRD}
 
 %description l10n-ru
 This package contains the localization of LibreOffice in Russian.
@@ -1688,7 +1933,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-shs
 Summary:	Secwepemctsin language support for LibreOffice
 Group:		Office
@@ -1703,7 +1952,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-si
 Summary:	Sinhalese language support for LibreOffice
 Group:		Office
@@ -1711,7 +1964,7 @@ Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-si
 Provides:	LibreOffice-l10n-si = %{EVRD}
-Suggests:	%{ooname}-help-si = %{EVRD} 
+Suggests:	%{ooname}-help-si = %{EVRD}
 
 %description l10n-si
 This package contains the localization of LibreOffice in Sinhalese.
@@ -1719,7 +1972,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-sk
 Summary:	Slovak language support for LibreOffice
 Group:		Office
@@ -1730,8 +1987,7 @@ Requires:	urw-fonts
 Requires:	myspell-sk
 Requires:	myspell-hyph-sk
 Provides:	LibreOffice-l10n-sk = %{EVRD}
-Suggests:	%{ooname}-help-sk = %{EVRD} 
-Obsoletes:	openoffice.org-l10n-sk < 1:3.3-1:2011.0 
+Suggests:	%{ooname}-help-sk = %{EVRD}
 
 %description l10n-sk
 This package contains the localization of LibreOffice in Slovak.
@@ -1739,7 +1995,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-sl
 Summary:	Slovenian language support for LibreOffice
 Group:		Office
@@ -1749,8 +2009,7 @@ Requires:	locales-sl
 Requires:	urw-fonts
 Requires:	myspell-sl, myspell-hyph-sl
 Provides:	LibreOffice-l10n-sl = %{EVRD}
-Suggests:	%{ooname}-help-sl = %{EVRD} 
-Obsoletes:	openoffice.org-l10n-sl < 1:3.3-1:2011.0 
+Suggests:	%{ooname}-help-sl = %{EVRD}
 
 %description l10n-sl
 This package contains the localization of LibreOffice in Slovenian.
@@ -1758,7 +2017,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-sr
 Summary:	Serbian language support for LibreOffice
 Group:		Office
@@ -1773,7 +2036,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-st
 Summary:	Sotho language support for LibreOffice
 Group:		Office
@@ -1788,7 +2055,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-ss
 Summary:	Swati language support for LibreOffice
 Group:		Office
@@ -1803,7 +2074,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-sv
 Summary:	Swedish language support for LibreOffice
 Group:		Office
@@ -1815,8 +2090,7 @@ Requires:	urw-fonts
 Requires:	myspell-sv
 Requires:	myspell-hyph-sv
 Provides:	LibreOffice-l10n-sv = %{EVRD}
-Suggests:	%{ooname}-help-sv = %{EVRD} 
-Obsoletes:	openoffice.org-l10n-sv < 1:3.3-1:2011.0 
+Suggests:	%{ooname}-help-sv = %{EVRD}
 
 %description l10n-sv
 This package contains the localization of LibreOffice in Swedish.
@@ -1824,15 +2098,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
-%package templates-sv
-Summary:	Swedish templates for LibreOffice
-Group:		Office
-Requires:	%{name}-templates-common = %{EVRD}
+#----------------------------------------------------------------------------
 
-%description templates-sv
-Swedish templates for LibreOffice
-
+%if %{with l10n}
 %package l10n-ta
 Summary:	Tamil language support for LibreOffice
 Group:		Office
@@ -1841,7 +2111,6 @@ Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-ta
 Requires:	urw-fonts
 Provides:	LibreOffice-l10n-ta = %{EVRD}
-Obsoletes:	openoffice.org-l10n-ta < 1:3.3-1:2011.0 
 
 %description l10n-ta
 This package contains the localization of LibreOffice in Tamil.
@@ -1849,7 +2118,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-te
 Summary:	Telugu language support for LibreOffice
 Group:		Office
@@ -1864,7 +2137,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-th
 Summary:	Thai language support for LibreOffice
 Group:		Office
@@ -1879,7 +2156,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-tn
 Summary:	Tswana language support for LibreOffice
 Group:		Office
@@ -1894,7 +2175,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-tr
 Summary:	Turkish language support for LibreOffice
 Group:		Office
@@ -1903,8 +2188,7 @@ Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-tr
 Requires:	urw-fonts
 Provides:	LibreOffice-l10n-tr = %{EVRD}
-Suggests:	%{ooname}-help-tr = %{EVRD} 
-Obsoletes:	openoffice.org-l10n-tr < 1:3.3-1:2011.0 
+Suggests:	%{ooname}-help-tr = %{EVRD}
 
 %description l10n-tr
 This package contains the localization of LibreOffice in Turkish.
@@ -1912,15 +2196,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
-%package templates-tr
-Summary:	Turkish templates for LibreOffice
-Group:		Office
-Requires:	%{name}-templates-common = %{EVRD}
+#----------------------------------------------------------------------------
 
-%description templates-tr
-Turkish templates for LibreOffice
-
+%if %{with l10n}
 %package l10n-ts
 Summary:	Tsonga language support for LibreOffice
 Group:		Office
@@ -1935,7 +2215,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-uk
 Summary:	Ukrainian language support for LibreOffice
 Group:		Office
@@ -1943,15 +2227,19 @@ Provides:	%{ooname}-l10n = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-uk
 Provides:	LibreOffice-l10n-uk = %{EVRD}
-Suggests:	%{ooname}-help-uk = %{EVRD} 
+Suggests:	%{ooname}-help-uk = %{EVRD}
 
 %description l10n-uk
 This package contains the localization of LibreOffice in Ukrainian.
 It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
-standard locales system. 
+standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-ve
 Summary:	Venda language support for LibreOffice
 Group:		Office
@@ -1966,7 +2254,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-xh
 Summary:	Xhosa language support for LibreOffice
 Group:		Office
@@ -1981,7 +2273,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-zh_CN
 Summary:	Chinese Simplified language support for LibreOffice
 Group:		Office
@@ -1990,8 +2286,7 @@ Requires:	%{ooname}-common = %{EVRD}
 Requires:	locales-zh
 Requires:	fonts-ttf-chinese
 Provides:	LibreOffice-l10n-zh_CN = %{EVRD}
-Suggests:	%{ooname}-help-zh_CN = %{EVRD} 
-Obsoletes:	openoffice.org-l10n-zh_CN < 1:3.3-1:2011.0 
+Suggests:	%{ooname}-help-zh_CN = %{EVRD}
 
 %description l10n-zh_CN
 This package contains the localization of LibreOffice in Chinese Simplified.
@@ -1999,15 +2294,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
-%package templates-zh_CN
-Summary:	Simplified Chinese templates for LibreOffice
-Group:		Office
-Requires:	%{name}-templates-common = %{EVRD}
+#----------------------------------------------------------------------------
 
-%description templates-zh_CN
-Simplified Chinese templates for LibreOffice
-
+%if %{with l10n}
 %package l10n-zh_TW
 Summary:	Chinese Traditional language support for LibreOffice
 Group:		Office
@@ -2017,7 +2308,6 @@ Requires:	locales-zh
 Requires:	fonts-ttf-chinese
 Provides:	LibreOffice-l10n-zh_TW = %{EVRD}
 Suggests:	%{ooname}-help-zh_TW = %{EVRD}
-Obsoletes:	openoffice.org-l10n-zh_TW < 1:3.3-1:2011.0 
 
 %description l10n-zh_TW
 This package contains the localization of LibreOffice in Chinese
@@ -2026,7 +2316,11 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package l10n-zu
 Summary:	Zulu language support for LibreOffice
 Group:		Office
@@ -2036,7 +2330,6 @@ Requires:	locales-zu
 Requires:	urw-fonts
 Requires:	myspell-zu
 Provides:	LibreOffice-l10n-zu = %{EVRD}
-Obsoletes:	openoffice.org-l10n-zu < 1:3.3-1:2011.0 
 
 %description l10n-zu
 This package contains the localization of LibreOffice in Zulu.
@@ -2044,18 +2337,25 @@ It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
 standard locales system.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-bg
 Summary:	Bulgarian help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-bg = %{EVRD}
 Provides:	LibreOffice-help-bg = %{EVRD}
-Obsoletes:	openoffice.org-help-bg < 1:3.3-1:2011.0 
 
 %description help-bg
 This package contains the localized help files of LibreOffice in Bulgarian.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-bn
 Summary:	Bengali help for LibreOffice
 Group:		Office
@@ -2065,62 +2365,81 @@ Provides:	LibreOffice-help-bn = %{EVRD}
 
 %description help-bn
 This package contains the localized help files of LibreOffice in Bengali.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-bs
 Summary:	Bosnian help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-bs = %{EVRD}
 Provides:	LibreOffice-help-bs = %{EVRD}
-Obsoletes:	openoffice.org-help-bs < 1:3.3-1:2011.0 
 
 %description help-bs
 This package contains the localized help files of LibreOffice in Bosnian.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-ca
 Summary:	Catalan help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-ca = %{EVRD}
 Provides:	LibreOffice-help-ca = %{EVRD}
-Obsoletes:	openoffice.org-help-ca < 1:3.3-1:2011.0 
 
 %description help-ca
 This package contains the localized help files of LibreOffice in Catalan.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-cs
 Summary:	Czech help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-cs = %{EVRD}
 Provides:	LibreOffice-help-cs = %{EVRD}
-Obsoletes:	openoffice.org-help-cs < 1:3.3-1:2011.0 
 
 %description help-cs
 This package contains the localized help files of LibreOffice in Czech.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-da
 Summary:	Danish help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-da = %{EVRD}
 Provides:	LibreOffice-help-da = %{EVRD}
-Obsoletes:	openoffice.org-help-da < 1:3.3-1:2011.0 
 
 %description help-da
 This package contains the localized help files of LibreOffice in Danish.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-de
 Summary:	German help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-de = %{EVRD}
 Provides:	LibreOffice-help-de = %{EVRD}
-Obsoletes:	openoffice.org-help-de < 1:3.3-1:2011.0 
 
 %description help-de
 This package contains the localized help files of LibreOffice in German.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-dz
 Summary:	Dzongkha help for LibreOffice
 Group:		Office
@@ -2130,96 +2449,124 @@ Provides:	LibreOffice-help-dz = %{EVRD}
 
 %description help-dz
 This package contains the localized help files of LibreOffice in Dzongkha.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-el
 Summary:	Greek help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-el = %{EVRD}
 Provides:	LibreOffice-help-el = %{EVRD}
-Obsoletes:	openoffice.org-help-el < 1:3.3-1:2011.0 
 
 %description help-el
 This package contains the localized help files of LibreOffice in Greek.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-en_GB
 Summary:	British help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-en_GB = %{EVRD}
 Provides:	LibreOffice-help-en_GB = %{EVRD}
-Obsoletes:	openoffice.org-help-en_GB < 1:3.3-1:2011.0 
 
 %description help-en_GB
 This package contains the localized help files of LibreOffice in British.
+%endif
 
-%package help-en_US 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
+%package help-en_US
 Summary:	American English help for LibreOffice 
-Group:		Office 
+Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-common = %{EVRD}
 Provides:	LibreOffice-help-en_US = %{EVRD}
-Obsoletes:	openoffice.org-help-en_US < 1:3.3-1:2011.0 
 
 %description help-en_US
 This package contains the localized help files of LibreOffice
 in American English.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-es
 Summary:	Spanish help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-es = %{EVRD}
 Provides:	LibreOffice-help-es = %{EVRD}
-Obsoletes:	openoffice.org-help-es < 1:3.3-1:2011.0 
 
 %description help-es
 This package contains the localized help files of LibreOffice in Spanish.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-et
 Summary:	Estonian help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-et = %{EVRD}
 Provides:	LibreOffice-help-et = %{EVRD}
-Obsoletes:	openoffice.org-help-et < 1:3.3-1:2011.0 
 
 %description help-et
 This package contains the localized help files of LibreOffice in Estonian.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-eu
 Summary:	Basque help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-eu = %{EVRD}
 Provides:	LibreOffice-help-eu = %{EVRD}
-Obsoletes:	openoffice.org-help-eu < 1:3.3-1:2011.0 
 
 %description help-eu
 This package contains the localized help files of LibreOffice in Basque.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-fi
 Summary:	Finnish help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-fi = %{EVRD}
 Provides:	LibreOffice-help-fi = %{EVRD}
-Obsoletes:	openoffice.org-help-fi < 1:3.3-1:2011.0 
 
 %description help-fi
 This package contains the localized help files of LibreOffice in Finnish.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-fr
 Summary:	French help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-fr = %{EVRD}
 Provides:	LibreOffice-help-fr = %{EVRD}
-Obsoletes:	openoffice.org-help-fr < 1:3.3-1:2011.0 
 
 %description help-fr
 This package contains the localized help files of LibreOffice in French.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-gu
 Summary:	Gujarati help for LibreOffice
 Group:		Office
@@ -2229,7 +2576,11 @@ Provides:	LibreOffice-help-gu = %{EVRD}
 
 %description help-gu
 This package contains the localized help files of LibreOffice in Gujarati.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-gl
 Summary:	Galician help for LibreOffice
 Group:		Office
@@ -2239,29 +2590,39 @@ Provides:	LibreOffice-help-gl = %{EVRD}
 
 %description help-gl
 This package contains the localized help files of LibreOffice in Galician.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-he
 Summary:	Hebrew help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-he = %{EVRD}
 Provides:	LibreOffice-help-he = %{EVRD}
-Obsoletes:	openoffice.org-help-he < 1:3.3-1:2011.0 
 
 %description help-he
 This package contains the localized help files of LibreOffice in Hebrew.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-hi
 Summary:	Hindi help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-hi = %{EVRD}
 Provides:	LibreOffice-help-hi = %{EVRD}
-Obsoletes:	openoffice.org-help-hi < 1:3.3-1:2011.0 
 
 %description help-hi
 This package contains the localized help files of LibreOffice in Hindi.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-hr
 Summary:	Croatian help for LibreOffice
 Group:		Office
@@ -2271,142 +2632,182 @@ Provides:	LibreOffice-help-hr = %{EVRD}
 
 %description help-hr
 This package contains the localized help files of LibreOffice in Croatian.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-hu
 Summary:	Hungarian help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-hu = %{EVRD}
 Provides:	LibreOffice-help-hu = %{EVRD}
-Obsoletes:	openoffice.org-help-hu < 1:3.3-1:2011.0 
 
 %description help-hu
 This package contains the localized help files of LibreOffice in Hungarian.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-it
 Summary:	Italian help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-it = %{EVRD}
 Provides:	LibreOffice-help-it = %{EVRD}
-Obsoletes:	openoffice.org-help-it < 1:3.3-1:2011.0 
 
 %description help-it
 This package contains the localized help files of LibreOffice in Italian.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-ja
 Summary:	Japanese help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-ja = %{EVRD}
 Provides:	LibreOffice-help-ja = %{EVRD}
-Obsoletes:	openoffice.org-help-ja < 1:3.3-1:2011.0 
 
 %description help-ja
-This package contains the localized help files of LibreOffice in Japanese. 
+This package contains the localized help files of LibreOffice in Japanese.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-ko
 Summary:	Korean help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-ko = %{EVRD}
 Provides:	LibreOffice-help-ko = %{EVRD}
-Obsoletes:	openoffice.org-help-ko < 1:3.3-1:2011.0 
 
 %description help-ko
 This package contains the localized help files of LibreOffice in Korean.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-mk
 Summary:	Macedonian help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-mk = %{EVRD}
 Provides:	LibreOffice-help-mk = %{EVRD}
-Obsoletes:	openoffice.org-help-mk < 1:3.3-1:2011.0 
 
 %description help-mk
 This package contains the localized help files of LibreOffice in Macedonian.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-nb
 Summary:	Norwegian Bokmal help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-nb = %{EVRD}
 Provides:	LibreOffice-help-nb = %{EVRD}
-Obsoletes:	openoffice.org-help-nb < 1:3.3-1:2011.0 
 
 %description help-nb
 This package contains the localized help files of LibreOffice in Norwegian
 Bokmal.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-nl
 Summary:	Dutch help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-nl = %{EVRD}
 Provides:	LibreOffice-help-nl = %{EVRD}
-Obsoletes:	openoffice.org-help-nl < 1:3.3-1:2011.0 
 
 %description help-nl
 This package contains the localized help files of LibreOffice in Dutch.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-nn
 Summary:	Norwegian Nynorsk help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-nn = %{EVRD}
 Provides:	LibreOffice-help-nn = %{EVRD}
-Obsoletes:	openoffice.org-help-nn < 1:3.3-1:2011.0 
 
 %description help-nn
 This package contains the localized help files of LibreOffice in Norwegian
 Nynorsk.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-pl
 Summary:	Polish help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-pl = %{EVRD}
 Provides:	LibreOffice-help-pl = %{EVRD}
-Obsoletes:	openoffice.org-help-pl < 1:3.3-1:2011.0 
 
 %description help-pl
 This package contains the localized help files of LibreOffice in Polish.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-pt
 Summary:	Portuguese help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-pt = %{EVRD}
 Provides:	LibreOffice-help-pt = %{EVRD}
-Obsoletes:	openoffice.org-help-pt < 1:3.3-1:2011.0 
 
 %description help-pt
 This package contains the localized help files of LibreOffice in Portuguese.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-pt_BR
 Summary:	Portuguese Brazilian help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-pt_BR = %{EVRD}
 Provides:	LibreOffice-help-pt_BR = %{EVRD}
-Obsoletes:	openoffice.org-help-pt_BR < 1:3.3-1:2011.0 
 
 %description help-pt_BR
 This package contains the localized help files of LibreOffice in Portuguese
 Brazilian.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-ru
 Summary:	Russian help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-ru = %{EVRD}
 Provides:	LibreOffice-help-ru = %{EVRD}
-Obsoletes:	openoffice.org-help-ru < 1:3.3-1:2011.0 
 
 %description help-ru
 This package contains the localized help files of LibreOffice in Russian.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-si
 Summary:	Sinhalese help for LibreOffice
 Group:		Office
@@ -2416,51 +2817,67 @@ Provides:	LibreOffice-help-si = %{EVRD}
 
 %description help-si
 This package contains the localized help files of LibreOffice in Sinhalese.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-sk
 Summary:	Slovak help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-sk = %{EVRD}
 Provides:	LibreOffice-help-sk = %{EVRD}
-Obsoletes:	openoffice.org-help-sk < 1:3.3-1:2011.0 
 
 %description help-sk
 This package contains the localized help files of LibreOffice in Slovak.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-sl
 Summary:	Slovenian help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-sl = %{EVRD}
 Provides:	LibreOffice-help-sl = %{EVRD}
-Obsoletes:	openoffice.org-help-sl < 1:3.3-1:2011.0 
 
 %description help-sl
 This package contains the localized help files of LibreOffice in Slovenian.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-sv
 Summary:	Swedish help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-sv = %{EVRD}
 Provides:	LibreOffice-help-sv = %{EVRD}
-Obsoletes:	openoffice.org-help-sv < 1:3.3-1:2011.0 
 
 %description help-sv
 This package contains the localized help files of LibreOffice in Swedish.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-tr
 Summary:	Turkish help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-tr = %{EVRD}
 Provides:	LibreOffice-help-tr = %{EVRD}
-Obsoletes:	openoffice.org-help-tr < 1:3.3-1:2011.0 
 
 %description help-tr
 This package contains the localized help files of LibreOffice in Turkish.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-uk
 Summary:	Ukrainian help for LibreOffice
 Group:		Office
@@ -2470,32 +2887,371 @@ Provides:	LibreOffice-help-uk = %{EVRD}
 
 %description help-uk
 This package contains the localized help files of LibreOffice in Ukrainian.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-zh_CN
 Summary:	Chinese Simplified help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-zh_CN = %{EVRD}
 Provides:	LibreOffice-help-zn_CN = %{EVRD}
-Obsoletes:	openoffice.org-help-zn_CN < 1:3.3-1:2011.0 
 
 %description help-zh_CN
 This package contains the localized help files of LibreOffice in Chinese
 Simplified.
+%endif
 
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-zh_TW
 Summary:	Chinese Traditional help for LibreOffice
 Group:		Office
 Provides:	%{ooname}-help = %{EVRD}
 Requires:	%{ooname}-l10n-zh_TW = %{EVRD}
 Provides:	LibreOffice-help-zn_CT = %{EVRD}
-Obsoletes:	openoffice.org-help-zn_CT < 1:3.3-1:2011.0 
 
 %description help-zh_TW
 This package contains the localized help files of LibreOffice in Chinese
 Traditional.
-
 %endif
+
+#----------------------------------------------------------------------------
+
+%package templates-common
+Summary:	Files used by LibreOffice templates
+Group:		Office
+
+%description templates-common
+Files used by LibreOffice templates.
+
+%files templates-common
+%{ooodir}/share/template/common/dummy_common_templates.txt
+%{ooodir}/share/template/common/educate
+%{ooodir}/share/template/common/finance
+%{ooodir}/share/template/common/forms
+%{ooodir}/share/template/common/labels
+%{ooodir}/share/template/common/layout/31407-squares.otp
+%{ooodir}/share/template/common/layout/Blue*.otp
+%{ooodir}/share/template/common/layout/Cool_Space.otp
+%{ooodir}/share/template/common/layout/Cubes.otp
+%{ooodir}/share/template/common/layout/Doppellinie-blau.otp
+%{ooodir}/share/template/common/layout/EarthLight.otp
+%{ooodir}/share/template/common/layout/Girasoles.otp
+%{ooodir}/share/template/common/layout/Glossy.otp
+%{ooodir}/share/template/common/layout/Green.otp
+%{ooodir}/share/template/common/layout/Grey.otp
+%{ooodir}/share/template/common/layout/Hatch.otp
+%{ooodir}/share/template/common/layout/Human.otp
+%{ooodir}/share/template/common/layout/Infantil.otp
+%{ooodir}/share/template/common/layout/Lamp.otp
+%{ooodir}/share/template/common/layout/Lay_grafity.otp
+%{ooodir}/share/template/common/layout/Lay_wood.otp
+%{ooodir}/share/template/common/layout/Marble.otp
+%{ooodir}/share/template/common/layout/MediaStyle.otp
+%{ooodir}/share/template/common/layout/Mondo*.otp
+%{ooodir}/share/template/common/layout/Movie.otp
+%{ooodir}/share/template/common/layout/NavyBlue.otp
+%{ooodir}/share/template/common/layout/Notepad.otp
+%{ooodir}/share/template/common/layout/Openblue.otp
+%{ooodir}/share/template/common/layout/Orange.otp
+%{ooodir}/share/template/common/layout/PhotoFrame.otp
+%{ooodir}/share/template/common/layout/Plantillafiesta.otp
+%{ooodir}/share/template/common/layout/Praesentation_Radial_*.otp
+%{ooodir}/share/template/common/layout/Quadratisch*.otp
+%{ooodir}/share/template/common/layout/RedStar.otp
+%{ooodir}/share/template/common/layout/Sidepanel_*.otp
+%{ooodir}/share/template/common/layout/Solar.otp
+%{ooodir}/share/template/common/layout/Soleil.otp
+%{ooodir}/share/template/common/layout/Sunburst.otp
+%{ooodir}/share/template/common/layout/Worldwide*.otp
+%{ooodir}/share/template/common/layout/abstract*.otp
+%{ooodir}/share/template/common/layout/aquarius.otp
+%{ooodir}/share/template/common/layout/blau.otp
+%{ooodir}/share/template/common/layout/blue-elegance.otp
+%{ooodir}/share/template/common/layout/blue.otp
+%{ooodir}/share/template/common/layout/carton.otp
+%{ooodir}/share/template/common/layout/chalkboard*.otp
+%{ooodir}/share/template/common/layout/circulos_*.otp
+%{ooodir}/share/template/common/layout/citrus-e.otp
+%{ooodir}/share/template/common/layout/compladients.otp
+%{ooodir}/share/template/common/layout/cross_*.otp
+%{ooodir}/share/template/common/layout/edge-*.otp
+%{ooodir}/share/template/common/layout/education-*.otp
+%{ooodir}/share/template/common/layout/emotion.otp
+%{ooodir}/share/template/common/layout/emotion2.otp
+%{ooodir}/share/template/common/layout/eos.otp
+%{ooodir}/share/template/common/layout/exec-??.otp
+%{ooodir}/share/template/common/layout/fields-of-peace.otp
+%{ooodir}/share/template/common/layout/fresh-morning.otp
+%{ooodir}/share/template/common/layout/glowing-rectangles.otp
+%{ooodir}/share/template/common/layout/golthia.otp
+%{ooodir}/share/template/common/layout/green-concentration.otp
+%{ooodir}/share/template/common/layout/greenish-wallpaper.otp
+%{ooodir}/share/template/common/layout/holiday-*.otp
+%{ooodir}/share/template/common/layout/humanist_presentation.otp
+%{ooodir}/share/template/common/layout/inspire-*.otp
+%{ooodir}/share/template/common/layout/kde.otp
+%{ooodir}/share/template/common/layout/keynote.otp
+%{ooodir}/share/template/common/layout/letterpress.otp
+%{ooodir}/share/template/common/layout/line_*.otp
+%{ooodir}/share/template/common/layout/list.txt
+%{ooodir}/share/template/common/layout/macos103.otp
+%{ooodir}/share/template/common/layout/moebius-strip.otp
+%{ooodir}/share/template/common/layout/more-green.otp
+%{ooodir}/share/template/common/layout/ooo2.otp
+%{ooodir}/share/template/common/layout/ooo2_spot.otp
+%{ooodir}/share/template/common/layout/openoffice.org_gulls.otp
+%{ooodir}/share/template/common/layout/perspective-*.otp
+%{ooodir}/share/template/common/layout/reo-veo*.otp
+%{ooodir}/share/template/common/layout/schatten_*.otp
+%{ooodir}/share/template/common/layout/science-*.otp
+%{ooodir}/share/template/common/layout/sedi.otp
+%{ooodir}/share/template/common/layout/standard-*.otp
+%{ooodir}/share/template/common/layout/sun.otp
+%{ooodir}/share/template/common/layout/texture-*.jpg.otp
+%{ooodir}/share/template/common/layout/vortrag_*.otp
+%{ooodir}/share/template/common/misc
+%{ooodir}/share/template/common/officorr
+%{ooodir}/share/template/common/offimisc
+%{ooodir}/share/template/common/personal
+%{ooodir}/share/template/common/presnt
+
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
+%package templates-cs
+Summary:	Czech templates for LibreOffice
+Group:		Office
+Requires:	%{name}-templates-common = %{EVRD}
+
+%description templates-cs
+Czech templates for LibreOffice.
+
+%files templates-cs
+%{ooodir}/share/template/cs
+%endif
+
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
+%package templates-de
+Summary:	German templates for LibreOffice
+Group:		Office
+Requires:	%{name}-templates-common = %{EVRD}
+
+%description templates-de
+German templates for LibreOffice.
+
+%files templates-de
+%{ooodir}/share/template/de
+%{ooodir}/share/extensions/Sun_ODF_Template_Pack_de
+%endif
+
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
+%package templates-en_US
+Summary:	US English templates for LibreOffice
+Group:		Office
+Requires:	%{name}-templates-common = %{EVRD}
+
+%description templates-en_US
+US English templates for LibreOffice.
+
+%files templates-en_US
+%{ooodir}/share/template/en-US
+%{ooodir}/share/extensions/Sun_ODF_Template_Pack_en-US
+%endif
+
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
+%package templates-es
+Summary:	Spanish templates for LibreOffice
+Group:		Office
+Requires:	%{name}-templates-common = %{EVRD}
+
+%description templates-es
+Spanish templates for LibreOffice.
+
+%files templates-es
+%{ooodir}/share/template/es
+%{ooodir}/share/extensions/Sun_ODF_Template_Pack_es
+%endif
+
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
+%package templates-fi
+Summary:	Finnish templates for LibreOffice
+Group:		Office
+Requires:	%{name}-templates-common = %{EVRD}
+
+%description templates-fi
+Finnish templates for LibreOffice.
+
+%files templates-fi
+%{ooodir}/share/template/fi
+%endif
+
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
+%package templates-fr
+Summary:	French templates for LibreOffice
+Group:		Office
+Requires:	%{name}-templates-common = %{EVRD}
+
+%description templates-fr
+French templates for LibreOffice.
+
+%files templates-fr
+%{ooodir}/share/template/fr
+%{ooodir}/share/extensions/Sun_ODF_Template_Pack_fr
+%endif
+
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
+%package templates-hu
+Summary:	Hungarian templates for LibreOffice
+Group:		Office
+Requires:	%{name}-templates-common = %{EVRD}
+
+%description templates-hu
+Hungarian templates for LibreOffice.
+
+%files templates-hu
+%{ooodir}/share/template/hu
+%{ooodir}/share/extensions/Sun_ODF_Template_Pack_hu
+%endif
+
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
+%package templates-it
+Summary:	Italian templates for LibreOffice
+Group:		Office
+Requires:	%{name}-templates-common = %{EVRD}
+
+%description templates-it
+Italian templates for LibreOffice.
+
+%files templates-it
+%{ooodir}/share/template/it
+%{ooodir}/share/extensions/Sun_ODF_Template_Pack_it
+%endif
+
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
+%package templates-ja
+Summary:	Japanese templates for LibreOffice
+Group:		Office
+Requires:	%{name}-templates-common = %{EVRD}
+
+%description templates-ja
+Japanese templates for LibreOffice.
+
+%files templates-ja
+%{ooodir}/share/template/ja
+%endif
+
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
+%package templates-nl
+Summary:	Dutch templates for LibreOffice
+Group:		Office
+Requires:	%{name}-templates-common = %{EVRD}
+
+%description templates-nl
+Dutch templates for LibreOffice.
+
+%files templates-nl
+%{ooodir}/share/template/nl
+%endif
+
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
+%package templates-pl
+Summary:	Polish templates for LibreOffice
+Group:		Office
+Requires:	%{name}-templates-common = %{EVRD}
+
+%description templates-pl
+Polish templates for LibreOffice.
+
+%files templates-pl
+%{ooodir}/share/template/pl
+%endif
+
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
+%package templates-pt_BR
+Summary:	Brazilian Portuguese templates for LibreOffice
+Group:		Office
+Requires:	%{name}-templates-common = %{EVRD}
+
+%description templates-pt_BR
+Brazilian Portuguese templates for LibreOffice.
+
+%files templates-pt_BR
+%{ooodir}/share/template/pt-BR
+%endif
+
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
+%package templates-sv
+Summary:	Swedish templates for LibreOffice
+Group:		Office
+Requires:	%{name}-templates-common = %{EVRD}
+
+%description templates-sv
+Swedish templates for LibreOffice.
+
+%files templates-sv
+%{ooodir}/share/template/sv
+%endif
+
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
+%package templates-tr
+Summary:	Turkish templates for LibreOffice
+Group:		Office
+Requires:	%{name}-templates-common = %{EVRD}
+
+%description templates-tr
+Turkish templates for LibreOffice.
+
+%files templates-tr
+%{ooodir}/share/template/tr
+%endif
+
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
+%package templates-zh_CN
+Summary:	Simplified Chinese templates for LibreOffice
+Group:		Office
+Requires:	%{name}-templates-common = %{EVRD}
+
+%description templates-zh_CN
+Simplified Chinese templates for LibreOffice.
+
+%files templates-zh_CN
+%{ooodir}/share/template/zh-CN
+%endif
+
+#----------------------------------------------------------------------------
 
 %prep
 %setup -q -c -a 1 -a 2 -a 3
@@ -2533,6 +3289,9 @@ export KDE4DIR=%{_libdir}/kde4
 	export KDE4INC=%{_libdir}/kde4/include
 %endif 
 export KDE4LIB=%{_libdir}/kde4/lib
+
+export LC_ALL=en_US.UTF-8
+export LANG=en_US
 
 %if !%{with icecream}
 # sbin due to icu stuff there
@@ -2605,7 +3364,7 @@ touch autogen.lastrun
 	--enable-ext-nlpsolver \
 	--enable-ext-languagetool \
 	--enable-ext-wiki-publisher \
-	--disable-verbose \
+	--enable-verbose \
 	--enable-hardlink-deliver \
 	--enable-ext-mariadb-connector \
 	--with-servlet-api-jar=/usr/share/java/tomcat-servlet-3.0-api.jar \
@@ -2813,327 +3572,17 @@ cat file-lists/lang_en_US_list.txt >> file-lists/common_list.txt
 sort -u file-lists/common_list.txt >  file-lists/common_list.uniq.sorted.txt 
 cat file-lists/common_list.uniq.sorted.txt >>file-lists/core_list.txt
 
-%post common
-%update_icon_cache gnome
-%update_icon_cache hicolor
-
-# Firefox plugin
-if [ $1 -gt 1 ]
-then
-  update-alternatives --remove %{firefox_plugin} \
-  %{ooodir}/program/libnpsoplugin.so
-fi
-update-alternatives \
-  --install %{_libdir}/mozilla/plugins/libnpsoplugin.so %{firefox_plugin} \
-  %{ooodir}/program/libnpsoplugin.so 1
-
-%postun common
-%clean_icon_cache gnome
-%clean_icon_cache hicolor
-
-# Firefox plugin
-if [ $1 -eq 0 ]
-then
-  update-alternatives --remove %{firefox_plugin} \
-  %{ooodir}/program/libnpsoplugin.so
-fi
-
-%files
-
-%files base -f file-lists/base_list.txt
-%{_mandir}/man1/lobase*
-%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-base_72.svg
-
-%files calc -f file-lists/calc_list.txt
-%{_mandir}/man1/localc*
-%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-calc_72.svg
-
-%files common -f file-lists/core_list.txt
-%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo_72.svg
-%{_mandir}/man1/loffice*
-%{_mandir}/man1/lofromtemplate*
-%{_mandir}/man1/libreoffice*
-%{_mandir}/man1/unopkg.1*
-%{_libdir}/libreoffice/program/classes/ScriptProviderForBeanShell.jar
-%{_libdir}/libreoffice/program/services/scriptproviderforbeanshell.rdb
-
-%files devel -f file-lists/sdk_list.uniq.sorted.txt
-
-%files devel-doc -f file-lists/sdk_doc_list.txt
-
-%files java -f file-lists/java_common_list.txt
-
-%files draw -f file-lists/draw_list.txt
-%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-draw_72.svg
-%{_mandir}/man1/lodraw*
-
-%files gnome -f file-lists/gnome_list.uniq.sorted.txt
-
-%files impress -f file-lists/impress_list.txt
-%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-impress_72.svg
-%{_mandir}/man1/loimpress*
-
-%files kde4 -f file-lists/kde4_list.txt
-%{_libdir}/libreoffice/program/libkde4be1lo.so
-
-%files math -f file-lists/math_list.txt
-%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-math_72.svg
-%{_mandir}/man1/lomath*
-
-%files openclipart
-%{ooodir}/share/gallery/Draws
-%{ooodir}/share/gallery/Elements
-%{ooodir}/share/gallery/Photos
-%{ooodir}/share/gallery/apples*
-%{ooodir}/share/gallery/arrows*
-%{ooodir}/share/gallery/bigapple*
-%{ooodir}/share/gallery/bullets*
-%{ooodir}/share/gallery/computers*
-%{ooodir}/share/gallery/diagrams*
-%{ooodir}/share/gallery/education*
-%{ooodir}/share/gallery/environment*
-%{ooodir}/share/gallery/finance*
-%{ooodir}/share/gallery/flower*
-%{ooodir}/share/gallery/htmlexpo*
-%{ooodir}/share/gallery/people*
-%{ooodir}/share/gallery/sg[0-9]*.*
-%{ooodir}/share/gallery/sky.*
-%{ooodir}/share/gallery/sounds*
-%{ooodir}/share/gallery/symbols*
-%{ooodir}/share/gallery/transportation*
-%{ooodir}/share/gallery/txtshapes*
-%{ooodir}/share/gallery/www-back*
-%{ooodir}/share/gallery/www-graf*
-
-%files pyuno -f file-lists/pyuno_list.txt
-
-%files extension-converttexttonumber
-%{ooodir}/share/extensions/ConvertTextToNumber
-
-%files extension-barcode
-%{ooodir}/share/extensions/Barcode
-
-%files extension-languagetool
-%{ooodir}/share/extensions/LanguageTool
-
-%files extension-validator
-%{ooodir}/share/extensions/Validator
-
-%files extension-xsltfilter -f file-lists/dtd_list.txt
-%{ooodir}/share/registry/xsltfilter.xcd
-%{ooodir}/share/xslt/docbook
-%{ooodir}/share/xslt/export/xhtml
-%{_datadir}/applications/libreoffice-xsltfilter.desktop
-
-%files extension-typo
-%{ooodir}/share/extensions/typo
-
-%files extension-numbertext
-%{ooodir}/share/extensions/numbertext
-
-%files extension-nlpsolver
-%{ooodir}/share/extensions/nlpsolver
-
-%files extension-hunart
-%{ooodir}/share/extensions/hunart
-
-%files extension-gdocs
-%{ooodir}/share/extensions/gdocs
-
-%files extension-watchwindow
-%{ooodir}/share/extensions/WatchWindow
-
-%files extension-mysql
-%{ooodir}/share/extensions/mysql-connector-ooo
-
-%files extension-SmART
-%{ooodir}/share/extensions/SmART
-
-%files mailmerge -f file-lists/mailmerge_list.txt
-
-%files style-galaxy
-%{ooodir}/share/config/images.zip
-
-%files style-crystal
-%{ooodir}/share/config/images_crystal.zip
-
-%files style-hicontrast
-%{ooodir}/share/config/images_hicontrast.zip
-
-%files style-tango
-%{ooodir}/share/config/images_tango.zip
-
-%files style-oxygen
-%{ooodir}/share/config/images_oxygen.zip
-
-%files writer -f file-lists/writer_list.txt
-%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-writer_72.svg
-%{_mandir}/man1/loweb*
-%{_mandir}/man1/lowriter*
-
-%files wiki-publisher
-%{ooodir}/share/extensions/wiki-publisher
-
-%files postgresql
-%{ooodir}/program/libpostgresql-sdbclo.so
-%{ooodir}/program/libpostgresql-sdbc-impllo.so
-%{ooodir}/program/postgresql-sdbc.ini
-%{ooodir}/program/services/postgresql-sdbc.rdb
-%{ooodir}/share/registry/postgresql.xcd
-
+# %%files for help-* and l10n-* packages
 %if %{with l10n}
 %{expand:%(for i in %{langs}; do
 	[ "$i" = "en-US" ] && continue;
 	i=`echo $i |sed -e 's,-,_,g'`;
 	[ "$i" = "sh" ] && echo "%%files l10n-shs -f file-lists/lang_${i}_list.txt" || echo "%%files l10n-$i -f file-lists/lang_${i}_list.txt";
 done)}
-%endif
 
 %{expand:%(for i in %{helplangs}; do
 	l=`echo $i |sed -e 's,-,_,g'`;
 	echo "%%files help-$l -f file-lists/help_${l}_list.txt";
 	echo "%%_libdir/libreoffice/help/$i";
 done)}
-
-%files templates-common
-%{ooodir}/share/template/common/dummy_common_templates.txt
-%{ooodir}/share/template/common/educate
-%{ooodir}/share/template/common/finance
-%{ooodir}/share/template/common/forms
-%{ooodir}/share/template/common/labels
-%{ooodir}/share/template/common/layout/31407-squares.otp
-%{ooodir}/share/template/common/layout/Blue*.otp
-%{ooodir}/share/template/common/layout/Cool_Space.otp
-%{ooodir}/share/template/common/layout/Cubes.otp
-%{ooodir}/share/template/common/layout/Doppellinie-blau.otp
-%{ooodir}/share/template/common/layout/EarthLight.otp
-%{ooodir}/share/template/common/layout/Girasoles.otp
-%{ooodir}/share/template/common/layout/Glossy.otp
-%{ooodir}/share/template/common/layout/Green.otp
-%{ooodir}/share/template/common/layout/Grey.otp
-%{ooodir}/share/template/common/layout/Hatch.otp
-%{ooodir}/share/template/common/layout/Human.otp
-%{ooodir}/share/template/common/layout/Infantil.otp
-%{ooodir}/share/template/common/layout/Lamp.otp
-%{ooodir}/share/template/common/layout/Lay_grafity.otp
-%{ooodir}/share/template/common/layout/Lay_wood.otp
-%{ooodir}/share/template/common/layout/Marble.otp
-%{ooodir}/share/template/common/layout/MediaStyle.otp
-%{ooodir}/share/template/common/layout/Mondo*.otp
-%{ooodir}/share/template/common/layout/Movie.otp
-%{ooodir}/share/template/common/layout/NavyBlue.otp
-%{ooodir}/share/template/common/layout/Notepad.otp
-%{ooodir}/share/template/common/layout/Openblue.otp
-%{ooodir}/share/template/common/layout/Orange.otp
-%{ooodir}/share/template/common/layout/PhotoFrame.otp
-%{ooodir}/share/template/common/layout/Plantillafiesta.otp
-%{ooodir}/share/template/common/layout/Praesentation_Radial_*.otp
-%{ooodir}/share/template/common/layout/Quadratisch*.otp
-%{ooodir}/share/template/common/layout/RedStar.otp
-%{ooodir}/share/template/common/layout/Sidepanel_*.otp
-%{ooodir}/share/template/common/layout/Solar.otp
-%{ooodir}/share/template/common/layout/Soleil.otp
-%{ooodir}/share/template/common/layout/Sunburst.otp
-%{ooodir}/share/template/common/layout/Worldwide*.otp
-%{ooodir}/share/template/common/layout/abstract*.otp
-%{ooodir}/share/template/common/layout/aquarius.otp
-%{ooodir}/share/template/common/layout/blau.otp
-%{ooodir}/share/template/common/layout/blue-elegance.otp
-%{ooodir}/share/template/common/layout/blue.otp
-%{ooodir}/share/template/common/layout/carton.otp
-%{ooodir}/share/template/common/layout/chalkboard*.otp
-%{ooodir}/share/template/common/layout/circulos_*.otp
-%{ooodir}/share/template/common/layout/citrus-e.otp
-%{ooodir}/share/template/common/layout/compladients.otp
-%{ooodir}/share/template/common/layout/cross_*.otp
-%{ooodir}/share/template/common/layout/edge-*.otp
-%{ooodir}/share/template/common/layout/education-*.otp
-%{ooodir}/share/template/common/layout/emotion.otp
-%{ooodir}/share/template/common/layout/emotion2.otp
-%{ooodir}/share/template/common/layout/eos.otp
-%{ooodir}/share/template/common/layout/exec-??.otp
-%{ooodir}/share/template/common/layout/fields-of-peace.otp
-%{ooodir}/share/template/common/layout/fresh-morning.otp
-%{ooodir}/share/template/common/layout/glowing-rectangles.otp
-%{ooodir}/share/template/common/layout/golthia.otp
-%{ooodir}/share/template/common/layout/green-concentration.otp
-%{ooodir}/share/template/common/layout/greenish-wallpaper.otp
-%{ooodir}/share/template/common/layout/holiday-*.otp
-%{ooodir}/share/template/common/layout/humanist_presentation.otp
-%{ooodir}/share/template/common/layout/inspire-*.otp
-%{ooodir}/share/template/common/layout/kde.otp
-%{ooodir}/share/template/common/layout/keynote.otp
-%{ooodir}/share/template/common/layout/letterpress.otp
-%{ooodir}/share/template/common/layout/line_*.otp
-%{ooodir}/share/template/common/layout/list.txt
-%{ooodir}/share/template/common/layout/macos103.otp
-%{ooodir}/share/template/common/layout/moebius-strip.otp
-%{ooodir}/share/template/common/layout/more-green.otp
-%{ooodir}/share/template/common/layout/ooo2.otp
-%{ooodir}/share/template/common/layout/ooo2_spot.otp
-%{ooodir}/share/template/common/layout/openoffice.org_gulls.otp
-%{ooodir}/share/template/common/layout/perspective-*.otp
-%{ooodir}/share/template/common/layout/reo-veo*.otp
-%{ooodir}/share/template/common/layout/schatten_*.otp
-%{ooodir}/share/template/common/layout/science-*.otp
-%{ooodir}/share/template/common/layout/sedi.otp
-%{ooodir}/share/template/common/layout/standard-*.otp
-%{ooodir}/share/template/common/layout/sun.otp
-%{ooodir}/share/template/common/layout/texture-*.jpg.otp
-%{ooodir}/share/template/common/layout/vortrag_*.otp
-%{ooodir}/share/template/common/misc
-%{ooodir}/share/template/common/officorr
-%{ooodir}/share/template/common/offimisc
-%{ooodir}/share/template/common/personal
-%{ooodir}/share/template/common/presnt
-
-%files templates-cs
-%{ooodir}/share/template/cs
-
-%files templates-de
-%{ooodir}/share/template/de
-%{ooodir}/share/extensions/Sun_ODF_Template_Pack_de
-
-%files templates-en_US
-%{ooodir}/share/template/en-US
-%{ooodir}/share/extensions/Sun_ODF_Template_Pack_en-US
-
-%files templates-es
-%{ooodir}/share/template/es
-%{ooodir}/share/extensions/Sun_ODF_Template_Pack_es
-
-%files templates-fi
-%{ooodir}/share/template/fi
-
-%files templates-fr
-%{ooodir}/share/template/fr
-%{ooodir}/share/extensions/Sun_ODF_Template_Pack_fr
-
-%files templates-hu
-%{ooodir}/share/template/hu
-%{ooodir}/share/extensions/Sun_ODF_Template_Pack_hu
-
-%files templates-it
-%{ooodir}/share/template/it
-%{ooodir}/share/extensions/Sun_ODF_Template_Pack_it
-
-%files templates-ja
-%{ooodir}/share/template/ja
-
-%files templates-nl
-%{ooodir}/share/template/nl
-
-%files templates-pl
-%{ooodir}/share/template/pl
-
-%files templates-pt_BR
-%{ooodir}/share/template/pt-BR
-
-%files templates-sv
-%{ooodir}/share/template/sv
-
-%files templates-tr
-%{ooodir}/share/template/tr
-
-%files templates-zh_CN
-%{ooodir}/share/template/zh-CN
+%endif
