@@ -3546,13 +3546,14 @@ sed -i -e '/gallery\/sg[0-9]*\..*/d' file-lists/gallery_list.txt
 
 ## merge en-US with common
 cat file-lists/lang_en_US_list.txt >> file-lists/common_list.txt
-sort -u file-lists/common_list.txt >  file-lists/common_list.uniq.sorted.txt
-cat file-lists/common_list.uniq.sorted.txt >>file-lists/core_list.txt
-
-# merge dtd with common
+## merge dtd with common
 cat file-lists/dtd_list.txt >> file-lists/common_list.txt
 sort -u file-lists/common_list.txt >  file-lists/common_list.uniq.sorted.txt
 cat file-lists/common_list.uniq.sorted.txt >>file-lists/core_list.txt
+
+## make sure we don't have duplicate files in core
+sort -u file-lists/core_list.txt > file-lists/core_list.uniq.sorted.txt
+cat file-lists/core_list.uniq.sorted.txt > file-lists/core_list.txt
 
 # %%files for help-* and l10n-* packages
 %if %{with l10n}
