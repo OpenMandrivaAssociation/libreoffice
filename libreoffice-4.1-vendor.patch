@@ -5,7 +5,7 @@
  
      if test "$SPLIT_OPT_FEATURES" = "YES" ; then
 -        if test "z$OOO_VENDOR" = "zMandriva" ; then
-+        if test "z$OOO_VENDOR" = "zROSA" ; then
++        if test "z$OOO_VENDOR" = "zOpenMandriva" ; then
              merge_flists gid_Module_Optional_Grfflt            $FILELISTSDIR/draw_list.txt
              merge_flists gid_Module_Optional_Headless          $FILELISTSDIR/common_list.txt
              merge_flists gid_Module_Optional_Pymailmerge       $FILELISTSDIR/pyuno_list.txt
@@ -14,7 +14,7 @@
      for lang in `echo $WITH_LANG_LIST | sed -e s/-/_/g`; do
          lang_lists=
 -        if test "$OOO_VENDOR" = "Mandriva" -o \( "$OOO_VENDOR" = "SUSE" -a "$SPLIT_APP_MODULES" = "YES" \) ; then
-+        if test "$OOO_VENDOR" = "ROSA" -o \( "$OOO_VENDOR" = "SUSE" -a "$SPLIT_APP_MODULES" = "YES" \) ; then
++        if test "$OOO_VENDOR" = "OpenMandriva" -o \( "$OOO_VENDOR" = "SUSE" -a "$SPLIT_APP_MODULES" = "YES" \) ; then
              test -f gid_Module_Langpack_Basis_$lang     && lang_lists="$lang_lists gid_Module_Langpack_Basis_$lang" || :
              test -f gid_Module_Langpack_Brand_$lang     && lang_lists="$lang_lists gid_Module_Langpack_Brand_$lang" || :
              test -f gid_Module_Langpack_Resource_$lang  && lang_lists="$lang_lists gid_Module_Langpack_Resource_$lang" || :
@@ -23,7 +23,7 @@
          # some help files are in _Langpack_{Writer,Impress,...}_<lang>
          # move them from -l10n to -help
 -        if test "$OOO_VENDOR" = "Mandriva" -o \( "$OOO_VENDOR" = "SUSE" -a "$SPLIT_APP_MODULES" = "YES" \) ; then
-+        if test "$OOO_VENDOR" = "ROSA" -o \( "$OOO_VENDOR" = "SUSE" -a "$SPLIT_APP_MODULES" = "YES" \) ; then
++        if test "$OOO_VENDOR" = "OpenMandriva" -o \( "$OOO_VENDOR" = "SUSE" -a "$SPLIT_APP_MODULES" = "YES" \) ; then
              for lang in `echo $WITH_LANG_LIST | sed -e s/-/_/g`; do
                  test -f $FILELISTSDIR/help_${lang}_list.txt || continue;
                  mv_file_between_flists $FILELISTSDIR/help_${lang}_list.txt $FILELISTSDIR/lang_${lang}_list.txt $INSTALLDIR/help/.*
@@ -32,7 +32,7 @@
      # mailmerge
      if test "$SPLIT_OPT_FEATURES" = "YES" ; then
 -        if test "z$OOO_VENDOR" = "zMandriva" ; then
-+        if test "z$OOO_VENDOR" = "zROSA" ; then
++        if test "z$OOO_VENDOR" = "zOpenMandriva" ; then
              flist=pyuno_list.txt
          else
              flist=mailmerge_list.txt
@@ -42,8 +42,8 @@
  
 -    # Mandriva packaging
 -    if test "$OOO_VENDOR" = "Mandriva"; then
-+    # ROSA packaging
-+    if test "$OOO_VENDOR" = "ROSA"; then
++    # OpenMandriva packaging
++    if test "$OOO_VENDOR" = "OpenMandriva"; then
          # Not used
          remove_file common_list.txt $INSTALLDIR/share/gallery/htmltheme.orig
          remove_file common_list.txt $INSTALLDIR/share/dict/ooo/dictionary.lst

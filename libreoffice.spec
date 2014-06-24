@@ -23,7 +23,7 @@
 %define devurl		http://dev-www.libreoffice.org/ooo_external
 %define srcurl		http://dev-www.libreoffice.org/src/
 %define oxyurl		http://ooo.itc.hu/oxygenoffice/download/libreoffice/
-%define distroname	ROSA
+%define distroname	OpenMandriva
 %define ooname		libreoffice
 %define buildver	%{version}.2
 %define ooodir		%{_libdir}/libreoffice
@@ -116,7 +116,7 @@ Patch3:		libreoffice-4.2.1-non-fatal-test-failures.patch
 # Impress is known to crash when adding effects (segfault is triggered by 15x18 scrollbar)
 Patch51:	libreoffice-4.2.5.2-impress-kde-crash-hack.patch
 
-# ROSA vendor patch
+# OpenMandriva vendor patch
 Patch100:	libreoffice-4.1-vendor.patch
 Patch101:	libreoffice-4.2.5.2-desktop-categories.patch
 
@@ -3294,8 +3294,8 @@ echo "Configure start at: "`date` >> ooobuildtime.log
 touch autogen.lastrun
 %configure2_5x \
 	%{?_smp_mflags:--with-parallelism="`getconf _NPROCESSORS_ONLN`"} \
-	--with-vendor=ROSA \
-	--with-build-version="ROSA %{version}-%{release}" \
+	--with-vendor=OpenMandriva \
+	--with-build-version="OpenMandriva %{version}-%{release}" \
 	--disable-fetch-external \
 	--enable-gstreamer-0.10 \
 	--disable-gstreamer \
