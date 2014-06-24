@@ -23,7 +23,7 @@
 %define devurl		http://dev-www.libreoffice.org/ooo_external
 %define srcurl		http://dev-www.libreoffice.org/src/
 %define oxyurl		http://ooo.itc.hu/oxygenoffice/download/libreoffice/
-%define distroname	OpenMandriva
+%define distroname	ROSA
 %define ooname		libreoffice
 %define buildver	%{version}.2
 %define ooodir		%{_libdir}/libreoffice
@@ -342,10 +342,15 @@ Requires:	sane-backends
 # Requires:	paper-utils
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	update-alternatives
-# Upstream merged in 4.1.1
+# Upstream merged
+Conflicts:	%{name}-core < %{EVRD}
 Obsoletes:	%{name}-core < %{EVRD}
+Conflicts:	%{name}-java-common < %{EVRD}
 Obsoletes:	%{name}-java-common < %{EVRD}
+Conflicts:	%{name}-dtd-officedocument1.0 < %{EVRD}
 Obsoletes:	%{name}-dtd-officedocument1.0 < %{EVRD}
+Conflicts:	%{name}-extension-xsltfilter < %{EVRD}
+Obsoletes:	%{name}-extension-xsltfilter < %{EVRD}
 
 %description common
 This package contains the application-independent files of LibreOffice.
@@ -494,20 +499,6 @@ KDE4/Qt4.x and a KDEish File Picker when running under KDE4.
 
 #----------------------------------------------------------------------------
 
-%package mailmerge
-Summary:	Tool for mailing a LibreOffice document to a database of addresses
-Group:		Office
-Requires:	%{name}-writer = %{EVRD}
-Requires:	%{name}-calc = %{EVRD}
-Requires:	%{name}-base = %{EVRD}
-
-%description mailmerge
-Tool for mailing a LibreOffice document to a database of addresses.
-
-%files mailmerge -f file-lists/mailmerge_list.txt
-
-#----------------------------------------------------------------------------
-
 %package math
 Summary:	LibreOffice office suite - equation editor
 Group:		Office
@@ -562,6 +553,8 @@ and sounds.
 Summary:	Python bindings for UNO library
 Group:		Office
 Requires:	%{name}-common = %{EVRD}
+Conflicts:	%{name}-mailmerge < %{EVRD}
+Obsoletes:	%{name}-mailmerge < %{EVRD}
 
 %description pyuno
 This package contains the Python bindings for the UNO library.
@@ -850,22 +843,6 @@ its values.
 
 %files extension-watchwindow
 %{ooodir}/share/extensions/WatchWindow
-
-#----------------------------------------------------------------------------
-
-%package extension-xsltfilter
-Summary:	XSLT based export filters for XHTML and Docbook formats
-Group:		Office
-Requires:	%{name}-common = %{EVRD}
-
-%description extension-xsltfilter
-XSLT based export filters for XHTML and Docbook formats.
-
-%files extension-xsltfilter -f file-lists/dtd_list.txt
-%{ooodir}/share/registry/xsltfilter.xcd
-%{ooodir}/share/xslt/docbook
-%{ooodir}/share/xslt/export/xhtml
-%{_datadir}/applications/libreoffice-xsltfilter.desktop
 
 #----------------------------------------------------------------------------
 
@@ -3317,8 +3294,8 @@ echo "Configure start at: "`date` >> ooobuildtime.log
 touch autogen.lastrun
 %configure2_5x \
 	%{?_smp_mflags:--with-parallelism="`getconf _NPROCESSORS_ONLN`"} \
-	--with-vendor=OpenMandriva \
-	--with-build-version="OpenMandriva %{version}-%{release}" \
+	--with-vendor=ROSA \
+	--with-build-version="ROSA %{version}-%{release}" \
 	--disable-fetch-external \
 	--enable-gstreamer-0.10 \
 	--disable-gstreamer \
@@ -3330,7 +3307,7 @@ touch autogen.lastrun
 	--enable-eot \
 	--enable-odk \
 	--enable-split-app-modules \
-  	--enable-split-opt-features \
+	--enable-split-opt-features \
 	--enable-telepathy \
 	--enable-extra-gallery \
 	--enable-extra-template \
@@ -3569,7 +3546,12 @@ sed -i -e '/gallery\/sg[0-9]*\..*/d' file-lists/gallery_list.txt
 
 ## merge en-US with common
 cat file-lists/lang_en_US_list.txt >> file-lists/common_list.txt
-sort -u file-lists/common_list.txt >  file-lists/common_list.uniq.sorted.txt 
+sort -u file-lists/common_list.txt >  file-lists/common_list.uniq.sorted.txt
+cat file-lists/common_list.uniq.sorted.txt >>file-lists/core_list.txt
+
+# merge dtd with common
+cat file-lists/dtd_list.txt >> file-lists/common_list.txt
+sort -u file-lists/common_list.txt >  file-lists/common_list.uniq.sorted.txt
 cat file-lists/common_list.uniq.sorted.txt >>file-lists/core_list.txt
 
 # %%files for help-* and l10n-* packages
