@@ -721,7 +721,7 @@ LibreOffice Import/Export filter for Google Docs.
 #----------------------------------------------------------------------------
 
 %package extension-hunart
-Summary:	Hungarian cross-reference toolbar extension for LibreOffice.
+Summary:	Hungarian cross-reference toolbar extension for LibreOffice
 Group:		Office
 Requires:	%{name}-common = %{EVRD}
 
