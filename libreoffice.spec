@@ -207,7 +207,7 @@ BuildRequires:	pkgconfig(libixion-0.6)
 BuildRequires:	pkgconfig(liblangtag)
 BuildRequires:	pkgconfig(libmspub-0.1)
 BuildRequires:	pkgconfig(libmwaw-0.3)
-BuildRequires:	pkgconfig(libodfgen-0.0) >= 0.0.3
+BuildRequires:	pkgconfig(libodfgen-0.1)
 BuildRequires:	pkgconfig(liborcus-0.6)
 BuildRequires:	pkgconfig(librevenge-0.0)
 BuildRequires:	pkgconfig(librsvg-2.0)
