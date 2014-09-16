@@ -44,11 +44,11 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	4.2.5
+Version:	4.3.1
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
-Release:	2
+Release:	1
 %endif
 Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
@@ -105,7 +105,7 @@ Patch2:		help-images-mdv64789.patch
 # be something wrong with the unit tests rather than the code being
 # tested (failures while loading libraries -- probably looking for a
 # pre-existing installation of the same LO version)
-Patch3:		libreoffice-4.2.1-non-fatal-test-failures.patch
+#Patch3:		libreoffice-4.2.1-non-fatal-test-failures.patch
 
 # Force Qt4 event loops because with glib event loops libreoffice-kde4 doesn't
 # work well
@@ -117,7 +117,7 @@ Patch3:		libreoffice-4.2.1-non-fatal-test-failures.patch
 Patch51:	libreoffice-4.2.5.2-impress-kde-crash-hack.patch
 
 # OpenMandriva vendor patch
-Patch100:	libreoffice-4.1-vendor.patch
+#Patch100:	libreoffice-4.1-vendor.patch
 Patch101:	libreoffice-4.2.5.2-desktop-categories.patch
 
 # Other bugfix patches, including upstream
@@ -163,9 +163,9 @@ BuildRequires:	cups-devel
 BuildRequires:	hyphen-devel
 BuildRequires:	java-devel
 BuildRequires:	kdelibs4-devel
-BuildRequires:	libwpd-devel >= 0.9.0
-BuildRequires:	libwpg-devel
-BuildRequires:	libwps-devel
+BuildRequires:	pkgconfig(libwpd-0.10)
+BuildRequires:	pkgconfig(libwpg-0.3)
+BuildRequires:	pkgconfig(libwps-0.3)
 BuildRequires:	lpsolve-devel
 BuildRequires:	nas-devel
 BuildRequires:	openldap-devel
@@ -179,8 +179,8 @@ BuildRequires:	pkgconfig(bluez)
 BuildRequires:	pkgconfig(cppunit)
 BuildRequires:	pkgconfig(dbus-1)
 BuildRequires:	pkgconfig(expat)
-BuildRequires:	pkgconfig(libetonyek-0.0)
-BuildRequires:	pkgconfig(libfreehand-0.0)
+BuildRequires:	pkgconfig(libetonyek-0.1)
+BuildRequires:	pkgconfig(libfreehand-0.1)
 BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	pkgconfig(gconf-2.0)
 BuildRequires:	pkgconfig(glitz)
@@ -195,25 +195,26 @@ BuildRequires:	pkgconfig(gtk+-2.0)
 BuildRequires:	pkgconfig(hunspell)
 BuildRequires:	pkgconfig(icu-le)
 BuildRequires:	pkgconfig(lcms2)
-BuildRequires:	pkgconfig(libabw-0.0)
+BuildRequires:	pkgconfig(libabw-0.1)
 BuildRequires:	pkgconfig(libclucene-core)
 BuildRequires:	pkgconfig(libcmis-0.4)
 BuildRequires:	pkgconfig(libcurl)
-BuildRequires:	pkgconfig(libcdr-0.0)
-BuildRequires:	pkgconfig(libe-book-0.0)
+BuildRequires:	pkgconfig(libcdr-0.1)
+BuildRequires:	pkgconfig(libe-book-0.1)
 BuildRequires:	pkgconfig(libeot)
 BuildRequires:	pkgconfig(libexttextcat)
 BuildRequires:	pkgconfig(libixion-0.6)
 BuildRequires:	pkgconfig(liblangtag)
-BuildRequires:	pkgconfig(libmspub-0.0)
-BuildRequires:	pkgconfig(libmwaw-0.2)
+BuildRequires:	pkgconfig(libmspub-0.1)
+BuildRequires:	pkgconfig(libmwaw-0.3)
 BuildRequires:	pkgconfig(libodfgen-0.0) >= 0.0.3
 BuildRequires:	pkgconfig(liborcus-0.6)
+BuildRequires:	pkgconfig(librevenge-0.0)
 BuildRequires:	pkgconfig(librsvg-2.0)
 BuildRequires:	pkgconfig(libstartup-notification-1.0)
 BuildRequires:	pkgconfig(libsvg)
 BuildRequires:	pkgconfig(libucpp)
-BuildRequires:	pkgconfig(libvisio-0.0)
+BuildRequires:	pkgconfig(libvisio-0.1)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(libxslt)
 BuildRequires:	pkgconfig(libxul)

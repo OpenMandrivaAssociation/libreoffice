@@ -20,7 +20,7 @@ diff -Naur libreoffice-4.2.5.2.orig/sysui/desktop/menus/calc.desktop libreoffice
 -Categories=Office;Spreadsheet;X-Red-Hat-Base;X-MandrivaLinux-Office-Spreadsheets;
 +Categories=Office;Spreadsheet;
  Exec=${UNIXBASISROOTNAME} --calc %%FILE%%
- MimeType=application/vnd.oasis.opendocument.spreadsheet;application/vnd.oasis.opendocument.spreadsheet-template;application/vnd.sun.xml.calc;application/vnd.sun.xml.calc.template;application/msexcel;application/vnd.ms-excel;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;application/vnd.ms-excel.sheet.macroenabled.12;application/vnd.openxmlformats-officedocument.spreadsheetml.template;application/vnd.ms-excel.template.macroenabled.12;application/vnd.ms-excel.sheet.binary.macroenabled.12;text/csv;application/x-dbf;text/spreadsheet;application/csv;application/excel;application/tab-separated-values;application/vnd.lotus-1-2-3;application/vnd.oasis.opendocument.chart;application/vnd.oasis.opendocument.chart-template;application/x-dbase;application/x-dos_ms_excel;application/x-excel;application/x-msexcel;application/x-ms-excel;application/x-quattropro;application/x-123;text/comma-separated-values;text/tab-separated-values;text/x-comma-separated-values;text/x-csv;application/vnd.oasis.opendocument.spreadsheet-flat-xml;
+ MimeType=application/vnd.oasis.opendocument.spreadsheet;application/vnd.oasis.opendocument.spreadsheet-template;application/vnd.sun.xml.calc;application/vnd.sun.xml.calc.template;application/msexcel;application/vnd.ms-excel;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;application/vnd.ms-excel.sheet.macroenabled.12;application/vnd.openxmlformats-officedocument.spreadsheetml.template;application/vnd.ms-excel.template.macroenabled.12;application/vnd.ms-excel.sheet.binary.macroenabled.12;text/csv;application/x-dbf;text/spreadsheet;application/csv;application/excel;application/tab-separated-values;application/vnd.lotus-1-2-3;application/vnd.oasis.opendocument.chart;application/vnd.oasis.opendocument.chart-template;application/x-dbase;application/x-dos_ms_excel;application/x-excel;application/x-msexcel;application/x-ms-excel;application/x-quattropro;application/x-123;text/comma-separated-values;text/tab-separated-values;text/x-comma-separated-values;text/x-csv;application/vnd.oasis.opendocument.spreadsheet-flat-xml;application/vnd.ms-works;application/clarisworks;
  Name=%PRODUCTNAME Calc
 diff -Naur libreoffice-4.2.5.2.orig/sysui/desktop/menus/draw.desktop libreoffice-4.2.5.2/sysui/desktop/menus/draw.desktop
 --- libreoffice-4.2.5.2.orig/sysui/desktop/menus/draw.desktop	2014-06-12 12:25:19.000000000 +0400
@@ -32,7 +32,7 @@ diff -Naur libreoffice-4.2.5.2.orig/sysui/desktop/menus/draw.desktop libreoffice
 -Categories=Office;FlowChart;Graphics;2DGraphics;VectorGraphics;X-Red-Hat-Base;X-MandrivaLinux-Office-Drawing;
 +Categories=Office;FlowChart;
  Exec=${UNIXBASISROOTNAME} --draw %%FILE%%
- MimeType=application/vnd.oasis.opendocument.graphics;application/vnd.oasis.opendocument.graphics-flat-xml;application/vnd.oasis.opendocument.graphics-template;application/vnd.sun.xml.draw;application/vnd.sun.xml.draw.template;application/vnd.visio;application/x-wpg;application/vnd.corel-draw;application/vnd.ms-publisher;image/x-freehand;
+ MimeType=application/vnd.oasis.opendocument.graphics;application/vnd.oasis.opendocument.graphics-flat-xml;application/vnd.oasis.opendocument.graphics-template;application/vnd.sun.xml.draw;application/vnd.sun.xml.draw.template;application/vnd.visio;application/x-wpg;application/vnd.corel-draw;application/vnd.ms-publisher;image/x-freehand;application/clarisworks;
  Name=%PRODUCTNAME Draw
 diff -Naur libreoffice-4.2.5.2.orig/sysui/desktop/menus/impress.desktop libreoffice-4.2.5.2/sysui/desktop/menus/impress.desktop
 --- libreoffice-4.2.5.2.orig/sysui/desktop/menus/impress.desktop	2014-06-12 12:25:19.000000000 +0400
@@ -53,8 +53,8 @@ diff -Naur libreoffice-4.2.5.2.orig/sysui/desktop/menus/math.desktop libreoffice
  NoDisplay=false
  Icon=math
  Type=Application
--Categories=Office;Education;Science;Math;X-Red-Hat-Base;X-MandrivaLinux-Office-Other;
-+Categories=Office;Education;Science;Math;
+-Categories=Office;Spreadsheet;Education;Science;Math;X-Red-Hat-Base;X-MandrivaLinux-Office-Other;
++Categories=Office;Spreadsheet;Education;Science;Math;
  Exec=${UNIXBASISROOTNAME} --math %%FILE%%
  MimeType=application/vnd.oasis.opendocument.formula;application/vnd.sun.xml.math;application/vnd.oasis.opendocument.formula-template;text/mathml;application/mathml+xml;
  Name=%PRODUCTNAME Math
