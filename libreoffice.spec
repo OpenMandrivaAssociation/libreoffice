@@ -3298,6 +3298,8 @@ touch autogen.lastrun
 	%{?_smp_mflags:--with-parallelism="`getconf _NPROCESSORS_ONLN`"} \
 	--with-vendor=OpenMandriva \
 	--with-build-version="OpenMandriva %{version}-%{release}" \
+	--disable-gltf \
+	--disable-coinmp \
 	--disable-fetch-external \
 	--enable-gstreamer-0.10 \
 	--disable-gstreamer \
