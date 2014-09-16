@@ -140,6 +140,7 @@ BuildRequires:	flex
 BuildRequires:	flute
 BuildRequires:	git
 BuildRequires:	gperf
+BuildRequires:	glm-devel
 BuildRequires:	icu
 BuildRequires:	imagemagick
 BuildRequires:	mysql-connector-c++-devel
@@ -208,7 +209,7 @@ BuildRequires:	pkgconfig(liblangtag)
 BuildRequires:	pkgconfig(libmspub-0.1)
 BuildRequires:	pkgconfig(libmwaw-0.3)
 BuildRequires:	pkgconfig(libodfgen-0.1)
-BuildRequires:	pkgconfig(liborcus-0.6)
+BuildRequires:	pkgconfig(liborcus-0.8)
 BuildRequires:	pkgconfig(librevenge-0.0)
 BuildRequires:	pkgconfig(librsvg-2.0)
 BuildRequires:	pkgconfig(libstartup-notification-1.0)
@@ -218,7 +219,7 @@ BuildRequires:	pkgconfig(libvisio-0.1)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(libxslt)
 BuildRequires:	pkgconfig(libxul)
-BuildRequires:	pkgconfig(mdds) >= 0.10.1
+BuildRequires:	pkgconfig(mdds) >= 0.10.3
 BuildRequires:	pkgconfig(mythes)
 BuildRequires:	pkgconfig(neon)
 BuildRequires:	pkgconfig(nspr)
