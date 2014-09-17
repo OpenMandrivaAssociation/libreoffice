@@ -101,11 +101,7 @@ Source1000:	libreoffice.rpmlintrc
 Patch0:		libreoffice-4.1.0.1-non-fatal-error-during-test.patch
 Patch1:		libreoffice-4.2.5-icu-49.patch
 Patch2:		help-images-mdv64789.patch
-# FIXME this is wrong, but seems to be needed for now -- there seems to
-# be something wrong with the unit tests rather than the code being
-# tested (failures while loading libraries -- probably looking for a
-# pre-existing installation of the same LO version)
-#Patch3:		libreoffice-4.2.1-non-fatal-test-failures.patch
+Patch3:		libreoffice-4.3.1-disable-test.patch
 
 # Force Qt4 event loops because with glib event loops libreoffice-kde4 doesn't
 # work well
@@ -121,7 +117,7 @@ Patch51:	libreoffice-4.2.5.2-impress-kde-crash-hack.patch
 Patch101:	libreoffice-4.2.5.2-desktop-categories.patch
 
 # Other bugfix patches, including upstream
-# Patch202:	0001-Resolves-rhbz-968892-force-render-full-grapheme-with.patch
+Patch202:	0001-disable-firebird-unit-test.patch
 
 %if %{with icecream}
 BuildRequires:	icecream
