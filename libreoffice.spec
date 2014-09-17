@@ -113,7 +113,7 @@ Patch3:		libreoffice-4.3.1-disable-test.patch
 Patch51:	libreoffice-4.2.5.2-impress-kde-crash-hack.patch
 
 # OpenMandriva vendor patch
-#Patch100:	libreoffice-4.1-vendor.patch
+Patch100:	libreoffice-4.3.1.2-vendor.patch
 Patch101:	libreoffice-4.2.5.2-desktop-categories.patch
 
 # Other bugfix patches, including upstream

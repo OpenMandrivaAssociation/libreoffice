@@ -1,42 +1,42 @@
---- a/bin/distro-install-file-lists	2013-08-21 15:40:03.000000000 +0400
-+++ b/bin/distro-install-file-lists	2013-09-09 22:09:30.051856888 +0400
-@@ -135,7 +135,7 @@
+--- libreoffice-4.3.1/bin/distro-install-file-lists.orig	2014-09-17 10:24:42.809925355 +0100
++++ libreoffice-4.3.1/bin/distro-install-file-lists	2014-09-17 10:25:08.011923498 +0100
+@@ -136,7 +136,7 @@
      fi
  
-     if test "$SPLIT_OPT_FEATURES" = "YES" ; then
+     if test "$SPLIT_OPT_FEATURES" = "TRUE" ; then
 -        if test "z$OOO_VENDOR" = "zMandriva" ; then
 +        if test "z$OOO_VENDOR" = "zOpenMandriva" ; then
              merge_flists gid_Module_Optional_Grfflt            $FILELISTSDIR/draw_list.txt
              merge_flists gid_Module_Optional_Headless          $FILELISTSDIR/common_list.txt
              merge_flists gid_Module_Optional_Pymailmerge       $FILELISTSDIR/pyuno_list.txt
-@@ -165,7 +165,7 @@
+@@ -166,7 +166,7 @@
      # lang packs
      for lang in `echo $WITH_LANG_LIST | sed -e s/-/_/g`; do
          lang_lists=
--        if test "$OOO_VENDOR" = "Mandriva" -o \( "$OOO_VENDOR" = "SUSE" -a "$SPLIT_APP_MODULES" = "YES" \) ; then
-+        if test "$OOO_VENDOR" = "OpenMandriva" -o \( "$OOO_VENDOR" = "SUSE" -a "$SPLIT_APP_MODULES" = "YES" \) ; then
+-        if test "$OOO_VENDOR" = "Mandriva" -o \( "$OOO_VENDOR" = "SUSE" -a "$SPLIT_APP_MODULES" = "TRUE" \) ; then
++        if test "$OOO_VENDOR" = "OpenMandriva" -o \( "$OOO_VENDOR" = "SUSE" -a "$SPLIT_APP_MODULES" = "TRUE" \) ; then
              test -f gid_Module_Langpack_Basis_$lang     && lang_lists="$lang_lists gid_Module_Langpack_Basis_$lang" || :
              test -f gid_Module_Langpack_Brand_$lang     && lang_lists="$lang_lists gid_Module_Langpack_Brand_$lang" || :
              test -f gid_Module_Langpack_Resource_$lang  && lang_lists="$lang_lists gid_Module_Langpack_Resource_$lang" || :
-@@ -196,7 +196,7 @@
+@@ -197,7 +197,7 @@
          fi
          # some help files are in _Langpack_{Writer,Impress,...}_<lang>
          # move them from -l10n to -help
--        if test "$OOO_VENDOR" = "Mandriva" -o \( "$OOO_VENDOR" = "SUSE" -a "$SPLIT_APP_MODULES" = "YES" \) ; then
-+        if test "$OOO_VENDOR" = "OpenMandriva" -o \( "$OOO_VENDOR" = "SUSE" -a "$SPLIT_APP_MODULES" = "YES" \) ; then
+-        if test "$OOO_VENDOR" = "Mandriva" -o \( "$OOO_VENDOR" = "SUSE" -a "$SPLIT_APP_MODULES" = "TRUE" \) ; then
++        if test "$OOO_VENDOR" = "OpenMandriva" -o \( "$OOO_VENDOR" = "SUSE" -a "$SPLIT_APP_MODULES" = "TRUE" \) ; then
              for lang in `echo $WITH_LANG_LIST | sed -e s/-/_/g`; do
                  test -f $FILELISTSDIR/help_${lang}_list.txt || continue;
                  mv_file_between_flists $FILELISTSDIR/help_${lang}_list.txt $FILELISTSDIR/lang_${lang}_list.txt $INSTALLDIR/help/.*
-@@ -264,7 +264,7 @@
+@@ -265,7 +265,7 @@
  
      # mailmerge
-     if test "$SPLIT_OPT_FEATURES" = "YES" ; then
+     if test "$SPLIT_OPT_FEATURES" = "TRUE" ; then
 -        if test "z$OOO_VENDOR" = "zMandriva" ; then
 +        if test "z$OOO_VENDOR" = "zOpenMandriva" ; then
              flist=pyuno_list.txt
          else
              flist=mailmerge_list.txt
-@@ -295,8 +295,8 @@
+@@ -296,8 +296,8 @@
      fi
  
  
