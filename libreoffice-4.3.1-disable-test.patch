@@ -1,5 +1,5 @@
---- /home/crispin/rpmbuild/BUILD/libreoffice-4.3.1/i18nlangtag/qa/cppunit/test_languagetag.cxx~	2014-09-17 06:49:03.235964739 +0100
-+++ /home/crispin/rpmbuild/BUILD/libreoffice-4.3.1/i18nlangtag/qa/cppunit/test_languagetag.cxx	2014-09-17 06:47:25.115971968 +0100
+--- libreoffice-4.3.1/i18nlangtag/qa/cppunit/test_languagetag.cxx~	2014-09-17 06:49:03.235964739 +0100
++++ libreoffice-4.3.1/i18nlangtag/qa/cppunit/test_languagetag.cxx	2014-09-17 06:47:25.115971968 +0100
 @@ -592,11 +592,11 @@
          OUString aCanonicalized;
          CPPUNIT_ASSERT( LanguageTag::isValidBcp47( "en-US", &aCanonicalized) && aCanonicalized == "en-US" );
