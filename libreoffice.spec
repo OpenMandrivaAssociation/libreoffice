@@ -3247,6 +3247,8 @@ mkdir -p ~/tmp
 chmod 777 ~/tmp
 
 %build
+# path to external tarballs
+EXTSRCDIR=`dirname %{SOURCE0}`
 
 # Workaround for bug http://qa.mandriva.com/show_bug.cgi?id=27771
 # if [ -z $QTDIR ]; then
@@ -3300,6 +3302,7 @@ touch autogen.lastrun
 	--disable-gltf \
 	--disable-coinmp \
 	--disable-fetch-external \
+	--with-external-tar="$EXTSRCDIR" \
 	--enable-gstreamer-0.10 \
 	--disable-gstreamer \
 	--enable-release-build \
@@ -3375,44 +3378,6 @@ echo "Make start at: "`date` >> ooobuildtime.log
 export nodep=TRUE
 export NO_HIDS=TRUE 
 export MAXPROCESS=4 
-
-mkdir -p src
-ln -sf %{SOURCE2} src/
-ln -sf %{SOURCE3} src/
-ln -sf %{SOURCE4} src/
-%if %{javaless}
-ln -sf %{SOURCE30} src/
-ln -sf %{SOURCE31} src/
-ln -sf %{SOURCE32} src/
-ln -sf %{SOURCE33} src/
-%endif
-ln -sf %{SOURCE34} src/
-ln -sf %{SOURCE35} src/
-ln -sf %{SOURCE36} src/
-ln -sf %{SOURCE37} src/
-
-ln -sf %{SOURCE40} src/
-
-ln -sf %{SOURCE50} src/
-ln -sf %{SOURCE51} src/
-ln -sf %{SOURCE52} src/
-ln -sf %{SOURCE53} src/
-ln -sf %{SOURCE54} src/
-ln -sf %{SOURCE55} src/
-ln -sf %{SOURCE56} src/
-ln -sf %{SOURCE57} src/
-ln -sf %{SOURCE58} src/
-ln -sf %{SOURCE59} src/
-ln -sf %{SOURCE60} src/
-ln -sf %{SOURCE61} src/
-ln -sf %{SOURCE62} src/
-ln -sf %{SOURCE63} src/
-ln -sf %{SOURCE64} src/
-ln -sf %{SOURCE65} src/
-ln -sf %{SOURCE66} src/
-ln -sf %{SOURCE67} src/
-
-touch src.downloaded
 
 # (tpg) silent output to reduce memory and free space 
 # We use make build here because the default target is "allandcheck".
