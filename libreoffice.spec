@@ -3325,6 +3325,7 @@ touch autogen.lastrun
 	--with-ant-home="%{antpath}" \
 %else
 	--with-system-hsqldb \
+	--with-jdk-home="%{java_home}" \
 %endif
 	--with-lang="%{langs}" \
 	--without-myspell-dicts \
