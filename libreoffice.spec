@@ -3423,6 +3423,11 @@ sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-base_72/'    %{buildroot}%{ooodir}/sha
 sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-math_72/'    %{buildroot}%{ooodir}/share/xdg/math.desktop  
 sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo_72/'         %{buildroot}%{ooodir}/share/xdg/startcenter.desktop
 
+# ensure links are converted to files
+for app in base calc draw impress math startcenter writer xsltfilter; do
+    cp --remove-destination %{buildroot}%{ooodir}/share/xdg/$app.desktop %{buildroot}%{_datadir}/applications/libreoffice-$app.desktop
+done
+
 # some genius committed commit log files...
 rm %{buildroot}%{ooodir}/share/template/common/svn-commit*.tmp
 
