@@ -118,6 +118,7 @@ Patch101:	libreoffice-4.2.5.2-desktop-categories.patch
 
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
+Patch203:	libreoffice-4.3.1.2-boost1.56.0.patch
 
 %if %{with icecream}
 BuildRequires:	icecream
