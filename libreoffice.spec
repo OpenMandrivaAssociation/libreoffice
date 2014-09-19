@@ -3290,7 +3290,9 @@ export ARCH_FLAGS_CXX="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing 
 export ARCH_FLAGS_OPT="%{optflags} -O2"
 # Workaround for abf builds running out of memory
 export ARCH_FLAGS_CC="$ARCH_FLAGS_CC -g0"
-export ARCH_FLAGS_CXX="$ARCH_FLAGS_CC -g0"
+export ARCH_FLAGS_CXX="$ARCH_FLAGS_CXX -g0"
+export CFLAGS=$ARCH_FLAGS_CC
+export CXXFLAGS=$ARCH_FLAGS_CXX
 
 echo "Configure start at: "`date` >> ooobuildtime.log 
 
