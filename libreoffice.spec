@@ -46,9 +46,9 @@ Name:		libreoffice
 Epoch:		1
 Version:	4.3.1
 %if "%beta" != ""
-Release:	0.%{beta}.1
+Release:	0.%{beta}.2
 %else
-Release:	1
+Release:	2
 %endif
 Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
@@ -119,6 +119,7 @@ Patch101:	libreoffice-4.2.5.2-desktop-categories.patch
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
 Patch203:	libreoffice-4.3.1.2-boost1.56.0.patch
+Patch204:	libreoffice-4.3.1.2-link.patch
 
 %if %{with icecream}
 BuildRequires:	icecream
