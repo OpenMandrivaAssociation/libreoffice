@@ -44,7 +44,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	4.3.1
+Version:	4.3.2
 %if "%beta" != ""
 Release:	0.%{beta}.2
 %else
@@ -66,8 +66,8 @@ Source20:	http://archive.apache.org/dist/ant/binaries/apache-ant-1.8.1-bin.tar.b
 Source30:	%{devurl}/af3c3acf618de6108d65fcdc92b492e1-commons-codec-1.3-src.tar.gz
 Source31:	%{devurl}/2c9b0f83ed5890af02c0df1c1776f39b-commons-httpclient-3.1-src.tar.gz 
 Source32:	%{devurl}/2ae988b339daec234019a7066f96733e-commons-lang-2.3-src.tar.gz 
-Source33:	%{devurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
 %endif
+Source33:	%{devurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
 Source34:	%{devurl}/1f24ab1d39f4a51faf22244c94a6203f-xmlsec1-1.2.14.tar.gz
 Source35:	%{devurl}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
 Source36:	%{devurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
@@ -243,7 +243,6 @@ BuildRequires:	locales-en
 %if !%{javaless}
 BuildRequires:	ant
 BuildRequires:	ant-apache-regexp
-BuildRequires:	hsqldb1.8.0
 BuildRequires:	apache-commons-codec
 BuildRequires:	apache-commons-lang
 BuildRequires:	jakarta-commons-httpclient
@@ -280,10 +279,6 @@ formats, including Microsoft Office.
 Summary:	LibreOffice office suite - database
 Group:		Office
 Requires:	%{name}-common = %{EVRD}
-# Heavy java deps
-%if !%{javaless}
-Requires:	hsqldb1.8.0
-%endif
 
 %description base
 This package contains the database component for LibreOffice.
@@ -3327,9 +3322,9 @@ touch autogen.lastrun
 %if %{javaless}
 	--with-ant-home="%{antpath}" \
 %else
-	--with-system-hsqldb \
 	--with-jdk-home="%{java_home}" \
 %endif
+	--without-system-hsqldb \
 	--with-lang="%{langs}" \
 	--without-myspell-dicts \
 	--with-system-dicts \
