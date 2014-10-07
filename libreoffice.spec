@@ -48,7 +48,7 @@ Version:	4.3.2
 %if "%beta" != ""
 Release:	0.%{beta}.2
 %else
-Release:	2
+Release:	3
 %endif
 Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
@@ -187,7 +187,7 @@ BuildRequires:	pkgconfig(glu)
 BuildRequires:	pkgconfig(gnutls)
 BuildRequires:	pkgconfig(gdk-pixbuf-xlib-2.0)
 BuildRequires:	pkgconfig(graphite2)
-BuildRequires:	pkgconfig(gstreamer-plugins-base-0.10)
+BuildRequires:	pkgconfig(gstreamer-plugins-base-1.0)
 BuildRequires:	pkgconfig(egl)
 BuildRequires:	pkgconfig(glew)
 BuildRequires:	pkgconfig(gtk+-2.0)
@@ -3301,8 +3301,8 @@ touch autogen.lastrun
 	--disable-coinmp \
 	--disable-fetch-external \
 	--with-external-tar="$EXTSRCDIR" \
-	--enable-gstreamer-0.10 \
-	--disable-gstreamer \
+	--enable-gstreamer \
+	--disable-gstreamer-0.10 \
 	--enable-release-build \
 	--disable-kde \
 	--enable-kde4 \
