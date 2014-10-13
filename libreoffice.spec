@@ -3243,6 +3243,9 @@ mkdir -p ~/tmp
 chmod 777 ~/tmp
 
 %build
+# Use linker flags to reduce memory consumption
+%global ldflags %{ldflags} -Wl,--no-keep-memory -Wl,--reduce-memory-overheads
+
 # path to external tarballs
 EXTSRCDIR=`dirname %{SOURCE0}`
 
