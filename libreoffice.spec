@@ -149,7 +149,7 @@ BuildRequires:	perl-Archive-Zip
 BuildRequires:	perl-MDK-Common
 BuildRequires:	perl-HTML-Parser
 BuildRequires:	perl-XML-Twig
-BuildRequires:	python-translate >= 1.9.0
+#BuildRequires:	python-translate >= 1.9.0
 BuildRequires:	servlet3
 BuildRequires:	sharutils
 BuildRequires:	recode
