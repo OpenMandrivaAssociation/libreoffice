@@ -48,7 +48,7 @@ Version:	4.3.2
 %if "%beta" != ""
 Release:	0.%{beta}.2
 %else
-Release:	3
+Release:	4
 %endif
 Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
