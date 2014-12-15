@@ -25,7 +25,7 @@
 %define oxyurl		http://ooo.itc.hu/oxygenoffice/download/libreoffice/
 %define distroname	OpenMandriva
 %define ooname		libreoffice
-%define buildver	%{version}.2
+%define buildver	%{version}.1
 %define ooodir		%{_libdir}/libreoffice
 %define firefox_plugin	libnpsoplugin.so
 %define antpath		%{_builddir}/libreoffice-%{version}/apache-ant-1.8.1
@@ -44,11 +44,11 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	4.3.2
+Version:	4.3.4
 %if "%beta" != ""
 Release:	0.%{beta}.2
 %else
-Release:	4
+Release:	1
 %endif
 Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
@@ -3243,8 +3243,8 @@ mkdir -p ~/tmp
 chmod 777 ~/tmp
 
 %build
-# Use linker flags to reduce memory consumption
-%global ldflags %{ldflags} -Wl,--no-keep-memory -Wl,--reduce-memory-overheads
+# Use linker flags to reduce memory consumption (bfd only)
+#global ldflags %{ldflags} -Wl,--no-keep-memory -Wl,--reduce-memory-overheads
 
 # path to external tarballs
 EXTSRCDIR=`dirname %{SOURCE0}`
