@@ -3242,11 +3242,6 @@ mkdir -p ~/tmp
 chmod 777 ~/tmp
 
 %build
-
-#use gcc for now
-export CC=gcc
-export CXX=g++
-
 # Use linker flags to reduce memory consumption (bfd only)
 #global ldflags %{ldflags} -Wl,--no-keep-memory -Wl,--reduce-memory-overheads
 
