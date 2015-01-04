@@ -44,7 +44,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	4.3.2
+Version:	4.3.5
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
@@ -149,7 +149,7 @@ BuildRequires:	perl-Archive-Zip
 BuildRequires:	perl-MDK-Common
 BuildRequires:	perl-HTML-Parser
 BuildRequires:	perl-XML-Twig
-BuildRequires:	python-translate >= 1.9.0
+#BuildRequires:	python-translate >= 1.9.0
 BuildRequires:	servlet3
 BuildRequires:	sharutils
 BuildRequires:	recode
@@ -187,7 +187,7 @@ BuildRequires:	pkgconfig(glu)
 BuildRequires:	pkgconfig(gnutls)
 BuildRequires:	pkgconfig(gdk-pixbuf-xlib-2.0)
 BuildRequires:	pkgconfig(graphite2)
-BuildRequires:	pkgconfig(gstreamer-plugins-base-0.10)
+BuildRequires:	pkgconfig(gstreamer-plugins-base-1.0)
 BuildRequires:	pkgconfig(egl)
 BuildRequires:	pkgconfig(glew)
 BuildRequires:	pkgconfig(gtk+-2.0)
@@ -202,7 +202,6 @@ BuildRequires:	pkgconfig(libcdr-0.1)
 BuildRequires:	pkgconfig(libe-book-0.1)
 BuildRequires:	pkgconfig(libeot)
 BuildRequires:	pkgconfig(libexttextcat)
-BuildRequires:	pkgconfig(libixion-0.6)
 BuildRequires:	pkgconfig(liblangtag)
 BuildRequires:	pkgconfig(libmspub-0.1)
 BuildRequires:	pkgconfig(libmwaw-0.3)
@@ -3243,6 +3242,9 @@ mkdir -p ~/tmp
 chmod 777 ~/tmp
 
 %build
+# Use linker flags to reduce memory consumption (bfd only)
+#global ldflags %{ldflags} -Wl,--no-keep-memory -Wl,--reduce-memory-overheads
+
 # path to external tarballs
 EXTSRCDIR=`dirname %{SOURCE0}`
 
@@ -3301,8 +3303,8 @@ touch autogen.lastrun
 	--disable-coinmp \
 	--disable-fetch-external \
 	--with-external-tar="$EXTSRCDIR" \
-	--enable-gstreamer-0.10 \
-	--disable-gstreamer \
+	--enable-gstreamer \
+	--disable-gstreamer-0.10 \
 	--enable-release-build \
 	--disable-kde \
 	--enable-kde4 \
@@ -3334,6 +3336,7 @@ touch autogen.lastrun
 	--with-external-thes-dir=%{_datadir}/dict/ooo \
 	--with-system-libs \
 	--with-system-ucpp \
+	--without-system-npapi-headers \
 	--enable-ext-watch-window \
 	--enable-ext-diagram \
 	--enable-ext-validator \
