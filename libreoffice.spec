@@ -25,7 +25,7 @@
 %define oxyurl		http://ooo.itc.hu/oxygenoffice/download/libreoffice/
 %define distroname	OpenMandriva
 %define ooname		libreoffice
-%define buildver	%{version}.2
+%define buildver	%{version}.3
 %define ooodir		%{_libdir}/libreoffice
 %define firefox_plugin	libnpsoplugin.so
 %define antpath		%{_builddir}/libreoffice-%{version}/apache-ant-1.8.1
@@ -44,7 +44,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	4.3.5
+Version:	4.4.0
 %if "%beta" != ""
 Release:	0.%{beta}.2
 %else
@@ -118,8 +118,6 @@ Patch101:	libreoffice-4.2.5.2-desktop-categories.patch
 
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
-Patch203:	libreoffice-4.3.1.2-boost1.56.0.patch
-Patch204:	libreoffice-4.3.1.2-link.patch
 
 %if %{with icecream}
 BuildRequires:	icecream
@@ -204,7 +202,7 @@ BuildRequires:	pkgconfig(libeot)
 BuildRequires:	pkgconfig(libexttextcat)
 BuildRequires:	pkgconfig(liblangtag)
 BuildRequires:	pkgconfig(libmspub-0.1)
-BuildRequires:	pkgconfig(libmwaw-0.3)
+BuildRequires:	pkgconfig(libmwaw-0.3) >= 0.3.4
 BuildRequires:	pkgconfig(libodfgen-0.1)
 BuildRequires:	pkgconfig(liborcus-0.8)
 BuildRequires:	pkgconfig(librevenge-0.0)
