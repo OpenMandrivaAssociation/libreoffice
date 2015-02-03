@@ -584,7 +584,6 @@ MS Windows (tm) and when not using GNOME or KDE. Needs to be manually enabled
 in the LibreOffice option menu.
 
 %files style-galaxy
-%{ooodir}/share/config/images.zip
 %{ooodir}/share/config/images_galaxy.zip
 
 #----------------------------------------------------------------------------
@@ -2988,10 +2987,6 @@ Files used by LibreOffice templates.
 %{ooodir}/share/template/common/layout/texture-*.jpg.otp
 %{ooodir}/share/template/common/layout/vortrag_*.otp
 %{ooodir}/share/template/common/misc
-%{ooodir}/share/template/common/officorr
-%{ooodir}/share/template/common/offimisc
-%{ooodir}/share/template/common/personal
-%{ooodir}/share/template/common/presnt
 
 #----------------------------------------------------------------------------
 
