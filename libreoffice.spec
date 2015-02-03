@@ -2987,6 +2987,10 @@ Files used by LibreOffice templates.
 %{ooodir}/share/template/common/layout/texture-*.jpg.otp
 %{ooodir}/share/template/common/layout/vortrag_*.otp
 %{ooodir}/share/template/common/misc
+%{ooodir}/share/template/common/officorr/dummy_common_templates.txt
+%{ooodir}/share/template/common/offimisc/dummy_common_templates.txt
+%{ooodir}/share/template/common/personal/szivesoldal.otg
+%{ooodir}/share/template/common/presnt/dummy_common_templates.txt
 
 #----------------------------------------------------------------------------
 
