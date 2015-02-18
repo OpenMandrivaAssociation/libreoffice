@@ -48,7 +48,7 @@ Version:	4.4.0
 %if "%beta" != ""
 Release:	0.%{beta}.2
 %else
-Release:	1
+Release:	2
 %endif
 Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
@@ -383,6 +383,8 @@ fi
 Summary:	Java dependent parts of LibreOffice
 Group:		Office
 Requires:	%{name}-common = %{EVRD}
+# (tpg) https://issues.openmandriva.org/show_bug.cgi?id=1056
+Requires:	pentaho-reporting-flow-engine
 
 %description java
 Java dependent parts of LibreOffice.
