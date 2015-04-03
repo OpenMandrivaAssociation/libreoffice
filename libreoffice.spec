@@ -25,7 +25,7 @@
 %define oxyurl		http://ooo.itc.hu/oxygenoffice/download/libreoffice/
 %define distroname	OpenMandriva
 %define ooname		libreoffice
-%define buildver	%{version}.3
+%define buildver	%{version}.2
 %define ooodir		%{_libdir}/libreoffice
 %define firefox_plugin	libnpsoplugin.so
 %define antpath		%{_builddir}/libreoffice-%{version}/apache-ant-1.8.1
@@ -44,11 +44,11 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	4.4.0
+Version:	4.4.2
 %if "%beta" != ""
-Release:	0.%{beta}.2
+Release:	0.%{beta}.1
 %else
-Release:	2
+Release:	1
 %endif
 Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
@@ -102,6 +102,7 @@ Patch0:		libreoffice-4.1.0.1-non-fatal-error-during-test.patch
 Patch1:		libreoffice-4.2.5-icu-49.patch
 Patch2:		help-images-mdv64789.patch
 Patch3:		libreoffice-4.3.1-disable-test.patch
+Patch4:		libreoffice-4.4.2-formatstring.patch
 
 # Force Qt4 event loops because with glib event loops libreoffice-kde4 doesn't
 # work well
