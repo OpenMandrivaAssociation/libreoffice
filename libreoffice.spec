@@ -3310,6 +3310,7 @@ touch autogen.lastrun
 	--disable-kde \
 	--enable-kde4 \
 	--enable-lockdown \
+	--disable-gconf \
 	--enable-opengl \
 	--enable-eot \
 	--enable-odk \
