@@ -44,11 +44,11 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	4.3.6
+Version:	4.4.3
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
-Release:	1.1
+Release:	0.1
 %endif
 Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
@@ -101,7 +101,7 @@ Source1000:	libreoffice.rpmlintrc
 Patch0:		libreoffice-4.1.0.1-non-fatal-error-during-test.patch
 Patch1:		libreoffice-4.2.5-icu-49.patch
 Patch2:		help-images-mdv64789.patch
-Patch3:		libreoffice-4.3.1-disable-test.patch
+Patch4:		libreoffice-4.4.2-formatstring.patch
 
 # Force Qt4 event loops because with glib event loops libreoffice-kde4 doesn't
 # work well
@@ -118,8 +118,7 @@ Patch101:	libreoffice-4.2.5.2-desktop-categories.patch
 
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
-Patch203:	libreoffice-4.3.1.2-boost1.56.0.patch
-Patch204:	libreoffice-4.3.1.2-link.patch
+Patch203:	0002-fix-tubes-build.patch
 
 %if %{with icecream}
 BuildRequires:	icecream
@@ -181,7 +180,6 @@ BuildRequires:	pkgconfig(expat)
 BuildRequires:	pkgconfig(libetonyek-0.1)
 BuildRequires:	pkgconfig(libfreehand-0.1)
 BuildRequires:	pkgconfig(freetype2)
-BuildRequires:	pkgconfig(gconf-2.0)
 BuildRequires:	pkgconfig(glitz)
 BuildRequires:	pkgconfig(glu)
 BuildRequires:	pkgconfig(gnutls)
@@ -196,17 +194,18 @@ BuildRequires:	pkgconfig(icu-le)
 BuildRequires:	pkgconfig(lcms2)
 BuildRequires:	pkgconfig(libabw-0.1)
 BuildRequires:	pkgconfig(libclucene-core)
-BuildRequires:	pkgconfig(libcmis-0.4)
+BuildRequires:	pkgconfig(libcmis-0.5)
 BuildRequires:	pkgconfig(libcurl)
 BuildRequires:	pkgconfig(libcdr-0.1)
 BuildRequires:	pkgconfig(libe-book-0.1)
 BuildRequires:	pkgconfig(libeot)
 BuildRequires:	pkgconfig(libexttextcat)
-BuildRequires:	pkgconfig(liblangtag)
+BuildRequires:	pkgconfig(liblangtag) >= 0.5.4
 BuildRequires:	pkgconfig(libmspub-0.1)
-BuildRequires:	pkgconfig(libmwaw-0.3)
+BuildRequires:	pkgconfig(libmwaw-0.3) >= 0.3.4
 BuildRequires:	pkgconfig(libodfgen-0.1)
 BuildRequires:	pkgconfig(liborcus-0.8)
+BuildRequires:	pkgconfig(libpagemaker-0.0)
 BuildRequires:	pkgconfig(librevenge-0.0)
 BuildRequires:	pkgconfig(librsvg-2.0)
 BuildRequires:	pkgconfig(libstartup-notification-1.0)
@@ -216,7 +215,7 @@ BuildRequires:	pkgconfig(libvisio-0.1)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(libxslt)
 BuildRequires:	pkgconfig(libxul)
-BuildRequires:	pkgconfig(mdds) >= 0.10.3
+BuildRequires:	pkgconfig(mdds) >= 0.11.2
 BuildRequires:	pkgconfig(mythes)
 BuildRequires:	pkgconfig(neon)
 BuildRequires:	pkgconfig(nspr)
@@ -586,7 +585,6 @@ MS Windows (tm) and when not using GNOME or KDE. Needs to be manually enabled
 in the LibreOffice option menu.
 
 %files style-galaxy
-%{ooodir}/share/config/images.zip
 %{ooodir}/share/config/images_galaxy.zip
 
 #----------------------------------------------------------------------------
@@ -2990,10 +2988,10 @@ Files used by LibreOffice templates.
 %{ooodir}/share/template/common/layout/texture-*.jpg.otp
 %{ooodir}/share/template/common/layout/vortrag_*.otp
 %{ooodir}/share/template/common/misc
-%{ooodir}/share/template/common/officorr
-%{ooodir}/share/template/common/offimisc
-%{ooodir}/share/template/common/personal
-%{ooodir}/share/template/common/presnt
+%{ooodir}/share/template/common/officorr/dummy_common_templates.txt
+%{ooodir}/share/template/common/offimisc/dummy_common_templates.txt
+%{ooodir}/share/template/common/personal/szivesoldal.otg
+%{ooodir}/share/template/common/presnt/dummy_common_templates.txt
 
 #----------------------------------------------------------------------------
 
@@ -3311,6 +3309,7 @@ touch autogen.lastrun
 	--disable-kde \
 	--enable-kde4 \
 	--enable-lockdown \
+	--disable-gconf \
 	--enable-opengl \
 	--enable-eot \
 	--enable-odk \
