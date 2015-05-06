@@ -44,7 +44,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	4.4.2
+Version:	4.4.3
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
@@ -101,7 +101,6 @@ Source1000:	libreoffice.rpmlintrc
 Patch0:		libreoffice-4.1.0.1-non-fatal-error-during-test.patch
 Patch1:		libreoffice-4.2.5-icu-49.patch
 Patch2:		help-images-mdv64789.patch
-Patch3:		libreoffice-4.3.1-disable-test.patch
 Patch4:		libreoffice-4.4.2-formatstring.patch
 
 # Force Qt4 event loops because with glib event loops libreoffice-kde4 doesn't
@@ -201,7 +200,7 @@ BuildRequires:	pkgconfig(libcdr-0.1)
 BuildRequires:	pkgconfig(libe-book-0.1)
 BuildRequires:	pkgconfig(libeot)
 BuildRequires:	pkgconfig(libexttextcat)
-BuildRequires:	pkgconfig(liblangtag)
+BuildRequires:	pkgconfig(liblangtag) >= 0.5.4
 BuildRequires:	pkgconfig(libmspub-0.1)
 BuildRequires:	pkgconfig(libmwaw-0.3) >= 0.3.4
 BuildRequires:	pkgconfig(libodfgen-0.1)
@@ -216,7 +215,7 @@ BuildRequires:	pkgconfig(libvisio-0.1)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(libxslt)
 BuildRequires:	pkgconfig(libxul)
-BuildRequires:	pkgconfig(mdds) >= 0.10.3
+BuildRequires:	pkgconfig(mdds) >= 0.11.2
 BuildRequires:	pkgconfig(mythes)
 BuildRequires:	pkgconfig(neon)
 BuildRequires:	pkgconfig(nspr)
