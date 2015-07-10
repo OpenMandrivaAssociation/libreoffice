@@ -44,7 +44,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	4.4.3
+Version:	5.0.0
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
@@ -100,8 +100,7 @@ Source1000:	libreoffice.rpmlintrc
 
 Patch0:		libreoffice-4.1.0.1-non-fatal-error-during-test.patch
 Patch1:		libreoffice-4.2.5-icu-49.patch
-Patch2:		help-images-mdv64789.patch
-Patch4:		libreoffice-4.4.2-formatstring.patch
+#Patch2:		help-images-mdv64789.patch
 
 # Force Qt4 event loops because with glib event loops libreoffice-kde4 doesn't
 # work well
@@ -118,7 +117,6 @@ Patch101:	libreoffice-4.2.5.2-desktop-categories.patch
 
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
-Patch203:	0002-fix-tubes-build.patch
 
 %if %{with icecream}
 BuildRequires:	icecream
@@ -245,7 +243,7 @@ BuildRequires:	apache-commons-codec
 BuildRequires:	apache-commons-lang
 BuildRequires:	jakarta-commons-httpclient
 BuildRequires:	junit
-BuildRequires:	java-1.7.0-openjdk-devel
+BuildRequires:	java-1.8.0-openjdk-devel
 Suggests:	%{name}-java = %{EVRD}
 %endif 
 # STLport-devel 4.5 + private patches are needed
