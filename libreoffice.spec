@@ -25,7 +25,7 @@
 %define oxyurl		http://ooo.itc.hu/oxygenoffice/download/libreoffice/
 %define distroname	OpenMandriva
 %define ooname		libreoffice
-%define buildver	%{version}.2
+%define buildver	%{version}.3
 %define ooodir		%{_libdir}/libreoffice
 %define firefox_plugin	libnpsoplugin.so
 %define antpath		%{_builddir}/libreoffice-%{version}/apache-ant-1.8.1
@@ -44,7 +44,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	4.4.3
+Version:	4.4.4
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
@@ -101,7 +101,6 @@ Source1000:	libreoffice.rpmlintrc
 Patch0:		libreoffice-4.1.0.1-non-fatal-error-during-test.patch
 Patch1:		libreoffice-4.2.5-icu-49.patch
 Patch2:		help-images-mdv64789.patch
-Patch4:		libreoffice-4.4.2-formatstring.patch
 
 # Force Qt4 event loops because with glib event loops libreoffice-kde4 doesn't
 # work well
