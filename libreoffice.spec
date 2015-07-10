@@ -161,7 +161,7 @@ BuildRequires:	java-devel
 BuildRequires:	kdelibs4-devel
 BuildRequires:	pkgconfig(libwpd-0.10)
 BuildRequires:	pkgconfig(libwpg-0.3)
-BuildRequires:	pkgconfig(libwps-0.3)
+BuildRequires:	pkgconfig(libwps-0.4)
 BuildRequires:	lpsolve-devel
 BuildRequires:	nas-devel
 BuildRequires:	openldap-devel
@@ -200,7 +200,7 @@ BuildRequires:	pkgconfig(libeot)
 BuildRequires:	pkgconfig(libexttextcat)
 BuildRequires:	pkgconfig(liblangtag) >= 0.5.4
 BuildRequires:	pkgconfig(libmspub-0.1)
-BuildRequires:	pkgconfig(libmwaw-0.3) >= 0.3.4
+BuildRequires:	pkgconfig(libmwaw-0.3) >= 0.3.5
 BuildRequires:	pkgconfig(libodfgen-0.1)
 BuildRequires:	pkgconfig(liborcus-0.8)
 BuildRequires:	pkgconfig(libpagemaker-0.0)
@@ -213,7 +213,7 @@ BuildRequires:	pkgconfig(libvisio-0.1)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(libxslt)
 BuildRequires:	pkgconfig(libxul)
-BuildRequires:	pkgconfig(mdds) >= 0.11.2
+BuildRequires:	pkgconfig(mdds) >= 0.12.1
 BuildRequires:	pkgconfig(mythes)
 BuildRequires:	pkgconfig(neon)
 BuildRequires:	pkgconfig(nspr)
