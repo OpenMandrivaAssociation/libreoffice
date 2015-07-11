@@ -3243,6 +3243,9 @@ chmod 777 ~/tmp
 # Use linker flags to reduce memory consumption (bfd only)
 #global ldflags %{ldflags} -Wl,--no-keep-memory -Wl,--reduce-memory-overheads
 
+export CC=gcc
+export CXX=g++
+
 # path to external tarballs
 EXTSRCDIR=`dirname %{SOURCE0}`
 
