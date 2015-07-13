@@ -174,6 +174,7 @@ BuildRequires:	vigra-devel
 BuildRequires:	pkgconfig(bluez)
 BuildRequires:	pkgconfig(cppunit)
 BuildRequires:	pkgconfig(dbus-1)
+BuildRequires:	pkgconfig(dbus-glib-1)
 BuildRequires:	pkgconfig(expat)
 BuildRequires:	pkgconfig(libetonyek-0.1)
 BuildRequires:	pkgconfig(libfreehand-0.1)
