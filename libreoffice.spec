@@ -228,7 +228,6 @@ BuildRequires:	pkgconfig(rasqal)
 BuildRequires:	pkgconfig(redland)
 BuildRequires:	pkgconfig(sane-backends)
 BuildRequires:	pkgconfig(sndfile)
-BuildRequires:	pkgconfig(telepathy-glib)
 BuildRequires:	pkgconfig(xaw7)
 BuildRequires:	pkgconfig(xmlsec1)
 BuildRequires:	pkgconfig(xpm)
@@ -3316,7 +3315,6 @@ touch autogen.lastrun
 	--enable-odk \
 	--enable-split-app-modules \
 	--enable-split-opt-features \
-	--enable-telepathy \
 	--enable-extra-gallery \
 	--enable-extra-template \
 	--with-sun-templates \
