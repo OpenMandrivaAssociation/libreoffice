@@ -2,6 +2,7 @@
 %define debug_package %{nil}
 %define _binary_payload w1.xzdio
 %define _source_payload w1.xzdio
+%define _disable_lto 1
 
 %bcond_without l10n
 %bcond_with icecream
@@ -99,7 +100,6 @@ Source67:	%{oxyurl}b33775feda3bcf823cad7ac361fd49a6-Sun-ODF-Template-Pack-it_1.0
 Source1000:	libreoffice.rpmlintrc
 
 Patch0:		libreoffice-4.1.0.1-non-fatal-error-during-test.patch
-Patch1:		libreoffice-4.2.5-icu-49.patch
 #Patch2:		help-images-mdv64789.patch
 
 # Force Qt4 event loops because with glib event loops libreoffice-kde4 doesn't
