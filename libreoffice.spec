@@ -236,6 +236,8 @@ BuildRequires:	pkgconfig(xtst)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	db-devel
 BuildRequires:	locales-en
+# required for unit tests
+BuildRequires:	fonts-ttf-liberation
 %if !%{javaless}
 BuildRequires:	ant
 BuildRequires:	ant-apache-regexp
