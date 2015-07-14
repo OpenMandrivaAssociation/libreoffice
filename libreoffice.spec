@@ -118,6 +118,9 @@ Patch101:	libreoffice-4.2.5.2-desktop-categories.patch
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
 
+# fixes bad return code check with icu55, causing many xml parse errors
+Patch203:	libreoffice-5.0.0.3-icu55.patch
+
 %if %{with icecream}
 BuildRequires:	icecream
 %endif
