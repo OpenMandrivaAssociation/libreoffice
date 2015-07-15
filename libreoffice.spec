@@ -562,20 +562,6 @@ This package contains the Python bindings for the UNO library.
 
 #----------------------------------------------------------------------------
 
-%package style-crystal
-Summary:	Crystal symbol style for LibreOffice
-Group:		Office
-Requires:	%{name}-common = %{EVRD}
-Provides:	%{name}-style = %{EVRD}
-
-%description style-crystal
-This package contains the "crystal" symbol style, default style for KDE.
-
-%files style-crystal
-%{ooodir}/share/config/images_crystal.zip
-
-#----------------------------------------------------------------------------
-
 %package style-galaxy
 Summary:	Default symbol style for LibreOffice
 Group:		Office
@@ -3505,7 +3491,7 @@ sort -u file-lists/sdk_list.txt   > file-lists/sdk_list.uniq.sorted.txt
 sed -i -e 's/\[/?/g;s/\]/?/g' file-lists/sdk*.txt
 
 ## styles have their own packages
-for i in oxygen galaxy crystal hicontrast tango; do
+for i in oxygen galaxy hicontrast tango; do
 	sed -i "/^.*images_$i\.zip$/d" file-lists/common_list.txt 
 done
 # galaxy style too
