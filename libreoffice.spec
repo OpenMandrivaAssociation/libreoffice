@@ -136,6 +136,7 @@ BuildRequires:	ed
 BuildRequires:	firebird-devel
 BuildRequires:	flex
 BuildRequires:	flute
+BuildRequires:	gdb
 BuildRequires:	git
 BuildRequires:	gperf
 BuildRequires:	glm-devel
