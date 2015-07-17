@@ -3377,6 +3377,7 @@ export MAXPROCESS=4
 # (tpg) silent output to reduce memory and free space 
 # We use make build here because the default target is "allandcheck".
 # Checking should go to %check
+ulimit -c unlimited
 
 make -r -s V=0 \
 	ARCH_FLAGS="$ARCH_FLAGS" \
