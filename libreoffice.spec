@@ -49,7 +49,7 @@ Version:	5.0.0
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
-Release:	3
+Release:	4
 %endif
 Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
