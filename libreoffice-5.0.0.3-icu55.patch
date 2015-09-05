@@ -1,0 +1,11 @@
+--- libreoffice-5.0.0.3/l10ntools/source/xmlparse.cxx.new	2015-07-14 14:33:00.623617266 +0100
++++ libreoffice-5.0.0.3/l10ntools/source/xmlparse.cxx	2015-07-14 14:35:12.890427753 +0100
+@@ -1144,7 +1144,7 @@
+     icu::UnicodeString sReturn;
+     int32_t nEndPos = 0;
+     int32_t nStartPos = 0;
+-    while( aRegexMatcher.find(nStartPos, nIcuErr) && nIcuErr == U_ZERO_ERROR )
++    while( aRegexMatcher.find(nStartPos, nIcuErr) && !U_FAILURE(nIcuErr) )
+     {
+         nStartPos = aRegexMatcher.start(nIcuErr);
+         if ( nEndPos < nStartPos )
