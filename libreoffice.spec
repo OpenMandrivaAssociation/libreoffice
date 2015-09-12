@@ -121,6 +121,8 @@ Patch202:	0001-disable-firebird-unit-test.patch
 # fixes bad return code check with icu55, causing many xml parse errors
 Patch203:	libreoffice-5.0.0.3-icu55.patch
 
+Patch204:	0001-core-fix-build-with-system-boost-1.59.patch
+
 %if %{with icecream}
 BuildRequires:	icecream
 %endif
