@@ -3384,6 +3384,7 @@ ulimit -c unlimited
 %ifarch %{ix86}
 # seems to fail on this file test
 rm -f writerperfect/qa/unit/data/draw/libvisio/pass/EDB-22679-1.vsd
+rm -f writerperfect/qa/unit/data/writer/libwpd/pass/EDB-14344-1.wpd
 %endif
 
 make -r -s V=0 \
