@@ -10,18 +10,6 @@ diff -Naur libreoffice-4.2.5.2.orig/sysui/desktop/menus/base.desktop libreoffice
  Exec=${UNIXBASISROOTNAME} --base %%FILE%%
  MimeType=application/vnd.oasis.opendocument.database;application/vnd.sun.xml.base;
  Name=%PRODUCTNAME Base
-diff -Naur libreoffice-4.2.5.2.orig/sysui/desktop/menus/calc.desktop libreoffice-4.2.5.2/sysui/desktop/menus/calc.desktop
---- libreoffice-4.2.5.2.orig/sysui/desktop/menus/calc.desktop	2014-06-12 12:25:19.000000000 +0400
-+++ libreoffice-4.2.5.2/sysui/desktop/menus/calc.desktop	2014-06-20 16:47:27.466539805 +0400
-@@ -20,7 +20,7 @@
- Terminal=false
- Icon=calc
- Type=Application
--Categories=Office;Spreadsheet;X-Red-Hat-Base;X-MandrivaLinux-Office-Spreadsheets;
-+Categories=Office;Spreadsheet;
- Exec=${UNIXBASISROOTNAME} --calc %%FILE%%
- MimeType=application/vnd.oasis.opendocument.spreadsheet;application/vnd.oasis.opendocument.spreadsheet-template;application/vnd.sun.xml.calc;application/vnd.sun.xml.calc.template;application/msexcel;application/vnd.ms-excel;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;application/vnd.ms-excel.sheet.macroenabled.12;application/vnd.openxmlformats-officedocument.spreadsheetml.template;application/vnd.ms-excel.template.macroenabled.12;application/vnd.ms-excel.sheet.binary.macroenabled.12;text/csv;application/x-dbf;text/spreadsheet;application/csv;application/excel;application/tab-separated-values;application/vnd.lotus-1-2-3;application/vnd.oasis.opendocument.chart;application/vnd.oasis.opendocument.chart-template;application/x-dbase;application/x-dos_ms_excel;application/x-excel;application/x-msexcel;application/x-ms-excel;application/x-quattropro;application/x-123;text/comma-separated-values;text/tab-separated-values;text/x-comma-separated-values;text/x-csv;application/vnd.oasis.opendocument.spreadsheet-flat-xml;application/vnd.ms-works;application/clarisworks;
- Name=%PRODUCTNAME Calc
 diff -Naur libreoffice-4.2.5.2.orig/sysui/desktop/menus/draw.desktop libreoffice-4.2.5.2/sysui/desktop/menus/draw.desktop
 --- libreoffice-4.2.5.2.orig/sysui/desktop/menus/draw.desktop  2015-02-01 13:06:06.862430829 +0000
 +++ libreoffice-4.2.5.2/sysui/desktop/menus/draw.desktop        2015-02-02 06:23:16.599698751 +0000
@@ -70,9 +58,8 @@ diff -Naur libreoffice-4.2.5.2.orig/sysui/desktop/menus/startcenter.desktop libr
  Exec=${UNIXBASISROOTNAME} %%FILE%%
  MimeType=application/vnd.openofficeorg.extension;
  Name=%PRODUCTNAME
-diff -Naur libreoffice-4.2.5.2.orig/sysui/desktop/menus/writer.desktop libreoffice-4.2.5.2/sysui/desktop/menus/writer.desktop
---- libreoffice-4.2.5.2.orig/sysui/desktop/menus/writer.desktop        2015-02-01 13:06:06.871430828 +0000
-+++ libreoffice-4.2.5.2/sysui/desktop/menus/writer.desktop      2015-02-02 06:23:22.377698325 +0000
+--- ./sysui/desktop/menus/writer.desktop.orig   2015-07-10 22:20:20.293523475 +0100
++++ ./sysui/desktop/menus/writer.desktop        2015-07-10 22:20:29.510336843 +0100
 @@ -20,7 +20,7 @@
  Terminal=false
  Icon=writer
@@ -80,5 +67,16 @@ diff -Naur libreoffice-4.2.5.2.orig/sysui/desktop/menus/writer.desktop libreoffi
 -Categories=Office;WordProcessor;X-Red-Hat-Base;X-MandrivaLinux-Office-Wordprocessors;
 +Categories=Office;WordProcessor;
  Exec=${UNIXBASISROOTNAME} --writer %%FILE%%
- MimeType=application/vnd.oasis.opendocument.text;application/vnd.oasis.opendocument.text-template;application/vnd.oasis.opendocument.text-web;application/vnd.oasis.opendocument.text-master;application/vnd.oasis.opendocument.text-master-template;application/vnd.sun.xml.writer;application/vnd.sun.xml.writer.template;application/vnd.sun.xml.writer.global;application/msword;application/vnd.ms-word;application/x-doc;application/x-hwp;application/rtf;text/rtf;application/vnd.wordperfect;application/wordperfect;application/vnd.lotus-wordpro;application/vnd.openxmlformats-officedocument.wordprocessingml.document;application/vnd.ms-word.document.macroenabled.12;application/vnd.openxmlformats-officedocument.wordprocessingml.template;application/vnd.ms-word.template.macroenabled.12;application/vnd.ms-works;application/vnd.stardivision.writer-global;application/x-extension-txt;application/x-t602;text/plain;application/vnd.oasis.opendocument.text-flat-xml;application/x-fictionbook+xml;application/macwriteii;application/x-aportisdoc;application/prs.plucker;application/vnd.palm;application/clarisworks;application/x-sony-bbeb;application/x-abiword;
+ MimeType=application/vnd.oasis.opendocument.text;application/vnd.oasis.opendocument.text-template;application/vnd.oasis.opendocument.text-web;application/vnd.oasis.opendocument.text-master;application/vnd.oasis.opendocument.text-master-template;application/vnd.sun.xml.writer;application/vnd.sun.xml.writer.template;application/vnd.sun.xml.writer.global;application/msword;application/vnd.ms-word;application/x-doc;application/x-hwp;application/rtf;text/rtf;application/vnd.wordperfect;application/wordperfect;application/vnd.lotus-wordpro;application/vnd.openxmlformats-officedocument.wordprocessingml.document;application/vnd.ms-word.document.macroenabled.12;application/vnd.openxmlformats-officedocument.wordprocessingml.template;application/vnd.ms-word.template.macroenabled.12;application/vnd.ms-works;application/vnd.stardivision.writer-global;application/x-extension-txt;application/x-t602;text/plain;application/vnd.oasis.opendocument.text-flat-xml;application/x-fictionbook+xml;application/macwriteii;application/x-aportisdoc;application/prs.plucker;application/vnd.palm;application/clarisworks;application/x-sony-bbeb;application/x-abiword;application/x-iwork-pages-sffpages;
  Name=%PRODUCTNAME Writer
+--- ./sysui/desktop/menus/calc.desktop.orig     2015-07-10 22:20:01.158239452 +0100
++++ ./sysui/desktop/menus/calc.desktop  2015-07-10 22:20:11.229801954 +0100
+@@ -20,7 +20,7 @@
+ Terminal=false
+ Icon=calc
+ Type=Application
+-Categories=Office;Spreadsheet;X-Red-Hat-Base;X-MandrivaLinux-Office-Spreadsheets;
++Categories=Office;Spreadsheet;
+ Exec=${UNIXBASISROOTNAME} --calc %%FILE%%
+ MimeType=application/vnd.oasis.opendocument.spreadsheet;application/vnd.oasis.opendocument.spreadsheet-template;application/vnd.sun.xml.calc;application/vnd.sun.xml.calc.template;application/msexcel;application/vnd.ms-excel;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;application/vnd.ms-excel.sheet.macroenabled.12;application/vnd.openxmlformats-officedocument.spreadsheetml.template;application/vnd.ms-excel.template.macroenabled.12;application/vnd.ms-excel.sheet.binary.macroenabled.12;text/csv;application/x-dbf;text/spreadsheet;application/csv;application/excel;application/tab-separated-values;application/vnd.lotus-1-2-3;application/vnd.oasis.opendocument.chart;application/vnd.oasis.opendocument.chart-template;application/x-dbase;application/x-dos_ms_excel;application/x-excel;application/x-msexcel;application/x-ms-excel;application/x-quattropro;application/x-123;text/comma-separated-values;text/tab-separated-values;text/x-comma-separated-values;text/x-csv;application/vnd.oasis.opendocument.spreadsheet-flat-xml;application/vnd.ms-works;application/clarisworks;application/x-iwork-numbers-sffnumbers;
+ Name=%PRODUCTNAME Calc

@@ -1,15 +1,5 @@
 --- libreoffice-4.2.0/xmlhelp/source/cxxhelp/provider/databases.cxx.0002~	2013-12-26 21:26:49.437106220 +0100
 +++ libreoffice-4.2.0/xmlhelp/source/cxxhelp/provider/databases.cxx	2013-12-26 21:50:44.007125053 +0100
-@@ -274,7 +274,7 @@ OString Databases::getImagesZipFileURL()
- 
-             if ( !aSymbolsStyleName.isEmpty() )
-             {
--                if ( aSymbolsStyleName.equalsAscii("auto") )
-+                if ( aSymbolsStyleName.equalsAscii("auto") || aSymbolsStyleName.equalsAscii("default") )
-                 {
-                     OUString const & env = Application::GetDesktopEnvironment();
-                     if ( env.equalsIgnoreAsciiCase("tde") ||
-@@ -290,10 +290,23 @@ OString Databases::getImagesZipFileURL()
                  bFound = impl_getZipFile( m_aImagesZipPaths, aZipName, aImageZip );
              }
  
@@ -30,6 +20,6 @@
 +                bFound = impl_getZipFile( m_aImagesZipPaths, OUString( "images_hicontrast.zip" ), aImageZip );
 +
 +            if ( ! bFound )
-                 aImageZip = "";
+                 aImageZip.clear();
  
              m_aImagesZipFileURL = OUStringToOString(

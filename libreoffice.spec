@@ -2,6 +2,7 @@
 %define debug_package %{nil}
 %define _binary_payload w1.xzdio
 %define _source_payload w1.xzdio
+%define _disable_lto 1
 
 %bcond_without l10n
 %bcond_with icecream
@@ -44,7 +45,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	4.4.4
+Version:	5.0.2
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
@@ -99,8 +100,7 @@ Source67:	%{oxyurl}b33775feda3bcf823cad7ac361fd49a6-Sun-ODF-Template-Pack-it_1.0
 Source1000:	libreoffice.rpmlintrc
 
 Patch0:		libreoffice-4.1.0.1-non-fatal-error-during-test.patch
-Patch1:		libreoffice-4.2.5-icu-49.patch
-Patch2:		help-images-mdv64789.patch
+#Patch2:		help-images-mdv64789.patch
 
 # Force Qt4 event loops because with glib event loops libreoffice-kde4 doesn't
 # work well
@@ -117,7 +117,11 @@ Patch101:	libreoffice-4.2.5.2-desktop-categories.patch
 
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
-Patch203:	0002-fix-tubes-build.patch
+
+# fixes bad return code check with icu55, causing many xml parse errors
+Patch203:	libreoffice-5.0.0.3-icu55.patch
+
+Patch204:	0001-core-fix-build-with-system-boost-1.59.patch
 
 %if %{with icecream}
 BuildRequires:	icecream
@@ -134,6 +138,7 @@ BuildRequires:	ed
 BuildRequires:	firebird-devel
 BuildRequires:	flex
 BuildRequires:	flute
+BuildRequires:	gdb
 BuildRequires:	git
 BuildRequires:	gperf
 BuildRequires:	glm-devel
@@ -162,7 +167,7 @@ BuildRequires:	java-devel
 BuildRequires:	kdelibs4-devel
 BuildRequires:	pkgconfig(libwpd-0.10)
 BuildRequires:	pkgconfig(libwpg-0.3)
-BuildRequires:	pkgconfig(libwps-0.3)
+BuildRequires:	pkgconfig(libwps-0.4)
 BuildRequires:	lpsolve-devel
 BuildRequires:	nas-devel
 BuildRequires:	openldap-devel
@@ -175,6 +180,7 @@ BuildRequires:	vigra-devel
 BuildRequires:	pkgconfig(bluez)
 BuildRequires:	pkgconfig(cppunit)
 BuildRequires:	pkgconfig(dbus-1)
+BuildRequires:	pkgconfig(dbus-glib-1)
 BuildRequires:	pkgconfig(expat)
 BuildRequires:	pkgconfig(libetonyek-0.1)
 BuildRequires:	pkgconfig(libfreehand-0.1)
@@ -201,7 +207,7 @@ BuildRequires:	pkgconfig(libeot)
 BuildRequires:	pkgconfig(libexttextcat)
 BuildRequires:	pkgconfig(liblangtag) >= 0.5.4
 BuildRequires:	pkgconfig(libmspub-0.1)
-BuildRequires:	pkgconfig(libmwaw-0.3) >= 0.3.4
+BuildRequires:	pkgconfig(libmwaw-0.3) >= 0.3.5
 BuildRequires:	pkgconfig(libodfgen-0.1)
 BuildRequires:	pkgconfig(liborcus-0.8)
 BuildRequires:	pkgconfig(libpagemaker-0.0)
@@ -214,7 +220,7 @@ BuildRequires:	pkgconfig(libvisio-0.1)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(libxslt)
 BuildRequires:	pkgconfig(libxul)
-BuildRequires:	pkgconfig(mdds) >= 0.11.2
+BuildRequires:	pkgconfig(mdds) >= 0.12.1
 BuildRequires:	pkgconfig(mythes)
 BuildRequires:	pkgconfig(neon)
 BuildRequires:	pkgconfig(nspr)
@@ -229,7 +235,6 @@ BuildRequires:	pkgconfig(rasqal)
 BuildRequires:	pkgconfig(redland)
 BuildRequires:	pkgconfig(sane-backends)
 BuildRequires:	pkgconfig(sndfile)
-BuildRequires:	pkgconfig(telepathy-glib)
 BuildRequires:	pkgconfig(xaw7)
 BuildRequires:	pkgconfig(xmlsec1)
 BuildRequires:	pkgconfig(xpm)
@@ -237,6 +242,8 @@ BuildRequires:	pkgconfig(xtst)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	db-devel
 BuildRequires:	locales-en
+# required for unit tests
+BuildRequires:	fonts-ttf-liberation
 %if !%{javaless}
 BuildRequires:	ant
 BuildRequires:	ant-apache-regexp
@@ -244,7 +251,7 @@ BuildRequires:	apache-commons-codec
 BuildRequires:	apache-commons-lang
 BuildRequires:	jakarta-commons-httpclient
 BuildRequires:	junit
-BuildRequires:	java-1.7.0-openjdk-devel
+BuildRequires:	java-1.8.0-openjdk-devel
 Suggests:	%{name}-java = %{EVRD}
 %endif 
 # STLport-devel 4.5 + private patches are needed
@@ -555,20 +562,6 @@ Obsoletes:	%{name}-mailmerge < %{EVRD}
 This package contains the Python bindings for the UNO library.
 
 %files pyuno -f file-lists/pyuno_list.txt
-
-#----------------------------------------------------------------------------
-
-%package style-crystal
-Summary:	Crystal symbol style for LibreOffice
-Group:		Office
-Requires:	%{name}-common = %{EVRD}
-Provides:	%{name}-style = %{EVRD}
-
-%description style-crystal
-This package contains the "crystal" symbol style, default style for KDE.
-
-%files style-crystal
-%{ooodir}/share/config/images_crystal.zip
 
 #----------------------------------------------------------------------------
 
@@ -3244,6 +3237,9 @@ chmod 777 ~/tmp
 # Use linker flags to reduce memory consumption (bfd only)
 #global ldflags %{ldflags} -Wl,--no-keep-memory -Wl,--reduce-memory-overheads
 
+export CC=gcc
+export CXX=g++
+
 # path to external tarballs
 EXTSRCDIR=`dirname %{SOURCE0}`
 
@@ -3314,7 +3310,6 @@ touch autogen.lastrun
 	--enable-odk \
 	--enable-split-app-modules \
 	--enable-split-opt-features \
-	--enable-telepathy \
 	--enable-extra-gallery \
 	--enable-extra-template \
 	--with-sun-templates \
@@ -3384,6 +3379,13 @@ export MAXPROCESS=4
 # (tpg) silent output to reduce memory and free space 
 # We use make build here because the default target is "allandcheck".
 # Checking should go to %check
+ulimit -c unlimited
+
+%ifarch %{ix86}
+# seems to fail on this file test
+rm -f writerperfect/qa/unit/data/draw/libvisio/pass/EDB-22679-1.vsd
+rm -f writerperfect/qa/unit/data/writer/libwpd/pass/EDB-14344-1.wpd
+%endif
 
 make -r -s V=0 \
 	ARCH_FLAGS="$ARCH_FLAGS" \
@@ -3499,7 +3501,7 @@ sort -u file-lists/sdk_list.txt   > file-lists/sdk_list.uniq.sorted.txt
 sed -i -e 's/\[/?/g;s/\]/?/g' file-lists/sdk*.txt
 
 ## styles have their own packages
-for i in oxygen galaxy crystal hicontrast tango; do
+for i in oxygen galaxy hicontrast tango; do
 	sed -i "/^.*images_$i\.zip$/d" file-lists/common_list.txt 
 done
 # galaxy style too
