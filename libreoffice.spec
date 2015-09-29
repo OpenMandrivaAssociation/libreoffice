@@ -26,7 +26,7 @@
 %define oxyurl		http://ooo.itc.hu/oxygenoffice/download/libreoffice/
 %define distroname	OpenMandriva
 %define ooname		libreoffice
-%define buildver	%{version}.3
+%define buildver	%{version}.2
 %define ooodir		%{_libdir}/libreoffice
 %define firefox_plugin	libnpsoplugin.so
 %define antpath		%{_builddir}/libreoffice-%{version}/apache-ant-1.8.1
