@@ -28,7 +28,6 @@
 %define ooname		libreoffice
 %define buildver	%{version}.2
 %define ooodir		%{_libdir}/libreoffice
-%define firefox_plugin	libnpsoplugin.so
 %define antpath		%{_builddir}/libreoffice-%{version}/apache-ant-1.8.1
 #define unopkg		%{_bindir}/unopkg
 
@@ -362,25 +361,6 @@ This package contains the application-independent files of LibreOffice.
 %{_mandir}/man1/unopkg.1*
 %{_libdir}/libreoffice/program/classes/ScriptProviderForBeanShell.jar
 %{_libdir}/libreoffice/program/services/scriptproviderforbeanshell.rdb
-
-%post common
-# Firefox plugin
-if [ $1 -gt 1 ]
-then
-  update-alternatives --remove %{firefox_plugin} \
-  %{ooodir}/program/libnpsoplugin.so
-fi
-update-alternatives \
-  --install %{_libdir}/mozilla/plugins/libnpsoplugin.so %{firefox_plugin} \
-  %{ooodir}/program/libnpsoplugin.so 1
-
-%postun common
-# Firefox plugin
-if [ $1 -eq 0 ]
-then
-  update-alternatives --remove %{firefox_plugin} \
-  %{ooodir}/program/libnpsoplugin.so
-fi
 
 #----------------------------------------------------------------------------
 
