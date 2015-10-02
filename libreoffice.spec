@@ -243,6 +243,8 @@ BuildRequires:	db-devel
 BuildRequires:	locales-en
 # required for unit tests
 BuildRequires:	fonts-ttf-liberation
+BuildRequires:	google-crosextra-carlito-fonts
+BuildRequires:	google-crosextra-caladea-fonts
 %if !%{javaless}
 BuildRequires:	ant
 BuildRequires:	ant-apache-regexp
@@ -332,6 +334,8 @@ Suggests:	%{name}-help-en_US = %{EVRD}
 # And then general requires for OOo follows
 Requires:	ghostscript
 Requires:	fonts-ttf-liberation
+Requires:	google-crosextra-carlito-fonts
+Requires:	google-crosextra-caladea-fonts
 Requires:	desktop-common-data >= 2008
 # rpm will automatically grab the require for libsane1, but there are some
 # configs needed at this package, so we must require it too.
