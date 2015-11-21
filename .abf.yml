@@ -5,24 +5,28 @@ removed_sources:
   libreoffice-5.0.0.3.tar.xz: 9f2695de0de5511db256329837980a71e4771f94
   libreoffice-5.0.0.5.tar.xz: cea271241bb4d217962042f523bacbcca16c7efc
   libreoffice-5.0.1.2.tar.xz: 01bb7e97526d097af88ea8a439f99a9e975102f8
+  libreoffice-5.0.2.2.tar.xz: fe9f80a2bf2a8e1e32fbe91b6e6832dab3a55f4b
   libreoffice-dictionaries-4.4.2.2.tar.xz: c655cdefdf116f35423177df8b18bc148ee79b3b
   libreoffice-dictionaries-4.4.3.2.tar.xz: 831a4fa23d674f9084053893a98e3e57762b21c1
   libreoffice-dictionaries-5.0.0.2.tar.xz: 5136ea0c388fffe7c0974fbde559dba3a7156f9e
   libreoffice-dictionaries-5.0.0.3.tar.xz: 03c03602043110ec27a70d23b9e03252be07becd
   libreoffice-dictionaries-5.0.0.5.tar.xz: d13aa4aa5931f37dba791775782574e87dfbfbde
   libreoffice-dictionaries-5.0.1.2.tar.xz: d7c0a1a080db50d2d6db11db6a558c620068eaee
+  libreoffice-dictionaries-5.0.2.2.tar.xz: 0d44bf666c98e0a20250cf5541aa37ebb2ae7350
   libreoffice-help-4.4.2.2.tar.xz: 9d2bb1116616b89799e3e0164469659bbdbd91f3
   libreoffice-help-4.4.3.2.tar.xz: bbbf93f224ebc0aa3c06c52d5aef855d4c2df7c1
   libreoffice-help-5.0.0.2.tar.xz: f1b1196a891bc44e93f3321c366128edf33fc0ab
   libreoffice-help-5.0.0.3.tar.xz: ef6f33ece4195bde6637c58d437213fecb0cf08c
   libreoffice-help-5.0.0.5.tar.xz: 2d0a05d46214faff79b4fad0c93bf452a9726c43
   libreoffice-help-5.0.1.2.tar.xz: 23072ea7ce052091b8ad4bd339c06be1d102e621
+  libreoffice-help-5.0.2.2.tar.xz: 3831b4966d2b63a3a6260f1f07b92c45ca40d80a
   libreoffice-translations-4.4.2.2.tar.xz: 289cb0e6644cadec9e32d5ce265ad43f7917163a
   libreoffice-translations-4.4.3.2.tar.xz: 3067f3c05c0b717237429c88070f026c01d84363
   libreoffice-translations-5.0.0.2.tar.xz: 2bdd139328d984e86eb204c1c7c537221442faab
   libreoffice-translations-5.0.0.3.tar.xz: 656f99562d4441f45916f320997f3e7a32b4c9b3
   libreoffice-translations-5.0.0.5.tar.xz: b3af6c8c0fce242fd1dfca7b22ea00cf50d0d611
   libreoffice-translations-5.0.1.2.tar.xz: 78a206e38a81bbb9b30ec80704b20aafac29557a
+  libreoffice-translations-5.0.2.2.tar.xz: 448cc28158ac6d0f1c0d5ca464ce5e3b79c5c2fd
 sources:
   0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz: 452eba922e4f41603539c9dc39947d2271e47093
   09ec2dac030e1dcd5ef7fa1692691dc0-Sun-ODF-Template-Pack-hu_1.0.0.oxt: 42c9235d7f876645ea6553770e7572c1b0b8609a
@@ -31,6 +35,7 @@ sources:
   185d60944ea767075d27247c3162b3bc-unowinreg.dll: 0619ed3a89644bef318df67db12045b2b590585b
   1be202fbbbc13f10592a98f70a4a87fb-OOOP-templates-pack-2.9.0.0.zip: 1dd5bd9962e851b5e487b0c2033b5a8951aaefad
   1f24ab1d39f4a51faf22244c94a6203f-xmlsec1-1.2.14.tar.gz: 8f949ae74a6d66278a595bd063f13e0ad196d14a
+  1f467e5bb703f12cbbb09d5cf67ecf4a-converttexttonumber-1-5-0.oxt: 206a371b46a3d991722b059b5d6f3bb29f1fc48b
   23bd75552206dfcd8fd4e29137dcac84-WatchWindow_1.2.0.0.oxt: da769c6f73206f0f0e6db4697f802c0bacbf4d02
   27211596cf0ad97cab7321239406fde0-gdocs_3.0.1_modified.oxt: 6d400d83fa2080847ad9d7e2ca466a98ee2dbfa4
   2ae988b339daec234019a7066f96733e-commons-lang-2.3-src.tar.gz: efc1ab026e8e9ac4cd150cb4cf1b7e4663cddc84
@@ -55,7 +60,7 @@ sources:
   b63e6340a02ff1cacfeadb2c42286161-JLanguageTool-1.7.0.tar.bz2: aa8faa4f9e6721eed9bc6878862d74d0cb23251c
   b7cae45ad2c23551fd6ccb8ae2c1f59e-numbertext_0.9.5.oxt: bdec3915c01cd60e20892376aa5e5a0d3980c389
   bbdd5639ada63e3130761daaecae1a10-Validator_1.1.0.0.oxt: c89331a8d7642429f4fe3ffe07ee6d675f99561a
-  libreoffice-5.0.2.2.tar.xz: fe9f80a2bf2a8e1e32fbe91b6e6832dab3a55f4b
-  libreoffice-dictionaries-5.0.2.2.tar.xz: 0d44bf666c98e0a20250cf5541aa37ebb2ae7350
-  libreoffice-help-5.0.2.2.tar.xz: 3831b4966d2b63a3a6260f1f07b92c45ca40d80a
-  libreoffice-translations-5.0.2.2.tar.xz: 448cc28158ac6d0f1c0d5ca464ce5e3b79c5c2fd
+  libreoffice-5.0.3.2.tar.xz: 8981b8b975679038b72717f0b9921791cc7886ab
+  libreoffice-dictionaries-5.0.3.2.tar.xz: e906f96a5fd95691b0bcf0e733c00f594b9563e5
+  libreoffice-help-5.0.3.2.tar.xz: bd311a0d2792eeecbf0699d650abf59711c1b8c1
+  libreoffice-translations-5.0.3.2.tar.xz: 259d57db2e26d5c00ea35d8a8d2dba420d70449e
