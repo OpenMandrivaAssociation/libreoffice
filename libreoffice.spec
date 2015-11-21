@@ -44,11 +44,11 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	5.0.2
+Version:	5.0.3
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
-Release:	4
+Release:	1
 %endif
 Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
@@ -77,7 +77,7 @@ Source37:	%{devurl}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
 Source40:	http://hg.services.openoffice.org/binaries/1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz
 
 # Extensions
-Source50:	%{srcurl}451ccf439a36a568653b024534669971-ConvertTextToNumber-1.3.2.oxt
+Source50:	%{srcurl}1f467e5bb703f12cbbb09d5cf67ecf4a-converttexttonumber-1-5-0.oxt
 Source51:	%{srcurl}b63e6340a02ff1cacfeadb2c42286161-JLanguageTool-1.7.0.tar.bz2
 Source52:	%{oxyurl}3ed18025a766f1e955707b969c8113a5-Barcode_1.3.5.0.oxt
 Source53:	%{oxyurl}8d74685d41f8bffe8c3e71fe8deac09d-SmART_0.9.5.oxt
@@ -116,11 +116,6 @@ Patch101:	libreoffice-4.2.5.2-desktop-categories.patch
 
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
-
-# fixes bad return code check with icu55, causing many xml parse errors
-Patch203:	libreoffice-5.0.0.3-icu55.patch
-
-Patch204:	0001-core-fix-build-with-system-boost-1.59.patch
 
 %if %{with icecream}
 BuildRequires:	icecream
