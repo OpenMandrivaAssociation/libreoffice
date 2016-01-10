@@ -26,7 +26,7 @@
 %define oxyurl		http://ooo.itc.hu/oxygenoffice/download/libreoffice/
 %define distroname	OpenMandriva
 %define ooname		libreoffice
-%define buildver	%{version}.2
+%define buildver	%{version}.1
 %define ooodir		%{_libdir}/libreoffice
 %define antpath		%{_builddir}/libreoffice-%{version}/apache-ant-1.8.1
 #define unopkg		%{_bindir}/unopkg
@@ -44,7 +44,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	5.0.4
+Version:	5.1.0
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
@@ -203,7 +203,7 @@ BuildRequires:	pkgconfig(liblangtag) >= 0.5.4
 BuildRequires:	pkgconfig(libmspub-0.1)
 BuildRequires:	pkgconfig(libmwaw-0.3) >= 0.3.5
 BuildRequires:	pkgconfig(libodfgen-0.1)
-BuildRequires:	pkgconfig(liborcus-0.8)
+BuildRequires:	pkgconfig(liborcus-0.10)
 BuildRequires:	pkgconfig(libpagemaker-0.0)
 BuildRequires:	pkgconfig(librevenge-0.0)
 BuildRequires:	pkgconfig(librsvg-2.0)
@@ -214,7 +214,7 @@ BuildRequires:	pkgconfig(libvisio-0.1)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(libxslt)
 BuildRequires:	pkgconfig(libxul)
-BuildRequires:	pkgconfig(mdds) >= 0.12.1
+BuildRequires:	pkgconfig(mdds-1.0) >= 0.12.1
 BuildRequires:	pkgconfig(mythes)
 BuildRequires:	pkgconfig(neon)
 BuildRequires:	pkgconfig(nspr)
