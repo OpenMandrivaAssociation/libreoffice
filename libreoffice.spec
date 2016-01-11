@@ -112,7 +112,7 @@ Patch51:	libreoffice-4.2.5.2-impress-kde-crash-hack.patch
 
 # OpenMandriva vendor patch
 Patch100:	libreoffice-4.3.1.2-vendor.patch
-Patch101:	libreoffice-4.2.5.2-desktop-categories.patch
+Patch101:	libreoffice-5.1.0.1-desktop-categories.patch
 
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch

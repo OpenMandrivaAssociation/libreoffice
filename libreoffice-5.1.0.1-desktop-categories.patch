@@ -56,7 +56,7 @@ diff -Naur libreoffice-4.2.5.2.orig/sysui/desktop/menus/startcenter.desktop libr
 -Categories=Office;X-Red-Hat-Base;X-SuSE-Core-Office;X-MandrivaLinux-Office-Other;
 +Categories=Office;
  Exec=${UNIXBASISROOTNAME} %%FILE%%
- MimeType=application/vnd.openofficeorg.extension;
+ MimeType=application/vnd.openofficeorg.extension;x-scheme-handler/vnd.libreoffice.cmis;
  Name=%PRODUCTNAME
 --- ./sysui/desktop/menus/writer.desktop.orig   2015-07-10 22:20:20.293523475 +0100
 +++ ./sysui/desktop/menus/writer.desktop        2015-07-10 22:20:29.510336843 +0100
