@@ -477,6 +477,7 @@ KDE4/Qt4.x and a KDEish File Picker when running under KDE4.
 %files kde4 -f file-lists/kde4_list.txt
 %{_libdir}/libreoffice/program/libkde4be1lo.so
 %{_libdir}/libreoffice/program/libvclplug_kde4lo.so
+%{_libdir}/libreoffice/program/kde4-open-url
 
 #----------------------------------------------------------------------------
 
