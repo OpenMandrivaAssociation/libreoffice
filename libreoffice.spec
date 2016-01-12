@@ -188,6 +188,7 @@ BuildRequires:	pkgconfig(gstreamer-plugins-base-1.0)
 BuildRequires:	pkgconfig(egl)
 BuildRequires:	pkgconfig(glew)
 BuildRequires:	pkgconfig(gtk+-2.0)
+BuildRequires:	pkgconfig(gtk+-2.0)
 BuildRequires:	pkgconfig(hunspell)
 BuildRequires:	pkgconfig(icu-le)
 BuildRequires:	pkgconfig(lcms2)
@@ -3213,6 +3214,7 @@ mkdir -p ~/tmp
 chmod 777 ~/tmp
 
 %build
+# temporary fix until they update configure
 sed -i 's/mdds >= 0.12.0/mdds-1.0 >= 1.0.0/' configure
 
 # Use linker flags to reduce memory consumption (bfd only)
@@ -3279,14 +3281,9 @@ touch autogen.lastrun
 	--disable-coinmp \
 	--disable-fetch-external \
 	--with-external-tar="$EXTSRCDIR" \
-	--enable-gstreamer \
 	--disable-gstreamer-0.10 \
 	--enable-release-build \
-	--disable-kde \
 	--enable-kde4 \
-	--enable-lockdown \
-	--disable-gconf \
-	--enable-opengl \
 	--enable-eot \
 	--enable-odk \
 	--enable-split-app-modules \
@@ -3296,7 +3293,6 @@ touch autogen.lastrun
 	--with-sun-templates \
 	--without-fonts \
 	--without-junit \
-	--enable-silent-rules \
 %if %{javaless}
 	--with-ant-home="%{antpath}" \
 %else
@@ -3325,10 +3321,8 @@ touch autogen.lastrun
 	--enable-ext-nlpsolver \
 	--enable-ext-languagetool \
 	--enable-ext-wiki-publisher \
-	--enable-verbose \
 	--enable-hardlink-deliver \
 	--enable-ext-mariadb-connector \
-	--with-servlet-api-jar=/usr/share/java/tomcat-servlet-3.0-api.jar \
 %if %{with ccache} && !%{with icecream}
 	--with-gcc-speedup=ccache \
 %else
