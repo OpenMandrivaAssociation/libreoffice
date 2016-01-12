@@ -116,7 +116,6 @@ Patch101:	libreoffice-5.1.0.1-desktop-categories.patch
 
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
-Patch203:	libreoffice-5.1.0.1-mdds1.0.patch
 
 %if %{with icecream}
 BuildRequires:	icecream
@@ -3214,6 +3213,8 @@ mkdir -p ~/tmp
 chmod 777 ~/tmp
 
 %build
+sed -i 's/mdds >= 0.12.0/mdds-1.0 >= 1.0.0/' configure
+
 # Use linker flags to reduce memory consumption (bfd only)
 #global ldflags %{ldflags} -Wl,--no-keep-memory -Wl,--reduce-memory-overheads
 
