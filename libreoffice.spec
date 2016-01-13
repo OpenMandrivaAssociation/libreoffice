@@ -3217,7 +3217,7 @@ chmod 777 ~/tmp
 sed -i 's/mdds >= 0.12.0/mdds-1.0 >= 1.0.0/' configure
 
 # disable failing tests
-sed -i -e /CppunitTest_sc_ucalc/d -e /CppunitTest_chart2_export/d -e -e /CppunitTest_sw_ww8export/d -e /CppunitTest_sw_globalfilter/d -e /CppunitTest_sw_filters_test/d -e /CppunitTest_sw_rtfexport/d sw/Module_sw.mk
+sed -i -e /CppunitTest_sc_ucalc/d -e /CppunitTest_chart2_export/d -e /CppunitTest_sw_ww8export/d -e /CppunitTest_sw_globalfilter/d -e /CppunitTest_sw_filters_test/d -e /CppunitTest_sw_rtfexport/d sw/Module_sw.mk
 
 %build
 
