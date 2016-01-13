@@ -304,6 +304,7 @@ packages:
 %files base -f file-lists/base_list.txt
 %{_mandir}/man1/lobase*
 %{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-base_72.svg
+%{_datadir}/appdata/libreoffice-base.appdata.xml
 
 #----------------------------------------------------------------------------
 
@@ -318,6 +319,7 @@ This package contains the spreadsheet component for LibreOffice.
 %files calc -f file-lists/calc_list.txt
 %{_mandir}/man1/localc*
 %{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-calc_72.svg
+%{_datadir}/appdata/libreoffice-calc.appdata.xml
 
 #----------------------------------------------------------------------------
 
@@ -434,6 +436,7 @@ This package contains the drawing component for LibreOffice.
 %files draw -f file-lists/draw_list.txt
 %{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-draw_72.svg
 %{_mandir}/man1/lodraw*
+%{_datadir}/appdata/libreoffice-draw.appdata.xml
 
 #----------------------------------------------------------------------------
 
@@ -462,6 +465,7 @@ This package contains the presentation component for LibreOffice.
 %files impress -f file-lists/impress_list.txt
 %{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-impress_72.svg
 %{_mandir}/man1/loimpress*
+%{_datadir}/appdata/libreoffice-impress.appdata.xml
 
 #----------------------------------------------------------------------------
 
@@ -478,6 +482,7 @@ KDE4/Qt4.x and a KDEish File Picker when running under KDE4.
 %files kde4 -f file-lists/kde4_list.txt
 %{_libdir}/libreoffice/program/libkde4be1lo.so
 %{_libdir}/libreoffice/program/libvclplug_kde4lo.so
+%{_libdir}/libreoffice/program/kde4-open-url
 
 #----------------------------------------------------------------------------
 
@@ -616,6 +621,7 @@ This package contains the word processor component for LibreOffice.
 %{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-writer_72.svg
 %{_mandir}/man1/loweb*
 %{_mandir}/man1/lowriter*
+%{_datadir}/appdata/libreoffice-writer.appdata.xml
 
 #----------------------------------------------------------------------------
 
@@ -3285,6 +3291,7 @@ touch autogen.lastrun
 	--disable-gstreamer-0.10 \
 	--enable-release-build \
 	--enable-kde4 \
+	--enable-introspection=no \
 	--enable-eot \
 	--enable-odk \
 	--enable-split-app-modules \
@@ -3357,9 +3364,9 @@ rm -f writerperfect/qa/unit/data/writer/libwpd/pass/EDB-14344-1.wpd
 %endif
 
 # (tpg) silent output to reduce memory and free space
-# We use make build here because the default target is "allandcheck".
+# We use make build-nocheck here because the default target is "allandcheck".
 # Checking should go to %check
-make build V=0
+make build-nocheck V=0
 
 echo "Make end at: "`date` >> ooobuildtime.log 
 echo "Install start at: "`date` >> ooobuildtime.log 
