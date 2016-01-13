@@ -3264,15 +3264,12 @@ export PATH
 export CCACHE_DIR=%{ccachedir}
 %endif
 
-export ARCH_FLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing"
-export ARCH_FLAGS_CC="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing"
-export ARCH_FLAGS_CXX="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive -fvisibility-inlines-hidden"
-export ARCH_FLAGS_OPT="%{optflags} -O2"
-# Workaround for abf builds running out of memory
-export ARCH_FLAGS_CC="$ARCH_FLAGS_CC -g0"
-export ARCH_FLAGS_CXX="$ARCH_FLAGS_CXX -g0"
-export CFLAGS=$ARCH_FLAGS_CC
-export CXXFLAGS=$ARCH_FLAGS_CXX
+# g0 - Workaround for abf builds running out of memory
+# O2 - tests seem to segfault with Oz
+%global optflags %(echo %{optflags} -g0 | sed -e 's/-Oz/-O2/')
+
+export CFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing"
+export CXXFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive"
 
 echo "Configure start at: "`date` >> ooobuildtime.log 
 
@@ -3348,17 +3345,10 @@ sed -i -e "s,\$ENV{'MD5SUM'},md5sum,g" solenv/bin/modules/installer/systemaction
 echo "Configure end at: "`date` >> ooobuildtime.log 
 echo "Make start at: "`date` >> ooobuildtime.log 
 
-# some configs  to improve build process 
-# http://wiki.services.openoffice.org/wiki/Building_OpenOffice.org
-# needs to check if it does any effect 
-export nodep=TRUE
-export NO_HIDS=TRUE 
-export MAXPROCESS=4 
-
-# (tpg) silent output to reduce memory and free space 
-# We use make build here because the default target is "allandcheck".
-# Checking should go to %check
+# some options to show more errors if unit tests fail
 ulimit -c unlimited
+export DEBUGCPPUNIT=TRUE
+
 
 %ifarch %{ix86}
 # seems to fail on this file test
@@ -3366,12 +3356,10 @@ rm -f writerperfect/qa/unit/data/draw/libvisio/pass/EDB-22679-1.vsd
 rm -f writerperfect/qa/unit/data/writer/libwpd/pass/EDB-14344-1.wpd
 %endif
 
-make -r -s V=0 \
-	ARCH_FLAGS="$ARCH_FLAGS" \
-	ARCH_FLAGS_CC="$ARCH_FLAGS_CC" \
-	ARCH_FLAGS_CXX="$ARCH_FLAGS_CXX" \
-	ARCH_FLAGS_OPT="$ARCH_FLAGS_OPT" \
-	build
+# (tpg) silent output to reduce memory and free space
+# We use make build here because the default target is "allandcheck".
+# Checking should go to %check
+make build V=0
 
 echo "Make end at: "`date` >> ooobuildtime.log 
 echo "Install start at: "`date` >> ooobuildtime.log 
