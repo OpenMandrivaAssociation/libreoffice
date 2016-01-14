@@ -26,7 +26,7 @@
 %define oxyurl		http://ooo.itc.hu/oxygenoffice/download/libreoffice/
 %define distroname	OpenMandriva
 %define ooname		libreoffice
-%define buildver	%{version}.1
+%define buildver	%{version}.2
 %define ooodir		%{_libdir}/libreoffice
 %define antpath		%{_builddir}/libreoffice-%{version}/apache-ant-1.8.1
 #define unopkg		%{_bindir}/unopkg
@@ -48,7 +48,7 @@ Version:	5.1.0
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
-Release:	1
+Release:	2
 %endif
 Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
@@ -480,9 +480,6 @@ This package contains the KDE4 plugin for drawing LibreOffice widgets with
 KDE4/Qt4.x and a KDEish File Picker when running under KDE4.
 
 %files kde4 -f file-lists/kde4_list.txt
-%{_libdir}/libreoffice/program/libkde4be1lo.so
-%{_libdir}/libreoffice/program/libvclplug_kde4lo.so
-%{_libdir}/libreoffice/program/kde4-open-url
 
 #----------------------------------------------------------------------------
 
