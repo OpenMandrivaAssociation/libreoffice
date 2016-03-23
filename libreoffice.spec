@@ -48,7 +48,7 @@ Version:	5.1.1
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
-Release:	4
+Release:	1
 %endif
 Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
@@ -116,6 +116,15 @@ Patch101:	libreoffice-5.1.0.1-desktop-categories.patch
 
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
+
+Patch203:	libreoffice-5.1.1.3-isnan.patch
+
+# from fedora
+Patch300:	0001-Update-liborcus-to-0.11.0.patch
+Patch301:	0001-reorder.patch
+Patch302:	0002-reduce-copypasta.patch
+Patch303:	0003-detect-Boost.Filesystem.patch
+Patch304:	0004-define-boost_filestystem-external-for-system-boost-t.patch
 
 %if %{with icecream}
 BuildRequires:	icecream
@@ -204,7 +213,7 @@ BuildRequires:	pkgconfig(liblangtag) >= 0.5.4
 BuildRequires:	pkgconfig(libmspub-0.1)
 BuildRequires:	pkgconfig(libmwaw-0.3) >= 0.3.5
 BuildRequires:	pkgconfig(libodfgen-0.1)
-BuildRequires:	pkgconfig(liborcus-0.10)
+BuildRequires:	pkgconfig(liborcus-0.11)
 BuildRequires:	pkgconfig(libpagemaker-0.0)
 BuildRequires:	pkgconfig(librevenge-0.0)
 BuildRequires:	pkgconfig(librsvg-2.0)
@@ -3217,7 +3226,10 @@ mkdir -p ~/tmp
 chmod 777 ~/tmp
 
 # temporary fix until they update configure
-sed -i 's/mdds >= 0.12.0/mdds-1.0 >= 1.0.0/' configure
+sed -i 's/mdds >= 0.12.0/mdds-1.0 >= 1.0.0/' configure configure.ac
+
+aclocal -I m4
+autoconf
 
 # disable failing tests
 sed -i -e /CppunitTest_sc_ucalc/d -e /CppunitTest_chart2_export/d -e /CppunitTest_sw_ww8export/d -e /CppunitTest_sw_globalfilter/d -e /CppunitTest_sw_filters_test/d -e /CppunitTest_sw_rtfexport/d sw/Module_sw.mk
