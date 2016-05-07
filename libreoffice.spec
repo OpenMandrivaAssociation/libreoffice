@@ -117,8 +117,6 @@ Patch101:	libreoffice-5.1.0.1-desktop-categories.patch
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
 
-Patch203:	libreoffice-5.1.1.3-isnan.patch
-
 # from fedora
 Patch300:	0001-Update-liborcus-to-0.11.0.patch
 Patch301:	0001-reorder.patch
