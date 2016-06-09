@@ -341,7 +341,7 @@ Requires:	ghostscript
 Requires:	fonts-ttf-liberation
 Requires:	google-crosextra-carlito-fonts
 Requires:	google-crosextra-caladea-fonts
-Requires:	desktop-common-data >= 2008
+Requires:	desktop-common-data >= 3.0
 # rpm will automatically grab the require for libsane1, but there are some
 # configs needed at this package, so we must require it too.
 Requires:	sane-backends
