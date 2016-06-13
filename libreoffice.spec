@@ -48,7 +48,7 @@ Version:	5.1.4
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
-Release:	3
+Release:	1
 %endif
 Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
