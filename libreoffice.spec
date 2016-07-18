@@ -363,6 +363,7 @@ This package contains the application-independent files of LibreOffice.
 %{_mandir}/man1/unopkg.1*
 %{_libdir}/libreoffice/program/classes/ScriptProviderForBeanShell.jar
 %{_libdir}/libreoffice/program/services/scriptproviderforbeanshell.rdb
+%{_libdir}/libreoffice/share/libreofficekit
 
 #----------------------------------------------------------------------------
 
@@ -3459,10 +3460,6 @@ sed -i -e '/libswdlo.so/d' file-lists/writer_list.txt
 for p in common base calc writer impress draw math; do
 	sed -i '/^.*man.*\.gz$/d' file-lists/${p}_list.txt 
 done;
-
-## drop GTK dependency from -common
-sed -i -e '/^.*pluginapp.bin$/d' file-lists/core_list.txt
-echo '%{ooodir}/program/pluginapp.bin' >>file-lists/gnome_list.txt
 
 ## sort removing duplicates
 sort -u file-lists/gnome_list.txt > file-lists/gnome_list.uniq.sorted.txt 
