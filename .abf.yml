@@ -5,7 +5,6 @@ sources:
   1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz: 28d4ec24dfda4eb41b6ceaa0cfcfca41b578f3b3
   185d60944ea767075d27247c3162b3bc-unowinreg.dll: 0619ed3a89644bef318df67db12045b2b590585b
   1be202fbbbc13f10592a98f70a4a87fb-OOOP-templates-pack-2.9.0.0.zip: 1dd5bd9962e851b5e487b0c2033b5a8951aaefad
-  1f24ab1d39f4a51faf22244c94a6203f-xmlsec1-1.2.14.tar.gz: 8f949ae74a6d66278a595bd063f13e0ad196d14a
   1f467e5bb703f12cbbb09d5cf67ecf4a-converttexttonumber-1-5-0.oxt: 206a371b46a3d991722b059b5d6f3bb29f1fc48b
   23bd75552206dfcd8fd4e29137dcac84-WatchWindow_1.2.0.0.oxt: da769c6f73206f0f0e6db4697f802c0bacbf4d02
   27211596cf0ad97cab7321239406fde0-gdocs_3.0.1_modified.oxt: 6d400d83fa2080847ad9d7e2ca466a98ee2dbfa4
@@ -31,6 +30,7 @@ sources:
   b63e6340a02ff1cacfeadb2c42286161-JLanguageTool-1.7.0.tar.bz2: aa8faa4f9e6721eed9bc6878862d74d0cb23251c
   b7cae45ad2c23551fd6ccb8ae2c1f59e-numbertext_0.9.5.oxt: bdec3915c01cd60e20892376aa5e5a0d3980c389
   bbdd5639ada63e3130761daaecae1a10-Validator_1.1.0.0.oxt: c89331a8d7642429f4fe3ffe07ee6d675f99561a
+  ce12af00283eb90d9281956524250d6e-xmlsec1-1.2.20.tar.gz: 40117ab0f788e43deef6eaf028c88f6abc3a30d0
   libreoffice-5.2.0.2.tar.xz: 8efc57b1d0d301565a441d9148d3fb5da22a9132
   libreoffice-dictionaries-5.2.0.2.tar.xz: cc362ef18fae1408a28b9cb2871b63e1e415a42e
   libreoffice-help-5.2.0.2.tar.xz: 4f8ca58b1c68583a4155d9d39211968660c49b59

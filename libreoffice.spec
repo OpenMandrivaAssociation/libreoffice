@@ -68,7 +68,7 @@ Source31:	%{devurl}/2c9b0f83ed5890af02c0df1c1776f39b-commons-httpclient-3.1-src.
 Source32:	%{devurl}/2ae988b339daec234019a7066f96733e-commons-lang-2.3-src.tar.gz 
 %endif
 Source33:	%{devurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
-Source34:	%{devurl}/1f24ab1d39f4a51faf22244c94a6203f-xmlsec1-1.2.14.tar.gz
+Source34:	%{devurl}/ce12af00283eb90d9281956524250d6e-xmlsec1-1.2.20.tar.gz
 Source35:	%{devurl}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
 Source36:	%{devurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
 Source37:	%{devurl}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
@@ -3215,9 +3215,6 @@ tar -xjvf %{SOURCE20}
 # to make the friggin cppunit tests work
 mkdir -p ~/tmp
 chmod 777 ~/tmp
-
-# temporary fix until they update configure
-sed -i 's/mdds >= 0.12.0/mdds-1.0 >= 1.0.0/' configure configure.ac
 
 aclocal -I m4
 autoconf
