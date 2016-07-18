@@ -44,7 +44,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	5.1.4
+Version:	5.2.0
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
@@ -116,13 +116,6 @@ Patch101:	libreoffice-5.1.0.1-desktop-categories.patch
 
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
-
-# from fedora
-Patch300:	0001-Update-liborcus-to-0.11.0.patch
-Patch301:	0001-reorder.patch
-Patch302:	0002-reduce-copypasta.patch
-Patch303:	0003-detect-Boost.Filesystem.patch
-Patch304:	0004-define-boost_filestystem-external-for-system-boost-t.patch
 
 %if %{with icecream}
 BuildRequires:	icecream
@@ -222,7 +215,7 @@ BuildRequires:	pkgconfig(libvisio-0.1)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(libxslt)
 BuildRequires:	pkgconfig(libxul)
-BuildRequires:	pkgconfig(mdds-1.0) >= 0.12.1
+BuildRequires:	pkgconfig(mdds-1.2) >= 1.2
 BuildRequires:	pkgconfig(mythes)
 BuildRequires:	pkgconfig(neon)
 BuildRequires:	pkgconfig(nspr)
