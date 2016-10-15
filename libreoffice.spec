@@ -26,7 +26,7 @@
 %define oxyurl		http://ooo.itc.hu/oxygenoffice/download/libreoffice/
 %define distroname	OpenMandriva
 %define ooname		libreoffice
-%define buildver	%{version}.4
+%define buildver	%{version}.2
 %define ooodir		%{_libdir}/libreoffice
 %define antpath		%{_builddir}/libreoffice-%{version}/apache-ant-1.8.1
 #define unopkg		%{_bindir}/unopkg
@@ -44,7 +44,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	5.2.0
+Version:	5.2.2
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
