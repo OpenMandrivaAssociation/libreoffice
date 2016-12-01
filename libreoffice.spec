@@ -12,7 +12,7 @@
 
 %if %{with l10n}
 %define langs	en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu
-%define helplangs	bg bn bs ca cs da de dz el en-GB es et eu fi fr gl gu he hi hr hu it ja ko mk nb nl nn pl pt pt-BR ru si sk sl sv tr uk zh-CN zh-TW en-US
+%define helplangs	ar bg bn bs ca cs da de dz el en-GB es et eu fi fr gl gu he hi hr hu it ja ko lt lv mk nb nl nn pl pt pt-BR ro ru si sk sl sv ta tr uk zh-CN zh-TW en-US
 %else
 %define langs	en-US
 %define helplangs	en-US
