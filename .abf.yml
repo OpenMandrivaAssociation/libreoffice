@@ -30,8 +30,8 @@ sources:
   b63e6340a02ff1cacfeadb2c42286161-JLanguageTool-1.7.0.tar.bz2: aa8faa4f9e6721eed9bc6878862d74d0cb23251c
   b7cae45ad2c23551fd6ccb8ae2c1f59e-numbertext_0.9.5.oxt: bdec3915c01cd60e20892376aa5e5a0d3980c389
   bbdd5639ada63e3130761daaecae1a10-Validator_1.1.0.0.oxt: c89331a8d7642429f4fe3ffe07ee6d675f99561a
-  ce12af00283eb90d9281956524250d6e-xmlsec1-1.2.20.tar.gz: 40117ab0f788e43deef6eaf028c88f6abc3a30d0
-  libreoffice-5.2.2.2.tar.xz: e8b8c056ee4d827c86f2b29d30e7698850682bb7
-  libreoffice-dictionaries-5.2.2.2.tar.xz: b2c522f4e8eefed59b71c1ba2cad5aa7eaedf4f8
-  libreoffice-help-5.2.2.2.tar.xz: cca1778dd4c2faa86569c8e76529cbfaa8894af3
-  libreoffice-translations-5.2.2.2.tar.xz: a77670a7e850974d74a74369098602f79a03eaf3
+  86b1daaa438f5a7bea9a52d7b9799ac0-xmlsec1-1.2.23.tar.gz: a0cc67aa534167bb59bcca0dc6a7db2573814542
+  libreoffice-5.3.0.0.beta1.tar.xz: 49f11626a300108d8d9b52c5697cc8159b19ee8a
+  libreoffice-dictionaries-5.3.0.0.beta1.tar.xz: 5341f8ebe592e8b67284029354ac4908f793da83
+  libreoffice-help-5.3.0.0.beta1.tar.xz: f4e9534b289bd9f4c63ac7ccf97da020915fd6c3
+  libreoffice-translations-5.3.0.0.beta1.tar.xz: 6e1bb6866569fba8eaa19cbe661c6861da3b9e19

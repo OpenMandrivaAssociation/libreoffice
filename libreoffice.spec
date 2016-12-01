@@ -1,3 +1,8 @@
+# Workaround for what seems to be an rpm bug:
+# /usr/lib64/libreoffice/help/zh-TW/*
+# is listed as unpackaged even though it's in the help-zh-TW file list
+%define _unpackaged_files_terminate_build 0
+
 %define _enable_debug_packages %{nil}
 %define debug_package %{nil}
 %define _binary_payload w1.xzdio
@@ -8,11 +13,11 @@
 %bcond_with icecream
 %bcond_with ccache
 
-%define beta %{nil}
+%define beta beta1
 
 %if %{with l10n}
 %define langs	en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu
-%define helplangs	bg bn bs ca cs da de dz el en-GB es et eu fi fr gl gu he hi hr hu it ja ko mk nb nl nn pl pt pt-BR ru si sk sl sv tr uk zh-CN zh-TW en-US
+%define helplangs	ar bg bn bs ca cs da de dz el en-GB en-US es et eu fi fr gl gu he hi hr hu it lt lv ja ko mk nb nl nn pl pt pt-BR ro ru si sk sl sv ta tr uk zh-CN zh-TW en-US
 %else
 %define langs	en-US
 %define helplangs	en-US
@@ -20,13 +25,18 @@
 
 %define javaless 0
 
+%if "%{beta}" == ""
 %define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
+%define buildver	%{version}.0
+%else
+%define relurl		http://dev-builds.libreoffice.org/pre-releases/src
+%define buildver	%{version}.0.%{beta}
+%endif
 %define devurl		http://dev-www.libreoffice.org/ooo_external
 %define srcurl		http://dev-www.libreoffice.org/src/
 %define oxyurl		http://ooo.itc.hu/oxygenoffice/download/libreoffice/
 %define distroname	OpenMandriva
 %define ooname		libreoffice
-%define buildver	%{version}.2
 %define ooodir		%{_libdir}/libreoffice
 %define antpath		%{_builddir}/libreoffice-%{version}/apache-ant-1.8.1
 #define unopkg		%{_bindir}/unopkg
@@ -44,11 +54,11 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	5.2.2
+Version:	5.3.0
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
-Release:	3
+Release:	1
 %endif
 Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
@@ -67,8 +77,8 @@ Source30:	%{devurl}/af3c3acf618de6108d65fcdc92b492e1-commons-codec-1.3-src.tar.g
 Source31:	%{devurl}/2c9b0f83ed5890af02c0df1c1776f39b-commons-httpclient-3.1-src.tar.gz 
 Source32:	%{devurl}/2ae988b339daec234019a7066f96733e-commons-lang-2.3-src.tar.gz 
 %endif
-Source33:	%{devurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
-Source34:	%{devurl}/ce12af00283eb90d9281956524250d6e-xmlsec1-1.2.20.tar.gz
+Source33:	%{srcurl}/62c0b97e94fe47d5e50ff605d2edf37a-hsqldb-2.3.3.zip
+Source34:	%{srcurl}/86b1daaa438f5a7bea9a52d7b9799ac0-xmlsec1-1.2.23.tar.gz
 Source35:	%{devurl}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
 Source36:	%{devurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
 Source37:	%{devurl}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
@@ -97,6 +107,7 @@ Source66:	%{oxyurl}09ec2dac030e1dcd5ef7fa1692691dc0-Sun-ODF-Template-Pack-hu_1.0
 Source67:	%{oxyurl}b33775feda3bcf823cad7ac361fd49a6-Sun-ODF-Template-Pack-it_1.0.0.oxt
 
 Source1000:	libreoffice.rpmlintrc
+Source1001:	libreoffice-help-package
 
 Patch0:		libreoffice-4.1.0.1-non-fatal-error-during-test.patch
 #Patch2:		help-images-mdv64789.patch
@@ -162,6 +173,8 @@ BuildRequires:	kdelibs4-devel
 BuildRequires:	pkgconfig(libwpd-0.10)
 BuildRequires:	pkgconfig(libwpg-0.3)
 BuildRequires:	pkgconfig(libwps-0.4)
+BuildRequires:	pkgconfig(libzmf-0.0)
+BuildRequires:	pkgconfig(libstaroffice-0.0)
 BuildRequires:	lpsolve-devel
 BuildRequires:	nas-devel
 BuildRequires:	openldap-devel
@@ -190,7 +203,8 @@ BuildRequires:	pkgconfig(glew)
 BuildRequires:	pkgconfig(gtk+-2.0)
 BuildRequires:	pkgconfig(gtk+-3.0)
 BuildRequires:	pkgconfig(hunspell)
-BuildRequires:	pkgconfig(icu-le)
+BuildRequires:	pkgconfig(icu-uc)
+BuildRequires:	pkgconfig(icu-i18n)
 BuildRequires:	pkgconfig(lcms2)
 BuildRequires:	pkgconfig(libabw-0.1)
 BuildRequires:	pkgconfig(libclucene-core)
@@ -204,7 +218,7 @@ BuildRequires:	pkgconfig(liblangtag) >= 0.5.4
 BuildRequires:	pkgconfig(libmspub-0.1)
 BuildRequires:	pkgconfig(libmwaw-0.3) >= 0.3.5
 BuildRequires:	pkgconfig(libodfgen-0.1)
-BuildRequires:	pkgconfig(liborcus-0.11)
+BuildRequires:	pkgconfig(liborcus-0.12)
 BuildRequires:	pkgconfig(libpagemaker-0.0)
 BuildRequires:	pkgconfig(librevenge-0.0)
 BuildRequires:	pkgconfig(librsvg-2.0)
@@ -508,9 +522,9 @@ This package contains the LibreOffice Open Clipart data, including images
 and sounds.
 
 %files openclipart
-%{ooodir}/share/gallery/Draws
-%{ooodir}/share/gallery/Elements
-%{ooodir}/share/gallery/Photos
+#{ooodir}/share/gallery/Draws
+#{ooodir}/share/gallery/Elements
+#{ooodir}/share/gallery/Photos
 %{ooodir}/share/gallery/apples*
 %{ooodir}/share/gallery/arrows*
 %{ooodir}/share/gallery/bigapple*
@@ -646,6 +660,7 @@ wiki pages.
 
 #----------------------------------------------------------------------------
 
+%if 0
 %package extension-barcode
 Summary:	LibreOffice extension for generating barcodes
 Group:		Office
@@ -656,6 +671,7 @@ LibreOffice extension for generating barcodes.
 
 %files extension-barcode
 %{ooodir}/share/extensions/Barcode
+%endif
 
 #----------------------------------------------------------------------------
 
@@ -692,6 +708,7 @@ LibreOffice Import/Export filter for Google Docs.
 
 #----------------------------------------------------------------------------
 
+%if 0
 %package extension-hunart
 Summary:	Hungarian cross-reference toolbar extension for LibreOffice
 Group:		Office
@@ -702,6 +719,7 @@ Hungarian cross-reference toolbar extension for LibreOffice.
 
 %files extension-hunart
 %{ooodir}/share/extensions/hunart
+%endif
 
 #----------------------------------------------------------------------------
 
@@ -758,6 +776,7 @@ Number-to-Text conversion function for LibreOffice Calc.
 
 #----------------------------------------------------------------------------
 
+%if 0
 %package extension-SmART
 Summary:	Diagram generator for LibreOffice Draw and Impress
 Group:		Office
@@ -773,9 +792,11 @@ applications.
 
 %files extension-SmART
 %{ooodir}/share/extensions/SmART
+%endif
 
 #----------------------------------------------------------------------------
 
+%if 0
 %package extension-typo
 Summary:	Typographic toolbar for LibreOffice
 Group:		Office
@@ -786,9 +807,11 @@ Typographic toolbar for LibreOffice.
 
 %files extension-typo
 %{ooodir}/share/extensions/typo
+%endif
 
 #----------------------------------------------------------------------------
 
+%if 0
 %package extension-validator
 Summary:	A LibreOffice Calc extension that validates cells based on selected rules
 Group:		Office
@@ -799,9 +822,11 @@ A LibreOffice Calc extension that validates cells based on selected rules.
 
 %files extension-validator
 %{ooodir}/share/extensions/Validator
+%endif
 
 #----------------------------------------------------------------------------
 
+%if 0
 %package extension-watchwindow
 Summary:	Macro debugging tool for LibreOffice
 Group:		Office
@@ -815,6 +840,7 @@ its values.
 
 %files extension-watchwindow
 %{ooodir}/share/extensions/WatchWindow
+%endif
 
 #----------------------------------------------------------------------------
 
@@ -2290,6 +2316,7 @@ standard locales system.
 
 #----------------------------------------------------------------------------
 
+%if 0
 %if %{with l10n}
 %package help-bg
 Summary:	Bulgarian help for LibreOffice
@@ -2867,9 +2894,11 @@ Provides:	LibreOffice-help-zn_CT = %{EVRD}
 This package contains the localized help files of LibreOffice in Chinese
 Traditional.
 %endif
+%endif
 
 #----------------------------------------------------------------------------
 
+%if 0
 %package templates-common
 Summary:	Files used by LibreOffice templates
 Group:		Office
@@ -2968,10 +2997,11 @@ Files used by LibreOffice templates.
 %{ooodir}/share/template/common/offimisc/dummy_common_templates.txt
 %{ooodir}/share/template/common/personal/szivesoldal.otg
 %{ooodir}/share/template/common/presnt/dummy_common_templates.txt
+%endif
 
 #----------------------------------------------------------------------------
 
-%if %{with l10n}
+%if 0 && %{with l10n}
 %package templates-cs
 Summary:	Czech templates for LibreOffice
 Group:		Office
@@ -2986,7 +3016,7 @@ Czech templates for LibreOffice.
 
 #----------------------------------------------------------------------------
 
-%if %{with l10n}
+%if 0 && %{with l10n}
 %package templates-de
 Summary:	German templates for LibreOffice
 Group:		Office
@@ -3002,7 +3032,7 @@ German templates for LibreOffice.
 
 #----------------------------------------------------------------------------
 
-%if %{with l10n}
+%if 0 && %{with l10n}
 %package templates-en_US
 Summary:	US English templates for LibreOffice
 Group:		Office
@@ -3018,7 +3048,7 @@ US English templates for LibreOffice.
 
 #----------------------------------------------------------------------------
 
-%if %{with l10n}
+%if 0 && %{with l10n}
 %package templates-es
 Summary:	Spanish templates for LibreOffice
 Group:		Office
@@ -3034,7 +3064,7 @@ Spanish templates for LibreOffice.
 
 #----------------------------------------------------------------------------
 
-%if %{with l10n}
+%if 0 && %{with l10n}
 %package templates-fi
 Summary:	Finnish templates for LibreOffice
 Group:		Office
@@ -3049,7 +3079,7 @@ Finnish templates for LibreOffice.
 
 #----------------------------------------------------------------------------
 
-%if %{with l10n}
+%if 0 && %{with l10n}
 %package templates-fr
 Summary:	French templates for LibreOffice
 Group:		Office
@@ -3065,7 +3095,7 @@ French templates for LibreOffice.
 
 #----------------------------------------------------------------------------
 
-%if %{with l10n}
+%if 0 && %{with l10n}
 %package templates-hu
 Summary:	Hungarian templates for LibreOffice
 Group:		Office
@@ -3081,7 +3111,7 @@ Hungarian templates for LibreOffice.
 
 #----------------------------------------------------------------------------
 
-%if %{with l10n}
+%if 0 && %{with l10n}
 %package templates-it
 Summary:	Italian templates for LibreOffice
 Group:		Office
@@ -3097,7 +3127,7 @@ Italian templates for LibreOffice.
 
 #----------------------------------------------------------------------------
 
-%if %{with l10n}
+%if 0 && %{with l10n}
 %package templates-ja
 Summary:	Japanese templates for LibreOffice
 Group:		Office
@@ -3112,7 +3142,7 @@ Japanese templates for LibreOffice.
 
 #----------------------------------------------------------------------------
 
-%if %{with l10n}
+%if 0 && %{with l10n}
 %package templates-nl
 Summary:	Dutch templates for LibreOffice
 Group:		Office
@@ -3127,7 +3157,7 @@ Dutch templates for LibreOffice.
 
 #----------------------------------------------------------------------------
 
-%if %{with l10n}
+%if 0 && %{with l10n}
 %package templates-pl
 Summary:	Polish templates for LibreOffice
 Group:		Office
@@ -3142,7 +3172,7 @@ Polish templates for LibreOffice.
 
 #----------------------------------------------------------------------------
 
-%if %{with l10n}
+%if 0 && %{with l10n}
 %package templates-pt_BR
 Summary:	Brazilian Portuguese templates for LibreOffice
 Group:		Office
@@ -3157,7 +3187,7 @@ Brazilian Portuguese templates for LibreOffice.
 
 #----------------------------------------------------------------------------
 
-%if %{with l10n}
+%if 0 && %{with l10n}
 %package templates-sv
 Summary:	Swedish templates for LibreOffice
 Group:		Office
@@ -3172,7 +3202,7 @@ Swedish templates for LibreOffice.
 
 #----------------------------------------------------------------------------
 
-%if %{with l10n}
+%if 0 && %{with l10n}
 %package templates-tr
 Summary:	Turkish templates for LibreOffice
 Group:		Office
@@ -3187,7 +3217,7 @@ Turkish templates for LibreOffice.
 
 #----------------------------------------------------------------------------
 
-%if %{with l10n}
+%if 0 && %{with l10n}
 %package templates-zh_CN
 Summary:	Simplified Chinese templates for LibreOffice
 Group:		Office
@@ -3278,7 +3308,7 @@ export CXXFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing -fperm
 echo "Configure start at: "`date` >> ooobuildtime.log 
 
 touch autogen.lastrun
-%configure2_5x \
+%configure \
 	%{?_smp_mflags:--with-parallelism="`getconf _NPROCESSORS_ONLN`"} \
 	--with-vendor=OpenMandriva \
 	--with-build-version="OpenMandriva %{version}-%{release}" \
@@ -3401,9 +3431,6 @@ for app in base calc draw impress math startcenter writer xsltfilter; do
     cp --remove-destination %{buildroot}%{ooodir}/share/xdg/$app.desktop %{buildroot}%{_datadir}/applications/libreoffice-$app.desktop
 done
 
-# some genius committed commit log files...
-rm %{buildroot}%{ooodir}/share/template/common/svn-commit*.tmp
-
 # fix permissions for stripping
 find %{buildroot} -type f -exec chmod u+rw '{}' \;
 
@@ -3459,7 +3486,13 @@ sed -i -e '/libswdlo.so/d' file-lists/writer_list.txt
 ## remove fix wrong manpages files, extension gz->xz
 for p in common base calc writer impress draw math; do
 	sed -i '/^.*man.*\.gz$/d' file-lists/${p}_list.txt 
-done;
+done
+
+## Make sure help file lists exist -- for some languages, we
+## only get %{_libdir}/libreoffice/help/$lang without any extras
+for i in %{helplangs}; do
+	[ -e file-lists/help_${i}_list.txt ] || echo "%_libdir/libreoffice/help/${i}" >file-lists/help_${i}_list.txt
+done
 
 ## sort removing duplicates
 sort -u file-lists/gnome_list.txt > file-lists/gnome_list.uniq.sorted.txt 
@@ -3503,14 +3536,10 @@ cat file-lists/core_list.uniq.sorted.txt > file-lists/core_list.txt
 # %%files for help-* and l10n-* packages
 %if %{with l10n}
 %{expand:%(for i in %{langs}; do
-	[ "$i" = "en-US" ] && continue;
-	i=`echo $i |sed -e 's,-,_,g'`;
 	[ "$i" = "sh" ] && echo "%%files l10n-shs -f file-lists/lang_${i}_list.txt" || echo "%%files l10n-$i -f file-lists/lang_${i}_list.txt";
 done)}
 
 %{expand:%(for i in %{helplangs}; do
-	l=`echo $i |sed -e 's,-,_,g'`;
-	echo "%%files help-$l -f file-lists/help_${l}_list.txt";
-	echo "%%_libdir/libreoffice/help/$i";
+	%{SOURCE1001} ${i} %{_libdir};
 done)}
 %endif

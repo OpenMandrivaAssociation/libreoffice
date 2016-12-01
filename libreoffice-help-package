@@ -1,0 +1,67 @@
+#!/bin/sh
+l=`echo $1 |sed -e 's,-,_,g'`
+
+case $1 in
+ar) ln="Arabic";;
+bg) ln="Bulgarian";;
+bn) ln="Bengali";;
+bs) ln="Bosnian";;
+ca) ln="Catalan";;
+cs) ln="Czech";;
+da) ln="Danish";;
+de) ln="German";;
+dz) ln="Dzongkha";;
+el) ln="Greek";;
+en-GB) ln="British English";;
+es) ln="Spanish";;
+et) ln="Estonian";;
+eu) ln="Basque";;
+fi) ln="Finnish";;
+fr) ln="French";;
+gl) ln="Galician";;
+gu) ln="Gujarati";;
+he) ln="Hebrew";;
+hi) ln="Hindi";;
+hr) ln="Croatian";;
+hu) ln="Hungarian";;
+it) ln="Italian";;
+lt) ln="Lithuanian";;
+lv) ln="Latvian";;
+ja) ln="Japanese";;
+ko) ln="Korean";;
+mk) ln="Macedonian";;
+nb) ln="Norwegian (Bokmal)";;
+nl) ln="Dutch";;
+nn) ln="Norwegian (Nynorsk)";;
+pl) ln="Polish";;
+pt) ln="Portuguese";;
+pt-BR) ln="Brazilian";;
+ro) ln="Romanian";;
+ru) ln="Russian";;
+si) ln="Sinhalese";;
+sk) ln="Slovak";;
+sl) ln="Slovenian";;
+sv) ln="Swedish";;
+ta) ln="Tamil";;
+tr) ln="Turkish";;
+uk) ln="Ukrainian";;
+zh-CN) ln="Simplified Chinese";;
+zh-TW) ln="Traditional Chinese";;
+en-US) ln="English";;
+*) ln="$l";;
+esac
+
+cat <<EOF
+%package help-$l
+Summary:	${ln} help for LibreOffice
+Group:		Office
+Provides:	%{ooname}-help = %{EVRD}
+Provides:	LibreOffice-help-${l} = %{EVRD}
+EOF
+[ "$l" != "en_US" ] && echo "Requires:	%{ooname}-l10n-${l} = %{EVRD}"
+cat <<EOF
+%description help-${l}
+This package contains the localized help files of LibreOffice in
+${ln}
+EOF
+echo "%files help-$l -f file-lists/help_${l}_list.txt"
