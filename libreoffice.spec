@@ -2291,6 +2291,20 @@ standard locales system.
 #----------------------------------------------------------------------------
 
 %if %{with l10n}
+%package help-ar
+Summary:        Arabic help for LibreOffice
+Group:          Office
+Provides:       %{ooname}-help = %{EVRD}
+Requires:       %{ooname}-l10n-ar = %{EVRD}
+Provides:       LibreOffice-help-ar = %{EVRD}
+
+%description help-ar
+This package contains the localized help files of LibreOffice in Arabic.
+%endif
+
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-bg
 Summary:	Bulgarian help for LibreOffice
 Group:		Office
@@ -2642,6 +2656,35 @@ This package contains the localized help files of LibreOffice in Korean.
 #----------------------------------------------------------------------------
 
 %if %{with l10n}
+%package help-lt
+Summary:        Lithuanian help for LibreOffice
+Group:          Office
+Provides:       %{ooname}-help = %{EVRD}
+Requires:       %{ooname}-l10n-lt = %{EVRD}
+Provides:       LibreOffice-help-lt = %{EVRD}
+
+%description help-lt
+This package contains the localized help files of LibreOffice in Lithuanian.
+%endif
+
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
+%package help-lv
+Summary:        Latvian help for LibreOffice
+Group:          Office
+Provides:       %{ooname}-help = %{EVRD}
+Requires:       %{ooname}-l10n-lv = %{EVRD}
+Provides:       LibreOffice-help-lv = %{EVRD}
+
+%description help-lv
+This package contains the localized help files of LibreOffice in Latvian.
+%endif
+
+#----------------------------------------------------------------------------
+
+
+%if %{with l10n}
 %package help-mk
 Summary:	Macedonian help for LibreOffice
 Group:		Office
@@ -2743,6 +2786,20 @@ Brazilian.
 #----------------------------------------------------------------------------
 
 %if %{with l10n}
+%package help-ro
+Summary:        Romanian help for LibreOffice
+Group:          Office
+Provides:       %{ooname}-help = %{EVRD}
+Requires:       %{ooname}-l10n-ro = %{EVRD}
+Provides:       LibreOffice-help-ro = %{EVRD}
+
+%description help-ro
+This package contains the localized help files of LibreOffice in Romanian.
+%endif
+
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
 %package help-ru
 Summary:	Russian help for LibreOffice
 Group:		Office
@@ -2808,6 +2865,20 @@ Provides:	LibreOffice-help-sv = %{EVRD}
 
 %description help-sv
 This package contains the localized help files of LibreOffice in Swedish.
+%endif
+
+#----------------------------------------------------------------------------
+
+%if %{with l10n}
+%package help-ta
+Summary:        Tamil help for LibreOffice
+Group:          Office
+Provides:       %{ooname}-help = %{EVRD}
+Requires:       %{ooname}-l10n-ta = %{EVRD}
+Provides:       LibreOffice-help-ta = %{EVRD}
+
+%description help-ta
+This package contains the localized help files of LibreOffice in Tamil.
 %endif
 
 #----------------------------------------------------------------------------
