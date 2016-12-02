@@ -17,7 +17,7 @@
 
 %if %{with l10n}
 %define langs	en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu
-%define helplangs	ar bg bn bs ca cs da de dz el en-GB en-US es et eu fi fr gl gu he hi hr hu it lt lv ja ko mk nb nl nn pl pt pt-BR ro ru si sk sl sv ta tr uk zh-CN zh-TW en-US
+%define helplangs	ar bg bn bs ca cs da de dz el en-GB en-US es et eu fi fr gl gu he hi hr hu it lt lv ja ko mk nb nl nn pl pt pt-BR ro ru si sk sl sv ta tr uk zh-CN zh-TW
 %else
 %define langs	en-US
 %define helplangs	en-US
@@ -3536,10 +3536,12 @@ cat file-lists/core_list.uniq.sorted.txt > file-lists/core_list.txt
 # %%files for help-* and l10n-* packages
 %if %{with l10n}
 %{expand:%(for i in %{langs}; do
+	[ "$i" = "en-US" ] && continue;
+	i=`echo $i |sed -e 's,-,_,g'`;
 	[ "$i" = "sh" ] && echo "%%files l10n-shs -f file-lists/lang_${i}_list.txt" || echo "%%files l10n-$i -f file-lists/lang_${i}_list.txt";
 done)}
 
-%{expand:%(for i in %{helplangs}; do
-	%{SOURCE1001} ${i} %{_libdir};
+%{expand:%(for i in %{helplangs}; do\
+	%{SOURCE1001} ${i};\
 done)}
 %endif
