@@ -223,7 +223,6 @@ BuildRequires:	pkgconfig(libucpp)
 BuildRequires:	pkgconfig(libvisio-0.1)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(libxslt)
-BuildRequires:	pkgconfig(libxul)
 BuildRequires:	pkgconfig(mdds-1.2) >= 1.2
 BuildRequires:	pkgconfig(mythes)
 BuildRequires:	pkgconfig(neon)
