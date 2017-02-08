@@ -22,7 +22,7 @@
 
 %if "%{beta}" == ""
 %define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
-%define buildver	%{version}.1
+%define buildver	%{version}.3
 %else
 %define relurl		http://dev-builds.libreoffice.org/pre-releases/src
 %define buildver	%{version}.0.%{beta}
