@@ -12,7 +12,7 @@
 
 %if %{with l10n}
 %define langs	en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu
-%define helplangs	ar bg bn bs ca cs da de dz el en-GB es et eu fi fr gl gu he hi hr hu it ja ko lt lv mk nb nl nn pl pt pt-BR ro ru si sk sl sv ta tr uk zh-CN zh-TW en-US
+%define helplangs	ar bg bn bs ca cs da de dz el en-GB en-US es et eu fi fr gl gu he hi hr hu it lt lv ja ko mk nb nl nn pl pt pt-BR ro ru si sk sl sv ta tr uk zh-CN zh-TW
 %else
 %define langs	en-US
 %define helplangs	en-US
@@ -20,13 +20,18 @@
 
 %define javaless 0
 
+%if "%{beta}" == ""
 %define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
+%define buildver	%{version}.3
+%else
+%define relurl		http://dev-builds.libreoffice.org/pre-releases/src
+%define buildver	%{version}.0.%{beta}
+%endif
 %define devurl		http://dev-www.libreoffice.org/ooo_external
 %define srcurl		http://dev-www.libreoffice.org/src/
 %define oxyurl		http://ooo.itc.hu/oxygenoffice/download/libreoffice/
 %define distroname	OpenMandriva
 %define ooname		libreoffice
-%define buildver	%{version}.2
 %define ooodir		%{_libdir}/libreoffice
 %define antpath		%{_builddir}/libreoffice-%{version}/apache-ant-1.8.1
 #define unopkg		%{_bindir}/unopkg
@@ -44,7 +49,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	5.2.4
+Version:	5.3.0
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
@@ -67,8 +72,8 @@ Source30:	%{devurl}/af3c3acf618de6108d65fcdc92b492e1-commons-codec-1.3-src.tar.g
 Source31:	%{devurl}/2c9b0f83ed5890af02c0df1c1776f39b-commons-httpclient-3.1-src.tar.gz 
 Source32:	%{devurl}/2ae988b339daec234019a7066f96733e-commons-lang-2.3-src.tar.gz 
 %endif
-Source33:	%{devurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
-Source34:	%{devurl}/ce12af00283eb90d9281956524250d6e-xmlsec1-1.2.20.tar.gz
+Source33:	%{srcurl}/62c0b97e94fe47d5e50ff605d2edf37a-hsqldb-2.3.3.zip
+Source34:	%{srcurl}/86b1daaa438f5a7bea9a52d7b9799ac0-xmlsec1-1.2.23.tar.gz
 Source35:	%{devurl}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
 Source36:	%{devurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
 Source37:	%{devurl}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
@@ -97,6 +102,7 @@ Source66:	%{oxyurl}09ec2dac030e1dcd5ef7fa1692691dc0-Sun-ODF-Template-Pack-hu_1.0
 Source67:	%{oxyurl}b33775feda3bcf823cad7ac361fd49a6-Sun-ODF-Template-Pack-it_1.0.0.oxt
 
 Source1000:	libreoffice.rpmlintrc
+Source1001:	libreoffice-help-package
 
 Patch0:		libreoffice-4.1.0.1-non-fatal-error-during-test.patch
 #Patch2:		help-images-mdv64789.patch
@@ -162,6 +168,8 @@ BuildRequires:	kdelibs4-devel
 BuildRequires:	pkgconfig(libwpd-0.10)
 BuildRequires:	pkgconfig(libwpg-0.3)
 BuildRequires:	pkgconfig(libwps-0.4)
+BuildRequires:	pkgconfig(libzmf-0.0)
+BuildRequires:	pkgconfig(libstaroffice-0.0)
 BuildRequires:	lpsolve-devel
 BuildRequires:	nas-devel
 BuildRequires:	openldap-devel
@@ -190,7 +198,8 @@ BuildRequires:	pkgconfig(glew)
 BuildRequires:	pkgconfig(gtk+-2.0)
 BuildRequires:	pkgconfig(gtk+-3.0)
 BuildRequires:	pkgconfig(hunspell)
-BuildRequires:	pkgconfig(icu-le)
+BuildRequires:	pkgconfig(icu-uc)
+BuildRequires:	pkgconfig(icu-i18n)
 BuildRequires:	pkgconfig(lcms2)
 BuildRequires:	pkgconfig(libabw-0.1)
 BuildRequires:	pkgconfig(libclucene-core)
@@ -204,7 +213,7 @@ BuildRequires:	pkgconfig(liblangtag) >= 0.5.4
 BuildRequires:	pkgconfig(libmspub-0.1)
 BuildRequires:	pkgconfig(libmwaw-0.3) >= 0.3.5
 BuildRequires:	pkgconfig(libodfgen-0.1)
-BuildRequires:	pkgconfig(liborcus-0.11)
+BuildRequires:	pkgconfig(liborcus-0.12)
 BuildRequires:	pkgconfig(libpagemaker-0.0)
 BuildRequires:	pkgconfig(librevenge-0.0)
 BuildRequires:	pkgconfig(librsvg-2.0)
@@ -507,9 +516,9 @@ This package contains the LibreOffice Open Clipart data, including images
 and sounds.
 
 %files openclipart
-%{ooodir}/share/gallery/Draws
-%{ooodir}/share/gallery/Elements
-%{ooodir}/share/gallery/Photos
+#{ooodir}/share/gallery/Draws
+#{ooodir}/share/gallery/Elements
+#{ooodir}/share/gallery/Photos
 %{ooodir}/share/gallery/apples*
 %{ooodir}/share/gallery/arrows*
 %{ooodir}/share/gallery/bigapple*
@@ -645,6 +654,7 @@ wiki pages.
 
 #----------------------------------------------------------------------------
 
+%if 0
 %package extension-barcode
 Summary:	LibreOffice extension for generating barcodes
 Group:		Office
@@ -655,6 +665,7 @@ LibreOffice extension for generating barcodes.
 
 %files extension-barcode
 %{ooodir}/share/extensions/Barcode
+%endif
 
 #----------------------------------------------------------------------------
 
@@ -691,6 +702,7 @@ LibreOffice Import/Export filter for Google Docs.
 
 #----------------------------------------------------------------------------
 
+%if 0
 %package extension-hunart
 Summary:	Hungarian cross-reference toolbar extension for LibreOffice
 Group:		Office
@@ -701,6 +713,7 @@ Hungarian cross-reference toolbar extension for LibreOffice.
 
 %files extension-hunart
 %{ooodir}/share/extensions/hunart
+%endif
 
 #----------------------------------------------------------------------------
 
@@ -757,6 +770,7 @@ Number-to-Text conversion function for LibreOffice Calc.
 
 #----------------------------------------------------------------------------
 
+%if 0
 %package extension-SmART
 Summary:	Diagram generator for LibreOffice Draw and Impress
 Group:		Office
@@ -772,9 +786,11 @@ applications.
 
 %files extension-SmART
 %{ooodir}/share/extensions/SmART
+%endif
 
 #----------------------------------------------------------------------------
 
+%if 0
 %package extension-typo
 Summary:	Typographic toolbar for LibreOffice
 Group:		Office
@@ -785,9 +801,11 @@ Typographic toolbar for LibreOffice.
 
 %files extension-typo
 %{ooodir}/share/extensions/typo
+%endif
 
 #----------------------------------------------------------------------------
 
+%if 0
 %package extension-validator
 Summary:	A LibreOffice Calc extension that validates cells based on selected rules
 Group:		Office
@@ -798,9 +816,11 @@ A LibreOffice Calc extension that validates cells based on selected rules.
 
 %files extension-validator
 %{ooodir}/share/extensions/Validator
+%endif
 
 #----------------------------------------------------------------------------
 
+%if 0
 %package extension-watchwindow
 Summary:	Macro debugging tool for LibreOffice
 Group:		Office
@@ -814,6 +834,7 @@ its values.
 
 %files extension-watchwindow
 %{ooodir}/share/extensions/WatchWindow
+%endif
 
 #----------------------------------------------------------------------------
 
@@ -2289,657 +2310,7 @@ standard locales system.
 
 #----------------------------------------------------------------------------
 
-%if %{with l10n}
-%package help-ar
-Summary:        Arabic help for LibreOffice
-Group:          Office
-Provides:       %{ooname}-help = %{EVRD}
-Requires:       %{ooname}-l10n-ar = %{EVRD}
-Provides:       LibreOffice-help-ar = %{EVRD}
-
-%description help-ar
-This package contains the localized help files of LibreOffice in Arabic.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-bg
-Summary:	Bulgarian help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-bg = %{EVRD}
-Provides:	LibreOffice-help-bg = %{EVRD}
-
-%description help-bg
-This package contains the localized help files of LibreOffice in Bulgarian.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-bn
-Summary:	Bengali help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-bn = %{EVRD}
-Provides:	LibreOffice-help-bn = %{EVRD}
-
-%description help-bn
-This package contains the localized help files of LibreOffice in Bengali.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-bs
-Summary:	Bosnian help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-bs = %{EVRD}
-Provides:	LibreOffice-help-bs = %{EVRD}
-
-%description help-bs
-This package contains the localized help files of LibreOffice in Bosnian.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-ca
-Summary:	Catalan help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-ca = %{EVRD}
-Provides:	LibreOffice-help-ca = %{EVRD}
-
-%description help-ca
-This package contains the localized help files of LibreOffice in Catalan.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-cs
-Summary:	Czech help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-cs = %{EVRD}
-Provides:	LibreOffice-help-cs = %{EVRD}
-
-%description help-cs
-This package contains the localized help files of LibreOffice in Czech.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-da
-Summary:	Danish help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-da = %{EVRD}
-Provides:	LibreOffice-help-da = %{EVRD}
-
-%description help-da
-This package contains the localized help files of LibreOffice in Danish.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-de
-Summary:	German help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-de = %{EVRD}
-Provides:	LibreOffice-help-de = %{EVRD}
-
-%description help-de
-This package contains the localized help files of LibreOffice in German.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-dz
-Summary:	Dzongkha help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-dz = %{EVRD}
-Provides:	LibreOffice-help-dz = %{EVRD}
-
-%description help-dz
-This package contains the localized help files of LibreOffice in Dzongkha.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-el
-Summary:	Greek help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-el = %{EVRD}
-Provides:	LibreOffice-help-el = %{EVRD}
-
-%description help-el
-This package contains the localized help files of LibreOffice in Greek.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-en_GB
-Summary:	British help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-en_GB = %{EVRD}
-Provides:	LibreOffice-help-en_GB = %{EVRD}
-
-%description help-en_GB
-This package contains the localized help files of LibreOffice in British.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-en_US
-Summary:	American English help for LibreOffice 
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-common = %{EVRD}
-Provides:	LibreOffice-help-en_US = %{EVRD}
-
-%description help-en_US
-This package contains the localized help files of LibreOffice
-in American English.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-es
-Summary:	Spanish help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-es = %{EVRD}
-Provides:	LibreOffice-help-es = %{EVRD}
-
-%description help-es
-This package contains the localized help files of LibreOffice in Spanish.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-et
-Summary:	Estonian help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-et = %{EVRD}
-Provides:	LibreOffice-help-et = %{EVRD}
-
-%description help-et
-This package contains the localized help files of LibreOffice in Estonian.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-eu
-Summary:	Basque help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-eu = %{EVRD}
-Provides:	LibreOffice-help-eu = %{EVRD}
-
-%description help-eu
-This package contains the localized help files of LibreOffice in Basque.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-fi
-Summary:	Finnish help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-fi = %{EVRD}
-Provides:	LibreOffice-help-fi = %{EVRD}
-
-%description help-fi
-This package contains the localized help files of LibreOffice in Finnish.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-fr
-Summary:	French help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-fr = %{EVRD}
-Provides:	LibreOffice-help-fr = %{EVRD}
-
-%description help-fr
-This package contains the localized help files of LibreOffice in French.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-gu
-Summary:	Gujarati help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-gu = %{EVRD}
-Provides:	LibreOffice-help-gu = %{EVRD}
-
-%description help-gu
-This package contains the localized help files of LibreOffice in Gujarati.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-gl
-Summary:	Galician help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-gl = %{EVRD}
-Provides:	LibreOffice-help-gl = %{EVRD}
-
-%description help-gl
-This package contains the localized help files of LibreOffice in Galician.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-he
-Summary:	Hebrew help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-he = %{EVRD}
-Provides:	LibreOffice-help-he = %{EVRD}
-
-%description help-he
-This package contains the localized help files of LibreOffice in Hebrew.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-hi
-Summary:	Hindi help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-hi = %{EVRD}
-Provides:	LibreOffice-help-hi = %{EVRD}
-
-%description help-hi
-This package contains the localized help files of LibreOffice in Hindi.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-hr
-Summary:	Croatian help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-hr = %{EVRD}
-Provides:	LibreOffice-help-hr = %{EVRD}
-
-%description help-hr
-This package contains the localized help files of LibreOffice in Croatian.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-hu
-Summary:	Hungarian help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-hu = %{EVRD}
-Provides:	LibreOffice-help-hu = %{EVRD}
-
-%description help-hu
-This package contains the localized help files of LibreOffice in Hungarian.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-it
-Summary:	Italian help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-it = %{EVRD}
-Provides:	LibreOffice-help-it = %{EVRD}
-
-%description help-it
-This package contains the localized help files of LibreOffice in Italian.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-ja
-Summary:	Japanese help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-ja = %{EVRD}
-Provides:	LibreOffice-help-ja = %{EVRD}
-
-%description help-ja
-This package contains the localized help files of LibreOffice in Japanese.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-ko
-Summary:	Korean help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-ko = %{EVRD}
-Provides:	LibreOffice-help-ko = %{EVRD}
-
-%description help-ko
-This package contains the localized help files of LibreOffice in Korean.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-lt
-Summary:        Lithuanian help for LibreOffice
-Group:          Office
-Provides:       %{ooname}-help = %{EVRD}
-Requires:       %{ooname}-l10n-lt = %{EVRD}
-Provides:       LibreOffice-help-lt = %{EVRD}
-
-%description help-lt
-This package contains the localized help files of LibreOffice in Lithuanian.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-lv
-Summary:        Latvian help for LibreOffice
-Group:          Office
-Provides:       %{ooname}-help = %{EVRD}
-Requires:       %{ooname}-l10n-lv = %{EVRD}
-Provides:       LibreOffice-help-lv = %{EVRD}
-
-%description help-lv
-This package contains the localized help files of LibreOffice in Latvian.
-%endif
-
-#----------------------------------------------------------------------------
-
-
-%if %{with l10n}
-%package help-mk
-Summary:	Macedonian help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-mk = %{EVRD}
-Provides:	LibreOffice-help-mk = %{EVRD}
-
-%description help-mk
-This package contains the localized help files of LibreOffice in Macedonian.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-nb
-Summary:	Norwegian Bokmal help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-nb = %{EVRD}
-Provides:	LibreOffice-help-nb = %{EVRD}
-
-%description help-nb
-This package contains the localized help files of LibreOffice in Norwegian
-Bokmal.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-nl
-Summary:	Dutch help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-nl = %{EVRD}
-Provides:	LibreOffice-help-nl = %{EVRD}
-
-%description help-nl
-This package contains the localized help files of LibreOffice in Dutch.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-nn
-Summary:	Norwegian Nynorsk help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-nn = %{EVRD}
-Provides:	LibreOffice-help-nn = %{EVRD}
-
-%description help-nn
-This package contains the localized help files of LibreOffice in Norwegian
-Nynorsk.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-pl
-Summary:	Polish help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-pl = %{EVRD}
-Provides:	LibreOffice-help-pl = %{EVRD}
-
-%description help-pl
-This package contains the localized help files of LibreOffice in Polish.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-pt
-Summary:	Portuguese help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-pt = %{EVRD}
-Provides:	LibreOffice-help-pt = %{EVRD}
-
-%description help-pt
-This package contains the localized help files of LibreOffice in Portuguese.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-pt_BR
-Summary:	Portuguese Brazilian help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-pt_BR = %{EVRD}
-Provides:	LibreOffice-help-pt_BR = %{EVRD}
-
-%description help-pt_BR
-This package contains the localized help files of LibreOffice in Portuguese
-Brazilian.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-ro
-Summary:        Romanian help for LibreOffice
-Group:          Office
-Provides:       %{ooname}-help = %{EVRD}
-Requires:       %{ooname}-l10n-ro = %{EVRD}
-Provides:       LibreOffice-help-ro = %{EVRD}
-
-%description help-ro
-This package contains the localized help files of LibreOffice in Romanian.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-ru
-Summary:	Russian help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-ru = %{EVRD}
-Provides:	LibreOffice-help-ru = %{EVRD}
-
-%description help-ru
-This package contains the localized help files of LibreOffice in Russian.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-si
-Summary:	Sinhalese help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-si = %{EVRD}
-Provides:	LibreOffice-help-si = %{EVRD}
-
-%description help-si
-This package contains the localized help files of LibreOffice in Sinhalese.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-sk
-Summary:	Slovak help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-sk = %{EVRD}
-Provides:	LibreOffice-help-sk = %{EVRD}
-
-%description help-sk
-This package contains the localized help files of LibreOffice in Slovak.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-sl
-Summary:	Slovenian help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-sl = %{EVRD}
-Provides:	LibreOffice-help-sl = %{EVRD}
-
-%description help-sl
-This package contains the localized help files of LibreOffice in Slovenian.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-sv
-Summary:	Swedish help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-sv = %{EVRD}
-Provides:	LibreOffice-help-sv = %{EVRD}
-
-%description help-sv
-This package contains the localized help files of LibreOffice in Swedish.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-ta
-Summary:        Tamil help for LibreOffice
-Group:          Office
-Provides:       %{ooname}-help = %{EVRD}
-Requires:       %{ooname}-l10n-ta = %{EVRD}
-Provides:       LibreOffice-help-ta = %{EVRD}
-
-%description help-ta
-This package contains the localized help files of LibreOffice in Tamil.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-tr
-Summary:	Turkish help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-tr = %{EVRD}
-Provides:	LibreOffice-help-tr = %{EVRD}
-
-%description help-tr
-This package contains the localized help files of LibreOffice in Turkish.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-uk
-Summary:	Ukrainian help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-uk = %{EVRD}
-Provides:	LibreOffice-help-uk = %{EVRD}
-
-%description help-uk
-This package contains the localized help files of LibreOffice in Ukrainian.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-zh_CN
-Summary:	Chinese Simplified help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-zh_CN = %{EVRD}
-Provides:	LibreOffice-help-zn_CN = %{EVRD}
-
-%description help-zh_CN
-This package contains the localized help files of LibreOffice in Chinese
-Simplified.
-%endif
-
-#----------------------------------------------------------------------------
-
-%if %{with l10n}
-%package help-zh_TW
-Summary:	Chinese Traditional help for LibreOffice
-Group:		Office
-Provides:	%{ooname}-help = %{EVRD}
-Requires:	%{ooname}-l10n-zh_TW = %{EVRD}
-Provides:	LibreOffice-help-zn_CT = %{EVRD}
-
-%description help-zh_TW
-This package contains the localized help files of LibreOffice in Chinese
-Traditional.
-%endif
-
-#----------------------------------------------------------------------------
-
+%if 0
 %package templates-common
 Summary:	Files used by LibreOffice templates
 Group:		Office
@@ -3038,10 +2409,11 @@ Files used by LibreOffice templates.
 %{ooodir}/share/template/common/offimisc/dummy_common_templates.txt
 %{ooodir}/share/template/common/personal/szivesoldal.otg
 %{ooodir}/share/template/common/presnt/dummy_common_templates.txt
+%endif
 
 #----------------------------------------------------------------------------
 
-%if %{with l10n}
+%if 0 && %{with l10n}
 %package templates-cs
 Summary:	Czech templates for LibreOffice
 Group:		Office
@@ -3056,7 +2428,7 @@ Czech templates for LibreOffice.
 
 #----------------------------------------------------------------------------
 
-%if %{with l10n}
+%if 0 && %{with l10n}
 %package templates-de
 Summary:	German templates for LibreOffice
 Group:		Office
@@ -3072,7 +2444,7 @@ German templates for LibreOffice.
 
 #----------------------------------------------------------------------------
 
-%if %{with l10n}
+%if 0 && %{with l10n}
 %package templates-en_US
 Summary:	US English templates for LibreOffice
 Group:		Office
@@ -3088,7 +2460,7 @@ US English templates for LibreOffice.
 
 #----------------------------------------------------------------------------
 
-%if %{with l10n}
+%if 0 && %{with l10n}
 %package templates-es
 Summary:	Spanish templates for LibreOffice
 Group:		Office
@@ -3104,7 +2476,7 @@ Spanish templates for LibreOffice.
 
 #----------------------------------------------------------------------------
 
-%if %{with l10n}
+%if 0 && %{with l10n}
 %package templates-fi
 Summary:	Finnish templates for LibreOffice
 Group:		Office
@@ -3119,7 +2491,7 @@ Finnish templates for LibreOffice.
 
 #----------------------------------------------------------------------------
 
-%if %{with l10n}
+%if 0 && %{with l10n}
 %package templates-fr
 Summary:	French templates for LibreOffice
 Group:		Office
@@ -3135,7 +2507,7 @@ French templates for LibreOffice.
 
 #----------------------------------------------------------------------------
 
-%if %{with l10n}
+%if 0 && %{with l10n}
 %package templates-hu
 Summary:	Hungarian templates for LibreOffice
 Group:		Office
@@ -3151,7 +2523,7 @@ Hungarian templates for LibreOffice.
 
 #----------------------------------------------------------------------------
 
-%if %{with l10n}
+%if 0 && %{with l10n}
 %package templates-it
 Summary:	Italian templates for LibreOffice
 Group:		Office
@@ -3167,7 +2539,7 @@ Italian templates for LibreOffice.
 
 #----------------------------------------------------------------------------
 
-%if %{with l10n}
+%if 0 && %{with l10n}
 %package templates-ja
 Summary:	Japanese templates for LibreOffice
 Group:		Office
@@ -3182,7 +2554,7 @@ Japanese templates for LibreOffice.
 
 #----------------------------------------------------------------------------
 
-%if %{with l10n}
+%if 0 && %{with l10n}
 %package templates-nl
 Summary:	Dutch templates for LibreOffice
 Group:		Office
@@ -3197,7 +2569,7 @@ Dutch templates for LibreOffice.
 
 #----------------------------------------------------------------------------
 
-%if %{with l10n}
+%if 0 && %{with l10n}
 %package templates-pl
 Summary:	Polish templates for LibreOffice
 Group:		Office
@@ -3212,7 +2584,7 @@ Polish templates for LibreOffice.
 
 #----------------------------------------------------------------------------
 
-%if %{with l10n}
+%if 0 && %{with l10n}
 %package templates-pt_BR
 Summary:	Brazilian Portuguese templates for LibreOffice
 Group:		Office
@@ -3227,7 +2599,7 @@ Brazilian Portuguese templates for LibreOffice.
 
 #----------------------------------------------------------------------------
 
-%if %{with l10n}
+%if 0 && %{with l10n}
 %package templates-sv
 Summary:	Swedish templates for LibreOffice
 Group:		Office
@@ -3242,7 +2614,7 @@ Swedish templates for LibreOffice.
 
 #----------------------------------------------------------------------------
 
-%if %{with l10n}
+%if 0 && %{with l10n}
 %package templates-tr
 Summary:	Turkish templates for LibreOffice
 Group:		Office
@@ -3257,7 +2629,7 @@ Turkish templates for LibreOffice.
 
 #----------------------------------------------------------------------------
 
-%if %{with l10n}
+%if 0 && %{with l10n}
 %package templates-zh_CN
 Summary:	Simplified Chinese templates for LibreOffice
 Group:		Office
@@ -3323,7 +2695,7 @@ export KDE4DIR=%{_libdir}/kde4
 	export KDE4INC=%{_libdir}/kde4/include
 %endif 
 export KDE4LIB=%{_libdir}/kde4/lib
-
+export PATH=/usr/lib/qt4/bin:$PATH
 export LC_ALL=en_US.UTF-8
 export LANG=en_US
 
@@ -3348,13 +2720,14 @@ export CXXFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing -fperm
 echo "Configure start at: "`date` >> ooobuildtime.log 
 
 touch autogen.lastrun
-%configure2_5x \
+%configure \
 	%{?_smp_mflags:--with-parallelism="`getconf _NPROCESSORS_ONLN`"} \
 	--with-vendor=OpenMandriva \
 	--with-build-version="OpenMandriva %{version}-%{release}" \
 	--disable-gltf \
 	--disable-coinmp \
 	--disable-fetch-external \
+	--disable-firebird-sdbc \
 	--with-external-tar="$EXTSRCDIR" \
 	--disable-gstreamer-0.10 \
 	--enable-release-build \
@@ -3471,9 +2844,6 @@ for app in base calc draw impress math startcenter writer xsltfilter; do
     cp --remove-destination %{buildroot}%{ooodir}/share/xdg/$app.desktop %{buildroot}%{_datadir}/applications/libreoffice-$app.desktop
 done
 
-# some genius committed commit log files...
-rm %{buildroot}%{ooodir}/share/template/common/svn-commit*.tmp
-
 # fix permissions for stripping
 find %{buildroot} -type f -exec chmod u+rw '{}' \;
 
@@ -3529,7 +2899,13 @@ sed -i -e '/libswdlo.so/d' file-lists/writer_list.txt
 ## remove fix wrong manpages files, extension gz->xz
 for p in common base calc writer impress draw math; do
 	sed -i '/^.*man.*\.gz$/d' file-lists/${p}_list.txt 
-done;
+done
+
+## Make sure help file lists exist -- for some languages, we
+## only get %{_libdir}/libreoffice/help/$lang without any extras
+for i in %{helplangs}; do
+	[ -e file-lists/help_${i/-/_}_list.txt ] || echo "%_libdir/libreoffice/help/${i}" >>file-lists/help_${i/-/_}_list.txt
+done
 
 ## sort removing duplicates
 sort -u file-lists/gnome_list.txt > file-lists/gnome_list.uniq.sorted.txt 
@@ -3544,14 +2920,6 @@ for i in oxygen galaxy hicontrast tango; do
 done
 # galaxy style too
 sed -i "/^.*images\.zip$/d" file-lists/common_list.txt 
-
-## Split help
-cd file-lists
-for i in lang_*.txt; do
-	grep /help/ $i >${i/lang/help} || touch ${i/lang/help}
-	sed -i -e '/\/help\//d' $i
-done
-cd ..
 
 # Split gallery
 grep /share/gallery/ file-lists/common_list.txt >file-lists/gallery_list.txt
@@ -3578,9 +2946,7 @@ cat file-lists/core_list.uniq.sorted.txt > file-lists/core_list.txt
 	[ "$i" = "sh" ] && echo "%%files l10n-shs -f file-lists/lang_${i}_list.txt" || echo "%%files l10n-$i -f file-lists/lang_${i}_list.txt";
 done)}
 
-%{expand:%(for i in %{helplangs}; do
-	l=`echo $i |sed -e 's,-,_,g'`;
-	echo "%%files help-$l -f file-lists/help_${l}_list.txt";
-	echo "%%_libdir/libreoffice/help/$i";
+%{expand:%(for i in %{helplangs}; do\
+	%{SOURCE1001} ${i};\
 done)}
 %endif
