@@ -2695,7 +2695,7 @@ export KDE4DIR=%{_libdir}/kde4
 	export KDE4INC=%{_libdir}/kde4/include
 %endif 
 export KDE4LIB=%{_libdir}/kde4/lib
-
+export PATH=/usr/lib/qt4/bin:$PATH
 export LC_ALL=en_US.UTF-8
 export LANG=en_US
 
@@ -2727,6 +2727,7 @@ touch autogen.lastrun
 	--disable-gltf \
 	--disable-coinmp \
 	--disable-fetch-external \
+	--disable-firebird-sdbc \
 	--with-external-tar="$EXTSRCDIR" \
 	--disable-gstreamer-0.10 \
 	--enable-release-build \
