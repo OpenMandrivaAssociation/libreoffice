@@ -2947,6 +2947,6 @@ cat file-lists/core_list.uniq.sorted.txt > file-lists/core_list.txt
 done)}
 
 %{expand:%(for i in %{helplangs}; do\
-	%{SOURCE1001} ${i};\
+	/bin/sh %{SOURCE1001} ${i};\
 done)}
 %endif
