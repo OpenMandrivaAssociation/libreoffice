@@ -2738,9 +2738,6 @@ touch autogen.lastrun
 	--enable-odk \
 	--enable-split-app-modules \
 	--enable-split-opt-features \
-	--enable-extra-gallery \
-	--enable-extra-template \
-	--with-sun-templates \
 	--without-fonts \
 	--without-junit \
 %if %{javaless}
@@ -2758,20 +2755,12 @@ touch autogen.lastrun
 	--with-external-thes-dir=%{_datadir}/dict/ooo \
 	--with-system-libs \
 	--with-system-ucpp \
-	--without-system-npapi-headers \
-	--enable-ext-watch-window \
-	--enable-ext-diagram \
-	--enable-ext-validator \
-	--enable-ext-barcode \
 	--enable-ext-ct2n \
 	--enable-ext-numbertext \
-	--enable-ext-hunart \
-	--enable-ext-typo \
 	--enable-ext-google-docs \
 	--enable-ext-nlpsolver \
 	--enable-ext-languagetool \
 	--enable-ext-wiki-publisher \
-	--enable-hardlink-deliver \
 	--enable-ext-mariadb-connector \
 %if %{with ccache} && !%{with icecream}
 	--with-gcc-speedup=ccache \
