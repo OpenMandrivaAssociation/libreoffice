@@ -77,6 +77,7 @@ Source34:	%{srcurl}/86b1daaa438f5a7bea9a52d7b9799ac0-xmlsec1-1.2.23.tar.gz
 Source35:	%{devurl}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
 Source36:	%{devurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
 Source37:	%{devurl}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
+Source38:	%{devurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
 
 # External Download Sources
 Source40:	http://hg.services.openoffice.org/binaries/1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz
@@ -2737,9 +2738,6 @@ touch autogen.lastrun
 	--enable-odk \
 	--enable-split-app-modules \
 	--enable-split-opt-features \
-	--enable-extra-gallery \
-	--enable-extra-template \
-	--with-sun-templates \
 	--without-fonts \
 	--without-junit \
 %if %{javaless}
@@ -2757,20 +2755,12 @@ touch autogen.lastrun
 	--with-external-thes-dir=%{_datadir}/dict/ooo \
 	--with-system-libs \
 	--with-system-ucpp \
-	--without-system-npapi-headers \
-	--enable-ext-watch-window \
-	--enable-ext-diagram \
-	--enable-ext-validator \
-	--enable-ext-barcode \
 	--enable-ext-ct2n \
 	--enable-ext-numbertext \
-	--enable-ext-hunart \
-	--enable-ext-typo \
 	--enable-ext-google-docs \
 	--enable-ext-nlpsolver \
 	--enable-ext-languagetool \
 	--enable-ext-wiki-publisher \
-	--enable-hardlink-deliver \
 	--enable-ext-mariadb-connector \
 %if %{with ccache} && !%{with icecream}
 	--with-gcc-speedup=ccache \
