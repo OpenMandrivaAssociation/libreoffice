@@ -22,7 +22,7 @@
 
 %if "%{beta}" == ""
 %define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
-%define buildver	%{version}.3
+%define buildver	%{version}.2
 %else
 %define relurl		http://dev-builds.libreoffice.org/pre-releases/src
 %define buildver	%{version}.0.%{beta}
@@ -49,7 +49,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	5.3.0
+Version:	5.3.1
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
