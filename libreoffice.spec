@@ -390,6 +390,7 @@ This package contains templates and other optional parts of LibreOffice
 that require a Java stack (such as OpenJDK) to be installed.
 
 %files java -f file-lists/java_common_list.txt
+%{_datadir}/java/%{name}
 
 #----------------------------------------------------------------------------
 
@@ -2927,6 +2928,17 @@ cat file-lists/common_list.uniq.sorted.txt >>file-lists/core_list.txt
 ## make sure we don't have duplicate files in core
 sort -u file-lists/core_list.txt > file-lists/core_list.uniq.sorted.txt
 cat file-lists/core_list.uniq.sorted.txt > file-lists/core_list.txt
+
+install -m 0755 -d %{buildroot}%{_javadir}/%{name}
+for jar in %{buildroot}%{ooodir}/program/classes/*.jar; do
+    j=`basename $jar`
+    case ${j%.jar} in
+        juh|jurt|ridl|unoloader|unoil|officebean)
+            mv $jar %{buildroot}%{_javadir}/%{name}
+            ln -sr %{buildroot}%{_javadir}/%{name}/$j $jar
+            ;;
+    esac
+done
 
 # %%files for help-* and l10n-* packages
 %if %{with l10n}
