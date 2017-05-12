@@ -49,7 +49,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	5.3.2
+Version:	5.3.3
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
