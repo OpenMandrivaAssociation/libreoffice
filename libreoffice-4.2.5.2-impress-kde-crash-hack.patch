@@ -1,6 +1,6 @@
---- libreoffice-5.3.0/vcl/unx/kde4/KDESalGraphics.cxx.0051~	2016-11-28 16:16:20.418798674 +0100
-+++ libreoffice-5.3.0/vcl/unx/kde4/KDESalGraphics.cxx	2016-11-28 16:19:41.782990584 +0100
-@@ -137,8 +137,13 @@ namespace
+--- libreoffice-5.4.0/vcl/unx/kde4/KDESalGraphics.cxx.0051~	2017-06-24 23:59:34.599570618 +0200
++++ libreoffice-5.4.0/vcl/unx/kde4/KDESalGraphics.cxx	2017-06-25 00:01:32.470770037 +0200
+@@ -138,8 +138,13 @@ namespace
          option->state |= state;
          option->rect = image->rect();
  
@@ -15,4 +15,4 @@
 +        }
      }
  
-     void lcl_drawFrame(QStyle::PrimitiveElement element, QImage* image, QStyle::State const & state)
+     void lcl_drawFrame( QStyle::PrimitiveElement element, QImage* image, QStyle::State const & state,

@@ -18,7 +18,6 @@ sources:
   53ca5e56ccd4cab3693ad32c6bd13343-Sun-ODF-Template-Pack-de_1.0.0.oxt: 4fea33622d89c7ac62053e5ee3616cfe504e0f14
   62c0b97e94fe47d5e50ff605d2edf37a-hsqldb-2.3.3.zip: f5fce3d5eb21294f9ffba40c34e7c736ab64d6b9
   798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip: 8a90669029e107b61953b90ba11545fef586c2ca
-  86b1daaa438f5a7bea9a52d7b9799ac0-xmlsec1-1.2.23.tar.gz: a0cc67aa534167bb59bcca0dc6a7db2573814542
   8d74685d41f8bffe8c3e71fe8deac09d-SmART_0.9.5.oxt: ad53e6f0b18842ade578cad5acc9ea651ad01a03
   9d60b6cfa3ef1926848710bbcd11115b-typo_0.4.2.oxt: 0f0e7f1f1fd7951de2dd3b6bb7313c6adb4d17b8
   Mandriva-Rosa_Icons.tar.bz2: 4d7e4f9ce89503a3722dcbaa5facbf53c78daeef
@@ -32,7 +31,9 @@ sources:
   b63e6340a02ff1cacfeadb2c42286161-JLanguageTool-1.7.0.tar.bz2: aa8faa4f9e6721eed9bc6878862d74d0cb23251c
   b7cae45ad2c23551fd6ccb8ae2c1f59e-numbertext_0.9.5.oxt: bdec3915c01cd60e20892376aa5e5a0d3980c389
   bbdd5639ada63e3130761daaecae1a10-Validator_1.1.0.0.oxt: c89331a8d7642429f4fe3ffe07ee6d675f99561a
-  libreoffice-5.3.1.2.tar.xz: 1f9381e9a46642f3cbf611b285ddbbbe99d8835d
-  libreoffice-dictionaries-5.3.1.2.tar.xz: 96bfb4bb131d600bb4cf041eebdfd74d9d3c5018
-  libreoffice-help-5.3.1.2.tar.xz: bf12e0dcb8dfe12aebfe03aaa71ba663ecb25cbd
-  libreoffice-translations-5.3.1.2.tar.xz: e1cf96b0e639d4426545a0a38f4a65c52788caa7
+  xmlsec1-1.2.24.tar.gz: b64a443641de3338d7d1ba17f25653a314d65d93
+  pdfium-3064.tar.bz2: 70135df62d10db3471054bd29fb9bf48d8bc5b7c
+  libreoffice-5.4.0.1.tar.xz: a5b5b39703b3093edc91d83ba7a1aac1d09ba2a6
+  libreoffice-dictionaries-5.4.0.1.tar.xz: 24d28031e39137436ef1a67c1a789af665c7e07c
+  libreoffice-help-5.4.0.1.tar.xz: cb3123cabedbb0b71fc14257e25daeecfe2eafe5
+  libreoffice-translations-5.4.0.1.tar.xz: 83e76ebe58f1c5c6cc0c2b49a9390fb1e5e46f70
