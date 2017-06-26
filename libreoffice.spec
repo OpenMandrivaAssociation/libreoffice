@@ -177,6 +177,7 @@ BuildRequires:	cups-devel
 BuildRequires:	hyphen-devel
 BuildRequires:	java-devel
 BuildRequires:	kdelibs4-devel
+BuildRequires:	cmake(Gpgmepp)
 BuildRequires:	pkgconfig(libwpd-0.10)
 BuildRequires:	pkgconfig(libwpg-0.3)
 BuildRequires:	pkgconfig(libwps-0.4)
