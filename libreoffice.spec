@@ -33,10 +33,9 @@
 %define relurl		http://dev-builds.libreoffice.org/pre-releases/src
 %define buildver	%{version}.0.%{beta}
 %else
-#define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
-#define buildver	%{version}.1
-%define relurl		http://dev-builds.libreoffice.org/pre-releases/src
-%define buildver	%{version}.1
+%define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
+#define relurl		http://dev-builds.libreoffice.org/pre-releases/src
+%define buildver	%{version}.2
 %endif
 %define devurl		http://dev-www.libreoffice.org/ooo_external
 %define srcurl		http://dev-www.libreoffice.org/src/
@@ -60,7 +59,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	5.4.0
+Version:	5.4.1
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
@@ -84,7 +83,7 @@ Source31:	%{devurl}/2c9b0f83ed5890af02c0df1c1776f39b-commons-httpclient-3.1-src.
 Source32:	%{devurl}/2ae988b339daec234019a7066f96733e-commons-lang-2.3-src.tar.gz 
 %endif
 Source33:	%{srcurl}/62c0b97e94fe47d5e50ff605d2edf37a-hsqldb-2.3.3.zip
-Source34:	%{srcurl}/xmlsec1-1.2.24.tar.gz
+#Source34:	%{srcurl}/xmlsec1-1.2.24.tar.gz
 Source35:	%{devurl}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
 Source36:	%{devurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
 Source37:	%{devurl}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
@@ -193,7 +192,7 @@ BuildRequires:	readline-devel
 BuildRequires:	unixODBC-devel
 BuildRequires:	vigra-devel
 BuildRequires:	pkgconfig(bluez)
-BuildRequires:	pkgconfig(cppunit)
+BuildRequires:	pkgconfig(cppunit) >= 1.14.0
 BuildRequires:	pkgconfig(dbus-1)
 BuildRequires:	pkgconfig(dbus-glib-1)
 BuildRequires:	pkgconfig(expat)
@@ -252,7 +251,7 @@ BuildRequires:	pkgconfig(redland)
 BuildRequires:	pkgconfig(sane-backends)
 BuildRequires:	pkgconfig(sndfile)
 BuildRequires:	pkgconfig(xaw7)
-BuildRequires:	pkgconfig(xmlsec1)
+BuildRequires:	pkgconfig(xmlsec1) >= 1.2.24
 BuildRequires:	pkgconfig(xpm)
 BuildRequires:	pkgconfig(xtst)
 BuildRequires:	pkgconfig(zlib)
