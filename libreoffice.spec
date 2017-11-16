@@ -153,6 +153,7 @@ BuildRequires:	gdb
 BuildRequires:	git
 BuildRequires:	gperf
 BuildRequires:	glm-devel
+BuildRequires:	gpgmepp-devel
 BuildRequires:	icu
 BuildRequires:	imagemagick
 BuildRequires:	mysql-connector-c++-devel
