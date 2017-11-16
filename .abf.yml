@@ -1,8 +1,3 @@
-removed_sources:
-  libreoffice-5.3.2.2.tar.xz: 1e9dbf009ebd6cd23a6949f4f481ab0846e77bf9
-  libreoffice-dictionaries-5.3.2.2.tar.xz: 9522db774f4f746c4ec52999037baca03588c70d
-  libreoffice-help-5.3.2.2.tar.xz: 347e385a89b3e6b4a687a9d9f5d2c7f54e53f725
-  libreoffice-translations-5.3.2.2.tar.xz: 66431dacac6b9585ef0b67be0ffda9e01e0a8392
 sources:
   0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz: 452eba922e4f41603539c9dc39947d2271e47093
   09ec2dac030e1dcd5ef7fa1692691dc0-Sun-ODF-Template-Pack-hu_1.0.0.oxt: 42c9235d7f876645ea6553770e7572c1b0b8609a
@@ -23,7 +18,6 @@ sources:
   53ca5e56ccd4cab3693ad32c6bd13343-Sun-ODF-Template-Pack-de_1.0.0.oxt: 4fea33622d89c7ac62053e5ee3616cfe504e0f14
   62c0b97e94fe47d5e50ff605d2edf37a-hsqldb-2.3.3.zip: f5fce3d5eb21294f9ffba40c34e7c736ab64d6b9
   798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip: 8a90669029e107b61953b90ba11545fef586c2ca
-  86b1daaa438f5a7bea9a52d7b9799ac0-xmlsec1-1.2.23.tar.gz: a0cc67aa534167bb59bcca0dc6a7db2573814542
   8d74685d41f8bffe8c3e71fe8deac09d-SmART_0.9.5.oxt: ad53e6f0b18842ade578cad5acc9ea651ad01a03
   9d60b6cfa3ef1926848710bbcd11115b-typo_0.4.2.oxt: 0f0e7f1f1fd7951de2dd3b6bb7313c6adb4d17b8
   Mandriva-Rosa_Icons.tar.bz2: 4d7e4f9ce89503a3722dcbaa5facbf53c78daeef
@@ -37,7 +31,9 @@ sources:
   b63e6340a02ff1cacfeadb2c42286161-JLanguageTool-1.7.0.tar.bz2: aa8faa4f9e6721eed9bc6878862d74d0cb23251c
   b7cae45ad2c23551fd6ccb8ae2c1f59e-numbertext_0.9.5.oxt: bdec3915c01cd60e20892376aa5e5a0d3980c389
   bbdd5639ada63e3130761daaecae1a10-Validator_1.1.0.0.oxt: c89331a8d7642429f4fe3ffe07ee6d675f99561a
-  libreoffice-5.3.3.2.tar.xz: 0b56eaa858ed9d0361c664ba30d8a5eec292ef2c
-  libreoffice-dictionaries-5.3.3.2.tar.xz: 720ce2d5b22967ecd735d8a7edd31966c95671fa
-  libreoffice-help-5.3.3.2.tar.xz: e357986fe64236aef0c6e67d02b6310d196170a5
-  libreoffice-translations-5.3.3.2.tar.xz: 94d93c19f70374a6d6f608394dac9120392cf6ac
+  libreoffice-5.4.3.2.tar.xz: 62cf8e36d10d40137602ec4d0d1de5a7430cd7ad
+  libreoffice-dictionaries-5.4.3.2.tar.xz: 78a1444743eaaf8783eaab9d3440fe15a930fe53
+  libreoffice-help-5.4.3.2.tar.xz: 3a8deb3bf0b29409492456bd789356e99e43fad6
+  libreoffice-translations-5.4.3.2.tar.xz: b50cd9e4e49f1e536bfdc353fc41a03706b2d731
+  pdfium-3064.tar.bz2: 70135df62d10db3471054bd29fb9bf48d8bc5b7c
+  xmlsec1-1.2.24.tar.gz: b64a443641de3338d7d1ba17f25653a314d65d93

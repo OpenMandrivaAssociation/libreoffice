@@ -4,6 +4,15 @@
 %define _source_payload w1.xzdio
 %define _disable_lto 1
 
+# Set up Google API keys, see http://www.chromium.org/developers/how-tos/api-keys
+# OpenMandriva key, id and secret
+# For your own builds, please get your own set of keys.
+%define    google_api_key AIzaSyAraWnKIFrlXznuwvd3gI-gqTozL-H-8MU
+%define    google_default_client_id 1089316189405-m0ropn3qa4p1phesfvi2urs7qps1d79o.apps.googleusercontent.com
+%define    google_default_client_secret RDdr-pHq2gStY4uw0m-zxXeo
+
+%define styles breeze breeze_dark crystal galaxy hicontrast oxygen sifr sifr_dark tango tango_testing
+
 %bcond_without l10n
 %bcond_with icecream
 %bcond_with ccache
@@ -20,12 +29,13 @@
 
 %define javaless 0
 
-%if "%{beta}" == ""
-%define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
-%define buildver	%{version}.2
-%else
+%if "%{beta}" != ""
 %define relurl		http://dev-builds.libreoffice.org/pre-releases/src
 %define buildver	%{version}.0.%{beta}
+%else
+%define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
+#define relurl		http://dev-builds.libreoffice.org/pre-releases/src
+%define buildver	%{version}.2
 %endif
 %define devurl		http://dev-www.libreoffice.org/ooo_external
 %define srcurl		http://dev-www.libreoffice.org/src/
@@ -49,7 +59,11 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
+<<<<<<< HEAD
 Version:	5.3.3
+=======
+Version:	5.4.3
+>>>>>>> master
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
@@ -73,11 +87,12 @@ Source31:	%{devurl}/2c9b0f83ed5890af02c0df1c1776f39b-commons-httpclient-3.1-src.
 Source32:	%{devurl}/2ae988b339daec234019a7066f96733e-commons-lang-2.3-src.tar.gz 
 %endif
 Source33:	%{srcurl}/62c0b97e94fe47d5e50ff605d2edf37a-hsqldb-2.3.3.zip
-Source34:	%{srcurl}/86b1daaa438f5a7bea9a52d7b9799ac0-xmlsec1-1.2.23.tar.gz
+#Source34:	%{srcurl}/xmlsec1-1.2.24.tar.gz
 Source35:	%{devurl}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
 Source36:	%{devurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
 Source37:	%{devurl}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
 Source38:	%{devurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
+Source39:	http://dev-www.libreoffice.org/src/pdfium-3064.tar.bz2
 
 # External Download Sources
 Source40:	http://hg.services.openoffice.org/binaries/1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz
@@ -105,7 +120,6 @@ Source67:	%{oxyurl}b33775feda3bcf823cad7ac361fd49a6-Sun-ODF-Template-Pack-it_1.0
 Source1000:	libreoffice.rpmlintrc
 Source1001:	libreoffice-help-package
 
-Patch0:		libreoffice-4.1.0.1-non-fatal-error-during-test.patch
 #Patch2:		help-images-mdv64789.patch
 
 # Force Qt4 event loops because with glib event loops libreoffice-kde4 doesn't
@@ -166,6 +180,7 @@ BuildRequires:	cups-devel
 BuildRequires:	hyphen-devel
 BuildRequires:	java-devel
 BuildRequires:	kdelibs4-devel
+BuildRequires:	cmake(Gpgmepp)
 BuildRequires:	pkgconfig(libwpd-0.10)
 BuildRequires:	pkgconfig(libwpg-0.3)
 BuildRequires:	pkgconfig(libwps-0.4)
@@ -181,7 +196,7 @@ BuildRequires:	readline-devel
 BuildRequires:	unixODBC-devel
 BuildRequires:	vigra-devel
 BuildRequires:	pkgconfig(bluez)
-BuildRequires:	pkgconfig(cppunit)
+BuildRequires:	pkgconfig(cppunit) >= 1.14.0
 BuildRequires:	pkgconfig(dbus-1)
 BuildRequires:	pkgconfig(dbus-glib-1)
 BuildRequires:	pkgconfig(expat)
@@ -240,7 +255,7 @@ BuildRequires:	pkgconfig(redland)
 BuildRequires:	pkgconfig(sane-backends)
 BuildRequires:	pkgconfig(sndfile)
 BuildRequires:	pkgconfig(xaw7)
-BuildRequires:	pkgconfig(xmlsec1)
+BuildRequires:	pkgconfig(xmlsec1) >= 1.2.24
 BuildRequires:	pkgconfig(xpm)
 BuildRequires:	pkgconfig(xtst)
 BuildRequires:	pkgconfig(zlib)
@@ -416,6 +431,7 @@ LibreOffice (includes, IDL files, build tools, ...). It also contains the
 zipped source of the UNO Java libraries for use in IDEs like eclipse.
 
 %files devel -f file-lists/sdk_list.uniq.sorted.txt
+%dir %{_libdir}/libreoffice/sdk/lib
 
 #----------------------------------------------------------------------------
 
@@ -484,13 +500,14 @@ This package contains the presentation component for LibreOffice.
 Summary:	KDE4 Integration for LibreOffice (Widgets, Dialogs, Addressbook)
 Group:		Office
 Requires:	%{name}-common = %{EVRD}
-Suggests:	%{name}-style-oxygen = %{EVRD}
+Suggests:	%{name}-style-breeze = %{EVRD}
 
 %description kde4
 This package contains the KDE4 plugin for drawing LibreOffice widgets with
 KDE4/Qt4.x and a KDEish File Picker when running under KDE4.
 
 %files kde4 -f file-lists/kde4_list.txt
+%{_datadir}/appdata/org.libreoffice.kde.metainfo.xml
 
 #----------------------------------------------------------------------------
 
@@ -558,62 +575,24 @@ This package contains the Python bindings for the UNO library.
 
 #----------------------------------------------------------------------------
 
-%package style-galaxy
-Summary:	Default symbol style for LibreOffice
+%(
+for i in %{styles}; do
+	cat <<EOF
+%package style-${i}
+Summary:	${i} style for LibreOffice
 Group:		Office
 Requires:	%{name}-common = %{EVRD}
 Provides:	%{name}-style = %{EVRD}
 
-%description style-galaxy
-This package contains the "Galaxy" symbol style from Sun, normally used on
-MS Windows (tm) and when not using GNOME or KDE. Needs to be manually enabled
-in the LibreOffice option menu.
+%description style-${i}
+This package contains the "${i}" style for LibreOffice
 
-%files style-galaxy
-%{ooodir}/share/config/images_galaxy.zip
+%files style-${i}
+%{ooodir}/share/config/images_${i}.zip
 
-#----------------------------------------------------------------------------
-
-%package style-hicontrast
-Summary:	Hicontrast symbol style for LibreOffice
-Group:		Office
-Requires:	%{name}-common = %{EVRD}
-Provides:	%{name}-style = %{EVRD}
-
-%description style-hicontrast
-This package contains the "hicontrast" symbol style, needs to be manually
-enabled in the LibreOffice option menu.
-
-%files style-hicontrast
-%{ooodir}/share/config/images_hicontrast.zip
-
-#----------------------------------------------------------------------------
-
-%package style-oxygen
-Summary:	Oxygen symbol style for LibreOffice
-Group:		Office
-Requires:	%{name}-common = %{EVRD}
-Provides:	%{name}-style = %{EVRD}
-
-%description style-oxygen
-This package contains the "oxygen" symbol style, default style for KDE4.
-
-%files style-oxygen
-%{ooodir}/share/config/images_oxygen.zip
-
-#----------------------------------------------------------------------------
-
-%package style-tango
-Summary:	Tango symbol style for LibreOffice
-Group:		Office
-Requires:	%{name}-common = %{EVRD}
-Provides:	%{name}-style = %{EVRD}
-
-%description style-tango
-This package contains the "tango" symbol style, default style for GTK/Gnome.
-
-%files style-tango
-%{ooodir}/share/config/images_tango.zip
+EOF
+done
+)
 
 #----------------------------------------------------------------------------
 
@@ -691,6 +670,7 @@ and then will be counted as expected in formulas Calc.
 
 #----------------------------------------------------------------------------
 
+%if 0
 %package extension-gdocs
 Summary:	LibreOffice Import/Export filter for Google Docs
 Group:		Office
@@ -704,7 +684,6 @@ LibreOffice Import/Export filter for Google Docs.
 
 #----------------------------------------------------------------------------
 
-%if 0
 %package extension-hunart
 Summary:	Hungarian cross-reference toolbar extension for LibreOffice
 Group:		Office
@@ -2726,6 +2705,9 @@ touch autogen.lastrun
 	%{?_smp_mflags:--with-parallelism="`getconf _NPROCESSORS_ONLN`"} \
 	--with-vendor=OpenMandriva \
 	--with-build-version="OpenMandriva %{version}-%{release}" \
+	--with-gdrive-client-id="%{google_default_client_id}" \
+	--with-gdrive-client-secret="%{google_default_client_secret}" \
+	--with-theme="%{styles}" \
 	--disable-gltf \
 	--disable-coinmp \
 	--disable-fetch-external \
@@ -2756,6 +2738,7 @@ touch autogen.lastrun
 	--with-external-thes-dir=%{_datadir}/dict/ooo \
 	--with-system-libs \
 	--with-system-ucpp \
+	--with-system-icu-for-build \
 	--enable-ext-ct2n \
 	--enable-ext-numbertext \
 	--enable-ext-google-docs \
@@ -2906,7 +2889,7 @@ sort -u file-lists/sdk_list.txt   > file-lists/sdk_list.uniq.sorted.txt
 sed -i -e 's/\[/?/g;s/\]/?/g' file-lists/sdk*.txt
 
 ## styles have their own packages
-for i in oxygen galaxy hicontrast tango; do
+for i in %{styles}; do
 	sed -i "/^.*images_$i\.zip$/d" file-lists/common_list.txt 
 done
 # galaxy style too
