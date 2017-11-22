@@ -151,6 +151,7 @@ BuildRequires:	glm-devel
 BuildRequires:	gpgmepp-devel
 BuildRequires:	icu
 BuildRequires:	imagemagick
+BuildRequires:	libxml2-utils
 BuildRequires:	mysql-connector-c++-devel
 BuildRequires:	pentaho-libxml
 BuildRequires:	pentaho-reporting-flow-engine
@@ -360,6 +361,10 @@ Summary:	LibreOffice office suite common files
 Group:		Office
 # Require at least one style to be installed
 Requires:	%{name}-style = %{EVRD}
+# The Galaxy style is mandatory because other styles fall back to it
+# when missing an image -- causing funny effects like
+# https://bugs.documentfoundation.org/show_bug.cgi?id=113995
+Requires:	%{name}-style-galaxy = %{EVRD}
 Suggests:	%{name}-help-en_US = %{EVRD}
 # And then general requires for OOo follows
 Requires:	ghostscript
