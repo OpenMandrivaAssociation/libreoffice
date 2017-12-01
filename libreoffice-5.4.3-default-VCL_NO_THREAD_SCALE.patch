@@ -1,0 +1,11 @@
+--- libreoffice-5.4.3/vcl/source/bitmap/bitmapscalesuper.cxx.omv~	2017-12-01 21:43:54.189218262 +0100
++++ libreoffice-5.4.3/vcl/source/bitmap/bitmapscalesuper.cxx	2017-12-01 21:45:05.251425077 +0100
+@@ -991,7 +991,7 @@ bool BitmapScaleSuper::filter(Bitmap& rB
+         bool bHorizontalWork = pReadAccess->Width() > 512 || pWriteAccess->Width() > 512;
+         bool bUseThreads = true;
+ 
+-        static bool bDisableThreadedScaling = getenv ("VCL_NO_THREAD_SCALE");
++        static bool bDisableThreadedScaling = !getenv("VCL_NO_THREAD_SCALE") || strcmp(getenv("VCL_NO_THREAD_SCALE"), "0");
+         if ( bDisableThreadedScaling || !bHorizontalWork ||
+              nEndY - nStartY < SCALE_THREAD_STRIP )
+         {

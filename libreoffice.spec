@@ -63,7 +63,7 @@ Version:	5.4.3
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
-Release:	1
+Release:	2
 %endif
 Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
@@ -133,6 +133,7 @@ Patch101:	libreoffice-5.1.0.1-desktop-categories.patch
 
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
+Patch203:	libreoffice-5.4.3-default-VCL_NO_THREAD_SCALE.patch
 
 %if %{with icecream}
 BuildRequires:	icecream
