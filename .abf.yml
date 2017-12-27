@@ -33,7 +33,7 @@ sources:
   bbdd5639ada63e3130761daaecae1a10-Validator_1.1.0.0.oxt: c89331a8d7642429f4fe3ffe07ee6d675f99561a
   xmlsec1-1.2.24.tar.gz: b64a443641de3338d7d1ba17f25653a314d65d93
   pdfium-3235.tar.bz2: 10a6525bf0c014556766a19912fa6a80849a9117
-  libreoffice-6.0.0.0.beta2+.tar.xz: 1d92e5213bf6b7bef498921ff60846bea7f9e065
-  libreoffice-dictionaries-6.0.0.0.beta2+.tar.xz: 51ae930223580a94fec269b03c3659912280f397
-  libreoffice-help-6.0.0.0.beta2+.tar.xz: ed8e9d86ed0b05180041f82e06f3695738998b4c
-  libreoffice-translations-6.0.0.0.beta2+.tar.xz: 24e9ff4a3042d4e187cfd4caca9a90035246a6fd
+  libreoffice-6.0.0.1-0+.tar.xz: 966a288dfe032859cef120a7852277f626756b90
+  libreoffice-dictionaries-6.0.0.1-0+.tar.xz: 49171dfe9cf1ae5d29916a8ad2bd308c2a058977
+  libreoffice-help-6.0.0.1-0+.tar.xz: 6912f8e699f7ebab849f2a6c17f3a5b6d44d6dbd
+  libreoffice-translations-6.0.0.1-0+.tar.xz: c5f20bb64bcd8cd1c99a309c088681f56c8c6062
