@@ -59,7 +59,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	5.4.3
+Version:	5.4.4
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
@@ -2691,7 +2691,7 @@ export CCACHE_DIR=%{ccachedir}
 
 # g0 - Workaround for abf builds running out of memory
 # O2 - tests seem to segfault with Oz
-%global optflags %(echo %{optflags} -g0 | sed -e 's/-Oz/-O2/')
+%global optflags %(echo %{optflags} | sed -e 's/-Oz//' | sed -e 's/-Os/-O2/')
 
 export CFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing"
 export CXXFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive"
@@ -2737,9 +2737,9 @@ touch autogen.lastrun
 	--with-system-libs \
 	--with-system-ucpp \
 	--with-system-icu-for-build \
+	--with-alloc=system \
 	--enable-ext-ct2n \
 	--enable-ext-numbertext \
-	--enable-ext-google-docs \
 	--enable-ext-nlpsolver \
 	--enable-ext-languagetool \
 	--enable-ext-wiki-publisher \
