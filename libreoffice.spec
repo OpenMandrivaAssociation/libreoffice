@@ -133,7 +133,9 @@ Patch101:	libreoffice-5.1.0.1-desktop-categories.patch
 
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
-Patch203:	libreoffice-5.4.3-default-VCL_NO_THREAD_SCALE.patch
+
+# work around for hanging when saving due to thread behaviour
+Patch203:	libreoffice-5.4-std_thread.patch
 
 %if %{with icecream}
 BuildRequires:	icecream

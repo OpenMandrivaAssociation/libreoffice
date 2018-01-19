@@ -1,0 +1,43 @@
+--- libreoffice-5.4.4.orig/comphelper/source/misc/threadpool.cxx	2017-12-12 17:45:07.000000000 +0000
++++ libreoffice-5.4.4/comphelper/source/misc/threadpool.cxx	2018-01-18 23:47:10.664629017 +0000
+@@ -42,18 +42,19 @@
+ };
+ 
+ 
+-class ThreadPool::ThreadWorker : public salhelper::Thread
++class ThreadPool::ThreadWorker : public salhelper::SimpleReferenceObject //salhelper::Thread
+ {
+     ThreadPool *mpPool;
++    std::thread mThread;
+ public:
+ 
+     explicit ThreadWorker( ThreadPool *pPool ) :
+-        salhelper::Thread("thread-pool"),
++        //salhelper::Thread("thread-pool"),
+         mpPool( pPool )
+     {
+     }
+ 
+-    virtual void execute() override
++    virtual void execute() //override
+     {
+ #if defined DBG_UTIL && defined LINUX
+         gbIsWorkerThread = true;
+@@ -73,6 +74,17 @@
+             }
+         }
+     }
++
++    virtual void launch()
++    {
++        mThread = std::thread(&ThreadWorker::execute, this);
++    }
++
++    virtual void join()
++    {
++        mThread.join();
++    }
++
+ };
+ 
+ ThreadPool::ThreadPool(sal_Int32 nWorkers)
