@@ -21,7 +21,7 @@
 -    virtual void execute() override
 +    virtual void execute() //override
      {
- #if defined DBG_UTIL && defined LINUX
+ #if defined DBG_UTIL && (defined LINUX || defined _WIN32)
          gbIsWorkerThread = true;
 @@ -73,6 +74,17 @@
              }
