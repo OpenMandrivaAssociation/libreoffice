@@ -58,7 +58,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	6.0.1
+Version:	6.0.2
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
@@ -128,8 +128,8 @@ Patch101:	libreoffice-5.1.0.1-desktop-categories.patch
 
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
-
 Patch203:	libreoffice-5.4-std_thread.patch
+Patch204:	https://raw.githubusercontent.com/frugalware/frugalware-current/master/source/xoffice/libreoffice/kf5-qt5.patch
 
 %if %{with icecream}
 BuildRequires:	icecream
@@ -185,12 +185,12 @@ BuildRequires:	cmake(Qt5Core)
 BuildRequires:	cmake(Qt5Gui)
 BuildRequires:	cmake(Qt5Widgets)
 BuildRequires:	cmake(Qt5Network)
-BuildRequires:	kdelibs4support
 BuildRequires:	cmake(KF5CoreAddons)
 BuildRequires:	cmake(KF5I18n)
 BuildRequires:	cmake(KF5Config)
 BuildRequires:	cmake(KF5WindowSystem)
 BuildRequires:	cmake(KF5KIO)
+BuildRequires:	cmake(KF5KDELibs4Support)
 %else
 BuildRequires:	kdelibs4-devel
 BuildRequires:	qt4-devel
