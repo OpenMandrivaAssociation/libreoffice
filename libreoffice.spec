@@ -58,7 +58,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	6.0.1
+Version:	6.0.2
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
@@ -128,9 +128,9 @@ Patch101:	libreoffice-5.1.0.1-desktop-categories.patch
 
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
-
 # work around for hanging when saving due to thread behaviour
 Patch203:	libreoffice-5.4-std_thread.patch
+Patch204:	https://raw.githubusercontent.com/frugalware/frugalware-current/master/source/xoffice/libreoffice/kf5-qt5.patch
 
 %if %{with icecream}
 BuildRequires:	icecream
@@ -178,24 +178,17 @@ BuildRequires:	java-devel
 
 BuildRequires:	cmake
 
-# qt5 integration seems broken in 6.0 series 
-# so enable qt4 for omv 3 and leave qt5 for cooker
-%if %mdvver > 3000000
 # Used for Qt detection
 BuildRequires:	cmake(Qt5Core)
 BuildRequires:	cmake(Qt5Gui)
 BuildRequires:	cmake(Qt5Widgets)
 BuildRequires:	cmake(Qt5Network)
-BuildRequires:	kdelibs4support
 BuildRequires:	cmake(KF5CoreAddons)
 BuildRequires:	cmake(KF5I18n)
 BuildRequires:	cmake(KF5Config)
 BuildRequires:	cmake(KF5WindowSystem)
 BuildRequires:	cmake(KF5KIO)
-%else
-BuildRequires:	kdelibs4-devel
-BuildRequires:	qt4-devel
-%endif
+BuildRequires:	cmake(KF5KDELibs4Support)
 
 BuildRequires:  pkgconfig(xcb)
 BuildRequires:  cmake(Gpgmepp)
@@ -521,13 +514,12 @@ This package contains the presentation component for LibreOffice.
 
 #----------------------------------------------------------------------------
 
-%if %mdvver > 3000000
-
 %package kde5
 Summary:	KDE5 Integration for LibreOffice (Widgets, Dialogs, Addressbook)
 Group:		Office
 Requires:	%{name}-common = %{EVRD}
 Suggests:	%{name}-style-breeze = %{EVRD}
+%rename	libreoffice-kde4
 
 %description kde5
 This package contains the KDE5 plugin for drawing LibreOffice widgets with
@@ -535,23 +527,6 @@ KDE5/Qt5.x and a KDEish File Picker when running under KDE5.
 
 %files kde5 -f file-lists/kde4_list.txt
 %{_datadir}/appdata/org.libreoffice.kde.metainfo.xml
-
-%else
-
-%package kde4
-Summary:        KDE4 Integration for LibreOffice (Widgets, Dialogs, Addressbook)
-Group:          Office
-Requires:       %{name}-common = %{EVRD}
-Suggests:       %{name}-style-breeze = %{EVRD}
-
-%description kde4
-This package contains the KDE4 plugin for drawing LibreOffice widgets with
-KDE4/Qt4.x and a KDEish File Picker when running under KDE4.
-
-%files kde4 -f file-lists/kde4_list.txt
-%{_datadir}/appdata/org.libreoffice.kde.metainfo.xml
-
-%endif
 
 #----------------------------------------------------------------------------
 
@@ -2759,11 +2734,8 @@ touch autogen.lastrun
 	--disable-gstreamer-0.10 \
 	--enable-release-build \
 	--enable-lto \
-%if %mdvver > 3000000
-	--enable-qt5 \
-%else
-	--enable-kde4 \
-%endif
+	--enable-kde5 \
+	--enable-gtk3-kde5 \
 	--enable-vlc \
 	--enable-introspection=no \
 	--enable-eot \
