@@ -131,6 +131,8 @@ Patch202:	0001-disable-firebird-unit-test.patch
 # work around for hanging when saving due to thread behaviour
 Patch203:	libreoffice-5.4-std_thread.patch
 Patch204:	https://raw.githubusercontent.com/frugalware/frugalware-current/master/source/xoffice/libreoffice/kf5-qt5.patch
+# fix build on i586 with above
+Patch205:	fix_32build.patch
 
 %if %{with icecream}
 BuildRequires:	icecream
