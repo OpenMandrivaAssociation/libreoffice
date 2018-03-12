@@ -1,0 +1,29 @@
+--- libreoffice-6.0.2.1/vcl/unx/gtk3_kde5/filepicker_ipc_commands.hxx.orig	2018-03-12 11:00:56.964128997 +0000
++++ libreoffice-6.0.2.1/vcl/unx/gtk3_kde5/filepicker_ipc_commands.hxx	2018-03-12 11:02:01.630119314 +0000
+@@ -100,6 +100,14 @@
+     stream.ignore(); // skip space
+ }
+ 
++#if SAL_TYPES_SIZEOFPOINTER == 4
++inline void readIpcArg(std::istream& stream, uint64_t& value)
++{
++    stream >> value;
++    stream.ignore(); // skip space
++}
++#endif
++
+ inline void readIpcArgs(std::istream& /*stream*/)
+ {
+     // end of arguments, nothing to do
+@@ -135,6 +143,11 @@
+ 
+ inline void sendIpcArg(std::ostream& stream, sal_uIntPtr value) { stream << value << ' '; }
+ 
++#if SAL_TYPES_SIZEOFPOINTER == 4
++inline void sendIpcArg(std::ostream& stream, uint64_t value) { stream << value << ' '; }
++#endif
++
++
+ inline void sendIpcArgsImpl(std::ostream& stream)
+ {
+     // end of arguments, flush stream
