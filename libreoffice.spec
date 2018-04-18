@@ -451,7 +451,6 @@ LibreOffice (includes, IDL files, build tools, ...). It also contains the
 zipped source of the UNO Java libraries for use in IDEs like eclipse.
 
 %files devel -f file-lists/sdk_list.uniq.sorted.txt
-%dir %{_libdir}/libreoffice/sdk/lib
 
 #----------------------------------------------------------------------------
 
