@@ -10,13 +10,13 @@
 %define    google_default_client_id 1089316189405-m0ropn3qa4p1phesfvi2urs7qps1d79o.apps.googleusercontent.com
 %define    google_default_client_secret RDdr-pHq2gStY4uw0m-zxXeo
 
-%define styles breeze breeze_dark crystal elementary galaxy hicontrast oxygen sifr sifr_dark tango tango_testing
+%define styles breeze breeze_dark elementary sifr sifr_dark tango
 
 %bcond_without l10n
 %bcond_with icecream
 %bcond_with ccache
 
-%define beta %{nil}
+%define beta beta2
 
 %if %{with l10n}
 %define langs	en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu
@@ -30,11 +30,11 @@
 
 %if "%{beta}" != ""
 %define relurl		http://dev-builds.libreoffice.org/pre-releases/src
-%define buildver	%{version}.1-%{beta}
+%define buildver	%{version}.0.%{beta}
 %else
 %define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
 #define relurl		http://dev-builds.libreoffice.org/pre-releases/src
-%define buildver	%{version}.2
+%define buildver	%{version}.1
 %endif
 %define devurl		http://dev-www.libreoffice.org/ooo_external
 %define srcurl		http://dev-www.libreoffice.org/src/
@@ -58,7 +58,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	6.0.4
+Version:	6.1.0
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
@@ -87,7 +87,7 @@ Source35:	%{devurl}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
 Source36:	%{devurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
 Source37:	%{devurl}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
 Source38:	%{devurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
-Source39:	http://dev-www.libreoffice.org/src/pdfium-3235.tar.bz2
+Source39:	http://dev-www.libreoffice.org/src/pdfium-3426.tar.bz2
 
 # External Download Sources
 Source40:	http://hg.services.openoffice.org/binaries/1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz
@@ -129,7 +129,9 @@ Patch101:	libreoffice-5.1.0.1-desktop-categories.patch
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
 Patch203:	libreoffice-5.4-std_thread.patch
-Patch204:	https://raw.githubusercontent.com/frugalware/frugalware-current/master/source/xoffice/libreoffice/kf5-qt5.patch
+
+# KDE5 WIPs from upstream
+Patch300:	libreoffice-6.1-kde5-backports-from-master.patch
 
 %if %{with icecream}
 BuildRequires:	icecream
@@ -239,6 +241,7 @@ BuildRequires:	pkgconfig(libqxp-0.0)
 BuildRequires:	pkgconfig(libeot)
 BuildRequires:	pkgconfig(libexttextcat)
 BuildRequires:	pkgconfig(liblangtag) >= 0.5.4
+BuildRequires:	pkgconfig(libnumbertext)
 BuildRequires:	pkgconfig(libmspub-0.1)
 BuildRequires:	pkgconfig(libmwaw-0.3) >= 0.3.5
 BuildRequires:	pkgconfig(libodfgen-0.1)

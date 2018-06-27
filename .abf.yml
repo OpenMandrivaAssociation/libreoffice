@@ -1,12 +1,3 @@
-removed_sources:
-  libreoffice-6.0.2.1.tar.xz: 03fe275b2e4221bb37d66d0aa6ff88a3bdf47c3f
-  libreoffice-6.0.3.2.tar.xz: ed5d957edda3cb3aa56b205678d3ee2c6036a142
-  libreoffice-dictionaries-6.0.2.1.tar.xz: 67e64b5339c09f930bf58216e72bc4d82e68563c
-  libreoffice-dictionaries-6.0.3.2.tar.xz: 6f63f93fbd78bf35fa1498f520f7b608c71fbed0
-  libreoffice-help-6.0.2.1.tar.xz: 52f97a7ed0a6819e81b2e7b74f632af125a19797
-  libreoffice-help-6.0.3.2.tar.xz: 37bd99cd66d00a0c6bd3e9536616f83f24cc98ed
-  libreoffice-translations-6.0.2.1.tar.xz: 555e8f59940f57c104035fdf67345a8abf5927a4
-  libreoffice-translations-6.0.3.2.tar.xz: bf1a29ec8adc9457de0a6703f202919a4543a1f2
 sources:
   0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz: 452eba922e4f41603539c9dc39947d2271e47093
   09ec2dac030e1dcd5ef7fa1692691dc0-Sun-ODF-Template-Pack-hu_1.0.0.oxt: 42c9235d7f876645ea6553770e7572c1b0b8609a
@@ -44,5 +35,9 @@ sources:
   libreoffice-dictionaries-6.0.4.2.tar.xz: 10998a5cf9dafe1addf17e0f9c01a30bb5a5ede4
   libreoffice-help-6.0.4.2.tar.xz: ed25496cf1269afc046d5c446641d4b32e23b5e2
   libreoffice-translations-6.0.4.2.tar.xz: 15c933088d7584b5fe2c12d1cc5fa95e5a7afc71
-  pdfium-3235.tar.bz2: 10a6525bf0c014556766a19912fa6a80849a9117
   xmlsec1-1.2.24.tar.gz: b64a443641de3338d7d1ba17f25653a314d65d93
+  pdfium-3426.tar.bz2: 1f3070598936acf30f6bdce51a1cce7874e482fc
+  libreoffice-6.1.0.0.beta2.tar.xz: 70fc95977dbb08597067f68728dc6fc17ef07fef
+  libreoffice-dictionaries-6.1.0.0.beta2.tar.xz: 72cd5bc2c482b9745d343037ec9456473da513a7
+  libreoffice-help-6.1.0.0.beta2.tar.xz: b382dd3abba5af226be2ac62e8e425e872b98244
+  libreoffice-translations-6.1.0.0.beta2.tar.xz: 4b48e61c0c2b660f0beb77f14fb66222f59f6d4c
