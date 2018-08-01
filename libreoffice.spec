@@ -16,7 +16,7 @@
 %bcond_with icecream
 %bcond_with ccache
 
-%define beta beta2
+%define beta %{nil}
 
 %if %{with l10n}
 %define langs	en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu
@@ -34,7 +34,7 @@
 %else
 %define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
 #define relurl		http://dev-builds.libreoffice.org/pre-releases/src
-%define buildver	%{version}.1
+%define buildver	%{version}.2
 %endif
 %define devurl		http://dev-www.libreoffice.org/ooo_external
 %define srcurl		http://dev-www.libreoffice.org/src/
@@ -62,7 +62,7 @@ Version:	6.1.0
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
-Release:	2
+Release:	1
 %endif
 Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
@@ -131,7 +131,7 @@ Patch202:	0001-disable-firebird-unit-test.patch
 Patch203:	libreoffice-5.4-std_thread.patch
 
 # KDE5 WIPs from upstream
-Patch300:	libreoffice-6.1-kde5-backports-from-master.patch
+#Patch300:	libreoffice-6.1-kde5-backports-from-master.patch
 
 %if %{with icecream}
 BuildRequires:	icecream
@@ -241,7 +241,7 @@ BuildRequires:	pkgconfig(libqxp-0.0)
 BuildRequires:	pkgconfig(libeot)
 BuildRequires:	pkgconfig(libexttextcat)
 BuildRequires:	pkgconfig(liblangtag) >= 0.5.4
-BuildRequires:	pkgconfig(libnumbertext)
+BuildRequires:	pkgconfig(libnumbertext) >= 1.0.3
 BuildRequires:	pkgconfig(libmspub-0.1)
 BuildRequires:	pkgconfig(libmwaw-0.3) >= 0.3.5
 BuildRequires:	pkgconfig(libodfgen-0.1)
@@ -2713,7 +2713,8 @@ export CCACHE_DIR=%{ccachedir}
 
 # g0 - Workaround for abf builds running out of memory
 # O2 - tests seem to segfault with Oz
-%global optflags %(echo %{optflags} -g0 | sed -e 's/-Oz/-O2/')
+# -I - needed because of #include <hb.h> in a couple of places
+%global optflags %(echo %{optflags} -g0 | sed -e 's/-Oz/-O2/') -I%{_includedir}/harfbuzz
 
 export CFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing"
 export CXXFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive"

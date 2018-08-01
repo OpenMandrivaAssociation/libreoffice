@@ -1,11 +1,16 @@
 diff -up libreoffice-6.1.0/dbaccess/Module_dbaccess.mk.0202~ libreoffice-6.1.0/dbaccess/Module_dbaccess.mk
---- libreoffice-6.1.0/dbaccess/Module_dbaccess.mk.0202~	2018-06-27 13:03:07.269321354 +0200
-+++ libreoffice-6.1.0/dbaccess/Module_dbaccess.mk	2018-06-27 15:25:20.376639554 +0200
-@@ -35,7 +35,6 @@ $(eval $(call gb_Module_add_l10n_targets
- ifneq ($(OS),IOS)
- ifeq ($(ENABLE_FIREBIRD_SDBC),TRUE)
- $(eval $(call gb_Module_add_check_targets,dbaccess,\
--    CppunitTest_dbaccess_firebird_test \
- 	CppunitTest_dbaccess_hsqlbinary_import \
+--- libreoffice-6.1.0/dbaccess/Module_dbaccess.mk.0202~	2018-08-01 13:28:21.191696069 +0200
++++ libreoffice-6.1.0/dbaccess/Module_dbaccess.mk	2018-08-01 13:29:03.280884828 +0200
+@@ -33,12 +33,6 @@ $(eval $(call gb_Module_add_l10n_targets
  ))
- endif
+ 
+ ifneq ($(OS),IOS)
+-ifeq ($(ENABLE_FIREBIRD_SDBC),TRUE)
+-$(eval $(call gb_Module_add_check_targets,dbaccess,\
+-    CppunitTest_dbaccess_firebird_test \
+-))
+-endif
+-
+ $(eval $(call gb_Module_add_check_targets,dbaccess,\
+ 	CppunitTest_dbaccess_dialog_save \
+ 	CppunitTest_dbaccess_empty_stdlib_save \

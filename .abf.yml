@@ -31,13 +31,9 @@ sources:
   b63e6340a02ff1cacfeadb2c42286161-JLanguageTool-1.7.0.tar.bz2: aa8faa4f9e6721eed9bc6878862d74d0cb23251c
   b7cae45ad2c23551fd6ccb8ae2c1f59e-numbertext_0.9.5.oxt: bdec3915c01cd60e20892376aa5e5a0d3980c389
   bbdd5639ada63e3130761daaecae1a10-Validator_1.1.0.0.oxt: c89331a8d7642429f4fe3ffe07ee6d675f99561a
-  libreoffice-6.0.4.2.tar.xz: d6e2d9037bffb81333b0ebd11258ec8966a2ea52
-  libreoffice-dictionaries-6.0.4.2.tar.xz: 10998a5cf9dafe1addf17e0f9c01a30bb5a5ede4
-  libreoffice-help-6.0.4.2.tar.xz: ed25496cf1269afc046d5c446641d4b32e23b5e2
-  libreoffice-translations-6.0.4.2.tar.xz: 15c933088d7584b5fe2c12d1cc5fa95e5a7afc71
   xmlsec1-1.2.24.tar.gz: b64a443641de3338d7d1ba17f25653a314d65d93
   pdfium-3426.tar.bz2: 1f3070598936acf30f6bdce51a1cce7874e482fc
-  libreoffice-6.1.0.0.beta2.tar.xz: 70fc95977dbb08597067f68728dc6fc17ef07fef
-  libreoffice-dictionaries-6.1.0.0.beta2.tar.xz: 72cd5bc2c482b9745d343037ec9456473da513a7
-  libreoffice-help-6.1.0.0.beta2.tar.xz: b382dd3abba5af226be2ac62e8e425e872b98244
-  libreoffice-translations-6.1.0.0.beta2.tar.xz: 4b48e61c0c2b660f0beb77f14fb66222f59f6d4c
+  libreoffice-6.1.0.2.tar.xz: 36ec80b7c367cabcf89f60af1fd89eb1cb240fb5
+  libreoffice-dictionaries-6.1.0.2.tar.xz: add95e91fc81ba98bfb7b569b67690a6d422509a
+  libreoffice-help-6.1.0.2.tar.xz: 71ff7ea5c42e345e09f88a083921fff1c1f21e60
+  libreoffice-translations-6.1.0.2.tar.xz: 970d823f3d255fbdac568109142e288ee752ef15
