@@ -240,6 +240,7 @@ BuildRequires:	pkgconfig(libepubgen-0.1)
 BuildRequires:	pkgconfig(libqxp-0.0)
 BuildRequires:	pkgconfig(libeot)
 BuildRequires:	pkgconfig(libexttextcat)
+BuildRequires:	pkgconfig(libjpeg)
 BuildRequires:	pkgconfig(liblangtag) >= 0.5.4
 BuildRequires:	pkgconfig(libnumbertext) >= 1.0.3
 BuildRequires:	pkgconfig(libmspub-0.1)
