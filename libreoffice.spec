@@ -34,7 +34,7 @@
 %else
 %define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
 #define relurl		http://dev-builds.libreoffice.org/pre-releases/src
-%define buildver	%{version}.2
+%define buildver	%{version}.3
 %endif
 %define devurl		http://dev-www.libreoffice.org/ooo_external
 %define srcurl		http://dev-www.libreoffice.org/src/
@@ -369,10 +369,6 @@ Summary:	LibreOffice office suite common files
 Group:		Office
 # Require at least one style to be installed
 Requires:	%{name}-style = %{EVRD}
-# The Galaxy style is mandatory because other styles fall back to it
-# when missing an image -- causing funny effects like
-# https://bugs.documentfoundation.org/show_bug.cgi?id=113995
-Requires:	%{name}-style-galaxy = %{EVRD}
 Suggests:	%{name}-help-en_US = %{EVRD}
 # And then general requires for OOo follows
 Requires:	ghostscript
@@ -577,7 +573,6 @@ and sounds.
 %{ooodir}/share/gallery/symbols*
 %{ooodir}/share/gallery/transportation*
 %{ooodir}/share/gallery/txtshapes*
-%{ooodir}/share/gallery/www-back*
 %{ooodir}/share/gallery/www-graf*
 
 #----------------------------------------------------------------------------
@@ -2737,7 +2732,6 @@ touch autogen.lastrun
 	--disable-gstreamer-0.10 \
 	--enable-release-build \
 	--enable-lto \
-	--enable-kde5 \
 	--enable-gtk3-kde5 \
 	--enable-vlc \
 	--enable-introspection=no \
