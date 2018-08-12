@@ -10,7 +10,7 @@
 %define    google_default_client_id 1089316189405-m0ropn3qa4p1phesfvi2urs7qps1d79o.apps.googleusercontent.com
 %define    google_default_client_secret RDdr-pHq2gStY4uw0m-zxXeo
 
-%define styles breeze breeze_dark crystal elementary galaxy hicontrast oxygen sifr sifr_dark tango tango_testing
+%define styles breeze breeze_dark elementary sifr sifr_dark tango
 
 %bcond_without l10n
 %bcond_with icecream
@@ -30,11 +30,11 @@
 
 %if "%{beta}" != ""
 %define relurl		http://dev-builds.libreoffice.org/pre-releases/src
-%define buildver	%{version}.1-%{beta}
+%define buildver	%{version}.0.%{beta}
 %else
 %define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
 #define relurl		http://dev-builds.libreoffice.org/pre-releases/src
-%define buildver	%{version}.2
+%define buildver	%{version}.3
 %endif
 %define devurl		http://dev-www.libreoffice.org/ooo_external
 %define srcurl		http://dev-www.libreoffice.org/src/
@@ -58,7 +58,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	6.0.5
+Version:	6.1.0
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
@@ -87,7 +87,7 @@ Source35:	%{devurl}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
 Source36:	%{devurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
 Source37:	%{devurl}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
 Source38:	%{devurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
-Source39:	http://dev-www.libreoffice.org/src/pdfium-3235.tar.bz2
+Source39:	http://dev-www.libreoffice.org/src/pdfium-3426.tar.bz2
 
 # External Download Sources
 Source40:	http://hg.services.openoffice.org/binaries/1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz
@@ -130,9 +130,9 @@ Patch101:	libreoffice-5.1.0.1-desktop-categories.patch
 Patch202:	0001-disable-firebird-unit-test.patch
 # work around for hanging when saving due to thread behaviour
 Patch203:	libreoffice-5.4-std_thread.patch
-Patch204:	https://raw.githubusercontent.com/frugalware/frugalware-current/master/source/xoffice/libreoffice/kf5-qt5.patch
-# fix build on i586 with above
-Patch205:	fix_32build.patch
+
+# KDE5 WIPs from upstream
+#Patch300:	libreoffice-6.1-kde5-backports-from-master.patch
 
 %if %{with icecream}
 BuildRequires:	icecream
@@ -241,7 +241,9 @@ BuildRequires:	pkgconfig(libepubgen-0.1)
 BuildRequires:	pkgconfig(libqxp-0.0)
 BuildRequires:	pkgconfig(libeot)
 BuildRequires:	pkgconfig(libexttextcat)
+BuildRequires:	pkgconfig(libjpeg)
 BuildRequires:	pkgconfig(liblangtag) >= 0.5.4
+BuildRequires:	pkgconfig(libnumbertext) >= 1.0.3
 BuildRequires:	pkgconfig(libmspub-0.1)
 BuildRequires:	pkgconfig(libmwaw-0.3) >= 0.3.5
 BuildRequires:	pkgconfig(libodfgen-0.1)
@@ -368,10 +370,6 @@ Summary:	LibreOffice office suite common files
 Group:		Office
 # Require at least one style to be installed
 Requires:	%{name}-style = %{EVRD}
-# The Galaxy style is mandatory because other styles fall back to it
-# when missing an image -- causing funny effects like
-# https://bugs.documentfoundation.org/show_bug.cgi?id=113995
-Requires:	%{name}-style-galaxy = %{EVRD}
 Suggests:	%{name}-help-en_US = %{EVRD}
 # And then general requires for OOo follows
 Requires:	ghostscript
@@ -576,7 +574,6 @@ and sounds.
 %{ooodir}/share/gallery/symbols*
 %{ooodir}/share/gallery/transportation*
 %{ooodir}/share/gallery/txtshapes*
-%{ooodir}/share/gallery/www-back*
 %{ooodir}/share/gallery/www-graf*
 
 #----------------------------------------------------------------------------
@@ -2713,7 +2710,8 @@ export CCACHE_DIR=%{ccachedir}
 
 # g0 - Workaround for abf builds running out of memory
 # O2 - tests seem to segfault with Oz
-%global optflags %(echo %{optflags} | sed -e 's/-Oz//' | sed -e 's/-Os/-O2/')
+# -I - needed because of #include <hb.h> in a couple of places
+%global optflags %(echo %{optflags} -g0 | sed -e 's/-Oz/-O2/') -I%{_includedir}/harfbuzz
 
 export CFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing"
 export CXXFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive"
@@ -2735,7 +2733,6 @@ touch autogen.lastrun
 	--disable-gstreamer-0.10 \
 	--enable-release-build \
 	--enable-lto \
-	--enable-kde5 \
 	--enable-gtk3-kde5 \
 	--enable-vlc \
 	--enable-introspection=no \
@@ -2890,6 +2887,10 @@ echo 'ProgressSize=377,9' >> %{buildroot}%{ooodir}/program/sofficerc
 # but common does depend on libswdlo.so
 grep libswdlo.so file-lists/writer_list.txt >>file-lists/common_list.txt
 sed -i -e '/libswdlo.so/d' file-lists/writer_list.txt
+
+# draw and impress both need animcore
+grep libanimcorelo.so file-lists/impress_list.txt >> file-lists/common_list.txt
+sed -i -e '/libanimcorelo.so/d' file-lists/impress_list.txt
 
 ## Installation fixes
 ## remove fix wrong manpages files, extension gz->xz
