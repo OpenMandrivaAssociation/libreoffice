@@ -2887,6 +2887,10 @@ echo 'ProgressSize=377,9' >> %{buildroot}%{ooodir}/program/sofficerc
 grep libswdlo.so file-lists/writer_list.txt >>file-lists/common_list.txt
 sed -i -e '/libswdlo.so/d' file-lists/writer_list.txt
 
+# draw and impress both need animcore
+grep libanimcorelo.so file-lists/impress_list.txt >> file-lists/common_list.txt
+sed -i -e '/libanimcorelo.so/d' file-lists/impress_list.txt
+
 ## Installation fixes
 ## remove fix wrong manpages files, extension gz->xz
 for p in common base calc writer impress draw math; do
