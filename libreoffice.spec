@@ -161,7 +161,6 @@ BuildRequires:	pentaho-libxml
 BuildRequires:	pentaho-reporting-flow-engine
 BuildRequires:	perl
 BuildRequires:	perl-Archive-Zip
-BuildRequires:	perl-MDK-Common
 BuildRequires:	perl-HTML-Parser
 BuildRequires:	perl-XML-Twig
 #BuildRequires:	python-translate >= 1.9.0
