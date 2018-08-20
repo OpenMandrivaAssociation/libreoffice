@@ -1,3 +1,7 @@
+# __pycache__ directories don't work with LO's package file
+# list generators. Let's not precompile stuff for now...
+%global _python_bytecompile_build 0
+
 %define _enable_debug_packages %{nil}
 %define debug_package %{nil}
 %define _binary_payload w1.xzdio
