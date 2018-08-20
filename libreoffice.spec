@@ -199,6 +199,7 @@ BuildRequires:	pkgconfig(libwpg-0.3)
 BuildRequires:	pkgconfig(libwps-0.4)
 BuildRequires:	pkgconfig(libzmf-0.0)
 BuildRequires:	pkgconfig(libstaroffice-0.0)
+BuildRequires:	libtool-devel
 BuildRequires:	lpsolve-devel
 BuildRequires:	nas-devel
 BuildRequires:	openldap-devel
