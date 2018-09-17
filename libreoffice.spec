@@ -1,3 +1,7 @@
+# __pycache__ directories don't work with LO's package file
+# list generators. Let's not precompile stuff for now...
+%global _python_bytecompile_build 0
+
 %define _enable_debug_packages %{nil}
 %define debug_package %{nil}
 %define _binary_payload w1.xzdio
@@ -34,7 +38,7 @@
 %else
 %define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
 #define relurl		http://dev-builds.libreoffice.org/pre-releases/src
-%define buildver	%{version}.3
+%define buildver	%{version}.2
 %endif
 %define devurl		http://dev-www.libreoffice.org/ooo_external
 %define srcurl		http://dev-www.libreoffice.org/src/
@@ -58,7 +62,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	6.1.0
+Version:	6.1.1
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
@@ -162,7 +166,6 @@ BuildRequires:	pentaho-libxml
 BuildRequires:	pentaho-reporting-flow-engine
 BuildRequires:	perl
 BuildRequires:	perl-Archive-Zip
-BuildRequires:	perl-MDK-Common
 BuildRequires:	perl-HTML-Parser
 BuildRequires:	perl-XML-Twig
 #BuildRequires:	python-translate >= 1.9.0
@@ -185,6 +188,7 @@ BuildRequires:	cmake(Qt5Core)
 BuildRequires:	cmake(Qt5Gui)
 BuildRequires:	cmake(Qt5Widgets)
 BuildRequires:	cmake(Qt5Network)
+BuildRequires:	cmake(Qt5X11Extras)
 BuildRequires:	cmake(KF5CoreAddons)
 BuildRequires:	cmake(KF5I18n)
 BuildRequires:	cmake(KF5Config)
@@ -200,6 +204,7 @@ BuildRequires:	pkgconfig(libwpg-0.3)
 BuildRequires:	pkgconfig(libwps-0.4)
 BuildRequires:	pkgconfig(libzmf-0.0)
 BuildRequires:	pkgconfig(libstaroffice-0.0)
+BuildRequires:	libtool-devel
 BuildRequires:	lpsolve-devel
 BuildRequires:	nas-devel
 BuildRequires:	openldap-devel
@@ -262,6 +267,7 @@ BuildRequires:	pkgconfig(mythes)
 BuildRequires:	pkgconfig(neon)
 BuildRequires:	pkgconfig(nspr)
 BuildRequires:	pkgconfig(nss)
+BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(poppler)
 BuildRequires:	pkgconfig(poppler-glib)
 BuildRequires:	pkgconfig(poppler-cpp)
