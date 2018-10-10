@@ -66,7 +66,7 @@ Version:	6.1.2
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
-Release:	1
+Release:	2
 %endif
 Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
@@ -2656,7 +2656,7 @@ for a in */*; do mv `pwd`/$a .; done
 %if %{javaless}
 tar -xjvf %{SOURCE20}
 %endif
-%apply_patches
+%autopatch -p1
 
 # to make the friggin cppunit tests work
 mkdir -p ~/tmp
