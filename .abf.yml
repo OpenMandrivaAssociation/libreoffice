@@ -1,39 +1,22 @@
 sources:
   0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz: 452eba922e4f41603539c9dc39947d2271e47093
-  09ec2dac030e1dcd5ef7fa1692691dc0-Sun-ODF-Template-Pack-hu_1.0.0.oxt: 42c9235d7f876645ea6553770e7572c1b0b8609a
-  17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip: 7168b0f40aa5c72267899601c116d2348d2f56ec
   1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz: 28d4ec24dfda4eb41b6ceaa0cfcfca41b578f3b3
-  185d60944ea767075d27247c3162b3bc-unowinreg.dll: 0619ed3a89644bef318df67db12045b2b590585b
-  1be202fbbbc13f10592a98f70a4a87fb-OOOP-templates-pack-2.9.0.0.zip: 1dd5bd9962e851b5e487b0c2033b5a8951aaefad
-  1f467e5bb703f12cbbb09d5cf67ecf4a-converttexttonumber-1-5-0.oxt: 206a371b46a3d991722b059b5d6f3bb29f1fc48b
-  23bd75552206dfcd8fd4e29137dcac84-WatchWindow_1.2.0.0.oxt: da769c6f73206f0f0e6db4697f802c0bacbf4d02
-  27211596cf0ad97cab7321239406fde0-gdocs_3.0.1_modified.oxt: 6d400d83fa2080847ad9d7e2ca466a98ee2dbfa4
   2ae988b339daec234019a7066f96733e-commons-lang-2.3-src.tar.gz: efc1ab026e8e9ac4cd150cb4cf1b7e4663cddc84
   2c9b0f83ed5890af02c0df1c1776f39b-commons-httpclient-3.1-src.tar.gz: 5c604f102e0716597b3d2659ac3e77f80a02f22d
-  35c94d2df8893241173de1d16b6034c0-swingExSrc.zip: 1acea86fd399ed7817879d36370d3d1f8b109050
-  3ed18025a766f1e955707b969c8113a5-Barcode_1.3.5.0.oxt: c01632cfaee10322bc4badef316bedd08a759224
-  451ccf439a36a568653b024534669971-ConvertTextToNumber-1.3.2.oxt: e38bfefa6b747db13182e4ea5c1ad2eed3fa9cda
-  472ffb92d82cf502be039203c606643d-Sun-ODF-Template-Pack-en-US_1.0.0.oxt: d2b6a076b40d8d517075e52220ddd8f89f655c8f
-  4ad003e7bbda5715f5f38fde1f707af2-Sun-ODF-Template-Pack-es_1.0.0.oxt: bf25bef71f72a4622089c85958bfd6c58d8516a6
-  53ca5e56ccd4cab3693ad32c6bd13343-Sun-ODF-Template-Pack-de_1.0.0.oxt: 4fea33622d89c7ac62053e5ee3616cfe504e0f14
-  62c0b97e94fe47d5e50ff605d2edf37a-hsqldb-2.3.3.zip: f5fce3d5eb21294f9ffba40c34e7c736ab64d6b9
-  798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip: 8a90669029e107b61953b90ba11545fef586c2ca
-  8d74685d41f8bffe8c3e71fe8deac09d-SmART_0.9.5.oxt: ad53e6f0b18842ade578cad5acc9ea651ad01a03
-  9d60b6cfa3ef1926848710bbcd11115b-typo_0.4.2.oxt: 0f0e7f1f1fd7951de2dd3b6bb7313c6adb4d17b8
   Mandriva-Rosa_Icons.tar.bz2: 4d7e4f9ce89503a3722dcbaa5facbf53c78daeef
-  a53080dc876edcddb26eb4c3c7537469-Sun-ODF-Template-Pack-fr_1.0.0.oxt: d831314cf4c74f5afb3b37ee718dd58f981b97a8
-  a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip: 2d49e11b0b711970f494294dc3698f05eb294853
   af3c3acf618de6108d65fcdc92b492e1-commons-codec-1.3-src.tar.gz: d490a9bb30ea9e8b95c250f4d96842e0ce0c60d7
-  af9314c5972d95a5d6da23ffad818f68-OOOP-gallery-pack-2.8.0.0.zip: c71f095bf032e29ab0afc277fd2718e592ba6ba4
   apache-ant-1.8.1-bin.tar.bz2: 0e0359f04b3d84fed75b3a1ab02cbc415c8864a1
-  b33775feda3bcf823cad7ac361fd49a6-Sun-ODF-Template-Pack-it_1.0.0.oxt: 27847d6c320297905303ca7d2a45dbd0c492f705
-  b632bdd25649cc4067bcb410bae23d2b-hunart_0.3.oxt: a476a199de32a32221132c8e77fad96c88616b08
   b63e6340a02ff1cacfeadb2c42286161-JLanguageTool-1.7.0.tar.bz2: aa8faa4f9e6721eed9bc6878862d74d0cb23251c
-  b7cae45ad2c23551fd6ccb8ae2c1f59e-numbertext_0.9.5.oxt: bdec3915c01cd60e20892376aa5e5a0d3980c389
-  bbdd5639ada63e3130761daaecae1a10-Validator_1.1.0.0.oxt: c89331a8d7642429f4fe3ffe07ee6d675f99561a
-  pdfium-3426.tar.bz2: 1f3070598936acf30f6bdce51a1cce7874e482fc
-  xmlsec1-1.2.24.tar.gz: b64a443641de3338d7d1ba17f25653a314d65d93
-  libreoffice-help-6.1.3.2.tar.xz: 75902371df5826d42251ac5d70b35026ad991b00
-  libreoffice-translations-6.1.3.2.tar.xz: 29d4862bd747b13276e1e0b0dc5f2ae04268a479
   libreoffice-6.1.3.2.tar.xz: f287f8ce717e03f8e25e1c692603a9b8b9753f72
   libreoffice-dictionaries-6.1.3.2.tar.xz: 1c7e849f1fef49b9a0bac0b0fb3d534f779f87f5
+  libreoffice-help-6.1.3.2.tar.xz: 75902371df5826d42251ac5d70b35026ad991b00
+  libreoffice-translations-6.1.3.2.tar.xz: 29d4862bd747b13276e1e0b0dc5f2ae04268a479
+  pdfium-3426.tar.bz2: 1f3070598936acf30f6bdce51a1cce7874e482fc
+  xmlsec1-1.2.24.tar.gz: b64a443641de3338d7d1ba17f25653a314d65d93
+  17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip: 7168b0f40aa5c72267899601c116d2348d2f56ec
+  1be202fbbbc13f10592a98f70a4a87fb-OOOP-templates-pack-2.9.0.0.zip: 1dd5bd9962e851b5e487b0c2033b5a8951aaefad
+  35c94d2df8893241173de1d16b6034c0-swingExSrc.zip: 1acea86fd399ed7817879d36370d3d1f8b109050
+  62c0b97e94fe47d5e50ff605d2edf37a-hsqldb-2.3.3.zip: f5fce3d5eb21294f9ffba40c34e7c736ab64d6b9
+  798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip: 8a90669029e107b61953b90ba11545fef586c2ca
+  a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip: 2d49e11b0b711970f494294dc3698f05eb294853
+  af9314c5972d95a5d6da23ffad818f68-OOOP-gallery-pack-2.8.0.0.zip: c71f095bf032e29ab0afc277fd2718e592ba6ba4
