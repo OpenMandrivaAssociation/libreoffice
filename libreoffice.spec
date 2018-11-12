@@ -38,7 +38,7 @@
 %else
 %define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
 #define relurl		http://dev-builds.libreoffice.org/pre-releases/src
-%define buildver	%{version}.1
+%define buildver	%{version}.2
 %endif
 %define devurl		http://dev-www.libreoffice.org/ooo_external
 %define srcurl		http://dev-www.libreoffice.org/src/
@@ -62,7 +62,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	6.1.2
+Version:	6.1.3
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
