@@ -20,7 +20,7 @@
 %bcond_with icecream
 %bcond_with ccache
 
-%define beta %{nil}
+%define beta beta1
 
 %if %{with l10n}
 %define langs	en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu
@@ -62,7 +62,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	6.1.3
+Version:	6.2.0
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
@@ -91,7 +91,7 @@ Source35:	%{devurl}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
 Source36:	%{devurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
 Source37:	%{devurl}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
 Source38:	%{devurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
-Source39:	http://dev-www.libreoffice.org/src/pdfium-3426.tar.bz2
+Source39:	http://dev-www.libreoffice.org/src/pdfium-3550.tar.bz2
 
 # External Download Sources
 Source40:	http://hg.services.openoffice.org/binaries/1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz
@@ -99,22 +99,10 @@ Source40:	http://hg.services.openoffice.org/binaries/1756c4fa6c616ae15973c104cd8
 # Extensions
 Source50:	%{srcurl}1f467e5bb703f12cbbb09d5cf67ecf4a-converttexttonumber-1-5-0.oxt
 Source51:	%{srcurl}b63e6340a02ff1cacfeadb2c42286161-JLanguageTool-1.7.0.tar.bz2
-Source52:	%{oxyurl}3ed18025a766f1e955707b969c8113a5-Barcode_1.3.5.0.oxt
-Source53:	%{oxyurl}8d74685d41f8bffe8c3e71fe8deac09d-SmART_0.9.5.oxt
-Source54:	%{oxyurl}b632bdd25649cc4067bcb410bae23d2b-hunart_0.3.oxt
+Source52:	https://extensions.libreoffice.org/extensions/barcode/1.3.5.0/@@download/file/barcode_1.3.5.0.oxt
+Source53:	https://extensions.libreoffice.org/extensions/smart/0.94/@@download/file/smart_0.9.4_en_hu_corrected.oxt
 Source55:	%{srcurl}27211596cf0ad97cab7321239406fde0-gdocs_3.0.1_modified.oxt
 Source56:	%{srcurl}b7cae45ad2c23551fd6ccb8ae2c1f59e-numbertext_0.9.5.oxt
-Source57:	%{oxyurl}9d60b6cfa3ef1926848710bbcd11115b-typo_0.4.2.oxt
-Source58:	%{oxyurl}bbdd5639ada63e3130761daaecae1a10-Validator_1.1.0.0.oxt
-Source59:	%{oxyurl}23bd75552206dfcd8fd4e29137dcac84-WatchWindow_1.2.0.0.oxt
-Source60:	%{oxyurl}af9314c5972d95a5d6da23ffad818f68-OOOP-gallery-pack-2.8.0.0.zip
-Source61:	%{oxyurl}1be202fbbbc13f10592a98f70a4a87fb-OOOP-templates-pack-2.9.0.0.zip
-Source62:	%{oxyurl}53ca5e56ccd4cab3693ad32c6bd13343-Sun-ODF-Template-Pack-de_1.0.0.oxt
-Source63:	%{oxyurl}472ffb92d82cf502be039203c606643d-Sun-ODF-Template-Pack-en-US_1.0.0.oxt
-Source64:	%{oxyurl}4ad003e7bbda5715f5f38fde1f707af2-Sun-ODF-Template-Pack-es_1.0.0.oxt
-Source65:	%{oxyurl}a53080dc876edcddb26eb4c3c7537469-Sun-ODF-Template-Pack-fr_1.0.0.oxt
-Source66:	%{oxyurl}09ec2dac030e1dcd5ef7fa1692691dc0-Sun-ODF-Template-Pack-hu_1.0.0.oxt
-Source67:	%{oxyurl}b33775feda3bcf823cad7ac361fd49a6-Sun-ODF-Template-Pack-it_1.0.0.oxt
 
 Source1000:	libreoffice.rpmlintrc
 Source1001:	libreoffice-help-package
@@ -129,12 +117,15 @@ Patch51:	libreoffice-4.2.5.2-impress-kde-crash-hack.patch
 # OpenMandriva vendor patch
 Patch100:	libreoffice-4.3.1.2-vendor.patch
 Patch101:	libreoffice-5.1.0.1-desktop-categories.patch
+Patch102:	libreoffice-6.2.0-boost-1.69.patch
+Patch103:	libreoffice-6.2.0-clangdetection.patch
 
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
 Patch203:	libreoffice-5.4-std_thread.patch
 Patch204:	poppler-0.70.patch
 Patch205:	libreoffice-poppler-0.71.patch
+Patch206:	libreoffice-6.2.0-clang-7.0.patch
 
 # KDE5 WIPs from upstream
 #Patch300:	libreoffice-6.1-kde5-backports-from-master.patch
@@ -154,6 +145,8 @@ BuildRequires:	ed
 BuildRequires:	firebird-devel
 BuildRequires:	flex
 BuildRequires:	flute
+# For building the OpenSymbol font
+BuildRequires:	fontforge
 BuildRequires:	gdb
 BuildRequires:	git
 BuildRequires:	gperf
@@ -253,7 +246,7 @@ BuildRequires:	pkgconfig(libnumbertext) >= 1.0.3
 BuildRequires:	pkgconfig(libmspub-0.1)
 BuildRequires:	pkgconfig(libmwaw-0.3) >= 0.3.5
 BuildRequires:	pkgconfig(libodfgen-0.1)
-BuildRequires:	pkgconfig(liborcus-0.13)
+BuildRequires:	pkgconfig(liborcus-0.14)
 BuildRequires:	pkgconfig(libpagemaker-0.0)
 BuildRequires:	pkgconfig(librevenge-0.0)
 BuildRequires:	pkgconfig(librsvg-2.0)
@@ -263,7 +256,7 @@ BuildRequires:	pkgconfig(libucpp)
 BuildRequires:	pkgconfig(libvisio-0.1)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(libxslt)
-BuildRequires:	pkgconfig(mdds-1.2) >= 1.2
+BuildRequires:	pkgconfig(mdds-1.4) >= 1.4.1
 BuildRequires:	pkgconfig(mythes)
 BuildRequires:	pkgconfig(neon)
 BuildRequires:	pkgconfig(nspr)
@@ -352,7 +345,7 @@ packages:
 
 %files base -f file-lists/base_list.txt
 %{_mandir}/man1/lobase*
-%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-base_72.svg
+#%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-base_72.svg
 %{_datadir}/appdata/libreoffice-base.appdata.xml
 
 #----------------------------------------------------------------------------
@@ -367,7 +360,7 @@ This package contains the spreadsheet component for LibreOffice.
 
 %files calc -f file-lists/calc_list.txt
 %{_mandir}/man1/localc*
-%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-calc_72.svg
+#%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-calc_72.svg
 %{_datadir}/appdata/libreoffice-calc.appdata.xml
 
 #----------------------------------------------------------------------------
@@ -400,12 +393,22 @@ Conflicts:	%{name}-dtd-officedocument1.0 < %{EVRD}
 Obsoletes:	%{name}-dtd-officedocument1.0 < %{EVRD}
 Conflicts:	%{name}-extension-xsltfilter < %{EVRD}
 Obsoletes:	%{name}-extension-xsltfilter < %{EVRD}
+# Extensions that were part of releases < 6.2 (do we need to package them
+# separately now? For now, let's just make sure old packages get uninstalled)
+Obsoletes:	%{name}-extension-barcode < %{EVRD}
+Obsoletes:	%{name}-extension-gdocs < %{EVRD}
+Obsoletes:	%{name}-extension-hunart < %{EVRD}
+Obsoletes:	%{name}-extension-mysql < %{EVRD}
+Obsoletes:	%{name}-extension-SmART < %{EVRD}
+Obsoletes:	%{name}-extension-typo < %{EVRD}
+Obsoletes:	%{name}-extension-validator < %{EVRD}
+Obsoletes:	%{name}-extension-watchwindow < %{EVRD}
 
 %description common
 This package contains the application-independent files of LibreOffice.
 
 %files common -f file-lists/core_list.txt
-%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo_72.svg
+#%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo_72.svg
 %{_mandir}/man1/loffice*
 %{_mandir}/man1/lofromtemplate*
 %{_mandir}/man1/libreoffice*
@@ -485,9 +488,21 @@ Requires:	%{name}-common = %{EVRD}
 This package contains the drawing component for LibreOffice.
 
 %files draw -f file-lists/draw_list.txt
-%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-draw_72.svg
+#%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-draw_72.svg
 %{_mandir}/man1/lodraw*
 %{_datadir}/appdata/libreoffice-draw.appdata.xml
+
+#----------------------------------------------------------------------------
+
+%package gstreamer
+Summary:	GStreamer integration for libreoffice's media player
+Group:		Office
+
+%description gstreamer
+GStreamer integration for libreoffice's media player
+
+%files gstreamer
+%{ooodir}/program/libavmediagst.so
 
 #----------------------------------------------------------------------------
 
@@ -495,6 +510,7 @@ This package contains the drawing component for LibreOffice.
 Summary:	GNOME Integration for LibreOffice (VFS, GConf)
 Group:		Office
 Requires:	%{name}-common = %{EVRD}
+Recommends:	%{name}-gstreamer = %{EVRD}
 
 %description gnome
 This package contains the GNOME VFS support and a GConf backend.
@@ -514,7 +530,7 @@ Obsoletes:	%{name}-presentation-minimizer < %{EVRD}
 This package contains the presentation component for LibreOffice.
 
 %files impress -f file-lists/impress_list.txt
-%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-impress_72.svg
+#%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-impress_72.svg
 %{_mandir}/man1/loimpress*
 %{_datadir}/appdata/libreoffice-impress.appdata.xml
 
@@ -534,6 +550,37 @@ KDE5/Qt5.x and a KDEish File Picker when running under KDE5.
 %files kde5 -f file-lists/kde4_list.txt
 %{_datadir}/appdata/org.libreoffice.kde.metainfo.xml
 
+
+#----------------------------------------------------------------------------
+
+%package gtk3-kde5
+Summary:	LibreOffice plugin for using KDE dialogs and GTK widgets
+Group:		Office
+Requires:	%{name}-common = %{EVRD}
+Suggests:	%{name}-style-breeze = %{EVRD}
+
+%description gtk3-kde5
+This package contains a LibreOffice plugin for using KDE dialogs, but
+GTK widgets.
+Usually libreoffice-kde5 is preferable, but since GTK widgets have had
+a lot more testing in libreoffice, this version may be more stable.
+
+%files gtk3-kde5
+%{ooodir}/program/libvclplug_gtk3_kde5lo.so
+
+#----------------------------------------------------------------------------
+
+%package kit
+Summary:	Library for viewing LibreOffice documents in other applications
+Group:		Office
+
+%description kit
+A library for viewing LibreOffice documents in other applications
+
+%files kit
+%{ooodir}/program/liblibreofficekitgtk.so
+
+
 #----------------------------------------------------------------------------
 
 %package math
@@ -545,7 +592,7 @@ Requires:	%{name}-common = %{EVRD}
 This package contains the equation editor component for LibreOffice.
 
 %files math -f file-lists/math_list.txt
-%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-math_72.svg
+#%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-math_72.svg
 %{_mandir}/man1/lomath*
 
 #----------------------------------------------------------------------------
@@ -582,6 +629,7 @@ and sounds.
 %{ooodir}/share/gallery/transportation*
 %{ooodir}/share/gallery/txtshapes*
 %{ooodir}/share/gallery/www-graf*
+%{ooodir}/share/gallery/personas
 
 #----------------------------------------------------------------------------
 
@@ -629,7 +677,7 @@ Requires:	%{name}-common = %{EVRD}
 This package contains the word processor component for LibreOffice.
 
 %files writer -f file-lists/writer_list.txt
-%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-writer_72.svg
+#%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-writer_72.svg
 %{_mandir}/man1/loweb*
 %{_mandir}/man1/lowriter*
 %{_datadir}/appdata/libreoffice-writer.appdata.xml
@@ -659,21 +707,6 @@ wiki pages.
 
 #----------------------------------------------------------------------------
 
-%if 0
-%package extension-barcode
-Summary:	LibreOffice extension for generating barcodes
-Group:		Office
-Requires:	%{name}-common = %{EVRD}
-
-%description extension-barcode
-LibreOffice extension for generating barcodes.
-
-%files extension-barcode
-%{ooodir}/share/extensions/Barcode
-%endif
-
-#----------------------------------------------------------------------------
-
 %package extension-converttexttonumber
 Summary:	Text to number converter for LibreOffice
 Group:		Office
@@ -694,34 +727,6 @@ and then will be counted as expected in formulas Calc.
 
 #----------------------------------------------------------------------------
 
-%if 0
-%package extension-gdocs
-Summary:	LibreOffice Import/Export filter for Google Docs
-Group:		Office
-Requires:	%{name}-common = %{EVRD}
-
-%description extension-gdocs
-LibreOffice Import/Export filter for Google Docs.
-
-%files extension-gdocs
-%{ooodir}/share/extensions/gdocs
-
-#----------------------------------------------------------------------------
-
-%package extension-hunart
-Summary:	Hungarian cross-reference toolbar extension for LibreOffice
-Group:		Office
-Requires:	%{name}-common = %{EVRD}
-
-%description extension-hunart
-Hungarian cross-reference toolbar extension for LibreOffice.
-
-%files extension-hunart
-%{ooodir}/share/extensions/hunart
-%endif
-
-#----------------------------------------------------------------------------
-
 %package extension-languagetool
 Summary:	A LibreOffice extension for style and grammar proofreading
 Group:		Office
@@ -732,19 +737,6 @@ A LibreOffice extension for style and grammar proofreading.
 
 %files extension-languagetool
 %{ooodir}/share/extensions/LanguageTool
-
-#----------------------------------------------------------------------------
-
-%package extension-mysql
-Summary:	MySQL/MariaDB connector for LibreOffice
-Group:		Office
-Requires:	%{name}-common = %{EVRD}
-
-%description extension-mysql
-MySQL/MariaDB connector for LibreOffice.
-
-%files extension-mysql
-%{ooodir}/share/extensions/mysql-connector-ooo
 
 #----------------------------------------------------------------------------
 
@@ -772,74 +764,6 @@ Number-to-Text conversion function for LibreOffice Calc.
 
 %files extension-numbertext
 %{ooodir}/share/extensions/numbertext
-
-#----------------------------------------------------------------------------
-
-%if 0
-%package extension-SmART
-Summary:	Diagram generator for LibreOffice Draw and Impress
-Group:		Office
-Url:		http://extensions.libreoffice.org/extension-center/smart
-Requires:	%{name}-common = %{EVRD}
-Obsoletes:	%{name}-extension-diagram < %{EVRD}
-
-%description extension-SmART
-SmART Gallery extension is the advanced version of Diagram (aka. Diagram 2)
-for LibreOffice and OpenOffice.org office suites. This Extension is designed
-to create your favorite diagrams with few clicks in Draw and Impress
-applications.
-
-%files extension-SmART
-%{ooodir}/share/extensions/SmART
-%endif
-
-#----------------------------------------------------------------------------
-
-%if 0
-%package extension-typo
-Summary:	Typographic toolbar for LibreOffice
-Group:		Office
-Requires:	%{name}-common = %{EVRD}
-
-%description extension-typo
-Typographic toolbar for LibreOffice.
-
-%files extension-typo
-%{ooodir}/share/extensions/typo
-%endif
-
-#----------------------------------------------------------------------------
-
-%if 0
-%package extension-validator
-Summary:	A LibreOffice Calc extension that validates cells based on selected rules
-Group:		Office
-Requires:	%{name}-calc = %{EVRD}
-
-%description extension-validator
-A LibreOffice Calc extension that validates cells based on selected rules.
-
-%files extension-validator
-%{ooodir}/share/extensions/Validator
-%endif
-
-#----------------------------------------------------------------------------
-
-%if 0
-%package extension-watchwindow
-Summary:	Macro debugging tool for LibreOffice
-Group:		Office
-Requires:	%{name}-common = %{EVRD}
-
-%description extension-watchwindow
-The Watch window allows you to observe the value of variables during the
-execution of a program. Define the variable in the Watch text box.
-Click on Enable Watch to add the variable to the list box and to display
-its values.
-
-%files extension-watchwindow
-%{ooodir}/share/extensions/WatchWindow
-%endif
 
 #----------------------------------------------------------------------------
 
@@ -2675,32 +2599,12 @@ sed -i -e /CppunitTest_sc_ucalc/d -e /CppunitTest_chart2_export/d -e /CppunitTes
 # Use linker flags to reduce memory consumption (bfd only)
 #global ldflags %{ldflags} -Wl,--no-keep-memory -Wl,--reduce-memory-overheads
 
-export CC=gcc
-export CXX=g++
+#export CC=gcc
+#export CXX=g++
 
 # path to external tarballs
 EXTSRCDIR=`dirname %{SOURCE0}`
 
-# Workaround for bug http://qa.mandriva.com/show_bug.cgi?id=27771
-# if [ -z $QTDIR ]; then
-# . /etc/profile.d/60qt4.sh
-# fi
-export QT4DIR=%{_libdir}/qt4
-%ifarch X86_64 
-	export QT4INC=/usr/lib/qt4/include
-%else
-	export QT4INC=%{_libdir}/qt4/include
-%endif 
-export QT4LIB=%{_libdir}/qt4/lib
-
-export KDE4DIR=%{_libdir}/kde4
-%ifarch X86_64 
-	export KDE4INC=/usr/lib/kde4/include
-%else
-	export KDE4INC=%{_libdir}/kde4/include
-%endif 
-export KDE4LIB=%{_libdir}/kde4/lib
-export PATH=/usr/lib/qt4/bin:$PATH
 export LC_ALL=en_US.UTF-8
 export LANG=en_US
 
@@ -2741,12 +2645,15 @@ touch autogen.lastrun
 	--enable-release-build \
 	--enable-lto \
 	--enable-gtk3-kde5 \
+	--enable-qt5 \
+	--enable-kde5 \
 	--enable-vlc \
 	--enable-introspection=no \
 	--enable-eot \
 	--enable-odk \
 	--enable-split-app-modules \
 	--enable-split-opt-features \
+	--enable-build-opensymbol \
 	--without-fonts \
 	--without-junit \
 %if %{javaless}
@@ -2827,6 +2734,8 @@ rm -rf %{buildroot}/opt
 # rm -rf %{buildroot}%{ooodir}/share/dict/ooo
 # ln -s %{_datadir}/dict/ooo %{buildroot}%{ooodir}/share/dict
 
+# FIXME restore icons when abf is back up
+%if 0
 # Mandriva Rosa icons
 mkdir -p %{buildroot}%{_iconsdir}/hicolor/scalable/apps/
 tar -xjvf %{SOURCE10} --exclude Libre_Office* -C %{buildroot}%{_iconsdir}/hicolor/scalable/apps/
@@ -2838,6 +2747,7 @@ sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-draw_72/'    %{buildroot}%{ooodir}/sha
 sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-base_72/'    %{buildroot}%{ooodir}/share/xdg/base.desktop  
 sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-math_72/'    %{buildroot}%{ooodir}/share/xdg/math.desktop  
 sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo_72/'         %{buildroot}%{ooodir}/share/xdg/startcenter.desktop
+%endif
 
 # ensure links are converted to files
 for app in base calc draw impress math startcenter writer xsltfilter; do
@@ -2941,6 +2851,18 @@ cat file-lists/common_list.uniq.sorted.txt >>file-lists/core_list.txt
 ## make sure we don't have duplicate files in core
 sort -u file-lists/core_list.txt > file-lists/core_list.uniq.sorted.txt
 cat file-lists/core_list.uniq.sorted.txt > file-lists/core_list.txt
+
+# Get rid of the GTK dependency in libreoffice-kde -- we package gtk3-kde5
+# separately
+sed -i -e '/libvclplug_gtk3_kde5lo.so/d' file-lists/kde4_list.txt
+
+# Get rid of libreofficekitgtk in core -- it adds a gtk dependency and is not
+# used by LO
+sed -i -e '/liblibreofficekitgtk.so/d' file-lists/core_list.txt
+
+# Get rid of libavmediagst in core -- it adds a gtk dependency and is
+# generally useless given we also have libavmediavlc.
+sed -i -e '/libavmediagst.so/d' file-lists/core_list.txt
 
 install -m 0755 -d %{buildroot}%{_javadir}/%{name}
 for jar in %{buildroot}%{ooodir}/program/classes/*.jar; do

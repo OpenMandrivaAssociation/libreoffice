@@ -1,0 +1,14 @@
+diff -up libreoffice-6.2.0/configure.ac.omv~ libreoffice-6.2.0/configure.ac
+--- libreoffice-6.2.0/configure.ac.omv~	2018-12-17 18:05:40.879111224 +0100
++++ libreoffice-6.2.0/configure.ac	2018-12-17 18:06:30.909737355 +0100
+@@ -6253,8 +6253,10 @@ elif test "$GCC" = "yes" -o "$COM_IS_CLA
+             #if __GNUC__ >= 7
+             #pragma GCC diagnostic push
+             #pragma GCC diagnostic ignored "-Wdeprecated"
++            #ifndef __clang__
+             #pragma GCC diagnostic ignored "-Wunused-but-set-parameter"
+             #endif
++            #endif
+             #include <libcmis/libcmis.hxx>
+             #if __GNUC__ >= 7
+             #pragma GCC diagnostic pop

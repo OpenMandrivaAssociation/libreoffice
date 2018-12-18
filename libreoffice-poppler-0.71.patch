@@ -1,7 +1,7 @@
-diff -ru libreoffice-6.1.2.1/sdext/source/pdfimport/xpdfwrapper.orig/pdfioutdev_gpl.cxx libreoffice-6.1.2.1/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx
---- libreoffice-6.1.2.1/sdext/source/pdfimport/xpdfwrapper.orig/pdfioutdev_gpl.cxx	2018-11-01 20:43:55.802520387 +0000
-+++ libreoffice-6.1.2.1/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx	2018-11-01 20:44:33.399286879 +0000
-@@ -514,7 +514,7 @@
+diff -up libreoffice-6.2.0/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx.7~ libreoffice-6.2.0/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx
+--- libreoffice-6.2.0/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx.7~	2018-12-14 00:39:17.319494337 +0100
++++ libreoffice-6.2.0/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx	2018-12-14 00:39:43.935984834 +0100
+@@ -514,7 +514,7 @@ void PDFOutDev::printPath( GfxPath* pPat
  PDFOutDev::PDFOutDev( PDFDoc* pDoc ) :
      m_pDoc( pDoc ),
      m_aFontMap(),
@@ -10,70 +10,81 @@ diff -ru libreoffice-6.1.2.1/sdext/source/pdfimport/xpdfwrapper.orig/pdfioutdev_
      m_bSkipImages(false)
  {
  }
-@@ -943,11 +943,11 @@
+@@ -555,7 +555,7 @@ void PDFOutDev::processLink(Link* link,
+     LinkAction* pAction = link->getAction();
+     if (pAction && pAction->getKind() == actionURI)
+     {
+-        const char* pURI = static_cast<LinkURI*>(pAction)->getURI()->getCString();
++        const char* pURI = static_cast<LinkURI*>(pAction)->getURI()->c_str();
+ 
+         std::vector<char> aEsc( lcl_escapeLineFeeds(pURI) );
+ 
+@@ -757,7 +757,7 @@ void PDFOutDev::updateFont(GfxState *sta
+ 
+             aFont = it->second;
+ 
+-            std::vector<char> aEsc( lcl_escapeLineFeeds(aFont.familyName.getCString()) );
++            std::vector<char> aEsc( lcl_escapeLineFeeds(aFont.familyName.c_str()) );
+             printf( " %d %d %d %d %f %d %s",
+                     aFont.isEmbedded,
+                     aFont.isBold,
+@@ -943,9 +943,9 @@ void PDFOutDev::endTextObject(GfxState*)
  }
  
  void PDFOutDev::drawImageMask(GfxState* pState, Object*, Stream* str,
 -                              int width, int height, GBool invert,
-+                              int width, int height, bool invert,
- #if POPPLER_CHECK_VERSION(0, 12, 0)
 -                              GBool /*interpolate*/,
-+                              bool /*interpolate*/,
- #endif
 -                              GBool /*inlineImg*/ )
++                              int width, int height, bool invert,
++                              bool /*interpolate*/,
 +                              bool /*inlineImg*/ )
  {
      if (m_bSkipImages)
          return;
-@@ -976,9 +976,9 @@
+@@ -973,8 +973,8 @@ void PDFOutDev::drawImageMask(GfxState*
+ 
  void PDFOutDev::drawImage(GfxState*, Object*, Stream* str,
                            int width, int height, GfxImageColorMap* colorMap,
- #if POPPLER_CHECK_VERSION(0, 12, 0)
 -                          GBool /*interpolate*/,
-+                          bool /*interpolate*/,
- #endif
 -                          int* maskColors, GBool /*inlineImg*/ )
++                          bool /*interpolate*/,
 +                          int* maskColors, bool /*inlineImg*/ )
  {
      if (m_bSkipImages)
          return;
-@@ -1027,13 +1027,13 @@
+@@ -1022,11 +1022,11 @@ void PDFOutDev::drawImage(GfxState*, Obj
+ void PDFOutDev::drawMaskedImage(GfxState*, Object*, Stream* str,
                                  int width, int height,
                                  GfxImageColorMap* colorMap,
- #if POPPLER_CHECK_VERSION(0, 12, 0)
 -                                GBool /*interpolate*/,
 +                                bool /*interpolate*/,
- #endif
                                  Stream* maskStr,
                                  int maskWidth, int maskHeight,
 -                                GBool maskInvert
-+                                bool maskInvert
- #if POPPLER_CHECK_VERSION(0, 12, 0)
 -                                , GBool /*maskInterpolate*/
++                                bool maskInvert
 +                                , bool /*maskInterpolate*/
- #endif
                                 )
  {
-@@ -1049,13 +1049,13 @@
+     if (m_bSkipImages)
+@@ -1040,11 +1040,11 @@ void PDFOutDev::drawMaskedImage(GfxState
+ void PDFOutDev::drawSoftMaskedImage(GfxState*, Object*, Stream* str,
                                      int width, int height,
                                      GfxImageColorMap* colorMap,
- #if POPPLER_CHECK_VERSION(0, 12, 0)
 -                                    GBool /*interpolate*/,
 +                                    bool /*interpolate*/,
- #endif
                                      Stream* maskStr,
                                      int maskWidth, int maskHeight,
                                      GfxImageColorMap* maskColorMap
- #if POPPLER_CHECK_VERSION(0, 12, 0)
 -                                    , GBool /*maskInterpolate*/
 +                                    , bool /*maskInterpolate*/
- #endif
                                     )
  {
-diff -ru libreoffice-6.1.2.1/sdext/source/pdfimport/xpdfwrapper.orig/pdfioutdev_gpl.hxx libreoffice-6.1.2.1/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.hxx
---- libreoffice-6.1.2.1/sdext/source/pdfimport/xpdfwrapper.orig/pdfioutdev_gpl.hxx	2018-11-01 20:43:55.802520387 +0000
-+++ libreoffice-6.1.2.1/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.hxx	2018-11-01 20:44:33.402620221 +0000
-@@ -151,17 +151,17 @@
+     if (m_bSkipImages)
+diff -up libreoffice-6.2.0/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.hxx.7~ libreoffice-6.2.0/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.hxx
+--- libreoffice-6.2.0/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.hxx.7~	2018-12-14 00:39:17.319494337 +0100
++++ libreoffice-6.2.0/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.hxx	2018-12-14 00:40:06.617395922 +0100
+@@ -151,17 +151,17 @@ namespace pdfi
  
          // Does this device use upside-down coordinates?
          // (Upside-down means (0,0) is the top left corner of the page.)
@@ -95,61 +106,50 @@ diff -ru libreoffice-6.1.2.1/sdext/source/pdfimport/xpdfwrapper.orig/pdfioutdev_
  
          //----- initialization and control
  
-@@ -237,40 +237,40 @@
+@@ -237,29 +237,29 @@ namespace pdfi
  
          //----- image drawing
          virtual void drawImageMask(GfxState *state, Object *ref, Stream *str,
 -                                   int width, int height, GBool invert,
-+                                   int width, int height, bool invert,
- #if POPPLER_CHECK_VERSION(0, 12, 0)
 -                                   GBool interpolate,
-+                                   bool interpolate,
- #endif
 -                                   GBool inlineImg) override;
++                                   int width, int height, bool invert,
++                                   bool interpolate,
 +                                   bool inlineImg) override;
          virtual void drawImage(GfxState *state, Object *ref, Stream *str,
                                 int width, int height, GfxImageColorMap *colorMap,
- #if POPPLER_CHECK_VERSION(0, 12, 0)
 -                               GBool interpolate,
-+                               bool interpolate,
- #endif
 -                               int *maskColors, GBool inlineImg) override;
++                               bool interpolate,
 +                               int *maskColors, bool inlineImg) override;
          virtual void drawMaskedImage(GfxState *state, Object *ref, Stream *str,
                                       int width, int height,
                                       GfxImageColorMap *colorMap,
- #if POPPLER_CHECK_VERSION(0, 12, 0)
 -                                     GBool interpolate,
 +                                     bool interpolate,
- #endif
                                       Stream *maskStr, int maskWidth, int maskHeight,
 -                                     GBool maskInvert
-+                                     bool maskInvert
- #if POPPLER_CHECK_VERSION(0, 12, 0)
 -                                     , GBool maskInterpolate
++                                     bool maskInvert
 +                                     , bool maskInterpolate
- #endif
                                      ) override;
          virtual void drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str,
                                           int width, int height,
                                           GfxImageColorMap *colorMap,
- #if POPPLER_CHECK_VERSION(0, 12, 0)
 -                                         GBool interpolate,
 +                                         bool interpolate,
- #endif
                                           Stream *maskStr,
                                           int maskWidth, int maskHeight,
                                           GfxImageColorMap *maskColorMap
- #if POPPLER_CHECK_VERSION(0, 12, 0)
 -                                         , GBool maskInterpolate
 +                                         , bool maskInterpolate
- #endif
                                          ) override;
  
-diff -ru libreoffice-6.1.2.1/sdext/source/pdfimport/xpdfwrapper.orig/wrapper_gpl.cxx libreoffice-6.1.2.1/sdext/source/pdfimport/xpdfwrapper/wrapper_gpl.cxx
---- libreoffice-6.1.2.1/sdext/source/pdfimport/xpdfwrapper.orig/wrapper_gpl.cxx	2018-11-01 20:43:55.802520387 +0000
-+++ libreoffice-6.1.2.1/sdext/source/pdfimport/xpdfwrapper/wrapper_gpl.cxx	2018-11-01 20:44:33.402620221 +0000
-@@ -69,7 +69,7 @@
+         static void setPageNum( int nNumPages );
+diff -up libreoffice-6.2.0/sdext/source/pdfimport/xpdfwrapper/wrapper_gpl.cxx.7~ libreoffice-6.2.0/sdext/source/pdfimport/xpdfwrapper/wrapper_gpl.cxx
+--- libreoffice-6.2.0/sdext/source/pdfimport/xpdfwrapper/wrapper_gpl.cxx.7~	2018-11-17 21:05:22.000000000 +0100
++++ libreoffice-6.2.0/sdext/source/pdfimport/xpdfwrapper/wrapper_gpl.cxx	2018-12-14 00:39:17.320494355 +0100
+@@ -69,7 +69,7 @@ int main(int argc, char **argv)
  
      // read config file
      globalParams = new GlobalParams();
@@ -158,7 +158,7 @@ diff -ru libreoffice-6.1.2.1/sdext/source/pdfimport/xpdfwrapper.orig/wrapper_gpl
  #if defined(_MSC_VER)
      globalParams->setupBaseFonts(nullptr);
  #endif
-@@ -143,7 +143,7 @@
+@@ -145,7 +145,7 @@ int main(int argc, char **argv)
                  i,
                  PDFI_OUTDEV_RESOLUTION,
                  PDFI_OUTDEV_RESOLUTION,
