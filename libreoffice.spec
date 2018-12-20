@@ -345,7 +345,7 @@ packages:
 
 %files base -f file-lists/base_list.txt
 %{_mandir}/man1/lobase*
-#%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-base_72.svg
+%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-base_72.svg
 %{_datadir}/appdata/libreoffice-base.appdata.xml
 
 #----------------------------------------------------------------------------
@@ -360,7 +360,7 @@ This package contains the spreadsheet component for LibreOffice.
 
 %files calc -f file-lists/calc_list.txt
 %{_mandir}/man1/localc*
-#%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-calc_72.svg
+%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-calc_72.svg
 %{_datadir}/appdata/libreoffice-calc.appdata.xml
 
 #----------------------------------------------------------------------------
@@ -408,7 +408,7 @@ Obsoletes:	%{name}-extension-watchwindow < %{EVRD}
 This package contains the application-independent files of LibreOffice.
 
 %files common -f file-lists/core_list.txt
-#%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo_72.svg
+%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo_72.svg
 %{_mandir}/man1/loffice*
 %{_mandir}/man1/lofromtemplate*
 %{_mandir}/man1/libreoffice*
@@ -488,7 +488,7 @@ Requires:	%{name}-common = %{EVRD}
 This package contains the drawing component for LibreOffice.
 
 %files draw -f file-lists/draw_list.txt
-#%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-draw_72.svg
+%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-draw_72.svg
 %{_mandir}/man1/lodraw*
 %{_datadir}/appdata/libreoffice-draw.appdata.xml
 
@@ -530,7 +530,7 @@ Obsoletes:	%{name}-presentation-minimizer < %{EVRD}
 This package contains the presentation component for LibreOffice.
 
 %files impress -f file-lists/impress_list.txt
-#%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-impress_72.svg
+%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-impress_72.svg
 %{_mandir}/man1/loimpress*
 %{_datadir}/appdata/libreoffice-impress.appdata.xml
 
@@ -592,7 +592,7 @@ Requires:	%{name}-common = %{EVRD}
 This package contains the equation editor component for LibreOffice.
 
 %files math -f file-lists/math_list.txt
-#%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-math_72.svg
+%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-math_72.svg
 %{_mandir}/man1/lomath*
 
 #----------------------------------------------------------------------------
@@ -677,7 +677,7 @@ Requires:	%{name}-common = %{EVRD}
 This package contains the word processor component for LibreOffice.
 
 %files writer -f file-lists/writer_list.txt
-#%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-writer_72.svg
+%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-writer_72.svg
 %{_mandir}/man1/loweb*
 %{_mandir}/man1/lowriter*
 %{_datadir}/appdata/libreoffice-writer.appdata.xml
@@ -2734,8 +2734,6 @@ rm -rf %{buildroot}/opt
 # rm -rf %{buildroot}%{ooodir}/share/dict/ooo
 # ln -s %{_datadir}/dict/ooo %{buildroot}%{ooodir}/share/dict
 
-# FIXME restore icons when abf is back up
-%if 0
 # Mandriva Rosa icons
 mkdir -p %{buildroot}%{_iconsdir}/hicolor/scalable/apps/
 tar -xjvf %{SOURCE10} --exclude Libre_Office* -C %{buildroot}%{_iconsdir}/hicolor/scalable/apps/
@@ -2747,7 +2745,6 @@ sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-draw_72/'    %{buildroot}%{ooodir}/sha
 sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-base_72/'    %{buildroot}%{ooodir}/share/xdg/base.desktop  
 sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-math_72/'    %{buildroot}%{ooodir}/share/xdg/math.desktop  
 sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo_72/'         %{buildroot}%{ooodir}/share/xdg/startcenter.desktop
-%endif
 
 # ensure links are converted to files
 for app in base calc draw impress math startcenter writer xsltfilter; do
