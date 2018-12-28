@@ -64,7 +64,7 @@ Name:		libreoffice
 Epoch:		1
 Version:	6.2.0
 %if "%beta" != ""
-Release:	0.%{beta}.1
+Release:	0.%{beta}.2
 %else
 Release:	1
 %endif
