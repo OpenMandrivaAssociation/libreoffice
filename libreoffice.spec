@@ -20,7 +20,7 @@
 %bcond_with icecream
 %bcond_with ccache
 
-%define beta beta1
+%define beta %{nil}
 
 %if %{with l10n}
 %define langs	en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu
@@ -38,7 +38,7 @@
 %else
 %define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
 #define relurl		http://dev-builds.libreoffice.org/pre-releases/src
-%define buildver	%{version}.2
+%define buildver	%{version}.1
 %endif
 %define devurl		http://dev-www.libreoffice.org/ooo_external
 %define srcurl		http://dev-www.libreoffice.org/src/
@@ -64,7 +64,7 @@ Name:		libreoffice
 Epoch:		1
 Version:	6.2.0
 %if "%beta" != ""
-Release:	0.%{beta}.2
+Release:	0.%{beta}.1
 %else
 Release:	1
 %endif
@@ -126,6 +126,8 @@ Patch203:	libreoffice-5.4-std_thread.patch
 Patch204:	poppler-0.70.patch
 Patch205:	libreoffice-poppler-0.71.patch
 Patch206:	libreoffice-6.2.0-clang-7.0.patch
+# https://bugs.documentfoundation.org/show_bug.cgi?id=122131
+Patch207:	67d31b1.diff
 
 # KDE5 WIPs from upstream
 #Patch300:	libreoffice-6.1-kde5-backports-from-master.patch
