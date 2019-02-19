@@ -38,7 +38,7 @@
 %else
 %define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
 #define relurl		http://dev-builds.libreoffice.org/pre-releases/src
-%define buildver	%{version}.2
+%define buildver	%{version}.1
 %endif
 %define devurl		http://dev-www.libreoffice.org/ooo_external
 %define srcurl		http://dev-www.libreoffice.org/src/
@@ -62,7 +62,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Epoch:		1
-Version:	6.2.0
+Version:	6.2.1
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
@@ -123,8 +123,6 @@ Patch103:	libreoffice-6.2.0-clangdetection.patch
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
 Patch203:	libreoffice-5.4-std_thread.patch
-Patch204:	poppler-0.70.patch
-Patch205:	libreoffice-poppler-0.71.patch
 Patch206:	libreoffice-6.2.0-clang-7.0.patch
 # https://bugs.documentfoundation.org/show_bug.cgi?id=122131
 Patch207:	67d31b1.diff
@@ -279,7 +277,7 @@ BuildRequires:	pkgconfig(xmlsec1) >= 1.2.24
 BuildRequires:	pkgconfig(xpm)
 BuildRequires:	pkgconfig(xtst)
 BuildRequires:	pkgconfig(zlib)
-BuildRequires:	db-devel
+BuildRequires:	db-devel >= 18.1
 BuildRequires:	locales-en
 # required for unit tests
 BuildRequires:	fonts-ttf-liberation
@@ -287,7 +285,7 @@ BuildRequires:	google-crosextra-carlito-fonts
 BuildRequires:	google-crosextra-caladea-fonts
 %if !%{javaless}
 BuildRequires:	ant
-BuildRequires:	ant-apache-regexp
+#BuildRequires:	ant-apache-regexp
 BuildRequires:	apache-commons-codec
 BuildRequires:	apache-commons-lang
 BuildRequires:	jakarta-commons-httpclient
