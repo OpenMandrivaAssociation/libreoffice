@@ -38,7 +38,7 @@
 %else
 %define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
 #define relurl		http://dev-builds.libreoffice.org/pre-releases/src
-%define buildver	%{version}.1
+%define buildver	%{version}.2
 %endif
 %define devurl		http://dev-www.libreoffice.org/ooo_external
 %define srcurl		http://dev-www.libreoffice.org/src/
@@ -61,8 +61,7 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Epoch:		1
-Version:	6.2.1
+Version:	6.2.3
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
@@ -117,8 +116,8 @@ Patch51:	libreoffice-4.2.5.2-impress-kde-crash-hack.patch
 # OpenMandriva vendor patch
 Patch100:	libreoffice-4.3.1.2-vendor.patch
 Patch101:	libreoffice-5.1.0.1-desktop-categories.patch
-Patch102:	libreoffice-6.2.0-boost-1.69.patch
 Patch103:	libreoffice-6.2.0-clangdetection.patch
+Patch104:	libreoffice-6.2.3-java12.patch
 
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch

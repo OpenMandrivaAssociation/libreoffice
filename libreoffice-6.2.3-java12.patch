@@ -1,0 +1,39 @@
+diff -up libreoffice-6.2.3/configure.ac.omv~ libreoffice-6.2.3/configure.ac
+--- libreoffice-6.2.3/configure.ac.omv~	2019-04-19 00:46:27.700230355 +0200
++++ libreoffice-6.2.3/configure.ac	2019-04-19 00:46:41.625229680 +0200
+@@ -7012,7 +7012,7 @@ dnl Set target Java bytecode version
+ dnl ===================================================================
+ if test "$ENABLE_JAVA" != ""; then
+     if test "$HAVE_JAVA9" = "TRUE"; then
+-        _java_target_ver="1.6"
++        _java_target_ver="7"
+     else
+         _java_target_ver="1.5"
+     fi
+diff -up libreoffice-6.2.3/solenv/gbuild/JavaClassSet.mk.omv~ libreoffice-6.2.3/solenv/gbuild/JavaClassSet.mk
+diff -up libreoffice-6.2.3/external/languagetool/languagetool-java12.patch.OMV~ libreoffice-6.2.3/external/languagetool/languagetool-java12.patch
+--- libreoffice-6.2.3/external/languagetool/languagetool-java12.patch.OMV~	2019-04-19 02:34:08.460916903 +0200
++++ libreoffice-6.2.3/external/languagetool/languagetool-java12.patch	2019-04-19 02:34:08.459916903 +0200
+@@ -0,0 +1,11 @@
++diff -up workdir/UnpackedTarball/languagetool/build.properties.omv~ workdir/UnpackedTarball/languagetool/build.properties
++--- workdir/UnpackedTarball/languagetool/build.properties.omv~	2019-04-19 02:32:20.478922142 +0200
+++++ workdir/UnpackedTarball/languagetool/build.properties	2019-04-19 02:32:24.828921931 +0200
++@@ -77,5 +77,5 @@ build.meta-inf = ${build.dir}/META-INF
++ final.name = LanguageTool
++ final.name.gui = LanguageToolGUI
++ encoding = utf-8
++-target = 1.6
++-source = 1.6
+++target = 1.7
+++source = 1.7
+diff -up libreoffice-6.2.3/external/languagetool/UnpackedTarball_languagetool.mk.OMV~ libreoffice-6.2.3/external/languagetool/UnpackedTarball_languagetool.mk
+--- libreoffice-6.2.3/external/languagetool/UnpackedTarball_languagetool.mk.OMV~	2019-04-19 02:34:29.855915865 +0200
++++ libreoffice-6.2.3/external/languagetool/UnpackedTarball_languagetool.mk	2019-04-19 02:34:45.929915085 +0200
+@@ -20,6 +20,7 @@ $(eval $(call gb_UnpackedTarball_add_pat
+     external/languagetool/english.ireland.patch \
+     external/languagetool/esperanto.territory.patch \
+     external/languagetool/french.haiti.patch \
++    external/languagetool/languagetool-java12.patch \
+ ))
+ 
+ # vim: set noet sw=4 ts=4:
