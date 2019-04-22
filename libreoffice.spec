@@ -2621,7 +2621,13 @@ export CCACHE_DIR=%{ccachedir}
 # g0 - Workaround for abf builds running out of memory
 # O2 - tests seem to segfault with Oz
 # -I - needed because of #include <hb.h> in a couple of places
+# ix86: compiler-rt needed because of __mulodi4
+%ifarch %ix86
+%global optflags %(echo %{optflags} -g0 | sed -e 's/-Oz/-O2/') -I%{_includedir}/harfbuzz --rtlib=compiler-rt
+%global ldflags %{ldflags} --rtlib=compiler-rt
+%else
 %global optflags %(echo %{optflags} -g0 | sed -e 's/-Oz/-O2/') -I%{_includedir}/harfbuzz
+%endif
 
 export CFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing"
 export CXXFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive"
