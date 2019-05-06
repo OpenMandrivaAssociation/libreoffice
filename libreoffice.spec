@@ -36,9 +36,9 @@
 %define relurl		http://dev-builds.libreoffice.org/pre-releases/src
 %define buildver	%{version}.0.%{beta}
 %else
-%define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
-#define relurl		http://dev-builds.libreoffice.org/pre-releases/src
-%define buildver	%{version}.2
+#define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
+%define relurl		http://dev-builds.libreoffice.org/pre-releases/src
+%define buildver	%{version}.1
 %endif
 %define devurl		http://dev-www.libreoffice.org/ooo_external
 %define srcurl		http://dev-www.libreoffice.org/src/
@@ -61,7 +61,7 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	6.2.3
+Version:	6.2.4
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
