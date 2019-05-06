@@ -172,7 +172,6 @@ BuildRequires:	xsltproc >= 1.0.19
 BuildRequires:	zip
 BuildRequires:	cups-devel
 BuildRequires:	hyphen-devel
-BuildRequires:	java-devel
 
 BuildRequires:	cmake
 
@@ -289,7 +288,7 @@ BuildRequires:	apache-commons-codec
 BuildRequires:	apache-commons-lang
 BuildRequires:	jakarta-commons-httpclient
 BuildRequires:	junit
-BuildRequires:	java-1.8.0-openjdk-devel
+BuildRequires:	jdk-current
 Suggests:	%{name}-java = %{EVRD}
 %endif 
 # STLport-devel 4.5 + private patches are needed
