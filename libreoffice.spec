@@ -19,6 +19,7 @@
 %bcond_without l10n
 %bcond_with icecream
 %bcond_with ccache
+%bcond_with debug
 
 %define beta %{nil}
 
@@ -38,7 +39,7 @@
 %else
 #define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
 %define relurl		http://dev-builds.libreoffice.org/pre-releases/src
-%define buildver	%{version}.1
+%define buildver	%{version}.2
 %endif
 %define devurl		http://dev-www.libreoffice.org/ooo_external
 %define srcurl		http://dev-www.libreoffice.org/src/
@@ -374,7 +375,6 @@ Requires:	ghostscript
 Requires:	fonts-ttf-liberation
 Requires:	google-crosextra-carlito-fonts
 Requires:	google-crosextra-caladea-fonts
-Requires:	desktop-common-data >= 3.0
 # rpm will automatically grab the require for libsane1, but there are some
 # configs needed at this package, so we must require it too.
 Requires:	sane-backends
@@ -411,8 +411,6 @@ This package contains the application-independent files of LibreOffice.
 %{_mandir}/man1/lofromtemplate*
 %{_mandir}/man1/libreoffice*
 %{_mandir}/man1/unopkg.1*
-%{_libdir}/libreoffice/program/classes/ScriptProviderForBeanShell.jar
-%{_libdir}/libreoffice/program/services/scriptproviderforbeanshell.rdb
 %{_libdir}/libreoffice/share/libreofficekit
 
 #----------------------------------------------------------------------------
@@ -432,6 +430,8 @@ that require a Java stack (such as OpenJDK) to be installed.
 
 %files java -f file-lists/java_common_list.txt
 %{_datadir}/java/%{name}
+%{_libdir}/libreoffice/program/classes/ScriptProviderForBeanShell.jar
+%{_libdir}/libreoffice/program/services/scriptproviderforbeanshell.rdb
 
 #----------------------------------------------------------------------------
 
@@ -2646,7 +2646,11 @@ touch autogen.lastrun
 	--disable-firebird-sdbc \
 	--with-external-tar="$EXTSRCDIR" \
 	--disable-gstreamer-0.10 \
+%if %{with debug}
+	--enable-debug \
+%else
 	--enable-release-build \
+%endif
 	--enable-lto \
 	--enable-gtk3-kde5 \
 	--enable-qt5 \
