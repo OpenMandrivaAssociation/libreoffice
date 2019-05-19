@@ -83,7 +83,6 @@ Source10:	Mandriva-Rosa_Icons.tar.bz2
 Source20:	http://archive.apache.org/dist/ant/binaries/apache-ant-1.8.1-bin.tar.bz2
 Source30:	%{devurl}/af3c3acf618de6108d65fcdc92b492e1-commons-codec-1.3-src.tar.gz
 Source31:	%{devurl}/2c9b0f83ed5890af02c0df1c1776f39b-commons-httpclient-3.1-src.tar.gz 
-Source32:	%{devurl}/2ae988b339daec234019a7066f96733e-commons-lang-2.3-src.tar.gz 
 %endif
 Source33:	%{srcurl}/62c0b97e94fe47d5e50ff605d2edf37a-hsqldb-2.3.3.zip
 #Source34:	%{srcurl}/xmlsec1-1.2.24.tar.gz
@@ -286,7 +285,6 @@ BuildRequires:	google-crosextra-caladea-fonts
 BuildRequires:	ant
 #BuildRequires:	ant-apache-regexp
 BuildRequires:	apache-commons-codec
-BuildRequires:	apache-commons-lang
 BuildRequires:	jakarta-commons-httpclient
 BuildRequires:	junit
 BuildRequires:	jdk-current
@@ -689,7 +687,6 @@ Requires:	%{name}-common = %{EVRD}
 Requires:	%{name}-writer = %{EVRD}
 %if !%{javaless}
 Requires:	apache-commons-codec
-Requires:	apache-commons-lang
 Requires:	jakarta-commons-httpclient
 Requires:	apache-commons-logging
 %endif
@@ -1792,6 +1789,21 @@ standard locales system.
 #----------------------------------------------------------------------------
 
 %if %{with l10n}
+%package l10n-qtz
+Summary:	QTZ language support for LibreOffice
+Group:		Office
+Provides:	%{ooname}-l10n = %{EVRD}
+
+%description l10n-qtz
+This package contains the localization of LibreOffice in the QTZ
+locale.
+It contains the user interface, the templates and the autotext
+features. Please note that not all of these are available for all
+possible language. You can switch user interface language using the
+standard locales system.
+%endif
+
+%if %{with l10n}
 %package l10n-ro
 Summary:	Romanian language support for LibreOffice
 Group:		Office
@@ -2882,13 +2894,13 @@ done
 
 # %%files for help-* and l10n-* packages
 %if %{with l10n}
-%{expand:%(for i in %{langs}; do
+%{expand:%(for i in %{langs} qtz; do
 	[ "$i" = "en-US" ] && continue;
 	i=`echo $i |sed -e 's,-,_,g'`;
 	[ "$i" = "sh" ] && echo "%%files l10n-shs -f file-lists/lang_${i}_list.txt" || echo "%%files l10n-$i -f file-lists/lang_${i}_list.txt";
 done)}
 
-%{expand:%(for i in %{helplangs}; do\
+%{expand:%(for i in %{helplangs} qtz; do\
 	/bin/sh %{SOURCE1001} ${i};\
 done)}
 %endif
