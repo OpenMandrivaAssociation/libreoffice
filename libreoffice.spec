@@ -1789,7 +1789,7 @@ Provides:	%{ooname}-l10n = %{EVRD}
 
 %description l10n-qtz
 This package contains the localization of LibreOffice in the QTZ
-locale.
+locale used for debugging localization.
 It contains the user interface, the templates and the autotext
 features. Please note that not all of these are available for all
 possible language. You can switch user interface language using the
@@ -2638,6 +2638,8 @@ export CXXFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing -fperm
 
 echo "Configure start at: "`date` >> ooobuildtime.log 
 
+. %{_sysconfdir}/profile.d/90java.sh
+
 touch autogen.lastrun
 %configure \
 	%{?_smp_mflags:--with-parallelism="`getconf _NPROCESSORS_ONLN`"} \
@@ -2887,6 +2889,7 @@ done
 
 # %%files for help-* and l10n-* packages
 %if %{with l10n}
+%if %{with debug}
 %{expand:%(for i in %{langs} qtz; do
 	[ "$i" = "en-US" ] && continue;
 	i=`echo $i |sed -e 's,-,_,g'`;
@@ -2896,4 +2899,15 @@ done)}
 %{expand:%(for i in %{helplangs} qtz; do\
 	/bin/sh %{SOURCE1001} ${i};\
 done)}
+%else
+%{expand:%(for i in %{langs}; do
+	[ "$i" = "en-US" ] && continue;
+	i=`echo $i |sed -e 's,-,_,g'`;
+	[ "$i" = "sh" ] && echo "%%files l10n-shs -f file-lists/lang_${i}_list.txt" || echo "%%files l10n-$i -f file-lists/lang_${i}_list.txt";
+done)}
+
+%{expand:%(for i in %{helplangs}; do\
+	/bin/sh %{SOURCE1001} ${i};\
+done)}
+%endif
 %endif
