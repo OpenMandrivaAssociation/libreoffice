@@ -81,8 +81,6 @@ Source10:	Mandriva-Rosa_Icons.tar.bz2
 #javaless
 %if %{javaless}
 Source20:	http://archive.apache.org/dist/ant/binaries/apache-ant-1.8.1-bin.tar.bz2
-Source30:	%{devurl}/af3c3acf618de6108d65fcdc92b492e1-commons-codec-1.3-src.tar.gz
-Source31:	%{devurl}/2c9b0f83ed5890af02c0df1c1776f39b-commons-httpclient-3.1-src.tar.gz 
 %endif
 Source33:	%{srcurl}/62c0b97e94fe47d5e50ff605d2edf37a-hsqldb-2.3.3.zip
 #Source34:	%{srcurl}/xmlsec1-1.2.24.tar.gz
@@ -283,9 +281,6 @@ BuildRequires:	google-crosextra-carlito-fonts
 BuildRequires:	google-crosextra-caladea-fonts
 %if !%{javaless}
 BuildRequires:	ant
-#BuildRequires:	ant-apache-regexp
-BuildRequires:	apache-commons-codec
-BuildRequires:	jakarta-commons-httpclient
 BuildRequires:	junit
 BuildRequires:	jdk-current
 Suggests:	%{name}-java = %{EVRD}
@@ -686,8 +681,6 @@ Group:		Office
 Requires:	%{name}-common = %{EVRD}
 Requires:	%{name}-writer = %{EVRD}
 %if !%{javaless}
-Requires:	apache-commons-codec
-Requires:	jakarta-commons-httpclient
 Requires:	apache-commons-logging
 %endif
 
