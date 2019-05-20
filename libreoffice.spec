@@ -2633,12 +2633,14 @@ export CCACHE_DIR=%{ccachedir}
 %global optflags %(echo %{optflags} -g0 | sed -e 's/-Oz/-O2/') -I%{_includedir}/harfbuzz
 %endif
 
+. %{_sysconfdir}/profile.d/90java.sh
+
 export CFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing"
 export CXXFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive"
+# Make sure we can find libjawt.so
+export LDFLAGS="%{ldflags} -L$JAVA_HOME/lib"
 
 echo "Configure start at: "`date` >> ooobuildtime.log 
-
-. %{_sysconfdir}/profile.d/90java.sh
 
 touch autogen.lastrun
 %configure \
