@@ -283,6 +283,7 @@ BuildRequires:	google-crosextra-caladea-fonts
 BuildRequires:	ant
 BuildRequires:	junit
 BuildRequires:	jdk-current
+BuildRequires:	java-gui-current
 Suggests:	%{name}-java = %{EVRD}
 %endif 
 # STLport-devel 4.5 + private patches are needed
@@ -2637,8 +2638,6 @@ export CCACHE_DIR=%{ccachedir}
 
 export CFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing"
 export CXXFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive"
-# Make sure we can find libjawt.so
-export LDFLAGS="%{ldflags} -L$JAVA_HOME/lib"
 
 echo "Configure start at: "`date` >> ooobuildtime.log 
 
