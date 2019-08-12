@@ -88,7 +88,7 @@ Source35:	%{devurl}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
 Source36:	%{devurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
 Source37:	%{devurl}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
 Source38:	%{devurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
-Source39:	http://dev-www.libreoffice.org/src/pdfium-3550.tar.bz2
+Source39:	http://dev-www.libreoffice.org/src/pdfium-3794.tar.bz2
 
 # External Download Sources
 Source40:	http://hg.services.openoffice.org/binaries/1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz
@@ -104,28 +104,14 @@ Source56:	%{srcurl}b7cae45ad2c23551fd6ccb8ae2c1f59e-numbertext_0.9.5.oxt
 Source1000:	libreoffice.rpmlintrc
 Source1001:	libreoffice-help-package
 
-#Patch2:		help-images-mdv64789.patch
-
-# From ROSA:
-# Hack: Don't display tiny useless scrollbars with libreoffice-kde4
-# Impress is known to crash when adding effects (segfault is triggered by 15x18 scrollbar)
-Patch51:	libreoffice-4.2.5.2-impress-kde-crash-hack.patch
-
 # OpenMandriva vendor patch
 Patch100:	libreoffice-4.3.1.2-vendor.patch
 Patch101:	libreoffice-5.1.0.1-desktop-categories.patch
-Patch103:	libreoffice-6.2.0-clangdetection.patch
 Patch104:	libreoffice-6.2.3-java12.patch
 
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
 Patch203:	libreoffice-5.4-std_thread.patch
-Patch206:	libreoffice-6.2.0-clang-7.0.patch
-# https://bugs.documentfoundation.org/show_bug.cgi?id=122131
-Patch207:	67d31b1.diff
-
-# KDE5 WIPs from upstream
-#Patch300:	libreoffice-6.1-kde5-backports-from-master.patch
 
 %if %{with icecream}
 BuildRequires:	icecream
@@ -159,8 +145,6 @@ BuildRequires:	perl
 BuildRequires:	perl-Archive-Zip
 BuildRequires:	perl-HTML-Parser
 BuildRequires:	perl-XML-Twig
-#BuildRequires:	python-translate >= 1.9.0
-BuildRequires:	servlet3
 BuildRequires:	sharutils
 BuildRequires:	recode
 BuildRequires:	sac
@@ -281,7 +265,6 @@ BuildRequires:	google-crosextra-carlito-fonts
 BuildRequires:	google-crosextra-caladea-fonts
 %if !%{javaless}
 BuildRequires:	ant
-BuildRequires:	junit
 BuildRequires:	jdk-current
 BuildRequires:	java-gui-current
 Suggests:	%{name}-java = %{EVRD}
@@ -539,7 +522,7 @@ Suggests:	%{name}-style-breeze = %{EVRD}
 This package contains the KDE5 plugin for drawing LibreOffice widgets with
 KDE5/Qt5.x and a KDEish File Picker when running under KDE5.
 
-%files kde5 -f file-lists/kde4_list.txt
+%files kde5 -f file-lists/orig/gid_Module_Optional_Kde
 %{_datadir}/appdata/org.libreoffice.kde.metainfo.xml
 
 
@@ -2867,7 +2850,7 @@ cat file-lists/core_list.uniq.sorted.txt > file-lists/core_list.txt
 
 # Get rid of the GTK dependency in libreoffice-kde -- we package gtk3-kde5
 # separately
-sed -i -e '/libvclplug_gtk3_kde5lo.so/d' file-lists/kde4_list.txt
+sed -i -e '/libvclplug_gtk3_kde5lo.so/d' file-lists/orig/gid_Module_Optional_Kde
 
 # Get rid of libreofficekitgtk in core -- it adds a gtk dependency and is not
 # used by LO

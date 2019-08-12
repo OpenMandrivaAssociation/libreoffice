@@ -1,19 +1,20 @@
-diff -up libreoffice-6.2.3/configure.ac.omv~ libreoffice-6.2.3/configure.ac
---- libreoffice-6.2.3/configure.ac.omv~	2019-04-19 00:46:27.700230355 +0200
-+++ libreoffice-6.2.3/configure.ac	2019-04-19 00:46:41.625229680 +0200
-@@ -7012,7 +7012,7 @@ dnl Set target Java bytecode version
+diff -up libreoffice-6.3.0/configure.ac.3~ libreoffice-6.3.0/configure.ac
+--- libreoffice-6.3.0/configure.ac.3~	2019-08-12 11:05:07.970767186 +0200
++++ libreoffice-6.3.0/configure.ac	2019-08-12 11:07:59.468050253 +0200
+@@ -7256,8 +7256,8 @@ dnl Checks for javac
  dnl ===================================================================
  if test "$ENABLE_JAVA" != ""; then
-     if test "$HAVE_JAVA9" = "TRUE"; then
--        _java_target_ver="1.6"
-+        _java_target_ver="7"
+     javacompiler="javac"
+-    : ${JAVA_SOURCE_VER=1.6}
+-    : ${JAVA_TARGET_VER=1.6}
++    : ${JAVA_SOURCE_VER=7}
++    : ${JAVA_TARGET_VER=7}
+     if test -z "$with_jdk_home"; then
+         AC_PATH_PROG(JAVACOMPILER, $javacompiler)
      else
-         _java_target_ver="1.5"
-     fi
-diff -up libreoffice-6.2.3/solenv/gbuild/JavaClassSet.mk.omv~ libreoffice-6.2.3/solenv/gbuild/JavaClassSet.mk
-diff -up libreoffice-6.2.3/external/languagetool/languagetool-java12.patch.OMV~ libreoffice-6.2.3/external/languagetool/languagetool-java12.patch
---- libreoffice-6.2.3/external/languagetool/languagetool-java12.patch.OMV~	2019-04-19 02:34:08.460916903 +0200
-+++ libreoffice-6.2.3/external/languagetool/languagetool-java12.patch	2019-04-19 02:34:08.459916903 +0200
+diff -up libreoffice-6.3.0/external/languagetool/languagetool-java12.patch.3~ libreoffice-6.3.0/external/languagetool/languagetool-java12.patch
+--- libreoffice-6.3.0/external/languagetool/languagetool-java12.patch.3~	2019-08-12 11:05:07.971767188 +0200
++++ libreoffice-6.3.0/external/languagetool/languagetool-java12.patch	2019-08-12 11:05:07.971767188 +0200
 @@ -0,0 +1,11 @@
 +diff -up workdir/UnpackedTarball/languagetool/build.properties.omv~ workdir/UnpackedTarball/languagetool/build.properties
 +--- workdir/UnpackedTarball/languagetool/build.properties.omv~	2019-04-19 02:32:20.478922142 +0200
@@ -26,9 +27,9 @@ diff -up libreoffice-6.2.3/external/languagetool/languagetool-java12.patch.OMV~ 
 +-source = 1.6
 ++target = 1.7
 ++source = 1.7
-diff -up libreoffice-6.2.3/external/languagetool/UnpackedTarball_languagetool.mk.OMV~ libreoffice-6.2.3/external/languagetool/UnpackedTarball_languagetool.mk
---- libreoffice-6.2.3/external/languagetool/UnpackedTarball_languagetool.mk.OMV~	2019-04-19 02:34:29.855915865 +0200
-+++ libreoffice-6.2.3/external/languagetool/UnpackedTarball_languagetool.mk	2019-04-19 02:34:45.929915085 +0200
+diff -up libreoffice-6.3.0/external/languagetool/UnpackedTarball_languagetool.mk.3~ libreoffice-6.3.0/external/languagetool/UnpackedTarball_languagetool.mk
+--- libreoffice-6.3.0/external/languagetool/UnpackedTarball_languagetool.mk.3~	2019-08-06 19:26:35.000000000 +0200
++++ libreoffice-6.3.0/external/languagetool/UnpackedTarball_languagetool.mk	2019-08-12 11:05:07.971767188 +0200
 @@ -20,6 +20,7 @@ $(eval $(call gb_UnpackedTarball_add_pat
      external/languagetool/english.ireland.patch \
      external/languagetool/esperanto.territory.patch \
