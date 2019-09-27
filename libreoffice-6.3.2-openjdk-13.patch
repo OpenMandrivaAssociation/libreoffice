@@ -1,0 +1,20 @@
+diff -up libreoffice-6.3.2/configure.ac.4~ libreoffice-6.3.2/configure.ac
+--- libreoffice-6.3.2/configure.ac.4~	2019-09-27 13:57:43.422386146 +0200
++++ libreoffice-6.3.2/configure.ac	2019-09-27 22:47:17.416366127 +0200
+@@ -7247,6 +7247,7 @@ you must use the "--with-jdk-home" confi
+ 
+             # set to limit VM usage for JunitTests
+             JAVAIFLAGS=-Xmx64M
++            JAVAIFLAGS="$JAVAIFLAGS -Djdk.net.URLClassPath.disableClassPathURLCheck=true"
+             # set to limit VM usage for javac
+             JAVAFLAGS=-J-Xmx128M
+         fi
+@@ -7582,7 +7583,7 @@ _ACEOF
+             true) AC_MSG_RESULT([yes]) ;;
+             false)
+                 rm -f "./${java_src}" "./${java_cls}"
+-                AC_MSG_ERROR([no - Java unit tests will break!])
++                AC_MSG_RESULT([no - Java unit tests will break!])
+                 ;;
+             *) url_check_unknown=1 ;;
+             esac
