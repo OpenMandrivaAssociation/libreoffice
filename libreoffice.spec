@@ -21,7 +21,7 @@
 %bcond_with ccache
 %bcond_with debug
 
-%define beta %{nil}
+%define beta beta1
 
 %if %{with l10n}
 %define langs	en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu
@@ -39,7 +39,7 @@
 %else
 #define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
 %define relurl		http://dev-builds.libreoffice.org/pre-releases/src
-%define buildver	%{version}.2
+%define buildver	%{version}.0
 %endif
 %define devurl		http://dev-www.libreoffice.org/ooo_external
 %define srcurl		http://dev-www.libreoffice.org/src/
@@ -62,7 +62,7 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	6.3.4
+Version:	6.4.0
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
@@ -83,12 +83,11 @@ Source10:	Mandriva-Rosa_Icons.tar.bz2
 Source20:	http://archive.apache.org/dist/ant/binaries/apache-ant-1.8.1-bin.tar.bz2
 %endif
 Source33:	%{srcurl}/62c0b97e94fe47d5e50ff605d2edf37a-hsqldb-2.3.3.zip
-#Source34:	%{srcurl}/xmlsec1-1.2.24.tar.gz
 Source35:	%{devurl}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
 Source36:	%{devurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
 Source37:	%{devurl}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
 Source38:	%{devurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
-Source39:	http://dev-www.libreoffice.org/src/pdfium-3794.tar.bz2
+Source39:	http://dev-www.libreoffice.org/src/pdfium-3963.tar.bz2
 
 # External Download Sources
 Source40:	http://hg.services.openoffice.org/binaries/1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz
@@ -107,7 +106,7 @@ Source1001:	libreoffice-help-package
 # OpenMandriva vendor patch
 Patch100:	libreoffice-4.3.1.2-vendor.patch
 Patch101:	libreoffice-5.1.0.1-desktop-categories.patch
-Patch104:	libreoffice-6.2.3-java12.patch
+Patch102:	libreoffice-6.4.0-poppler-83.patch
 Patch105:	libreoffice-6.3.2-openjdk-13.patch
 
 # Other bugfix patches, including upstream
@@ -179,6 +178,7 @@ BuildRequires:	pkgconfig(libwpg-0.3)
 BuildRequires:	pkgconfig(libwps-0.4)
 BuildRequires:	pkgconfig(libzmf-0.0)
 BuildRequires:	pkgconfig(libstaroffice-0.0)
+BuildRequires:	libqrcodegen-c++-devel
 BuildRequires:	libtool-devel
 BuildRequires:	lpsolve-devel
 BuildRequires:	nas-devel
@@ -227,7 +227,7 @@ BuildRequires:	pkgconfig(libnumbertext) >= 1.0.3
 BuildRequires:	pkgconfig(libmspub-0.1)
 BuildRequires:	pkgconfig(libmwaw-0.3) >= 0.3.5
 BuildRequires:	pkgconfig(libodfgen-0.1)
-BuildRequires:	pkgconfig(liborcus-0.14)
+BuildRequires:	pkgconfig(liborcus-0.15)
 BuildRequires:	pkgconfig(libpagemaker-0.0)
 BuildRequires:	pkgconfig(librevenge-0.0)
 BuildRequires:	pkgconfig(librsvg-2.0)
@@ -237,7 +237,7 @@ BuildRequires:	pkgconfig(libucpp)
 BuildRequires:	pkgconfig(libvisio-0.1)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(libxslt)
-BuildRequires:	pkgconfig(mdds-1.4) >= 1.4.1
+BuildRequires:	pkgconfig(mdds-1.5)
 BuildRequires:	pkgconfig(mythes)
 BuildRequires:	pkgconfig(neon)
 BuildRequires:	pkgconfig(nspr)
@@ -2646,7 +2646,7 @@ touch autogen.lastrun
 	--enable-lto \
 	--enable-gtk3-kde5 \
 	--enable-qt5 \
-	--enable-kde5 \
+	--enable-kf5 \
 	--enable-vlc \
 	--enable-introspection=no \
 	--enable-eot \
