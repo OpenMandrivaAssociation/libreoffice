@@ -21,7 +21,7 @@
 %bcond_with ccache
 %bcond_with debug
 
-%define beta beta1
+%define beta %{nil}
 
 %if %{with l10n}
 %define langs	en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu
@@ -37,9 +37,9 @@
 %define relurl		http://dev-builds.libreoffice.org/pre-releases/src
 %define buildver	%{version}.0.%{beta}
 %else
-#define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
-%define relurl		http://dev-builds.libreoffice.org/pre-releases/src
-%define buildver	%{version}.0
+%define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
+#define relurl		http://dev-builds.libreoffice.org/pre-releases/src
+%define buildver	%{version}.1
 %endif
 %define devurl		http://dev-www.libreoffice.org/ooo_external
 %define srcurl		http://dev-www.libreoffice.org/src/
@@ -77,7 +77,6 @@ Group:		Office
 Url:		http://www.libreoffice.org
 Source4:	http://dev-www.libreoffice.org/extern/185d60944ea767075d27247c3162b3bc-unowinreg.dll
 
-Source10:	Mandriva-Rosa_Icons.tar.bz2
 #javaless
 %if %{javaless}
 Source20:	http://archive.apache.org/dist/ant/binaries/apache-ant-1.8.1-bin.tar.bz2
@@ -322,7 +321,6 @@ packages:
 
 %files base -f file-lists/base_list.txt
 %{_mandir}/man1/lobase*
-%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-base_72.svg
 %{_datadir}/appdata/libreoffice-base.appdata.xml
 
 #----------------------------------------------------------------------------
@@ -337,7 +335,6 @@ This package contains the spreadsheet component for LibreOffice.
 
 %files calc -f file-lists/calc_list.txt
 %{_mandir}/man1/localc*
-%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-calc_72.svg
 %{_datadir}/appdata/libreoffice-calc.appdata.xml
 
 #----------------------------------------------------------------------------
@@ -384,7 +381,6 @@ Obsoletes:	%{name}-extension-watchwindow < %{EVRD}
 This package contains the application-independent files of LibreOffice.
 
 %files common -f file-lists/core_list.txt
-%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo_72.svg
 %{_mandir}/man1/loffice*
 %{_mandir}/man1/lofromtemplate*
 %{_mandir}/man1/libreoffice*
@@ -464,7 +460,6 @@ Requires:	%{name}-common = %{EVRD}
 This package contains the drawing component for LibreOffice.
 
 %files draw -f file-lists/draw_list.txt
-%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-draw_72.svg
 %{_mandir}/man1/lodraw*
 %{_datadir}/appdata/libreoffice-draw.appdata.xml
 
@@ -506,7 +501,6 @@ Obsoletes:	%{name}-presentation-minimizer < %{EVRD}
 This package contains the presentation component for LibreOffice.
 
 %files impress -f file-lists/impress_list.txt
-%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-impress_72.svg
 %{_mandir}/man1/loimpress*
 %{_datadir}/appdata/libreoffice-impress.appdata.xml
 
@@ -568,7 +562,6 @@ Requires:	%{name}-common = %{EVRD}
 This package contains the equation editor component for LibreOffice.
 
 %files math -f file-lists/math_list.txt
-%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-math_72.svg
 %{_mandir}/man1/lomath*
 
 #----------------------------------------------------------------------------
@@ -653,7 +646,6 @@ Requires:	%{name}-common = %{EVRD}
 This package contains the word processor component for LibreOffice.
 
 %files writer -f file-lists/writer_list.txt
-%{_iconsdir}/hicolor/scalable/apps/mandriva-rosa-lo-writer_72.svg
 %{_mandir}/man1/loweb*
 %{_mandir}/man1/lowriter*
 %{_datadir}/appdata/libreoffice-writer.appdata.xml
@@ -2733,18 +2725,6 @@ rm -rf %{buildroot}/opt
 # use the dicts from myspell-<lang>
 # rm -rf %{buildroot}%{ooodir}/share/dict/ooo
 # ln -s %{_datadir}/dict/ooo %{buildroot}%{ooodir}/share/dict
-
-# Mandriva Rosa icons
-mkdir -p %{buildroot}%{_iconsdir}/hicolor/scalable/apps/
-tar -xjvf %{SOURCE10} --exclude Libre_Office* -C %{buildroot}%{_iconsdir}/hicolor/scalable/apps/
-
-sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-calc_72/'    %{buildroot}%{ooodir}/share/xdg/calc.desktop
-sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-writer_72/'  %{buildroot}%{ooodir}/share/xdg/writer.desktop 
-sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-impress_72/' %{buildroot}%{ooodir}/share/xdg/impress.desktop  
-sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-draw_72/'    %{buildroot}%{ooodir}/share/xdg/draw.desktop  
-sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-base_72/'    %{buildroot}%{ooodir}/share/xdg/base.desktop  
-sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo-math_72/'    %{buildroot}%{ooodir}/share/xdg/math.desktop  
-sed -i 's/^Icon=.*$/Icon=mandriva-rosa-lo_72/'         %{buildroot}%{ooodir}/share/xdg/startcenter.desktop
 
 # ensure links are converted to files
 for app in base calc draw impress math startcenter writer xsltfilter; do

@@ -1,5 +1,4 @@
 sources:
-  Mandriva-Rosa_Icons.tar.bz2: 4d7e4f9ce89503a3722dcbaa5facbf53c78daeef
   17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip: 7168b0f40aa5c72267899601c116d2348d2f56ec
   35c94d2df8893241173de1d16b6034c0-swingExSrc.zip: 1acea86fd399ed7817879d36370d3d1f8b109050
   62c0b97e94fe47d5e50ff605d2edf37a-hsqldb-2.3.3.zip: f5fce3d5eb21294f9ffba40c34e7c736ab64d6b9
@@ -14,7 +13,7 @@ sources:
   barcode_1.3.5.0.oxt: 3f7bc3483687f14040dfa6bea70aa38cdbe25897
   smart_0.9.4_en_hu_corrected.oxt: b888d8b18d3252ec4b04bfb8913f5df356b9c053
   pdfium-3963.tar.bz2: c283858b7cf63a0cd7c691aef4d45866b9c7051d
-  libreoffice-6.4.0.0.beta1.tar.xz: f1092581eb7662b197232d44ba4e2f4ada9feefd
-  libreoffice-dictionaries-6.4.0.0.beta1.tar.xz: 01825c4fad82bcf22d768de85b9295e660dede67
-  libreoffice-help-6.4.0.0.beta1.tar.xz: 3ed49400ab5c2add4f6fa624be62b5fe03abc000
-  libreoffice-translations-6.4.0.0.beta1.tar.xz: db5a791d275f01c453bf73354c22bfe4d9a6d92e
+  libreoffice-6.4.0.1.tar.xz: 8d8a0acb43e074eda5d0b05bf1d7b04788d0d333
+  libreoffice-dictionaries-6.4.0.1.tar.xz: 3d19c8eabe086ab7dcd8a7b46301fa93d79901d4
+  libreoffice-help-6.4.0.1.tar.xz: 50403e5838394df2e3f804743be31824517ef977
+  libreoffice-translations-6.4.0.1.tar.xz: 8fe018584ed59297a60d54505507e2f95ba2f316
