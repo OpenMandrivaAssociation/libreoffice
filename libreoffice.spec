@@ -39,7 +39,7 @@
 %else
 %define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
 #define relurl		http://dev-builds.libreoffice.org/pre-releases/src
-%define buildver	%{version}.1
+%define buildver	%{version}.3
 %endif
 %define devurl		http://dev-www.libreoffice.org/ooo_external
 %define srcurl		http://dev-www.libreoffice.org/src/
@@ -66,7 +66,7 @@ Version:	6.4.0
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
-Release:	1
+Release:	2
 %endif
 Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
@@ -321,7 +321,7 @@ packages:
 
 %files base -f file-lists/base_list.txt
 %{_mandir}/man1/lobase*
-%{_datadir}/appdata/libreoffice-base.appdata.xml
+%{_datadir}/metainfo/libreoffice-base.metainfo.xml
 
 #----------------------------------------------------------------------------
 
@@ -335,7 +335,7 @@ This package contains the spreadsheet component for LibreOffice.
 
 %files calc -f file-lists/calc_list.txt
 %{_mandir}/man1/localc*
-%{_datadir}/appdata/libreoffice-calc.appdata.xml
+%{_datadir}/metainfo/libreoffice-calc.metainfo.xml
 
 #----------------------------------------------------------------------------
 
@@ -461,7 +461,7 @@ This package contains the drawing component for LibreOffice.
 
 %files draw -f file-lists/draw_list.txt
 %{_mandir}/man1/lodraw*
-%{_datadir}/appdata/libreoffice-draw.appdata.xml
+%{_datadir}/metainfo/libreoffice-draw.metainfo.xml
 
 #----------------------------------------------------------------------------
 
@@ -502,7 +502,7 @@ This package contains the presentation component for LibreOffice.
 
 %files impress -f file-lists/impress_list.txt
 %{_mandir}/man1/loimpress*
-%{_datadir}/appdata/libreoffice-impress.appdata.xml
+%{_datadir}/metainfo/libreoffice-impress.metainfo.xml
 
 #----------------------------------------------------------------------------
 
@@ -518,7 +518,7 @@ This package contains the KDE5 plugin for drawing LibreOffice widgets with
 KDE5/Qt5.x and a KDEish File Picker when running under KDE5.
 
 %files kde5 -f file-lists/orig/gid_Module_Optional_Kde
-%{_datadir}/appdata/org.libreoffice.kde.metainfo.xml
+%{_datadir}/metainfo/org.libreoffice.kde.metainfo.xml
 
 
 #----------------------------------------------------------------------------
@@ -648,7 +648,7 @@ This package contains the word processor component for LibreOffice.
 %files writer -f file-lists/writer_list.txt
 %{_mandir}/man1/loweb*
 %{_mandir}/man1/lowriter*
-%{_datadir}/appdata/libreoffice-writer.appdata.xml
+%{_datadir}/metainfo/libreoffice-writer.metainfo.xml
 
 #----------------------------------------------------------------------------
 
@@ -2851,6 +2851,15 @@ for jar in %{buildroot}%{ooodir}/program/classes/*.jar; do
             ;;
     esac
 done
+
+# Move appstream stuff to newer spec
+mkdir -p %{buildroot}%{_datadir}/metainfo/
+for i in %{buildroot}%{_datadir}/appdata/*.appdata.xml; do
+	mv $i %{buildroot}%{_datadir}/metainfo/$(basename $i .appdata.xml).metainfo.xml
+done
+# libreoffice-kde is already named correctly (but installed to the old directory)
+mv %{buildroot}%{_datadir}/appdata/*.metainfo.xml %{buildroot}%{_datadir}/metainfo/
+rmdir %{buildroot}%{_datadir}/appdata
 
 # %%files for help-* and l10n-* packages
 %if %{with l10n}
