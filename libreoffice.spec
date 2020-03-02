@@ -37,9 +37,9 @@
 %define relurl		http://dev-builds.libreoffice.org/pre-releases/src
 %define buildver	%{version}.0.%{beta}
 %else
-%define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
-#define relurl		http://dev-builds.libreoffice.org/pre-releases/src
-%define buildver	%{version}.3
+#define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
+%define relurl		http://dev-builds.libreoffice.org/pre-releases/src
+%define buildver	%{version}.1
 %endif
 %define devurl		http://dev-www.libreoffice.org/ooo_external
 %define srcurl		http://dev-www.libreoffice.org/src/
@@ -62,11 +62,11 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	6.4.0
+Version:	6.4.2
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
-Release:	3
+Release:	1
 %endif
 Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
@@ -105,8 +105,8 @@ Source1001:	libreoffice-help-package
 # OpenMandriva vendor patch
 Patch100:	libreoffice-4.3.1.2-vendor.patch
 Patch101:	libreoffice-5.1.0.1-desktop-categories.patch
-Patch102:	libreoffice-6.4.0-poppler-83.patch
 Patch105:	libreoffice-6.3.2-openjdk-13.patch
+Patch106:	libreoffice-6.4.2-compile.patch
 
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
@@ -177,7 +177,7 @@ BuildRequires:	pkgconfig(libwpg-0.3)
 BuildRequires:	pkgconfig(libwps-0.4)
 BuildRequires:	pkgconfig(libzmf-0.0)
 BuildRequires:	pkgconfig(libstaroffice-0.0)
-BuildRequires:	libqrcodegen-c++-devel
+BuildRequires:	qr-code-generator-c++-devel
 BuildRequires:	libtool-devel
 BuildRequires:	lpsolve-devel
 BuildRequires:	nas-devel
