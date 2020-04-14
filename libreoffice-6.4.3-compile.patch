@@ -1,53 +1,6 @@
-diff -up libreoffice-6.4.2/configure.ac.omv~ libreoffice-6.4.2/configure.ac
---- libreoffice-6.4.2/configure.ac.omv~	2020-03-01 22:32:10.868473888 +0100
-+++ libreoffice-6.4.2/configure.ac	2020-03-01 22:32:23.507474445 +0100
-@@ -10063,7 +10063,7 @@ if test "$with_system_qrcodegen" = "yes"
-     AC_MSG_RESULT([external])
-     SYSTEM_QRCODEGEN=TRUE
-     AC_LANG_PUSH([C++])
--    AC_CHECK_HEADER(qrcodegen/QrCode.hpp, [],
-+    AC_CHECK_HEADER(qrcodegencpp/QrCode.hpp, [],
-         [AC_MSG_ERROR(qrcodegen headers not found.)], [#include <stdexcept>])
-     AC_CHECK_LIB([qrcodegencpp], [main], [:],
-         [ AC_MSG_ERROR(qrcodegen C++ library not found.) ], [])
-diff -up libreoffice-6.4.2/cui/source/dialogs/QrCodeGenDialog.cxx.omv~ libreoffice-6.4.2/cui/source/dialogs/QrCodeGenDialog.cxx
---- libreoffice-6.4.2/cui/source/dialogs/QrCodeGenDialog.cxx.omv~	2020-03-01 22:31:57.846473314 +0100
-+++ libreoffice-6.4.2/cui/source/dialogs/QrCodeGenDialog.cxx	2020-03-01 22:32:08.244473772 +0100
-@@ -17,7 +17,7 @@
- #include <sal/log.hxx>
- 
- #if defined(SYSTEM_QRCODEGEN)
--#include <qrcodegen/QrCode.hpp>
-+#include <qrcodegencpp/QrCode.hpp>
- #else
- #include <QrCode.hpp>
- #endif
-diff -up libreoffice-6.4.2/o3tl/qa/test-span.cxx.omv~ libreoffice-6.4.2/o3tl/qa/test-span.cxx
---- libreoffice-6.4.2/o3tl/qa/test-span.cxx.omv~	2020-03-01 16:36:02.739531662 +0100
-+++ libreoffice-6.4.2/o3tl/qa/test-span.cxx	2020-03-01 16:46:19.856558874 +0100
-@@ -34,15 +34,15 @@ private:
-         CPPUNIT_ASSERT_EQUAL(1, *v.begin());
-         CPPUNIT_ASSERT_EQUAL(
-             o3tl::span<int>::difference_type(3), v.end() - v.begin());
--        CPPUNIT_ASSERT_EQUAL(1, *v.cbegin());
-+        CPPUNIT_ASSERT_EQUAL(1, *v.begin());
-         CPPUNIT_ASSERT_EQUAL(
--            o3tl::span<int>::difference_type(3), v.cend() - v.cbegin());
-+            o3tl::span<int>::difference_type(3), v.end() - v.begin());
-         CPPUNIT_ASSERT_EQUAL(3, *v.rbegin());
-         CPPUNIT_ASSERT_EQUAL(
-             o3tl::span<int>::difference_type(3), v.rend() - v.rbegin());
--        CPPUNIT_ASSERT_EQUAL(3, *v.crbegin());
-+        CPPUNIT_ASSERT_EQUAL(3, *v.rbegin());
-         CPPUNIT_ASSERT_EQUAL(
--            o3tl::span<int>::difference_type(3), v.crend() - v.crbegin());
-+            o3tl::span<int>::difference_type(3), v.rend() - v.rbegin());
-         CPPUNIT_ASSERT_EQUAL(std::size_t(3), v.size());
-         CPPUNIT_ASSERT(!v.empty());
-         CPPUNIT_ASSERT_EQUAL(2, v[1]);
-diff -up libreoffice-6.4.2/sc/source/core/opencl/formulagroupcl.cxx.omv~ libreoffice-6.4.2/sc/source/core/opencl/formulagroupcl.cxx
---- libreoffice-6.4.2/sc/source/core/opencl/formulagroupcl.cxx.omv~	2020-03-02 00:20:45.455761148 +0100
-+++ libreoffice-6.4.2/sc/source/core/opencl/formulagroupcl.cxx	2020-03-02 00:53:44.557848417 +0100
+diff -up libreoffice-6.4.3/sc/source/core/opencl/formulagroupcl.cxx.omv~ libreoffice-6.4.3/sc/source/core/opencl/formulagroupcl.cxx
+--- libreoffice-6.4.3/sc/source/core/opencl/formulagroupcl.cxx.omv~	2020-04-14 00:28:14.639514535 +0200
++++ libreoffice-6.4.3/sc/source/core/opencl/formulagroupcl.cxx	2020-04-14 01:16:45.055913547 +0200
 @@ -1335,185 +1335,7 @@ public:
      }
  
@@ -282,8 +235,7 @@ diff -up libreoffice-6.4.2/sc/source/core/opencl/formulagroupcl.cxx.omv~ libreof
 -            szHostBuffer,
 -            pHostBuffer, &err);
 -        SAL_INFO("sc.opencl", "Created buffer " << Base::mpClmem << " size " << nInput << "*" << sizeof(double) << "=" << szHostBuffer << " using host buffer " << pHostBuffer);
-+        std::stringstream& ss, int nResultSize, bool& needBody );
- 
+-
 -        mpClmem2 = clCreateBuffer(kEnv.mpkContext,
 -            CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR,
 -            sizeof(double) * w, nullptr, nullptr);
@@ -320,7 +272,8 @@ diff -up libreoffice-6.4.2/sc/source/core/opencl/formulagroupcl.cxx.omv~ libreof
 -        err = clSetKernelArg(redKernel, 2, sizeof(cl_int), static_cast<void*>(&nInput));
 -        if (CL_SUCCESS != err)
 -            throw OpenCLError("clSetKernelArg", err, __FILE__, __LINE__);
--
++        std::stringstream& ss, int nResultSize, bool& needBody );
+ 
 -        SAL_INFO("sc.opencl", "Kernel " << redKernel << " arg " << 3 << ": cl_int: " << nCurWindowSize);
 -        err = clSetKernelArg(redKernel, 3, sizeof(cl_int), static_cast<void*>(&nCurWindowSize));
 -        if (CL_SUCCESS != err)
@@ -432,12 +385,11 @@ diff -up libreoffice-6.4.2/sc/source/core/opencl/formulagroupcl.cxx.omv~ libreof
  
      ~ParallelReductionVectorRef()
      {
-@@ -4395,6 +4032,379 @@ bool FormulaGroupInterpreterOpenCL::inte
+@@ -4395,6 +4032,376 @@ bool FormulaGroupInterpreterOpenCL::inte
      return aRes.pushResultToDocument(rDoc, rTopPos);
  }
  
-+template<class Base>
-+void ParallelReductionVectorRef<Base>::GenSlidingWindowFunction( std::stringstream& ss )
++template <class Base> void ParallelReductionVectorRef<Base>::GenSlidingWindowFunction( std::stringstream& ss )
 +{
 +    if (!dynamic_cast<OpAverage*>(mpCodeGen.get()))
 +    {
@@ -617,8 +569,7 @@ diff -up libreoffice-6.4.2/sc/source/core/opencl/formulagroupcl.cxx.omv~ libreof
 +
 +}
 +
-+template<class Base>
-+size_t ParallelReductionVectorRef<Base>::GenReductionLoopHeader(
++template <class Base> size_t ParallelReductionVectorRef<Base>::GenReductionLoopHeader(
 +    std::stringstream& ss, int nResultSize, bool& needBody )
 +{
 +    assert(mpDVR);
@@ -642,8 +593,7 @@ diff -up libreoffice-6.4.2/sc/source/core/opencl/formulagroupcl.cxx.omv~ libreof
 +    return nCurWindowSize;
 +}
 +
-+template<class Base>
-+size_t ParallelReductionVectorRef<Base>::Marshal( cl_kernel k, int argno, int w, cl_program mpProgram )
++template<class Base> size_t ParallelReductionVectorRef<Base>::Marshal( cl_kernel k, int argno, int w, cl_program mpProgram )
 +{
 +    assert(Base::mpClmem == nullptr);
 +
@@ -812,28 +762,15 @@ diff -up libreoffice-6.4.2/sc/source/core/opencl/formulagroupcl.cxx.omv~ libreof
  }} // namespace sc::opencl
  
  /* vim:set shiftwidth=4 softtabstop=4 expandtab: */
-diff -up libreoffice-6.4.2/sdext/source/pdfimport/test/tests.cxx.omv~ libreoffice-6.4.2/sdext/source/pdfimport/test/tests.cxx
---- libreoffice-6.4.2/sdext/source/pdfimport/test/tests.cxx.omv~	2020-03-02 04:31:24.319424286 +0100
-+++ libreoffice-6.4.2/sdext/source/pdfimport/test/tests.cxx	2020-03-02 04:50:13.838474092 +0100
-@@ -85,6 +85,7 @@ namespace
-             CPPUNIT_ASSERT_DOUBLES_EQUAL_MESSAGE( "A4 page size (in 100th of points): Height", 59500, m_aPageSize.Height, 0.0000001 );
-             CPPUNIT_ASSERT_MESSAGE( "endPage() called", m_bPageEnded );
-             CPPUNIT_ASSERT_EQUAL_MESSAGE( "Num pages equal one", sal_Int32(1), m_nNumPages );
-+            // FIXME known to fail, but really should pass...
-             CPPUNIT_ASSERT_MESSAGE( "Correct hyperlink bounding box",
-                                     rtl::math::approxEqual(m_aHyperlinkBounds.X1,34.7 ) &&
-                                     rtl::math::approxEqual(m_aHyperlinkBounds.Y1,386.0) &&
-diff -up libreoffice-6.4.2/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx.omv~ libreoffice-6.4.2/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx
---- libreoffice-6.4.2/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx.omv~	2020-03-01 16:09:28.414461361 +0100
-+++ libreoffice-6.4.2/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx	2020-03-01 16:19:39.151488291 +0100
-@@ -563,7 +563,9 @@ void PDFOutDev::processLink(Link* link,
-     if (!(pAction && pAction->getKind() == actionURI))
+diff -up libreoffice-6.4.3/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx.omv~ libreoffice-6.4.3/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx
+--- libreoffice-6.4.3/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx.omv~	2020-04-14 00:03:34.906962419 +0200
++++ libreoffice-6.4.3/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx	2020-04-14 00:03:40.783028116 +0200
+@@ -564,7 +564,7 @@ void PDFOutDev::processLink(Link* link,
          return;
  
--#if POPPLER_CHECK_VERSION(0, 72, 0)
-+#if POPPLER_CHECK_VERSION(0, 86, 0)
+ #if POPPLER_CHECK_VERSION(0, 72, 0)
+-    const char* pURI = static_cast<LinkURI*>(pAction)->getURI()->c_str();
 +    const char* pURI = static_cast<LinkURI*>(pAction)->getURI().c_str();
-+#elif POPPLER_CHECK_VERSION(0, 72, 0)
-     const char* pURI = static_cast<LinkURI*>(pAction)->getURI()->c_str();
  #else
      const char* pURI = static_cast<LinkURI*>(pAction)->getURI()->getCString();
+ #endif

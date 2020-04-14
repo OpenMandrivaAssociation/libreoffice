@@ -39,7 +39,7 @@
 %else
 #define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
 %define relurl		http://dev-builds.libreoffice.org/pre-releases/src
-%define buildver	%{version}.1
+%define buildver	%{version}.2
 %endif
 %define devurl		http://dev-www.libreoffice.org/ooo_external
 %define srcurl		http://dev-www.libreoffice.org/src/
@@ -62,11 +62,11 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	6.4.2
+Version:	6.4.3
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
-Release:	2
+Release:	1
 %endif
 Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
@@ -82,6 +82,7 @@ Source4:	http://dev-www.libreoffice.org/extern/185d60944ea767075d27247c3162b3bc-
 Source20:	http://archive.apache.org/dist/ant/binaries/apache-ant-1.8.1-bin.tar.bz2
 %endif
 Source33:	%{srcurl}/62c0b97e94fe47d5e50ff605d2edf37a-hsqldb-2.3.3.zip
+Source34:	https://dev-www.libreoffice.org/extern/odfvalidator-1.2.0-incubating-SNAPSHOT-jar-with-dependencies-971c54fd38a968f5860014b44301872706f9e540.jar
 Source35:	%{devurl}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
 Source36:	%{devurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
 Source37:	%{devurl}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
@@ -105,8 +106,9 @@ Source1001:	libreoffice-help-package
 # OpenMandriva vendor patch
 Patch100:	libreoffice-4.3.1.2-vendor.patch
 Patch101:	libreoffice-5.1.0.1-desktop-categories.patch
+Patch102:	libreoffice-6.4.3-find-qrcodegencpp.patch
+Patch103:	libreoffice-6.4.3-compile.patch
 Patch105:	libreoffice-6.3.2-openjdk-13.patch
-Patch106:	libreoffice-6.4.2-compile.patch
 
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
@@ -2572,7 +2574,7 @@ aclocal -I m4
 autoconf
 
 # disable failing tests
-sed -i -e /CppunitTest_sc_ucalc/d -e /CppunitTest_chart2_export/d -e /CppunitTest_sw_ww8export/d -e /CppunitTest_sw_globalfilter/d -e /CppunitTest_sw_filters_test/d -e /CppunitTest_sw_rtfexport/d sw/Module_sw.mk
+#sed -i -e /CppunitTest_sc_ucalc/d -e /CppunitTest_chart2_export/d -e /CppunitTest_sw_ww8export/d -e /CppunitTest_sw_globalfilter/d -e /CppunitTest_sw_filters_test/d -e /CppunitTest_sw_rtfexport/d sw/Module_sw.mk
 
 %build
 

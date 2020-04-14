@@ -1,5 +1,4 @@
 sources:
-  17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip: 7168b0f40aa5c72267899601c116d2348d2f56ec
   35c94d2df8893241173de1d16b6034c0-swingExSrc.zip: 1acea86fd399ed7817879d36370d3d1f8b109050
   62c0b97e94fe47d5e50ff605d2edf37a-hsqldb-2.3.3.zip: f5fce3d5eb21294f9ffba40c34e7c736ab64d6b9
   798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip: 8a90669029e107b61953b90ba11545fef586c2ca
@@ -13,7 +12,8 @@ sources:
   barcode_1.3.5.0.oxt: 3f7bc3483687f14040dfa6bea70aa38cdbe25897
   smart_0.9.4_en_hu_corrected.oxt: b888d8b18d3252ec4b04bfb8913f5df356b9c053
   pdfium-3963.tar.bz2: c283858b7cf63a0cd7c691aef4d45866b9c7051d
-  libreoffice-6.4.2.1.tar.xz: 35550e11c3316b92e97a5cc529e77eb576e5519b
-  libreoffice-dictionaries-6.4.2.1.tar.xz: 72e5db0f189ff967ca8abba8811a3e993b22da35
-  libreoffice-help-6.4.2.1.tar.xz: 67acf3a0aaf75a9bca82a15932e5f9d531e9dc87
-  libreoffice-translations-6.4.2.1.tar.xz: 71db1d2d83668e10cdeaded0755f1e1dbb9e9b7c
+  odfvalidator-1.2.0-incubating-SNAPSHOT-jar-with-dependencies-971c54fd38a968f5860014b44301872706f9e540.jar: a2aaff3c6e19d7442295ca8a1c39e8c3a8b4081a
+  libreoffice-6.4.3.2.tar.xz: c4e54155123ac14796f0241a0d37e45c1ebedd08
+  libreoffice-dictionaries-6.4.3.2.tar.xz: 8cc7cb9ef089dd4dcb1a407392324dd6082e4fb7
+  libreoffice-help-6.4.3.2.tar.xz: e3ad1038a07602a0a49ae469519b980e05e63766
+  libreoffice-translations-6.4.3.2.tar.xz: ea49fca3848f003506264b8c956393121033d31f
