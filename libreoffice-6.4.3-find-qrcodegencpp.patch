@@ -1,7 +1,7 @@
-diff -up libreoffice-6.4.3/configure.ac.omv~ libreoffice-6.4.3/configure.ac
---- libreoffice-6.4.3/configure.ac.omv~	2020-04-13 23:59:09.662997562 +0200
-+++ libreoffice-6.4.3/configure.ac	2020-04-13 23:59:23.647153835 +0200
-@@ -10067,7 +10067,7 @@ if test "$with_system_qrcodegen" = "yes"
+diff -up libreoffice-7.0.0/configure.ac.3~ libreoffice-7.0.0/configure.ac
+--- libreoffice-7.0.0/configure.ac.3~	2020-05-06 20:00:34.000000000 +0200
++++ libreoffice-7.0.0/configure.ac	2020-05-21 00:16:57.511053431 +0200
+@@ -10253,7 +10253,7 @@ if test "$with_system_qrcodegen" = "yes"
      AC_MSG_RESULT([external])
      SYSTEM_QRCODEGEN=TRUE
      AC_LANG_PUSH([C++])
@@ -10,11 +10,11 @@ diff -up libreoffice-6.4.3/configure.ac.omv~ libreoffice-6.4.3/configure.ac
          [AC_MSG_ERROR(qrcodegen headers not found.)], [#include <stdexcept>])
      AC_CHECK_LIB([qrcodegencpp], [main], [:],
          [ AC_MSG_ERROR(qrcodegen C++ library not found.) ], [])
-diff -up libreoffice-6.4.3/cui/source/dialogs/QrCodeGenDialog.cxx.omv~ libreoffice-6.4.3/cui/source/dialogs/QrCodeGenDialog.cxx
---- libreoffice-6.4.3/cui/source/dialogs/QrCodeGenDialog.cxx.omv~	2020-04-13 23:59:46.360407667 +0200
-+++ libreoffice-6.4.3/cui/source/dialogs/QrCodeGenDialog.cxx	2020-04-13 23:59:52.116471996 +0200
-@@ -17,7 +17,7 @@
- #include <sal/log.hxx>
+diff -up libreoffice-7.0.0/cui/source/dialogs/QrCodeGenDialog.cxx.3~ libreoffice-7.0.0/cui/source/dialogs/QrCodeGenDialog.cxx
+--- libreoffice-7.0.0/cui/source/dialogs/QrCodeGenDialog.cxx.3~	2020-05-21 00:16:57.511053431 +0200
++++ libreoffice-7.0.0/cui/source/dialogs/QrCodeGenDialog.cxx	2020-05-21 00:19:45.891608847 +0200
+@@ -18,7 +18,7 @@
+ #include <vcl/svapp.hxx>
  
  #if defined(SYSTEM_QRCODEGEN)
 -#include <qrcodegen/QrCode.hpp>

@@ -14,14 +14,14 @@
 %define    google_default_client_id 1089316189405-m0ropn3qa4p1phesfvi2urs7qps1d79o.apps.googleusercontent.com
 %define    google_default_client_secret RDdr-pHq2gStY4uw0m-zxXeo
 
-%define styles breeze breeze_dark elementary sifr sifr_dark tango
+%define styles breeze breeze_dark breeze_dark_svg breeze_svg colibre colibre_svg elementary elementary_svg karasa_jaga karasa_jaga_svg sifr sifr_dark sifr_dark_svg sifr_svg sukapura sukapura_svg
 
 %bcond_without l10n
 %bcond_with icecream
 %bcond_with ccache
 %bcond_with debug
 
-%define beta %{nil}
+%define beta alpha1
 
 %if %{with l10n}
 %define langs	en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu
@@ -39,7 +39,7 @@
 %else
 #define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
 %define relurl		http://dev-builds.libreoffice.org/pre-releases/src
-%define buildver	%{version}.1
+%define buildver	%{version}.0
 %endif
 %define devurl		http://dev-www.libreoffice.org/ooo_external
 %define srcurl		http://dev-www.libreoffice.org/src/
@@ -62,7 +62,7 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	6.4.4
+Version:	7.0.0
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
@@ -81,6 +81,8 @@ Source4:	http://dev-www.libreoffice.org/extern/185d60944ea767075d27247c3162b3bc-
 %if %{javaless}
 Source20:	http://archive.apache.org/dist/ant/binaries/apache-ant-1.8.1-bin.tar.bz2
 %endif
+Source31:	https://dev-www.libreoffice.org/src/skia-m83-8ce842d38d0b32149e874d6855c91e8c68ba65a7.tar.xz
+Source32:	https://dev-www.libreoffice.org/src/dtoa-20180411.tgz
 Source33:	%{srcurl}/62c0b97e94fe47d5e50ff605d2edf37a-hsqldb-2.3.3.zip
 Source34:	https://dev-www.libreoffice.org/extern/odfvalidator-1.2.0-incubating-SNAPSHOT-jar-with-dependencies-971c54fd38a968f5860014b44301872706f9e540.jar
 Source35:	%{devurl}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
@@ -107,7 +109,7 @@ Source1001:	libreoffice-help-package
 Patch100:	libreoffice-4.3.1.2-vendor.patch
 Patch101:	libreoffice-5.1.0.1-desktop-categories.patch
 Patch102:	libreoffice-6.4.3-find-qrcodegencpp.patch
-Patch103:	libreoffice-6.4.3-compile.patch
+Patch103:	libreoffice-7.0.0-alpha1-poppler-88.patch
 Patch105:	libreoffice-6.3.2-openjdk-13.patch
 
 # Other bugfix patches, including upstream
@@ -582,24 +584,12 @@ and sounds.
 #{ooodir}/share/gallery/Elements
 #{ooodir}/share/gallery/Photos
 %{ooodir}/share/gallery/apples*
-%{ooodir}/share/gallery/arrows*
 %{ooodir}/share/gallery/bigapple*
 %{ooodir}/share/gallery/bullets*
-%{ooodir}/share/gallery/computers*
-%{ooodir}/share/gallery/diagrams*
-%{ooodir}/share/gallery/education*
-%{ooodir}/share/gallery/environment*
-%{ooodir}/share/gallery/finance*
 %{ooodir}/share/gallery/flower*
-%{ooodir}/share/gallery/htmlexpo*
-%{ooodir}/share/gallery/people*
 %{ooodir}/share/gallery/sg[0-9]*.*
 %{ooodir}/share/gallery/sky.*
 %{ooodir}/share/gallery/sounds*
-%{ooodir}/share/gallery/symbols*
-%{ooodir}/share/gallery/transportation*
-%{ooodir}/share/gallery/txtshapes*
-%{ooodir}/share/gallery/www-graf*
 %{ooodir}/share/gallery/personas
 
 #----------------------------------------------------------------------------
@@ -746,7 +736,6 @@ creation and management of PostgreSQL databases through a GUI.
 %files postgresql
 %{ooodir}/program/libpostgresql-sdbclo.so
 %{ooodir}/program/libpostgresql-sdbc-impllo.so
-%{ooodir}/program/postgresql-sdbc.ini
 %{ooodir}/program/services/postgresql-sdbc.rdb
 %{ooodir}/share/registry/postgresql.xcd
 
