@@ -62,7 +62,7 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	6.4.4
+Version:	6.4.5
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
