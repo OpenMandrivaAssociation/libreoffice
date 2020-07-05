@@ -21,7 +21,7 @@
 %bcond_with ccache
 %bcond_with debug
 
-%define beta beta2
+%define beta %{nil}
 
 %if %{with l10n}
 %define langs	en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu
@@ -39,7 +39,7 @@
 %else
 #define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
 %define relurl		http://dev-builds.libreoffice.org/pre-releases/src
-%define buildver	%{version}.0
+%define buildver	%{version}.1
 %endif
 %define devurl		http://dev-www.libreoffice.org/ooo_external
 %define srcurl		http://dev-www.libreoffice.org/src/
@@ -109,7 +109,6 @@ Source1001:	libreoffice-help-package
 Patch100:	libreoffice-4.3.1.2-vendor.patch
 Patch101:	libreoffice-5.1.0.1-desktop-categories.patch
 Patch102:	libreoffice-6.4.3-find-qrcodegencpp.patch
-Patch103:	libreoffice-7.0.0-alpha1-poppler-88.patch
 Patch105:	libreoffice-6.3.2-openjdk-13.patch
 
 # Other bugfix patches, including upstream
@@ -585,12 +584,20 @@ and sounds.
 #{ooodir}/share/gallery/Elements
 #{ooodir}/share/gallery/Photos
 %{ooodir}/share/gallery/apples*
+%{ooodir}/share/gallery/arrows*
 %{ooodir}/share/gallery/bigapple*
+%{ooodir}/share/gallery/bpmn*
 %{ooodir}/share/gallery/bullets*
+%{ooodir}/share/gallery/diagrams*
+%{ooodir}/share/gallery/flowchart*
 %{ooodir}/share/gallery/flower*
-%{ooodir}/share/gallery/sg[0-9]*.*
+%{ooodir}/share/gallery/fontwork*
+%{ooodir}/share/gallery/icons*
+%{ooodir}/share/gallery/network*
+%{ooodir}/share/gallery/shapes*
 %{ooodir}/share/gallery/sky.*
 %{ooodir}/share/gallery/sounds*
+%{ooodir}/share/gallery/symbolshapes*
 %{ooodir}/share/gallery/personas
 
 #----------------------------------------------------------------------------
