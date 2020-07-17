@@ -16,7 +16,7 @@ sources:
   dtoa-20180411.tgz: 083509db5ad9d1680830be9add727d58b54ca0d3
   pdfium-4137.tar.bz2: 93d7c2bb37c20fe0ad0b8371810479f88c7a82b0
   skia-m84-c1baf6e1c2a5454148adb516f0f833483b5a0353.tar.xz: 08f996c359150e5cbc6d3c197d65bcf0e105fcf6
-  libreoffice-7.0.0.1.tar.xz: 036a69980138c35f4bb15c2d9a2efbfcceaac0d2
-  libreoffice-dictionaries-7.0.0.1.tar.xz: d41511d926ba494edac051a0b7a0d0bd2a1033eb
-  libreoffice-help-7.0.0.1.tar.xz: 7acd6b07475be3c65c433605623f27a40fb6e3cc
-  libreoffice-translations-7.0.0.1.tar.xz: c8ffe198808049317f0b44341dc8e7497e0eb44f
+  libreoffice-7.0.0.2.tar.xz: 326862dc5aaca44509cbc095f18135210b504b15
+  libreoffice-dictionaries-7.0.0.2.tar.xz: 3a6eeb92c4c8aeff344b92bfb82ef8f037c83000
+  libreoffice-help-7.0.0.2.tar.xz: 3666527b671902241c789ed30b7bd72682060383
+  libreoffice-translations-7.0.0.2.tar.xz: a9ccbcd9e101a713f697cd9c0f2d9a47560cae45
