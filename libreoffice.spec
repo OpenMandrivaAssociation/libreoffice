@@ -66,7 +66,7 @@ Version:	7.0.2
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
-Release:	1
+Release:	2
 %endif
 Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
@@ -237,6 +237,7 @@ BuildRequires:	pkgconfig(librsvg-2.0)
 BuildRequires:	pkgconfig(libstartup-notification-1.0)
 BuildRequires:	pkgconfig(libsvg)
 BuildRequires:	pkgconfig(libucpp)
+BuildRequires:	pkgconfig(libunwind-llvm)
 BuildRequires:	pkgconfig(libvisio-0.1)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(libxslt)
