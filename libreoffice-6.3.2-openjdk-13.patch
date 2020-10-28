@@ -1,11 +1,11 @@
-diff -up libreoffice-6.4.0/configure.ac.3~ libreoffice-6.4.0/configure.ac
---- libreoffice-6.4.0/configure.ac.3~	2019-11-13 19:14:54.000000000 +0100
-+++ libreoffice-6.4.0/configure.ac	2019-12-17 17:34:21.670836650 +0100
-@@ -7371,6 +7371,7 @@ you must use the "--with-jdk-home" confi
+diff -up libreoffice-7.1.0/configure.ac.3~ libreoffice-7.1.0/configure.ac
+--- libreoffice-7.1.0/configure.ac.3~	2020-10-27 20:51:07.182118122 +0100
++++ libreoffice-7.1.0/configure.ac	2020-10-27 20:58:16.469701529 +0100
+@@ -8102,6 +8102,7 @@ if test "$ENABLE_JAVA" != "" -a "$cross_
  
              # set to limit VM usage for JunitTests
              JAVAIFLAGS=-Xmx64M
 +            JAVAIFLAGS="$JAVAIFLAGS -Djdk.net.URLClassPath.disableClassPathURLCheck=true"
              # set to limit VM usage for javac
-             JAVAFLAGS=-J-Xmx128M
+             JAVACFLAGS=-J-Xmx128M
          fi
