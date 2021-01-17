@@ -2853,13 +2853,9 @@ for jar in %{buildroot}%{ooodir}/program/classes/*.jar; do
 done
 
 # Move appstream stuff to newer spec
-mkdir -p %{buildroot}%{_datadir}/metainfo/
-for i in %{buildroot}%{_datadir}/appdata/*.appdata.xml; do
+for i in %{buildroot}%{_datadir}/metainfo/*.appdata.xml; do
 	mv $i %{buildroot}%{_datadir}/metainfo/$(basename $i .appdata.xml).metainfo.xml
 done
-# libreoffice-kde is already named correctly (but installed to the old directory)
-mv %{buildroot}%{_datadir}/appdata/*.metainfo.xml %{buildroot}%{_datadir}/metainfo/
-rmdir %{buildroot}%{_datadir}/appdata
 
 # %%files for help-* and l10n-* packages
 %if %{with l10n}
