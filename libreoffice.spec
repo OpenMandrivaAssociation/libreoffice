@@ -109,7 +109,7 @@ Source1001:	libreoffice-help-package
 Patch100:	libreoffice-4.3.1.2-vendor.patch
 Patch101:	libreoffice-5.1.0.1-desktop-categories.patch
 Patch102:	libreoffice-7.1.0-find-qrcodegencpp.patch
-Patch103:	libreoffice-7.1.1-vlc-compile.patch
+#Patch103:	libreoffice-7.1.1-vlc-compile.patch
 Patch105:	libreoffice-6.3.2-openjdk-13.patch
 
 # Other bugfix patches, including upstream
