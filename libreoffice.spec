@@ -2,10 +2,7 @@
 # list generators. Let's not precompile stuff for now...
 %global _python_bytecompile_build 0
 
-%define _enable_debug_packages %{nil}
-%define debug_package %{nil}
-%define _binary_payload w1.xzdio
-%define _source_payload w1.xzdio
+#define _binary_payload w1.xzdio
 
 # Set up Google API keys, see http://www.chromium.org/developers/how-tos/api-keys
 # OpenMandriva key, id and secret
@@ -15,6 +12,9 @@
 %define    google_default_client_secret RDdr-pHq2gStY4uw0m-zxXeo
 
 %define styles breeze breeze_dark breeze_dark_svg breeze_svg colibre colibre_svg elementary elementary_svg karasa_jaga karasa_jaga_svg sifr sifr_dark sifr_dark_svg sifr_svg sukapura sukapura_svg
+
+# For debugsource package
+%global _empty_manifest_terminate_build 0
 
 %bcond_without l10n
 %bcond_with icecream
@@ -39,7 +39,7 @@
 %else
 #define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
 %define relurl		http://dev-builds.libreoffice.org/pre-releases/src
-%define buildver	%{version}.2
+%define buildver	%{version}.1
 %endif
 %define devurl		http://dev-www.libreoffice.org/ooo_external
 %define srcurl		http://dev-www.libreoffice.org/src/
@@ -62,11 +62,11 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	7.1.3
+Version:	7.1.5
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
-Release:	2
+Release:	1
 %endif
 Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
@@ -109,7 +109,6 @@ Source1001:	libreoffice-help-package
 Patch100:	libreoffice-4.3.1.2-vendor.patch
 Patch101:	libreoffice-5.1.0.1-desktop-categories.patch
 Patch102:	libreoffice-7.1.0-find-qrcodegencpp.patch
-Patch103:	libreoffice-7.1.1-vlc-compile.patch
 Patch105:	libreoffice-6.3.2-openjdk-13.patch
 
 # Other bugfix patches, including upstream

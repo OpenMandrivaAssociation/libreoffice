@@ -1,10 +1,10 @@
-diff -up libreoffice-6.2.0/dbaccess/Module_dbaccess.mk.4~ libreoffice-6.2.0/dbaccess/Module_dbaccess.mk
---- libreoffice-6.2.0/dbaccess/Module_dbaccess.mk.4~	2018-12-13 23:33:58.681141153 +0100
-+++ libreoffice-6.2.0/dbaccess/Module_dbaccess.mk	2018-12-13 23:36:08.695373909 +0100
-@@ -45,9 +45,6 @@ $(eval $(call gb_Module_add_check_target
-     CppunitTest_dbaccess_firebird_regression_test \
+diff -up libreoffice-7.1.5/dbaccess/Module_dbaccess.mk.5~ libreoffice-7.1.5/dbaccess/Module_dbaccess.mk
+--- libreoffice-7.1.5/dbaccess/Module_dbaccess.mk.5~	2021-07-05 21:09:43.985767818 +0200
++++ libreoffice-7.1.5/dbaccess/Module_dbaccess.mk	2021-07-05 21:10:25.073047906 +0200
+@@ -42,9 +42,6 @@ $(eval $(call gb_Module_add_check_target
+     $(if $(ENABLE_JAVA),CppunitTest_dbaccess_tdf126268) \
  ))
- endif
+ 
 -$(eval $(call gb_Module_add_check_targets,dbaccess,\
 -    CppunitTest_dbaccess_firebird_test \
 -))
