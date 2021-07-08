@@ -21,7 +21,7 @@
 %bcond_with ccache
 %bcond_with debug
 
-%define beta %{nil}
+%define beta beta1
 
 %if %{with l10n}
 %define langs	en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu
@@ -62,7 +62,7 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	7.1.5
+Version:	7.2.0
 %if "%beta" != ""
 Release:	0.%{beta}.1
 %else
@@ -81,7 +81,7 @@ Source4:	http://dev-www.libreoffice.org/extern/185d60944ea767075d27247c3162b3bc-
 %if %{javaless}
 Source20:	http://archive.apache.org/dist/ant/binaries/apache-ant-1.8.1-bin.tar.bz2
 %endif
-Source31:	https://dev-www.libreoffice.org/src/skia-m88-59bafeeaa7de9eb753e3778c414e01dcf013dcd8.tar.xz
+Source31:	https://dev-www.libreoffice.org/src/skia-m90-45c57e116ee0ce214bdf78405a4762722e4507d9.tar.xz
 Source32:	https://dev-www.libreoffice.org/src/dtoa-20180411.tgz
 Source33:	%{srcurl}/62c0b97e94fe47d5e50ff605d2edf37a-hsqldb-2.3.3.zip
 Source34:	https://dev-www.libreoffice.org/extern/odfvalidator-1.2.0-incubating-SNAPSHOT-jar-with-dependencies-971c54fd38a968f5860014b44301872706f9e540.jar
@@ -89,7 +89,7 @@ Source35:	%{devurl}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
 Source36:	%{devurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
 Source37:	%{devurl}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
 Source38:	%{devurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
-Source39:	http://dev-www.libreoffice.org/src/pdfium-4306.tar.bz2
+Source39:	http://dev-www.libreoffice.org/src/pdfium-4500.tar.bz2
 
 # External Download Sources
 Source40:	http://hg.services.openoffice.org/binaries/1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz
@@ -108,7 +108,7 @@ Source1001:	libreoffice-help-package
 # OpenMandriva vendor patch
 Patch100:	libreoffice-4.3.1.2-vendor.patch
 Patch101:	libreoffice-5.1.0.1-desktop-categories.patch
-Patch102:	libreoffice-7.1.0-find-qrcodegencpp.patch
+Patch102:	libreoffice-7.2.0-dont-reference-unpackaged-files.patch
 Patch105:	libreoffice-6.3.2-openjdk-13.patch
 
 # Other bugfix patches, including upstream
@@ -181,7 +181,7 @@ BuildRequires:	pkgconfig(libwpg-0.3)
 BuildRequires:	pkgconfig(libwps-0.4)
 BuildRequires:	pkgconfig(libzmf-0.0)
 BuildRequires:	pkgconfig(libstaroffice-0.0)
-BuildRequires:	qr-code-generator-c++-devel
+BuildRequires:	cmake(zxing)
 BuildRequires:	libtool-devel
 BuildRequires:	lpsolve-devel
 BuildRequires:	nas-devel
