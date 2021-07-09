@@ -1,0 +1,21 @@
+diff -up libreoffice-7.2.0/configure.ac.3~ libreoffice-7.2.0/configure.ac
+--- libreoffice-7.2.0/configure.ac.3~	2021-07-07 22:15:12.369116846 +0200
++++ libreoffice-7.2.0/configure.ac	2021-07-07 22:17:29.027942560 +0200
+@@ -5324,7 +5324,6 @@ if test "$cross_compiling" = "yes"; then
+         instsetoo_native/util/openoffice.lst.in \
+         config_host/*.in \
+         sysui/desktop/macosx/Info.plist.in \
+-        .vscode/vs-code-template.code-workspace.in \
+         ) \
+     | (cd CONF-FOR-BUILD && tar xf -)
+     cp configure CONF-FOR-BUILD
+@@ -14278,8 +14278,7 @@ AC_CONFIG_FILES([config_host.mk
+                  bin/officeotron.sh
+                  hardened_runtime.xcent
+                  instsetoo_native/util/openoffice.lst
+-                 sysui/desktop/macosx/Info.plist
+-                 vs-code-template.code-workspace:.vscode/vs-code-template.code-workspace.in])
++                 sysui/desktop/macosx/Info.plist])
+ AC_CONFIG_HEADERS([config_host/config_buildid.h])
+ AC_CONFIG_HEADERS([config_host/config_box2d.h])
+ AC_CONFIG_HEADERS([config_host/config_clang.h])
