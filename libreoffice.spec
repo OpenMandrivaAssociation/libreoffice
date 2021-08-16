@@ -21,7 +21,7 @@
 %bcond_with ccache
 %bcond_with debug
 
-%define beta beta1
+#define beta beta1
 
 %if %{with l10n}
 %define langs	en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu
@@ -33,13 +33,13 @@
 
 %define javaless 0
 
-%if "%{beta}" != ""
+%if %{defined beta}
 %define relurl		http://dev-builds.libreoffice.org/pre-releases/src
 %define buildver	%{version}.0.%{beta}
 %else
 #define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
 %define relurl		http://dev-builds.libreoffice.org/pre-releases/src
-%define buildver	%{version}.1
+%define buildver	%{version}.3
 %endif
 %define devurl		http://dev-www.libreoffice.org/ooo_external
 %define srcurl		http://dev-www.libreoffice.org/src/
@@ -63,10 +63,10 @@
 Summary:	Office suite 
 Name:		libreoffice
 Version:	7.2.0
-%if "%beta" != ""
+%if %{defined beta}
 Release:	0.%{beta}.1
 %else
-Release:	2
+Release:	1
 %endif
 Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
@@ -110,6 +110,7 @@ Patch100:	libreoffice-4.3.1.2-vendor.patch
 Patch101:	libreoffice-5.1.0.1-desktop-categories.patch
 Patch102:	libreoffice-7.2.0-dont-reference-unpackaged-files.patch
 Patch105:	libreoffice-6.3.2-openjdk-13.patch
+Patch106:	libreoffice-7.2.0-freetype-2.11.patch
 
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
