@@ -66,7 +66,7 @@ Version:	7.2.0
 %if %{defined beta}
 Release:	0.%{beta}.1
 %else
-Release:	2
+Release:	3
 %endif
 Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
