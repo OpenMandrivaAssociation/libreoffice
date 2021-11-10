@@ -54,7 +54,7 @@ diff -up libreoffice-7.2.0/sysui/desktop/menus/math.desktop.2~ libreoffice-7.2.0
  Icon=math
  Type=Application
 -Categories=Office;Education;Science;Math;X-Red-Hat-Base;X-MandrivaLinux-Office-Other;
-+Categories=Office;Education;Science;Math;
++Categories=Office;
  Exec=${UNIXBASISROOTNAME} --math %%FILE%%
  MimeType=application/vnd.oasis.opendocument.formula;application/vnd.sun.xml.math;application/vnd.oasis.opendocument.formula-template;text/mathml;application/mathml+xml;
  Name=%PRODUCTNAME Math
