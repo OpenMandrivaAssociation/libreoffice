@@ -1,7 +1,6 @@
-diff -up libreoffice-7.2.0/external/skia/Library_skia.mk.omv~ libreoffice-7.2.0/external/skia/Library_skia.mk
-diff -up libreoffice-7.2.0/external/skia/skia-freetype-2.11.patch.omv~ libreoffice-7.2.0/external/skia/skia-freetype-2.11.patch
---- libreoffice-7.2.0/external/skia/skia-freetype-2.11.patch.omv~	2021-08-16 19:04:54.088841337 +0200
-+++ libreoffice-7.2.0/external/skia/skia-freetype-2.11.patch	2021-08-16 19:04:48.978832794 +0200
+diff -up libreoffice-7.2.2/external/skia/skia-freetype-2.11.patch.5~ libreoffice-7.2.2/external/skia/skia-freetype-2.11.patch
+--- libreoffice-7.2.2/external/skia/skia-freetype-2.11.patch.5~	2021-11-10 23:32:54.828129767 +0100
++++ libreoffice-7.2.2/external/skia/skia-freetype-2.11.patch	2021-11-10 23:32:54.828129767 +0100
 @@ -0,0 +1,29 @@
 +diff -up ./src/ports/SkFontHost_FreeType_common.cpp.omv~ ./src/ports/SkFontHost_FreeType_common.cpp
 +--- ./src/ports/SkFontHost_FreeType_common.cpp.omv~	2021-08-16 17:23:19.982429119 +0200
@@ -32,14 +31,14 @@ diff -up libreoffice-7.2.0/external/skia/skia-freetype-2.11.patch.omv~ libreoffi
 +             canvas->restore();
 +             break;
 +       case FT_COLR_PAINTFORMAT_ROTATE:
-diff -up libreoffice-7.2.0/external/skia/UnpackedTarball_skia.mk.omv~ libreoffice-7.2.0/external/skia/UnpackedTarball_skia.mk
---- libreoffice-7.2.0/external/skia/UnpackedTarball_skia.mk.omv~	2021-08-16 19:04:58.521848763 +0200
-+++ libreoffice-7.2.0/external/skia/UnpackedTarball_skia.mk	2021-08-16 19:05:09.431867092 +0200
-@@ -39,6 +39,7 @@ skia_patches := \
-     fast-png-write.patch.1 \
-     skia_sk_cpu_sse_level_0_by_default.patch.1 \
+diff -up libreoffice-7.2.2/external/skia/UnpackedTarball_skia.mk.5~ libreoffice-7.2.2/external/skia/UnpackedTarball_skia.mk
+--- libreoffice-7.2.2/external/skia/UnpackedTarball_skia.mk.5~	2021-11-10 23:32:54.828129767 +0100
++++ libreoffice-7.2.2/external/skia/UnpackedTarball_skia.mk	2021-11-10 23:34:33.148177609 +0100
+@@ -41,6 +41,7 @@ skia_patches := \
      fix-warnings.patch.1 \
-+    skia-freetype-2.11.patch \
+     disable-freetype-colrv1.1 \
+     windows-libraries-system32.patch.1 \
++	skia-freetype-2.11.patch \
  
  $(eval $(call gb_UnpackedTarball_set_patchlevel,skia,1))
  
