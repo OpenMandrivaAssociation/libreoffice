@@ -11,6 +11,9 @@
 %define    google_default_client_id 1089316189405-m0ropn3qa4p1phesfvi2urs7qps1d79o.apps.googleusercontent.com
 %define    google_default_client_secret RDdr-pHq2gStY4uw0m-zxXeo
 
+%define    onedrive_default_client_id ~9i7Q~46-aFMTLj.EsnKb_QmPoXnDFZRwTGCD
+%define    onedrive_default_client_secret 605fb91e-e86e-4404-bb9d-c6497df200ba
+
 %define styles breeze breeze_dark breeze_dark_svg breeze_svg colibre colibre_svg elementary elementary_svg karasa_jaga karasa_jaga_svg sifr sifr_dark sifr_dark_svg sifr_svg sukapura sukapura_svg
 
 # For debugsource package
@@ -21,7 +24,7 @@
 %bcond_with ccache
 %bcond_with debug
 
-#define beta beta1
+%define beta beta1
 
 %if %{with l10n}
 %define langs	en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu
@@ -62,7 +65,7 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	7.2.2
+Version:	7.3.0
 %if %{defined beta}
 Release:	0.%{beta}.1
 %else
@@ -81,7 +84,7 @@ Source4:	http://dev-www.libreoffice.org/extern/185d60944ea767075d27247c3162b3bc-
 %if %{javaless}
 Source20:	http://archive.apache.org/dist/ant/binaries/apache-ant-1.8.1-bin.tar.bz2
 %endif
-Source31:	https://dev-www.libreoffice.org/src/skia-m90-45c57e116ee0ce214bdf78405a4762722e4507d9.tar.xz
+Source31:	https://dev-www.libreoffice.org/src/skia-m94-975fcdd755dfc5d57cddbb25857e0c4ac29abe98.tar.xz
 Source32:	https://dev-www.libreoffice.org/src/dtoa-20180411.tgz
 Source33:	%{srcurl}/62c0b97e94fe47d5e50ff605d2edf37a-hsqldb-2.3.3.zip
 Source34:	https://dev-www.libreoffice.org/extern/odfvalidator-1.2.0-incubating-SNAPSHOT-jar-with-dependencies-971c54fd38a968f5860014b44301872706f9e540.jar
@@ -89,7 +92,7 @@ Source35:	%{devurl}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
 Source36:	%{devurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
 Source37:	%{devurl}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
 Source38:	%{devurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
-Source39:	http://dev-www.libreoffice.org/src/pdfium-4500.tar.bz2
+Source39:	http://dev-www.libreoffice.org/src/pdfium-4699.tar.bz2
 
 # External Download Sources
 Source40:	http://hg.services.openoffice.org/binaries/1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz
@@ -109,8 +112,8 @@ Source1001:	libreoffice-help-package
 Patch100:	libreoffice-4.3.1.2-vendor.patch
 Patch101:	libreoffice-5.1.0.1-desktop-categories.patch
 Patch102:	libreoffice-7.2.0-dont-reference-unpackaged-files.patch
+Patch103:	libreoffice-7.3.0-find-qt6.patch
 Patch105:	libreoffice-6.3.2-openjdk-13.patch
-Patch106:	libreoffice-7.2.0-freetype-2.11.patch
 
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
@@ -174,6 +177,13 @@ BuildRequires:	cmake(KF5WindowSystem)
 BuildRequires:	cmake(KF5KIO)
 BuildRequires:	cmake(KF5KDELibs4Support)
 
+# For Qt6 frontend
+BuildRequires:	qmake-qt6
+BuildRequires:	cmake(Qt6Core)
+BuildRequires:	cmake(Qt6Gui)
+BuildRequires:	cmake(Qt6Widgets)
+BuildRequires:	cmake(Qt6Network)
+
 BuildRequires:  pkgconfig(xcb)
 BuildRequires:  cmake(Gpgmepp)
 
@@ -231,7 +241,7 @@ BuildRequires:	pkgconfig(libnumbertext) >= 1.0.3
 BuildRequires:	pkgconfig(libmspub-0.1)
 BuildRequires:	pkgconfig(libmwaw-0.3) >= 0.3.5
 BuildRequires:	pkgconfig(libodfgen-0.1)
-BuildRequires:	pkgconfig(liborcus-0.16)
+BuildRequires:	pkgconfig(liborcus-0.17)
 BuildRequires:	pkgconfig(libpagemaker-0.0)
 BuildRequires:	pkgconfig(librevenge-0.0)
 BuildRequires:	pkgconfig(librsvg-2.0)
@@ -242,7 +252,7 @@ BuildRequires:	pkgconfig(libunwind-llvm)
 BuildRequires:	pkgconfig(libvisio-0.1)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(libxslt)
-BuildRequires:	pkgconfig(mdds-1.5)
+BuildRequires:	pkgconfig(mdds-2.0)
 BuildRequires:	pkgconfig(mythes)
 BuildRequires:	pkgconfig(neon)
 BuildRequires:	pkgconfig(nspr)
@@ -526,6 +536,19 @@ KDE5/Qt5.x and a KDEish File Picker when running under KDE5.
 %files kde5 -f file-lists/orig/gid_Module_Optional_Kde
 %{_datadir}/metainfo/org.libreoffice.kde.metainfo.xml
 
+#----------------------------------------------------------------------------
+
+%package qt6
+Summary:	Qt 6 Integration for LibreOffice (Widgets)
+Group:		Office
+Requires:	%{name}-common = %{EVRD}
+Suggests:	%{name}-style-breeze = %{EVRD}
+
+%description qt6
+This package contains the Qt 6 plugin for drawing LibreOffice widgets with
+Qt 6.
+
+%files qt6 -f file-lists/qt6_list.txt
 
 #----------------------------------------------------------------------------
 
@@ -2619,12 +2642,15 @@ export CXXFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing -fperm
 echo "Configure start at: "`date` >> ooobuildtime.log 
 
 touch autogen.lastrun
+export QT6DIR=%{_libdir}/qt6
 %configure \
 	%{?_smp_mflags:--with-parallelism="`getconf _NPROCESSORS_ONLN`"} \
 	--with-vendor=OpenMandriva \
 	--with-build-version="OpenMandriva %{version}-%{release}" \
 	--with-gdrive-client-id="%{google_default_client_id}" \
 	--with-gdrive-client-secret="%{google_default_client_secret}" \
+	--with-onedrive-client-id="%{onedrive_default_client_id}" \
+	--with-onedrive-client-secret="%{onedrive_default_client_secret}" \
 	--with-theme="%{styles}" \
 	--disable-coinmp \
 	--disable-fetch-external \
@@ -2639,14 +2665,17 @@ touch autogen.lastrun
 	--enable-lto \
 	--enable-gtk3-kde5 \
 	--enable-qt5 \
+	--enable-qt6 \
 	--enable-kf5 \
 	--enable-vlc \
-	--enable-introspection=no \
+	--enable-introspection \
 	--enable-eot \
 	--enable-odk \
 	--enable-split-app-modules \
 	--enable-split-opt-features \
 	--enable-build-opensymbol \
+	--enable-python=system \
+	--enable-formula-logger \
 	--without-fonts \
 	--without-junit \
 %if %{javaless}
@@ -2833,6 +2862,10 @@ cat file-lists/core_list.uniq.sorted.txt > file-lists/core_list.txt
 # Get rid of the GTK dependency in libreoffice-kde -- we package gtk3-kde5
 # separately
 sed -i -e '/libvclplug_gtk3_kde5lo.so/d' file-lists/orig/gid_Module_Optional_Kde
+
+# Let's treat Qt6 separately as well
+grep qt6 file-lists/orig/gid_Module_Optional_Kde >file-lists/qt6_list.txt
+sed -i -e '/qt6/d' file-lists/orig/gid_Module_Optional_Kde
 
 # Get rid of libreofficekitgtk in core -- it adds a gtk dependency and is not
 # used by LO

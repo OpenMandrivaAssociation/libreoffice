@@ -14,10 +14,9 @@ sources:
   smart_0.9.4_en_hu_corrected.oxt: b888d8b18d3252ec4b04bfb8913f5df356b9c053
   odfvalidator-1.2.0-incubating-SNAPSHOT-jar-with-dependencies-971c54fd38a968f5860014b44301872706f9e540.jar: a2aaff3c6e19d7442295ca8a1c39e8c3a8b4081a
   dtoa-20180411.tgz: 083509db5ad9d1680830be9add727d58b54ca0d3
-  skia-m88-59bafeeaa7de9eb753e3778c414e01dcf013dcd8.tar.xz: 879ebbf154ec1a263506ca878ee337312ea6a39c
-  skia-m90-45c57e116ee0ce214bdf78405a4762722e4507d9.tar.xz: f10fe6cbf9936d89a1b7b810e32e3042363bee55
-  pdfium-4500.tar.bz2: 21573cdecad78e9c74289c7b319a934f6097872f
-  libreoffice-7.2.2.2.tar.xz: f5f5d96f840f1790b6fc79bbc19cc224900da586
-  libreoffice-dictionaries-7.2.2.2.tar.xz: 8b3eb667dd6e2ae1ab41f06ba7d53c47f783969a
-  libreoffice-help-7.2.2.2.tar.xz: 32b097072e089d8d10dade50b3fcf3ab40c8344e
-  libreoffice-translations-7.2.2.2.tar.xz: ae3c464bbdac89e8a38cedf124d501d423377790
+  libreoffice-7.3.0.0.beta1.tar.xz: 3c6965e16d95aa5f754e34ac9bfceed85b4f5ea9
+  libreoffice-dictionaries-7.3.0.0.beta1.tar.xz: 439932a63d7414d731080ac956b72875f464f005
+  libreoffice-help-7.3.0.0.beta1.tar.xz: ac40e2e03313b08f8b96f1472dbea3b97a3027e7
+  libreoffice-translations-7.3.0.0.beta1.tar.xz: a09ff8bdb09c73a7f51ac12b2ae52723c27fb10f
+  pdfium-4699.tar.bz2: a8b14d0573ca06d812b04296548fa3b640fcd4e5
+  skia-m94-975fcdd755dfc5d57cddbb25857e0c4ac29abe98.tar.xz: bc1c6350345d0d7040aa2d461b464472c83813da
