@@ -161,6 +161,7 @@ BuildRequires:	zip
 BuildRequires:	cups-devel
 BuildRequires:	hyphen-devel
 BuildRequires:	cmake(box2d)
+BuildRequires:	cmake(libcuckoo)
 
 BuildRequires:	cmake
 
