@@ -240,6 +240,7 @@ BuildRequires:	pkgconfig(libexttextcat)
 BuildRequires:	pkgconfig(libjpeg)
 BuildRequires:	pkgconfig(liblangtag) >= 0.5.4
 BuildRequires:	pkgconfig(libnumbertext) >= 1.0.3
+BuildRequires:	pkgconfig(libopenjp2)
 BuildRequires:	pkgconfig(libmspub-0.1)
 BuildRequires:	pkgconfig(libmwaw-0.3) >= 0.3.5
 BuildRequires:	pkgconfig(libodfgen-0.1)
