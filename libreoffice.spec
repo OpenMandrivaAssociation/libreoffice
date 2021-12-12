@@ -204,6 +204,7 @@ BuildRequires:	readline-devel
 BuildRequires:	unixODBC-devel
 BuildRequires:	vigra-devel
 BuildRequires:	pkgconfig(avahi-client)
+BuildRequires:	pkgconfig(absl_base)
 BuildRequires:	pkgconfig(bluez)
 BuildRequires:	pkgconfig(cppunit) >= 1.14.0
 BuildRequires:	pkgconfig(dbus-1)
