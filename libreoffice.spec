@@ -2,7 +2,12 @@
 # list generators. Let's not precompile stuff for now...
 %global _python_bytecompile_build 0
 
-#define _binary_payload w1.xzdio
+%ifarch %{aarch64}
+# Workaround for OMP runtime error while
+# compressing with w19.zstdio with zstd
+# 1.5.0, llvm/clang/openmp 13.0.0
+%define _binary_payload w1.xzdio
+%endif
 
 # Set up Google API keys, see http://www.chromium.org/developers/how-tos/api-keys
 # OpenMandriva key, id and secret
