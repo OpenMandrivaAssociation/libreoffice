@@ -29,7 +29,7 @@
 %bcond_with ccache
 %bcond_with debug
 
-%define beta beta1
+#define beta beta1
 
 %if %{with l10n}
 %define langs	en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu
@@ -47,7 +47,7 @@
 %else
 #define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
 %define relurl		http://dev-builds.libreoffice.org/pre-releases/src
-%define buildver	%{version}.2
+%define buildver	%{version}.1
 %endif
 %define devurl		http://dev-www.libreoffice.org/ooo_external
 %define srcurl		http://dev-www.libreoffice.org/src/
@@ -89,7 +89,7 @@ Source4:	http://dev-www.libreoffice.org/extern/185d60944ea767075d27247c3162b3bc-
 %if %{javaless}
 Source20:	http://archive.apache.org/dist/ant/binaries/apache-ant-1.8.1-bin.tar.bz2
 %endif
-Source31:	https://dev-www.libreoffice.org/src/skia-m94-975fcdd755dfc5d57cddbb25857e0c4ac29abe98.tar.xz
+Source31:	https://dev-www.libreoffice.org/src/skia-m97-a7230803d64ae9d44f4e1282444801119a3ae967.tar.xz
 Source32:	https://dev-www.libreoffice.org/src/dtoa-20180411.tgz
 Source33:	%{srcurl}/62c0b97e94fe47d5e50ff605d2edf37a-hsqldb-2.3.3.zip
 Source34:	https://dev-www.libreoffice.org/extern/odfvalidator-1.2.0-incubating-SNAPSHOT-jar-with-dependencies-971c54fd38a968f5860014b44301872706f9e540.jar
