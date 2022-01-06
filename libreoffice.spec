@@ -2646,7 +2646,7 @@ export CCACHE_DIR=%{ccachedir}
 . %{_sysconfdir}/profile.d/90java.sh
 
 export CFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing"
-export CXXFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive"
+export CXXFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive -std=gnu++20"
 
 echo "Configure start at: "`date` >> ooobuildtime.log 
 
