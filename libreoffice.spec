@@ -74,7 +74,7 @@ Version:	7.3.0
 %if %{defined beta}
 Release:	0.%{beta}.1
 %else
-Release:	2
+Release:	3
 %endif
 Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
@@ -119,6 +119,9 @@ Patch101:	libreoffice-5.1.0.1-desktop-categories.patch
 Patch102:	libreoffice-7.2.0-dont-reference-unpackaged-files.patch
 Patch103:	libreoffice-7.3.0-find-qt6.patch
 Patch105:	libreoffice-6.3.2-openjdk-13.patch
+# Possible workaround for
+# https://github.com/QubesOS/qubes-issues/issues/3281
+Patch106:	libreoffice-7.3.0-workaround-small-window.patch
 
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
