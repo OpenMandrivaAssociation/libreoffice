@@ -326,6 +326,7 @@ formats, including Microsoft Office.
 Summary:	LibreOffice office suite - database
 Group:		Office
 Requires:	%{name}-common = %{EVRD}
+Requires:	%{name}-java = %{EVRD}
 
 %description base
 This package contains the database component for LibreOffice.
