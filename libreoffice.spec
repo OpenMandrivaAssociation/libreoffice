@@ -43,11 +43,9 @@
 
 %if %{defined beta}
 %define relurl		http://dev-builds.libreoffice.org/pre-releases/src
-%define buildver	%{version}.0.%{beta}
 %else
 #define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
 %define relurl		http://dev-builds.libreoffice.org/pre-releases/src
-%define buildver	%{version}.2
 %endif
 %define devurl		http://dev-www.libreoffice.org/ooo_external
 %define srcurl		http://dev-www.libreoffice.org/src/
@@ -60,26 +58,22 @@
 
 %define ccachedir	~/.ccache-OOo
 
-%if %{_use_internal_dependency_generator}
-%define __noautoreq 'libjawt.so|libmyspell.so|libstlport_gcc.so|libmono.so|mono|devel\\(libunoidl(.*)'
-%define __noautoprov libsndfile.so\\|libportaudio.so\\|libdb-4.2.so\\|libdb_java-4.2.so\\|libmyspell.so\\|libstlport_gcc.so\\|librdf.so.0\\|libraptor.so.1\\|libxmlsec1-nss.so.1\\|libxmlsec1.so.1
-%else
-%define _requires_exceptions libjawt.so\\|libmyspell.so\\|libstlport_gcc.so\\|libmono.so\\|mono\\|devel(libunoidl)\\|devel(libunoidl(64bit))
-%define _provides_exceptions libsndfile.so\\|libportaudio.so\\|libdb-4.2.so\\|libdb_java-4.2.so\\|libmyspell.so\\|libstlport_gcc.so\\|librdf.so.0\\|libraptor.so.1\\|libxmlsec1-nss.so.1\\|libxmlsec1.so.1
-%endif
+# Don't require java for libreoffice-help-* packages just because
+# it uses jar as an archive wrapper.
+%global __requires_exclude jmod\\(java\\.base\\)
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	7.3.0
+Version:	7.3.0.3
 %if %{defined beta}
 Release:	0.%{beta}.1
 %else
-Release:	4
+Release:	1
 %endif
-Source0:	%{relurl}/%{ooname}-%{buildver}.tar.xz
-Source1:	%{relurl}/%{ooname}-dictionaries-%{buildver}.tar.xz
-Source2:	%{relurl}/%{ooname}-help-%{buildver}.tar.xz
-Source3:	%{relurl}/%{ooname}-translations-%{buildver}.tar.xz
+Source0:	%{relurl}/%{ooname}-%{version}.tar.xz
+Source1:	%{relurl}/%{ooname}-dictionaries-%{version}.tar.xz
+Source2:	%{relurl}/%{ooname}-help-%{version}.tar.xz
+Source3:	%{relurl}/%{ooname}-translations-%{version}.tar.xz
 License:	(MPLv1.1 or LGPLv3+) and LGPLv3 and LGPLv2+ and BSD and (MPLv1.1 or GPLv2 or LGPLv2 or Netscape) and Public Domain and ASL 2.0 and Artistic
 Group:		Office
 Url:		http://www.libreoffice.org
@@ -424,6 +418,7 @@ Group:		Office
 Requires:	%{name}-common = %{EVRD}
 # (tpg) https://issues.openmandriva.org/show_bug.cgi?id=1056
 Requires:	pentaho-reporting-flow-engine
+Requires:	jre-current
 
 %description java
 Java dependent parts of LibreOffice.
