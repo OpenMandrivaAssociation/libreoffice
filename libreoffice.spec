@@ -68,7 +68,7 @@ Version:	7.3.0.3
 %if %{defined beta}
 Release:	0.%{beta}.1
 %else
-Release:	2
+Release:	3
 %endif
 Source0:	%{relurl}/%{ooname}-%{version}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{version}.tar.xz
@@ -231,7 +231,7 @@ BuildRequires:	pkgconfig(icu-uc)
 BuildRequires:	pkgconfig(icu-i18n)
 BuildRequires:	pkgconfig(lcms2)
 BuildRequires:	pkgconfig(libabw-0.1)
-BuildRequires:	pkgconfig(libclucene-core)
+BuildRequires:	pkgconfig(libclucene-core2)
 BuildRequires:	pkgconfig(libcmis-0.5)
 BuildRequires:	pkgconfig(libcurl)
 BuildRequires:	pkgconfig(libcdr-0.1)
