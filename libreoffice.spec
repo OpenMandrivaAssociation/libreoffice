@@ -64,11 +64,11 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	7.3.0.3
+Version:	7.3.3.1
 %if %{defined beta}
 Release:	0.%{beta}.1
 %else
-Release:	3
+Release:	1
 %endif
 Source0:	%{relurl}/%{ooname}-%{version}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{version}.tar.xz
@@ -120,6 +120,9 @@ Patch106:	libreoffice-7.3.0-workaround-small-window.patch
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
 Patch203:	libreoffice-5.4-std_thread.patch
+
+Patch300:	https://www.linuxfromscratch.org/patches/blfs/svn/libreoffice-7.3.2.2-poppler_2203_fix-1.patch
+Patch301:	libreoffice-7.3.3.1-poppler-22.04.patch
 
 %if %{with icecream}
 BuildRequires:	icecream
@@ -287,8 +290,10 @@ BuildRequires:	google-crosextra-carlito-fonts
 BuildRequires:	google-crosextra-caladea-fonts
 %if !%{javaless}
 BuildRequires:	ant
-BuildRequires:	jdk-current
-BuildRequires:	java-gui-current
+# Unfortunately hsqldb jODBC stuff isn't
+# compatible with newer versions of OpenJDK
+BuildRequires:	java-12-openjdk-devel
+BuildRequires:	java-12-openjdk-gui
 Suggests:	%{name}-java = %{EVRD}
 %endif 
 # STLport-devel 4.5 + private patches are needed
@@ -2642,7 +2647,8 @@ export CCACHE_DIR=%{ccachedir}
 %global optflags %(echo %{optflags} -g0 | sed -e 's/-Oz/-O2/') -I%{_includedir}/harfbuzz
 %endif
 
-. %{_sysconfdir}/profile.d/90java.sh
+export JAVA_HOME=%{_prefix}/lib/jvm/java-12-openjdk
+export PATH=${JAVA_HOME}/bin:$PATH
 
 export CFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing"
 export CXXFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive -std=gnu++20"
@@ -2689,7 +2695,7 @@ export QT6DIR=%{_libdir}/qt6
 %if %{javaless}
 	--with-ant-home="%{antpath}" \
 %else
-	--with-jdk-home="%{java_home}" \
+	--with-jdk-home="$JAVA_HOME" \
 %endif
 	--without-system-hsqldb \
 	--with-lang="%{langs}" \
@@ -2883,13 +2889,13 @@ sed -i -e '/liblibreofficekitgtk.so/d' file-lists/core_list.txt
 # generally useless given we also have libavmediavlc.
 sed -i -e '/libavmediagst.so/d' file-lists/core_list.txt
 
-install -m 0755 -d %{buildroot}%{_javadir}/%{name}
+install -m 0755 -d %{buildroot}%{_datadir}/java/%{name}
 for jar in %{buildroot}%{ooodir}/program/classes/*.jar; do
     j=`basename $jar`
     case ${j%.jar} in
         juh|jurt|ridl|unoloader|unoil|officebean)
-            mv $jar %{buildroot}%{_javadir}/%{name}
-            ln -sr %{buildroot}%{_javadir}/%{name}/$j $jar
+            mv $jar %{buildroot}%{_datadir}/java/%{name}
+            ln -sr %{buildroot}%{_datadir}/java/%{name}/$j $jar
             ;;
     esac
 done
