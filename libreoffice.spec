@@ -551,6 +551,7 @@ KDE5/Qt5.x and a KDEish File Picker when running under KDE5.
 %{_libdir}/libreoffice/program/libkf5be1lo.so
 %{_libdir}/libreoffice/program/libvclplug_qt5lo.so
 %{_libdir}/libreoffice/program/libvclplug_kf5lo.so
+%{_libdir}/libreoffice/program/lo_kde5filepicker
 
 #----------------------------------------------------------------------------
 
