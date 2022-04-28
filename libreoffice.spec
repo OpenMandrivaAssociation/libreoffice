@@ -548,6 +548,10 @@ KDE5/Qt5.x and a KDEish File Picker when running under KDE5.
 
 %files kde5
 %{_datadir}/metainfo/org.libreoffice.kde.metainfo.xml
+%{_libdir}/libreoffice/program/libkf5be1lo.so
+%{_libdir}/libreoffice/program/libvclplug_kf5lo.so
+%{_libdir}/libreoffice/program/libvclplug_qt5lo.so
+%{_libdir}/libreoffice/program/lo_kde5filepicker
 
 #----------------------------------------------------------------------------
 
@@ -562,6 +566,7 @@ This package contains the Qt 6 plugin for drawing LibreOffice widgets with
 Qt 6.
 
 %files qt6
+%{_libdir}/libreoffice/program/libvclplug_qt6lo.so
 
 #----------------------------------------------------------------------------
 
