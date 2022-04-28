@@ -561,7 +561,7 @@ Suggests:	%{name}-style-breeze = %{EVRD}
 This package contains the Qt 6 plugin for drawing LibreOffice widgets with
 Qt 6.
 
-%files qt6 -f file-lists/qt6_list.txt
+%files qt6
 
 #----------------------------------------------------------------------------
 
