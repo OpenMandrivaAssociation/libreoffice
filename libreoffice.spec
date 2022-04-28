@@ -548,10 +548,10 @@ KDE5/Qt5.x and a KDEish File Picker when running under KDE5.
 
 %files kde5 -f file-lists/orig/gid_Module_Optional_Kde
 %{_datadir}/metainfo/org.libreoffice.kde.metainfo.xml
-%{_libdir}/libreoffice/program/libkf5be1lo.so
-%{_libdir}/libreoffice/program/libvclplug_qt5lo.so
-%{_libdir}/libreoffice/program/libvclplug_kf5lo.so
-%{_libdir}/libreoffice/program/lo_kde5filepicker
+#{_libdir}/libreoffice/program/libkf5be1lo.so
+#{_libdir}/libreoffice/program/libvclplug_qt5lo.so
+#{_libdir}/libreoffice/program/libvclplug_kf5lo.so
+#{_libdir}/libreoffice/program/lo_kde5filepicker
 
 #----------------------------------------------------------------------------
 
