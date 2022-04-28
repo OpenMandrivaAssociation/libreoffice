@@ -546,7 +546,7 @@ Suggests:	%{name}-style-breeze = %{EVRD}
 This package contains the KDE5 plugin for drawing LibreOffice widgets with
 KDE5/Qt5.x and a KDEish File Picker when running under KDE5.
 
-%files kde5 -f file-lists/orig/gid_Module_Optional_Kde
+%files kde5
 %{_datadir}/metainfo/org.libreoffice.kde.metainfo.xml
 
 #----------------------------------------------------------------------------
