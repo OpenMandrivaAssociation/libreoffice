@@ -2685,6 +2685,7 @@ export QT6DIR=%{_libdir}/qt6
 	--enable-release-build \
 %endif
 	--enable-lto \
+	--enable-gtk3 \
 	--enable-gtk3-kde5 \
 	--enable-gtk4 \
 	--enable-qt5 \
