@@ -68,7 +68,7 @@ Version:	7.3.3.1
 %if %{defined beta}
 Release:	0.%{beta}.1
 %else
-Release:	1
+Release:	2
 %endif
 Source0:	%{relurl}/%{ooname}-%{version}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{version}.tar.xz
@@ -229,6 +229,7 @@ BuildRequires:	pkgconfig(glew)
 BuildRequires:	pkgconfig(gobject-introspection-1.0)
 BuildRequires:	pkgconfig(gtk+-2.0)
 BuildRequires:	pkgconfig(gtk+-3.0)
+BuildRequires:	pkgconfig(gtk4)
 BuildRequires:	pkgconfig(hunspell)
 BuildRequires:	pkgconfig(icu-uc)
 BuildRequires:	pkgconfig(icu-i18n)
@@ -596,6 +597,8 @@ A library for viewing LibreOffice documents in other applications
 
 %files kit
 %{ooodir}/program/liblibreofficekitgtk.so
+%{_libdir}/girepository-1.0/LOKDocView-%{girapiversion}.typelib
+%{_libdir}/gir-1.0/LOKDocView-%{girapiversion}.gir
 
 
 #----------------------------------------------------------------------------
@@ -2683,6 +2686,7 @@ export QT6DIR=%{_libdir}/qt6
 %endif
 	--enable-lto \
 	--enable-gtk3-kde5 \
+	--enable-gtk4 \
 	--enable-qt5 \
 	--enable-qt6 \
 	--enable-kf5 \
@@ -2785,6 +2789,12 @@ find %{buildroot} -type f -exec chmod u+rw '{}' \;
 
 # fix permission of .so libraries
 find %{buildroot} -type f \( -name '*.so' -o -name '*.so.*' \) -exec chmod a+x '{}' \;
+
+# install LibreOfficeKit
+install -m 0755 -d %{buildroot}%{_libdir}/girepository-1.0
+install -m 0644 -p LOKDocView-0.1.typelib %{buildroot}%{_libdir}/girepository-1.0/LOKDocView-0.1.typelib
+install -m 0755 -d %{buildroot}%{_libdir}/gir-1.0
+install -m 0644 -p LOKDocView-0.1.gir %{buildroot}%{_libdir}/gir-1.0/LOKDocView-0.1.gir
 
 # Anssi patch
 # remove /usr/bin/soffice (made with update-alternatives)
