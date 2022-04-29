@@ -597,8 +597,8 @@ A library for viewing LibreOffice documents in other applications
 
 %files kit
 %{ooodir}/program/liblibreofficekitgtk.so
-%{_libdir}/girepository-1.0/LOKDocView-%{girapiversion}.typelib
-%{_libdir}/gir-1.0/LOKDocView-%{girapiversion}.gir
+#{_libdir}/girepository-1.0/LOKDocView-%{girapiversion}.typelib
+#{_libdir}/gir-1.0/LOKDocView-%{girapiversion}.gir
 
 
 #----------------------------------------------------------------------------
@@ -2792,10 +2792,10 @@ find %{buildroot} -type f -exec chmod u+rw '{}' \;
 find %{buildroot} -type f \( -name '*.so' -o -name '*.so.*' \) -exec chmod a+x '{}' \;
 
 # install LibreOfficeKit
-install -m 0755 -d %{buildroot}%{_libdir}/girepository-1.0
-install -m 0644 -p LOKDocView-0.1.typelib %{buildroot}%{_libdir}/girepository-1.0/LOKDocView-0.1.typelib
-install -m 0755 -d %{buildroot}%{_libdir}/gir-1.0
-install -m 0644 -p LOKDocView-0.1.gir %{buildroot}%{_libdir}/gir-1.0/LOKDocView-0.1.gir
+#install -m 0755 -d %{buildroot}%{_libdir}/girepository-1.0
+#install -m 0644 -p LOKDocView-0.1.typelib %{buildroot}%{_libdir}/girepository-1.0/LOKDocView-0.1.typelib
+#install -m 0755 -d %{buildroot}%{_libdir}/gir-1.0
+#install -m 0644 -p LOKDocView-0.1.gir %{buildroot}%{_libdir}/gir-1.0/LOKDocView-0.1.gir
 
 # Anssi patch
 # remove /usr/bin/soffice (made with update-alternatives)
