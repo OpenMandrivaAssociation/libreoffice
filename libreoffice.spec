@@ -64,11 +64,11 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	7.3.3.1
+Version:	7.3.3.2
 %if %{defined beta}
 Release:	0.%{beta}.1
 %else
-Release:	2
+Release:	1
 %endif
 Source0:	%{relurl}/%{ooname}-%{version}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{version}.tar.xz
