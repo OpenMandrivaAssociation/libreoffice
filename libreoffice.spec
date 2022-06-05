@@ -29,7 +29,7 @@
 %bcond_with ccache
 %bcond_with debug
 
-#define beta beta1
+%define beta alpha1
 
 %if %{with l10n}
 %define langs	en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu
@@ -64,16 +64,16 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	7.3.3.2
+Version:	7.4.0.0
 %if %{defined beta}
 Release:	0.%{beta}.1
 %else
 Release:	1
 %endif
-Source0:	%{relurl}/%{ooname}-%{version}.tar.xz
-Source1:	%{relurl}/%{ooname}-dictionaries-%{version}.tar.xz
-Source2:	%{relurl}/%{ooname}-help-%{version}.tar.xz
-Source3:	%{relurl}/%{ooname}-translations-%{version}.tar.xz
+Source0:	%{relurl}/%{ooname}-%{version}%{?beta:.%{beta}}.tar.xz
+Source1:	%{relurl}/%{ooname}-dictionaries-%{version}%{?beta:.%{beta}}.tar.xz
+Source2:	%{relurl}/%{ooname}-help-%{version}%{?beta:.%{beta}}.tar.xz
+Source3:	%{relurl}/%{ooname}-translations-%{version}%{?beta:.%{beta}}.tar.xz
 License:	(MPLv1.1 or LGPLv3+) and LGPLv3 and LGPLv2+ and BSD and (MPLv1.1 or GPLv2 or LGPLv2 or Netscape) and Public Domain and ASL 2.0 and Artistic
 Group:		Office
 Url:		http://www.libreoffice.org
@@ -91,7 +91,7 @@ Source35:	%{devurl}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
 Source36:	%{devurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
 Source37:	%{devurl}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
 Source38:	%{devurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
-Source39:	http://dev-www.libreoffice.org/src/pdfium-4699.tar.bz2
+Source39:	http://dev-www.libreoffice.org/src/pdfium-4933.tar.bz2
 
 # External Download Sources
 Source40:	http://hg.services.openoffice.org/binaries/1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz
@@ -167,6 +167,8 @@ BuildRequires:	cups-devel
 BuildRequires:	hyphen-devel
 BuildRequires:	cmake(box2d)
 BuildRequires:	cmake(libcuckoo)
+BuildRequires:	cmake(dragonbox)
+BuildRequires:	fixmath-devel
 
 BuildRequires:	cmake
 
@@ -715,39 +717,6 @@ wiki pages.
 
 %files wiki-publisher
 %{ooodir}/share/extensions/wiki-publisher
-
-#----------------------------------------------------------------------------
-
-%package extension-converttexttonumber
-Summary:	Text to number converter for LibreOffice
-Group:		Office
-Requires:	%{name}-calc = %{EVRD}
-
-%description extension-converttexttonumber
-ConvertTextToNumber replaces numbers and dates, formatted as text, with
-real numbers.
-
-Choices can be made about marking of cells, including cells with
-non-default decimal separators, conversion of dates, and more.
-
-As a result of the conversion, the text cells will become real numbers,
-and then will be counted as expected in formulas Calc.
-
-%files extension-converttexttonumber
-%{ooodir}/share/extensions/ConvertTextToNumber
-
-#----------------------------------------------------------------------------
-
-%package extension-languagetool
-Summary:	A LibreOffice extension for style and grammar proofreading
-Group:		Office
-Requires:	%{name}-writer = %{EVRD}
-
-%description extension-languagetool
-A LibreOffice extension for style and grammar proofreading.
-
-%files extension-languagetool
-%{ooodir}/share/extensions/LanguageTool
 
 #----------------------------------------------------------------------------
 
@@ -2758,9 +2727,7 @@ rm -f writerperfect/qa/unit/data/writer/libwpd/pass/EDB-14344-1.wpd
 %endif
 
 # (tpg) silent output to reduce memory and free space
-# We use make build-nocheck here because the default target is "allandcheck".
-# Checking should go to %check
-make build-nocheck V=0
+make V=0
 
 echo "Make end at: "`date` >> ooobuildtime.log 
 echo "Install start at: "`date` >> ooobuildtime.log 

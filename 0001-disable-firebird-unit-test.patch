@@ -1,13 +1,14 @@
-diff -up libreoffice-7.1.5/dbaccess/Module_dbaccess.mk.5~ libreoffice-7.1.5/dbaccess/Module_dbaccess.mk
---- libreoffice-7.1.5/dbaccess/Module_dbaccess.mk.5~	2021-07-05 21:09:43.985767818 +0200
-+++ libreoffice-7.1.5/dbaccess/Module_dbaccess.mk	2021-07-05 21:10:25.073047906 +0200
-@@ -42,9 +42,6 @@ $(eval $(call gb_Module_add_check_target
+diff -up libreoffice-7.4.0.0/dbaccess/Module_dbaccess.mk.7~ libreoffice-7.4.0.0/dbaccess/Module_dbaccess.mk
+--- libreoffice-7.4.0.0/dbaccess/Module_dbaccess.mk.7~	2022-06-03 17:22:20.404663852 +0200
++++ libreoffice-7.4.0.0/dbaccess/Module_dbaccess.mk	2022-06-03 17:23:27.177013151 +0200
+@@ -41,10 +41,6 @@ $(eval $(call gb_Module_add_check_target
+     $(if $(ENABLE_JAVA),CppunitTest_dbaccess_tdf119625) \
      $(if $(ENABLE_JAVA),CppunitTest_dbaccess_tdf126268) \
  ))
- 
+-
 -$(eval $(call gb_Module_add_check_targets,dbaccess,\
 -    CppunitTest_dbaccess_firebird_test \
 -))
  endif
  
- $(eval $(call gb_Module_add_check_targets,dbaccess,\
+ ifneq ($(filter SCRIPTING,$(BUILD_TYPE)),)

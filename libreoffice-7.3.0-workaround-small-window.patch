@@ -1,7 +1,7 @@
-diff -up libreoffice-7.3.0/vcl/qt5/QtFrame.cxx.omv~ libreoffice-7.3.0/vcl/qt5/QtFrame.cxx
---- libreoffice-7.3.0/vcl/qt5/QtFrame.cxx.omv~	2022-01-10 02:49:17.754028937 +0100
-+++ libreoffice-7.3.0/vcl/qt5/QtFrame.cxx	2022-01-10 02:51:41.387636416 +0100
-@@ -702,7 +702,11 @@ void QtFrame::SetWindowState(const SalFr
+diff -up libreoffice-7.4.0.0/vcl/qt5/QtFrame.cxx.6~ libreoffice-7.4.0.0/vcl/qt5/QtFrame.cxx
+--- libreoffice-7.4.0.0/vcl/qt5/QtFrame.cxx.6~	2022-05-12 15:26:05.000000000 +0200
++++ libreoffice-7.4.0.0/vcl/qt5/QtFrame.cxx	2022-06-03 17:17:29.849119089 +0200
+@@ -684,7 +684,11 @@ void QtFrame::SetWindowState(const SalFr
      {
          const qreal fRatio = devicePixelRatioF();
          QWidget* const pChild = asChild();
@@ -14,7 +14,7 @@ diff -up libreoffice-7.3.0/vcl/qt5/QtFrame.cxx.omv~ libreoffice-7.3.0/vcl/qt5/Qt
          pChild->move(ceil(pState->mnX / fRatio), ceil(pState->mnY / fRatio));
          SetWindowStateImpl(Qt::WindowMaximized);
      }
-@@ -719,7 +723,10 @@ void QtFrame::SetWindowState(const SalFr
+@@ -701,7 +705,10 @@ void QtFrame::SetWindowState(const SalFr
              nPosSizeFlags |= SAL_FRAME_POSSIZE_WIDTH;
          if (pState->mnMask & WindowStateMask::Height)
              nPosSizeFlags |= SAL_FRAME_POSSIZE_HEIGHT;
@@ -26,9 +26,9 @@ diff -up libreoffice-7.3.0/vcl/qt5/QtFrame.cxx.omv~ libreoffice-7.3.0/vcl/qt5/Qt
      }
      else if (pState->mnMask & WindowStateMask::State && !isChild())
      {
-diff -up libreoffice-7.3.0/vcl/unx/generic/window/salframe.cxx.omv~ libreoffice-7.3.0/vcl/unx/generic/window/salframe.cxx
---- libreoffice-7.3.0/vcl/unx/generic/window/salframe.cxx.omv~	2022-01-10 02:52:01.386720175 +0100
-+++ libreoffice-7.3.0/vcl/unx/generic/window/salframe.cxx	2022-01-10 02:53:58.453207105 +0100
+diff -up libreoffice-7.4.0.0/vcl/unx/generic/window/salframe.cxx.6~ libreoffice-7.4.0.0/vcl/unx/generic/window/salframe.cxx
+--- libreoffice-7.4.0.0/vcl/unx/generic/window/salframe.cxx.6~	2022-05-12 15:26:05.000000000 +0200
++++ libreoffice-7.4.0.0/vcl/unx/generic/window/salframe.cxx	2022-06-03 17:20:59.898240260 +0200
 @@ -1659,9 +1659,12 @@ void X11SalFrame::SetWindowState( const
                                 pHints );
              XFree( pHints );
@@ -45,15 +45,21 @@ diff -up libreoffice-7.3.0/vcl/unx/generic/window/salframe.cxx.omv~ libreoffice-
              // guess maximized geometry from last time
              maGeometry.nX      = pState->mnMaximizedX;
              maGeometry.nY      = pState->mnMaximizedY;
-@@ -1733,7 +1736,10 @@ void X11SalFrame::SetWindowState( const
-                     aPosSize.Move( 0, static_cast<tools::Long>(aGeom.nTopDecoration) - aPosSize.Top() );
+@@ -1742,10 +1745,13 @@ void X11SalFrame::SetWindowState( const
+                     aPosSize.Move( 0, static_cast<tools::Long>(aGeom.nTopDecoration) - nTop );
              }
  
--            SetPosSize( 0, 0, aPosSize.GetWidth(), aPosSize.GetHeight(), SAL_FRAME_POSSIZE_WIDTH | SAL_FRAME_POSSIZE_HEIGHT );
+-            SetPosSize(aPosSize.getX(), aPosSize.getY(),
+-                       aPosSize.GetWidth(), aPosSize.GetHeight(),
+-                       SAL_FRAME_POSSIZE_WIDTH | SAL_FRAME_POSSIZE_HEIGHT |
+-                       nPosFlags);
 +            // Workaround for LO appearing way too small in some situations, e.g.
 +            // https://github.com/QubesOS/qubes-issues/issues/3281
 +            if(aPosSize.GetWidth() > 10 && aPosSize.GetWidth() < 50000 && aPosSize.GetHeight() > 10 && aPosSize.GetHeight() < 50000)
-+                SetPosSize( 0, 0, aPosSize.GetWidth(), aPosSize.GetHeight(), SAL_FRAME_POSSIZE_WIDTH | SAL_FRAME_POSSIZE_HEIGHT );
++                SetPosSize(aPosSize.getX(), aPosSize.getY(),
++                           aPosSize.GetWidth(), aPosSize.GetHeight(),
++                           SAL_FRAME_POSSIZE_WIDTH | SAL_FRAME_POSSIZE_HEIGHT |
++                           nPosFlags);
          }
      }
  
