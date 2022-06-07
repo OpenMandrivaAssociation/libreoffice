@@ -544,6 +544,7 @@ Summary:	KDE5 Integration for LibreOffice (Widgets, Dialogs, Addressbook)
 Group:		Office
 Requires:	%{name}-common = %{EVRD}
 Suggests:	%{name}-style-breeze = %{EVRD}
+Suggests:	%{name}-style-breeze_dark = %{EVRD}
 %rename	libreoffice-kde4
 
 %description kde5
@@ -564,6 +565,7 @@ Summary:	Qt 6 Integration for LibreOffice (Widgets)
 Group:		Office
 Requires:	%{name}-common = %{EVRD}
 Suggests:	%{name}-style-breeze = %{EVRD}
+Suggests:	%{name}-style-breeze_dark = %{EVRD}
 
 %description qt6
 This package contains the Qt 6 plugin for drawing LibreOffice widgets with
@@ -579,6 +581,7 @@ Summary:	LibreOffice plugin for using KDE dialogs and GTK widgets
 Group:		Office
 Requires:	%{name}-common = %{EVRD}
 Suggests:	%{name}-style-breeze = %{EVRD}
+Suggests:	%{name}-style-breeze_dark = %{EVRD}
 
 %description gtk3-kde5
 This package contains a LibreOffice plugin for using KDE dialogs, but
