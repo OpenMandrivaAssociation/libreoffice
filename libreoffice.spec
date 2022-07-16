@@ -69,7 +69,7 @@ Version:	7.4.0.1
 %if %{defined beta}
 Release:	0.%{beta}.1
 %else
-Release:	1
+Release:	2
 %endif
 Source0:	%{relurl}/%{ooname}-%{version}%{?beta:.%{beta}}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{version}%{?beta:.%{beta}}.tar.xz
@@ -519,6 +519,7 @@ Recommends:	%{name}-gstreamer = %{EVRD}
 This package contains the GNOME VFS support and a GConf backend.
 
 %files gnome -f file-lists/gnome_list.uniq.sorted.txt
+%{ooodir}/program/libavmediagtk.so
 
 #----------------------------------------------------------------------------
 
@@ -2871,9 +2872,10 @@ sed -i -e '/qt6/d' file-lists/orig/gid_Module_Optional_Kde
 # used by LO
 sed -i -e '/liblibreofficekitgtk.so/d' file-lists/core_list.txt
 
-# Get rid of libavmediagst in core -- it adds a gtk dependency and is
-# generally useless given we also have libavmediavlc.
+# Get rid of libavmediagst and libavmediagtk in core -- they adds a gtk
+# dependency and are generally useless given we also have libavmediavlc.
 sed -i -e '/libavmediagst.so/d' file-lists/core_list.txt
+sed -i -e '/libavmediagtk.so/d' file-lists/core_list.txt
 
 install -m 0755 -d %{buildroot}%{_datadir}/java/%{name}
 for jar in %{buildroot}%{ooodir}/program/classes/*.jar; do
