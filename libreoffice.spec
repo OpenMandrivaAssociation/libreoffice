@@ -65,11 +65,11 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	7.4.0.1
+Version:	7.4.0.2
 %if %{defined beta}
 Release:	0.%{beta}.1
 %else
-Release:	3
+Release:	1
 %endif
 Source0:	%{relurl}/%{ooname}-%{version}%{?beta:.%{beta}}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{version}%{?beta:.%{beta}}.tar.xz
