@@ -65,7 +65,7 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	7.4.0.2
+Version:	7.4.0.3
 %if %{defined beta}
 Release:	0.%{beta}.1
 %else
