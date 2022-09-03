@@ -65,11 +65,11 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	7.4.0.3
+Version:	7.4.1.1
 %if %{defined beta}
 Release:	0.%{beta}.1
 %else
-Release:	2
+Release:	1
 %endif
 Source0:	%{relurl}/%{ooname}-%{version}%{?beta:.%{beta}}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{version}%{?beta:.%{beta}}.tar.xz
@@ -113,6 +113,7 @@ Patch100:	libreoffice-4.3.1.2-vendor.patch
 Patch101:	libreoffice-5.1.0.1-desktop-categories.patch
 Patch102:	libreoffice-7.2.0-dont-reference-unpackaged-files.patch
 Patch103:	libreoffice-7.3.0-find-qt6.patch
+Patch104:	libreoffice-7.4.1-poppler-22.09.patch
 Patch105:	libreoffice-6.3.2-openjdk-13.patch
 # Possible workaround for
 # https://github.com/QubesOS/qubes-issues/issues/3281
@@ -603,8 +604,8 @@ A library for viewing LibreOffice documents in other applications
 
 %files kit
 %{ooodir}/program/liblibreofficekitgtk.so
-#{_libdir}/girepository-1.0/LOKDocView-%{girapiversion}.typelib
-#{_libdir}/gir-1.0/LOKDocView-%{girapiversion}.gir
+%{_libdir}/girepository-1.0/LOKDocView-0.1.typelib
+%{_libdir}/gir-1.0/LOKDocView-0.1.gir
 
 
 #----------------------------------------------------------------------------
@@ -2876,6 +2877,13 @@ sed -i -e '/liblibreofficekitgtk.so/d' file-lists/core_list.txt
 # dependency and are generally useless given we also have libavmediavlc.
 sed -i -e '/libavmediagst.so/d' file-lists/core_list.txt
 sed -i -e '/libavmediagtk.so/d' file-lists/core_list.txt
+
+# Broken gtk cruft is needed by some applications and built, but not installed,
+# by default...
+mkdir -p %{buildroot}%{_libdir}/girepository-1.0 %{buildroot}%{_libdir}/gir-1.0
+mv workdir/CustomTarget/sysui/shared/libreofficedev/*.typelib %{buildroot}%{_libdir}/girepository-1.0/
+mv workdiir/CustomTarget/sysui/shared/libreofficedev/*.gir %{buildroot}%{_libdir}/gir-1.0/
+
 
 install -m 0755 -d %{buildroot}%{_datadir}/java/%{name}
 for jar in %{buildroot}%{ooodir}/program/classes/*.jar; do

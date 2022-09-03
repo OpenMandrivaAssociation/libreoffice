@@ -1,0 +1,25 @@
+diff -up libreoffice-7.4.1.1/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx.omv~ libreoffice-7.4.1.1/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx
+--- libreoffice-7.4.1.1/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx.omv~	2022-09-01 23:08:17.526751116 +0200
++++ libreoffice-7.4.1.1/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx	2022-09-01 23:15:46.403952295 +0200
+@@ -678,15 +678,15 @@ void PDFOutDev::updateLineDash(GfxState
+         return;
+     assert(state);
+ 
+-    double* dashArray; int arrayLen; double startOffset;
+-    state->getLineDash(&dashArray, &arrayLen, &startOffset);
++    double startOffset;
++    const std::vector<double> dashArray = state->getLineDash(&startOffset);
+ 
+     printf( "updateLineDash" );
+-    if( arrayLen && dashArray )
++    if( dashArray.size() )
+     {
+-        printf( " %f %d", normalize(startOffset), arrayLen );
+-        for( int i=0; i<arrayLen; ++i )
+-            printf( " %f", normalize(*dashArray++) );
++        printf( " %f %d", normalize(startOffset), dashArray.size() );
++        for( int i=0; i<dashArray.size(); ++i )
++            printf( " %f", normalize(dashArray[i]) );
+     }
+     printf( "\n" );
+ }
