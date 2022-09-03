@@ -2880,12 +2880,9 @@ sed -i -e '/libavmediagtk.so/d' file-lists/core_list.txt
 
 # Broken gtk cruft is needed by some applications and built, but not installed,
 # by default...
-pwd
-find . -name "*.typelib" -o -name "*.gir"
 mkdir -p %{buildroot}%{_libdir}/girepository-1.0 %{buildroot}%{_libdir}/gir-1.0
-mv workdir/CustomTarget/sysui/shared/libreofficedev/*.typelib %{buildroot}%{_libdir}/girepository-1.0/
-mv workdir/CustomTarget/sysui/shared/libreofficedev/*.gir %{buildroot}%{_libdir}/gir-1.0/
-
+mv workdir/CustomTarget/sysui/share/libreoffice/*.typelib %{buildroot}%{_libdir}/girepository-1.0/
+mv workdir/CustomTarget/sysui/share/libreoffice/*.gir %{buildroot}%{_libdir}/gir-1.0/
 
 install -m 0755 -d %{buildroot}%{_datadir}/java/%{name}
 for jar in %{buildroot}%{ooodir}/program/classes/*.jar; do
