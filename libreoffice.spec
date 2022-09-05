@@ -2597,9 +2597,9 @@ autoconf
 
 # Use linker flags to reduce memory consumption (bfd only)
 #global ldflags %{ldflags} -Wl,--no-keep-memory -Wl,--reduce-memory-overheads
-
-#export CC=gcc
-#export CXX=g++
+# Work around https://github.com/llvm/llvm-project/issues/57566
+export CC=gcc
+export CXX=g++
 
 # path to external tarballs
 EXTSRCDIR=`dirname %{SOURCE0}`
