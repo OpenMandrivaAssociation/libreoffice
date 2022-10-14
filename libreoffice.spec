@@ -65,7 +65,7 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	7.4.1.1
+Version:	7.4.2.3
 %if %{defined beta}
 Release:	0.%{beta}.1
 %else
@@ -113,7 +113,6 @@ Patch100:	libreoffice-4.3.1.2-vendor.patch
 Patch101:	libreoffice-5.1.0.1-desktop-categories.patch
 Patch102:	libreoffice-7.2.0-dont-reference-unpackaged-files.patch
 Patch103:	libreoffice-7.3.0-find-qt6.patch
-Patch104:	libreoffice-7.4.1-poppler-22.09.patch
 Patch105:	libreoffice-6.3.2-openjdk-13.patch
 # Possible workaround for
 # https://github.com/QubesOS/qubes-issues/issues/3281
