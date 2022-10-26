@@ -2720,7 +2720,7 @@ echo "Configure end at: "`date` >> ooobuildtime.log
 echo "Make start at: "`date` >> ooobuildtime.log 
 
 # some options to show more errors if unit tests fail
-ulimit -c unlimited
+ulimit -c unlimited || :
 export DEBUGCPPUNIT=TRUE
 
 
