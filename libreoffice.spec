@@ -65,11 +65,11 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	7.4.2.3
+Version:	7.4.3.2
 %if %{defined beta}
 Release:	0.%{beta}.1
 %else
-Release:	4
+Release:	1
 %endif
 Source0:	%{relurl}/%{ooname}-%{version}%{?beta:.%{beta}}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{version}%{?beta:.%{beta}}.tar.xz
@@ -2585,6 +2585,11 @@ tar -xjvf %{SOURCE20}
 # to make the friggin cppunit tests work
 mkdir -p ~/tmp
 chmod 777 ~/tmp
+
+# The autoconf script hardcodes dragonbox 1.0.0, but newer
+# versions work fine...
+DBVER=`ls -d /usr/include/dragonbox-[0-9]* |cut -d/ -f4`
+sed -i -e "s,dragonbox-1\.0\.0,$DBVER,g" configure.ac
 
 aclocal -I m4
 autoconf
