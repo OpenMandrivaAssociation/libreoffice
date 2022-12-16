@@ -1,65 +1,29 @@
-diff -up libreoffice-7.4.2.3/vcl/qt5/QtFrame.cxx.6~ libreoffice-7.4.2.3/vcl/qt5/QtFrame.cxx
---- libreoffice-7.4.2.3/vcl/qt5/QtFrame.cxx.6~	2022-10-14 17:39:27.526487685 +0200
-+++ libreoffice-7.4.2.3/vcl/qt5/QtFrame.cxx	2022-10-14 17:44:46.632615482 +0200
-@@ -699,7 +699,11 @@ void QtFrame::SetWindowState(const SalFr
+diff -up libreoffice-7.5.0.0/vcl/qt5/QtFrame.cxx.6~ libreoffice-7.5.0.0/vcl/qt5/QtFrame.cxx
+--- libreoffice-7.5.0.0/vcl/qt5/QtFrame.cxx.6~	2022-12-16 01:58:28.822558201 +0100
++++ libreoffice-7.5.0.0/vcl/qt5/QtFrame.cxx	2022-12-16 02:01:29.638344576 +0100
+@@ -648,7 +648,11 @@ void QtFrame::SetWindowState(const vcl::
      {
          const qreal fRatio = devicePixelRatioF();
          QWidget* const pChild = asChild();
--        pChild->resize(ceil(pState->mnWidth / fRatio), ceil(pState->mnHeight / fRatio));
+-        pChild->resize(ceil(pState->width() / fRatio), ceil(pState->height() / fRatio));
 +        // Workaround for LO appearing way too small in some situations, e.g.
 +        // https://github.com/QubesOS/qubes-issues/issues/3281
-+        const int w = ceil(pState->mnWidth / fRatio), h = ceil(pState->mnHeight / fRatio);
++        const int w = ceil(pState->width() / fRatio), h = ceil(pState->height() / fRatio);
 +        if(w > 10 && h > 10 && w < 50000 && h < 50000)
 +            pChild->resize(w, h);
-         pChild->move(ceil(pState->mnX / fRatio), ceil(pState->mnY / fRatio));
+         pChild->move(ceil(pState->x() / fRatio), ceil(pState->y() / fRatio));
          SetWindowStateImpl(Qt::WindowMaximized);
      }
-@@ -716,7 +720,10 @@ void QtFrame::SetWindowState(const SalFr
+@@ -663,7 +667,10 @@ void QtFrame::SetWindowState(const vcl::
              nPosSizeFlags |= SAL_FRAME_POSSIZE_WIDTH;
-         if (pState->mnMask & WindowStateMask::Height)
+         if (pState->mask() & vcl::WindowDataMask::Height)
              nPosSizeFlags |= SAL_FRAME_POSSIZE_HEIGHT;
--        SetPosSize(pState->mnX, pState->mnY, pState->mnWidth, pState->mnHeight, nPosSizeFlags);
+-        SetPosSize(pState->x(), pState->y(), pState->width(), pState->height(), nPosSizeFlags);
 +        // Workaround for LO appearing way too small in some situations, e.g.
 +        // https://github.com/QubesOS/qubes-issues/issues/3281
-+        if(pState->mnWidth > 10 && pState->mnWidth < 50000 && pState->mnHeight > 10 && pState->mnHeight < 50000)
-+            SetPosSize(pState->mnX, pState->mnY, pState->mnWidth, pState->mnHeight, nPosSizeFlags);
++        if(pState->width() > 10 && pState->width() < 50000 && pState->height() > 10 && pState->height() < 50000)
++            SetPosSize(pState->x(), pState->y(), pState->width(), pState->height(), nPosSizeFlags);
      }
-     else if (pState->mnMask & WindowStateMask::State && !isChild())
+     else if (pState->mask() & vcl::WindowDataMask::State && !isChild())
      {
-diff -up libreoffice-7.4.2.3/vcl/unx/generic/window/salframe.cxx.6~ libreoffice-7.4.2.3/vcl/unx/generic/window/salframe.cxx
---- libreoffice-7.4.2.3/vcl/unx/generic/window/salframe.cxx.6~	2022-10-14 17:39:27.526487685 +0200
-+++ libreoffice-7.4.2.3/vcl/unx/generic/window/salframe.cxx	2022-10-14 17:47:13.753601001 +0200
-@@ -1660,9 +1660,12 @@ void X11SalFrame::SetWindowState( const
-                                pHints );
-             XFree( pHints );
- 
--            XMoveResizeWindow( GetXDisplay(), GetShellWindow(),
--                               pState->mnX, pState->mnY,
--                               pState->mnWidth, pState->mnHeight );
-+            // Workaround for LO appearing way too small in some situations, e.g.
-+            // https://github.com/QubesOS/qubes-issues/issues/3281
-+            if(pState->mnWidth > 10 && pState->mnWidth < 50000 && pState->mnHeight > 10 && pState->mnHeight < 50000)
-+                XMoveResizeWindow( GetXDisplay(), GetShellWindow(),
-+                                   pState->mnX, pState->mnY,
-+                                   pState->mnWidth, pState->mnHeight );
-             // guess maximized geometry from last time
-             maGeometry.nX      = pState->mnMaximizedX;
-             maGeometry.nY      = pState->mnMaximizedY;
-@@ -1743,10 +1746,13 @@ void X11SalFrame::SetWindowState( const
-                     aPosSize.Move( 0, static_cast<tools::Long>(aGeom.nTopDecoration) - nTop );
-             }
- 
--            SetPosSize(aPosSize.getX(), aPosSize.getY(),
--                       aPosSize.GetWidth(), aPosSize.GetHeight(),
--                       SAL_FRAME_POSSIZE_WIDTH | SAL_FRAME_POSSIZE_HEIGHT |
--                       nPosFlags);
-+            // Workaround for LO appearing way too small in some situations, e.g.
-+            // https://github.com/QubesOS/qubes-issues/issues/3281
-+            if(aPosSize.GetWidth() > 10 && aPosSize.GetWidth() < 50000 && aPosSize.GetHeight() > 10 && aPosSize.GetHeight() < 50000)
-+                SetPosSize(aPosSize.getX(), aPosSize.getY(),
-+                           aPosSize.GetWidth(), aPosSize.GetHeight(),
-+                           SAL_FRAME_POSSIZE_WIDTH | SAL_FRAME_POSSIZE_HEIGHT |
-+                           nPosFlags);
-         }
-     }
- 
+diff -up libreoffice-7.5.0.0/vcl/unx/generic/window/salframe.cxx.6~ libreoffice-7.5.0.0/vcl/unx/generic/window/salframe.cxx
