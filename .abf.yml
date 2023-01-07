@@ -15,8 +15,8 @@ sources:
   odfvalidator-1.2.0-incubating-SNAPSHOT-jar-with-dependencies-971c54fd38a968f5860014b44301872706f9e540.jar: a2aaff3c6e19d7442295ca8a1c39e8c3a8b4081a
   dtoa-20180411.tgz: 083509db5ad9d1680830be9add727d58b54ca0d3
   skia-m103-b301ff025004c9cd82816c86c547588e6c24b466.tar.xz: 128b827fbe2337b67661e2de79a08343a3d7d281
-  libreoffice-7.5.0.0.beta1.tar.xz: fea352bd5791abe6168ae8b5461fd825b5036992
-  libreoffice-dictionaries-7.5.0.0.beta1.tar.xz: d619db601a1cc2088a76247fd5c651bf2a21d130
-  libreoffice-help-7.5.0.0.beta1.tar.xz: b20f0a95e77dcc09ef43c20c46b331cfd7c126ef
-  libreoffice-translations-7.5.0.0.beta1.tar.xz: e6cd675ac87803c00804bd852a2e34b30b389d25
   pdfium-5408.tar.bz2: fe568aa9660f4bffa68b0dd38380c92a65a031ee
+  libreoffice-7.5.0.1.tar.xz: 3f6241836eae379c52082fb1cad007bee79f9201
+  libreoffice-dictionaries-7.5.0.1.tar.xz: dcbd2df28fdaba069877a87d8eb379782e54bad3
+  libreoffice-help-7.5.0.1.tar.xz: 57de43f3ee5922e8e5ee41a944e9e8bba5602034
+  libreoffice-translations-7.5.0.1.tar.xz: ba78c66c8d159a3521b61ed6fbd9e838198ad78e

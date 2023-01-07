@@ -1,83 +1,83 @@
-diff -up libreoffice-7.5.0.0/sysui/desktop/menus/base.desktop.2~ libreoffice-7.5.0.0/sysui/desktop/menus/base.desktop
---- libreoffice-7.5.0.0/sysui/desktop/menus/base.desktop.2~	2022-12-08 20:29:09.000000000 +0100
-+++ libreoffice-7.5.0.0/sysui/desktop/menus/base.desktop	2022-12-16 01:22:51.239955028 +0100
+diff -up libreoffice-7.5.0.1/sysui/desktop/menus/base.desktop.2~ libreoffice-7.5.0.1/sysui/desktop/menus/base.desktop
+--- libreoffice-7.5.0.1/sysui/desktop/menus/base.desktop.2~	2023-01-07 02:52:12.941208653 +0100
++++ libreoffice-7.5.0.1/sysui/desktop/menus/base.desktop	2023-01-07 03:50:55.946252115 +0100
 @@ -20,7 +20,7 @@ Version=1.0
  Terminal=false
  Icon=base
  Type=Application
--Categories=Office;Database;X-Red-Hat-Base;X-MandrivaLinux-MoreApplications-Databases;
+-Categories=Office;Database;X-Red-Hat-Base;
 +Categories=Office;Database;
  Exec=${UNIXBASISROOTNAME} --base %%FILE%%
  MimeType=application/vnd.oasis.opendocument.database;application/vnd.sun.xml.base;
  Name=%PRODUCTNAME Base
-diff -up libreoffice-7.5.0.0/sysui/desktop/menus/calc.desktop.2~ libreoffice-7.5.0.0/sysui/desktop/menus/calc.desktop
---- libreoffice-7.5.0.0/sysui/desktop/menus/calc.desktop.2~	2022-12-16 01:22:51.240955034 +0100
-+++ libreoffice-7.5.0.0/sysui/desktop/menus/calc.desktop	2022-12-16 01:44:44.270848881 +0100
+diff -up libreoffice-7.5.0.1/sysui/desktop/menus/calc.desktop.2~ libreoffice-7.5.0.1/sysui/desktop/menus/calc.desktop
+--- libreoffice-7.5.0.1/sysui/desktop/menus/calc.desktop.2~	2023-01-07 02:52:12.941208653 +0100
++++ libreoffice-7.5.0.1/sysui/desktop/menus/calc.desktop	2023-01-07 03:51:09.332357714 +0100
 @@ -20,7 +20,7 @@ Version=1.0
  Terminal=false
  Icon=calc
  Type=Application
--Categories=Office;Spreadsheet;X-Red-Hat-Base;X-MandrivaLinux-Office-Spreadsheets;
+-Categories=Office;Spreadsheet;X-Red-Hat-Base;
 +Categories=Office;Spreadsheet;
  Exec=${UNIXBASISROOTNAME} --calc %%FILE%%
  MimeType=application/vnd.oasis.opendocument.spreadsheet;application/vnd.oasis.opendocument.spreadsheet-template;application/vnd.sun.xml.calc;application/vnd.sun.xml.calc.template;application/msexcel;application/vnd.ms-excel;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;application/vnd.ms-excel.sheet.macroEnabled.12;application/vnd.openxmlformats-officedocument.spreadsheetml.template;application/vnd.ms-excel.template.macroEnabled.12;application/vnd.ms-excel.sheet.binary.macroEnabled.12;text/csv;application/x-dbf;text/spreadsheet;application/csv;application/excel;application/tab-separated-values;application/vnd.lotus-1-2-3;application/vnd.oasis.opendocument.chart;application/vnd.oasis.opendocument.chart-template;application/x-dbase;application/x-dos_ms_excel;application/x-excel;application/x-msexcel;application/x-ms-excel;application/x-quattropro;application/x-123;text/comma-separated-values;text/tab-separated-values;text/x-comma-separated-values;text/x-csv;application/vnd.oasis.opendocument.spreadsheet-flat-xml;application/vnd.ms-works;application/clarisworks;application/x-iwork-numbers-sffnumbers;application/vnd.apple.numbers;application/x-starcalc;
  Name=%PRODUCTNAME Calc
-diff -up libreoffice-7.5.0.0/sysui/desktop/menus/draw.desktop.2~ libreoffice-7.5.0.0/sysui/desktop/menus/draw.desktop
---- libreoffice-7.5.0.0/sysui/desktop/menus/draw.desktop.2~	2022-12-08 20:29:09.000000000 +0100
-+++ libreoffice-7.5.0.0/sysui/desktop/menus/draw.desktop	2022-12-16 01:22:51.240955034 +0100
+diff -up libreoffice-7.5.0.1/sysui/desktop/menus/draw.desktop.2~ libreoffice-7.5.0.1/sysui/desktop/menus/draw.desktop
+--- libreoffice-7.5.0.1/sysui/desktop/menus/draw.desktop.2~	2023-01-07 02:52:12.941208653 +0100
++++ libreoffice-7.5.0.1/sysui/desktop/menus/draw.desktop	2023-01-07 03:51:26.075489675 +0100
 @@ -20,7 +20,7 @@ Version=1.0
  Terminal=false
  Icon=draw
  Type=Application
--Categories=Office;FlowChart;Graphics;2DGraphics;VectorGraphics;X-Red-Hat-Base;X-MandrivaLinux-Office-Drawing;
+-Categories=Office;FlowChart;Graphics;2DGraphics;VectorGraphics;X-Red-Hat-Base;
 +Categories=Office;FlowChart;Graphics;2DGraphics;VectorGraphics;
  Exec=${UNIXBASISROOTNAME} --draw %%FILE%%
  MimeType=application/vnd.oasis.opendocument.graphics;application/vnd.oasis.opendocument.graphics-flat-xml;application/vnd.oasis.opendocument.graphics-template;application/vnd.sun.xml.draw;application/vnd.sun.xml.draw.template;application/vnd.visio;application/x-wpg;application/vnd.corel-draw;application/vnd.ms-publisher;image/x-freehand;application/clarisworks;application/x-pagemaker;application/pdf;application/x-stardraw;image/x-emf;image/x-wmf;
  Name=%PRODUCTNAME Draw
-diff -up libreoffice-7.5.0.0/sysui/desktop/menus/impress.desktop.2~ libreoffice-7.5.0.0/sysui/desktop/menus/impress.desktop
---- libreoffice-7.5.0.0/sysui/desktop/menus/impress.desktop.2~	2022-12-16 01:22:51.240955034 +0100
-+++ libreoffice-7.5.0.0/sysui/desktop/menus/impress.desktop	2022-12-16 01:44:56.491869597 +0100
+diff -up libreoffice-7.5.0.1/sysui/desktop/menus/impress.desktop.2~ libreoffice-7.5.0.1/sysui/desktop/menus/impress.desktop
+--- libreoffice-7.5.0.1/sysui/desktop/menus/impress.desktop.2~	2023-01-07 02:52:12.941208653 +0100
++++ libreoffice-7.5.0.1/sysui/desktop/menus/impress.desktop	2023-01-07 03:51:48.751668196 +0100
 @@ -20,7 +20,7 @@ Version=1.0
  Terminal=false
  Icon=impress
  Type=Application
--Categories=Office;Presentation;X-Red-Hat-Base;X-MandrivaLinux-Office-Presentations;
+-Categories=Office;Presentation;X-Red-Hat-Base;
 +Categories=Office;Presentation;
  Exec=${UNIXBASISROOTNAME} --impress %%FILE%%
  MimeType=application/vnd.oasis.opendocument.presentation;application/vnd.oasis.opendocument.presentation-template;application/vnd.sun.xml.impress;application/vnd.sun.xml.impress.template;application/mspowerpoint;application/vnd.ms-powerpoint;application/vnd.openxmlformats-officedocument.presentationml.presentation;application/vnd.ms-powerpoint.presentation.macroEnabled.12;application/vnd.openxmlformats-officedocument.presentationml.template;application/vnd.ms-powerpoint.template.macroEnabled.12;application/vnd.openxmlformats-officedocument.presentationml.slide;application/vnd.openxmlformats-officedocument.presentationml.slideshow;application/vnd.ms-powerpoint.slideshow.macroEnabled.12;application/vnd.oasis.opendocument.presentation-flat-xml;application/x-iwork-keynote-sffkey;application/vnd.apple.keynote;
  Name=%PRODUCTNAME Impress
-diff -up libreoffice-7.5.0.0/sysui/desktop/menus/math.desktop.2~ libreoffice-7.5.0.0/sysui/desktop/menus/math.desktop
---- libreoffice-7.5.0.0/sysui/desktop/menus/math.desktop.2~	2022-12-08 20:29:09.000000000 +0100
-+++ libreoffice-7.5.0.0/sysui/desktop/menus/math.desktop	2022-12-16 01:22:51.241955040 +0100
+diff -up libreoffice-7.5.0.1/sysui/desktop/menus/math.desktop.2~ libreoffice-7.5.0.1/sysui/desktop/menus/math.desktop
+--- libreoffice-7.5.0.1/sysui/desktop/menus/math.desktop.2~	2023-01-07 02:52:12.941208653 +0100
++++ libreoffice-7.5.0.1/sysui/desktop/menus/math.desktop	2023-01-07 03:52:03.452783813 +0100
 @@ -21,7 +21,7 @@ Terminal=false
  NoDisplay=false
  Icon=math
  Type=Application
--Categories=Office;Education;Science;Math;X-Red-Hat-Base;X-MandrivaLinux-Office-Other;
-+Categories=Office;
+-Categories=Office;Education;Science;Math;X-Red-Hat-Base;
++Categories=Office;Education;Science;Math;
  Exec=${UNIXBASISROOTNAME} --math %%FILE%%
  MimeType=application/vnd.oasis.opendocument.formula;application/vnd.sun.xml.math;application/vnd.oasis.opendocument.formula-template;text/mathml;application/mathml+xml;
  Name=%PRODUCTNAME Math
-diff -up libreoffice-7.5.0.0/sysui/desktop/menus/startcenter.desktop.2~ libreoffice-7.5.0.0/sysui/desktop/menus/startcenter.desktop
---- libreoffice-7.5.0.0/sysui/desktop/menus/startcenter.desktop.2~	2022-12-16 01:22:51.241955040 +0100
-+++ libreoffice-7.5.0.0/sysui/desktop/menus/startcenter.desktop	2022-12-16 01:45:08.959891682 +0100
+diff -up libreoffice-7.5.0.1/sysui/desktop/menus/startcenter.desktop.2~ libreoffice-7.5.0.1/sysui/desktop/menus/startcenter.desktop
+--- libreoffice-7.5.0.1/sysui/desktop/menus/startcenter.desktop.2~	2023-01-07 02:52:12.941208653 +0100
++++ libreoffice-7.5.0.1/sysui/desktop/menus/startcenter.desktop	2023-01-07 03:52:18.150899313 +0100
 @@ -21,7 +21,7 @@ Terminal=false
  NoDisplay=false
  Icon=startcenter
  Type=Application
--Categories=Office;X-Red-Hat-Base;X-SuSE-Core-Office;X-MandrivaLinux-Office-Other;
+-Categories=Office;X-Red-Hat-Base;X-SuSE-Core-Office;
 +Categories=Office;
  Exec=${UNIXBASISROOTNAME} %%FILE%%
  MimeType=application/vnd.openofficeorg.extension;x-scheme-handler/vnd.libreoffice.cmis;x-scheme-handler/vnd.sun.star.webdav;x-scheme-handler/vnd.sun.star.webdavs;x-scheme-handler/vnd.libreoffice.command;x-scheme-handler/ms-word;x-scheme-handler/ms-powerpoint;x-scheme-handler/ms-excel;x-scheme-handler/ms-visio;x-scheme-handler/ms-access;
  Name=%PRODUCTNAME
-diff -up libreoffice-7.5.0.0/sysui/desktop/menus/writer.desktop.2~ libreoffice-7.5.0.0/sysui/desktop/menus/writer.desktop
---- libreoffice-7.5.0.0/sysui/desktop/menus/writer.desktop.2~	2022-12-16 01:22:51.241955040 +0100
-+++ libreoffice-7.5.0.0/sysui/desktop/menus/writer.desktop	2022-12-16 01:45:20.647913237 +0100
+diff -up libreoffice-7.5.0.1/sysui/desktop/menus/writer.desktop.2~ libreoffice-7.5.0.1/sysui/desktop/menus/writer.desktop
+--- libreoffice-7.5.0.1/sysui/desktop/menus/writer.desktop.2~	2023-01-07 02:52:12.941208653 +0100
++++ libreoffice-7.5.0.1/sysui/desktop/menus/writer.desktop	2023-01-07 03:52:32.112008943 +0100
 @@ -20,7 +20,7 @@ Version=1.0
  Terminal=false
  Icon=writer
  Type=Application
--Categories=Office;WordProcessor;X-Red-Hat-Base;X-MandrivaLinux-Office-Wordprocessors;
+-Categories=Office;WordProcessor;X-Red-Hat-Base;
 +Categories=Office;WordProcessor;
  Exec=${UNIXBASISROOTNAME} --writer %%FILE%%
  MimeType=application/vnd.oasis.opendocument.text;application/vnd.oasis.opendocument.text-template;application/vnd.oasis.opendocument.text-web;application/vnd.oasis.opendocument.text-master;application/vnd.oasis.opendocument.text-master-template;application/vnd.sun.xml.writer;application/vnd.sun.xml.writer.template;application/vnd.sun.xml.writer.global;application/msword;application/vnd.ms-word;application/x-doc;application/x-hwp;application/rtf;text/rtf;application/vnd.wordperfect;application/wordperfect;application/vnd.lotus-wordpro;application/vnd.openxmlformats-officedocument.wordprocessingml.document;application/vnd.ms-word.document.macroEnabled.12;application/vnd.openxmlformats-officedocument.wordprocessingml.template;application/vnd.ms-word.template.macroEnabled.12;application/vnd.ms-works;application/vnd.stardivision.writer-global;application/x-extension-txt;application/x-t602;text/plain;application/vnd.oasis.opendocument.text-flat-xml;application/x-fictionbook+xml;application/macwriteii;application/x-aportisdoc;application/prs.plucker;application/vnd.palm;application/clarisworks;application/x-sony-bbeb;application/x-abiword;application/x-iwork-pages-sffpages;application/vnd.apple.pages;application/x-mswrite;application/x-starwriter;
