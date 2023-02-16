@@ -30,7 +30,7 @@ diff -up libreoffice-7.5.0.1/sysui/desktop/menus/draw.desktop.2~ libreoffice-7.5
  Icon=draw
  Type=Application
 -Categories=Office;FlowChart;Graphics;2DGraphics;VectorGraphics;X-Red-Hat-Base;
-+Categories=Office;FlowChart;Graphics;2DGraphics;VectorGraphics;
++Categories=Office;FlowChart;2DGraphics;VectorGraphics;
  Exec=${UNIXBASISROOTNAME} --draw %%FILE%%
  MimeType=application/vnd.oasis.opendocument.graphics;application/vnd.oasis.opendocument.graphics-flat-xml;application/vnd.oasis.opendocument.graphics-template;application/vnd.sun.xml.draw;application/vnd.sun.xml.draw.template;application/vnd.visio;application/x-wpg;application/vnd.corel-draw;application/vnd.ms-publisher;image/x-freehand;application/clarisworks;application/x-pagemaker;application/pdf;application/x-stardraw;image/x-emf;image/x-wmf;
  Name=%PRODUCTNAME Draw
@@ -54,7 +54,7 @@ diff -up libreoffice-7.5.0.1/sysui/desktop/menus/math.desktop.2~ libreoffice-7.5
  Icon=math
  Type=Application
 -Categories=Office;Education;Science;Math;X-Red-Hat-Base;
-+Categories=Office;Education;Science;Math;
++Categories=Office;
  Exec=${UNIXBASISROOTNAME} --math %%FILE%%
  MimeType=application/vnd.oasis.opendocument.formula;application/vnd.sun.xml.math;application/vnd.oasis.opendocument.formula-template;text/mathml;application/mathml+xml;
  Name=%PRODUCTNAME Math
