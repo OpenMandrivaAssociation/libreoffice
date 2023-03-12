@@ -1,0 +1,12 @@
+diff -up libreoffice-7.5.2.1/lingucomponent/source/spellcheck/languagetool/languagetoolimp.cxx.omv~ libreoffice-7.5.2.1/lingucomponent/source/spellcheck/languagetool/languagetoolimp.cxx
+--- libreoffice-7.5.2.1/lingucomponent/source/spellcheck/languagetool/languagetoolimp.cxx.omv~	2023-03-12 15:20:54.343537890 +0100
++++ libreoffice-7.5.2.1/lingucomponent/source/spellcheck/languagetool/languagetoolimp.cxx	2023-03-12 15:23:25.062369245 +0100
+@@ -83,7 +83,7 @@ OString encodeTextForLanguageTool(const
+     // representation, like %D0%90 (for cyrillic А); some turn into entities like &#33; (for
+     // exclamation mark !); some other to things like \u0027 (for apostrophe ').
+     static constexpr auto myCharClass
+-        = rtl::createUriCharClass("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
++        = rtl::createUriCharClass(u8"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
+     return OUStringToOString(
+         rtl::Uri::encode(text, myCharClass.data(), rtl_UriEncodeStrict, RTL_TEXTENCODING_UTF8),
+         RTL_TEXTENCODING_ASCII_US);

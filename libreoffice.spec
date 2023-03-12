@@ -65,8 +65,8 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	7.5.1.2
-Release:	%{?beta:0.%{beta}.}2
+Version:	7.5.2.1
+Release:	%{?beta:0.%{beta}.}1
 Source0:	%{relurl}/%{ooname}-%{version}%{?beta:.%{beta}}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{version}%{?beta:.%{beta}}.tar.xz
 Source2:	%{relurl}/%{ooname}-help-%{version}%{?beta:.%{beta}}.tar.xz
@@ -114,6 +114,7 @@ Patch105:	libreoffice-6.3.2-openjdk-13.patch
 # Possible workaround for
 # https://github.com/QubesOS/qubes-issues/issues/3281
 Patch106:	libreoffice-7.3.0-workaround-small-window.patch
+Patch107:	libreoffice-7.5.2.1-compile.patch
 
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
