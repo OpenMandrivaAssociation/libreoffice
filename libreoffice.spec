@@ -2624,11 +2624,18 @@ export CCACHE_DIR=%{ccachedir}
 # O2 - tests seem to segfault with Oz
 # -I - needed because of #include <hb.h> in a couple of places
 # ix86: compiler-rt needed because of __mulodi4
+# znver1: As of LO 7.6.0.1, clang 16.0.6, building with znver1
+#         optimizations results in a "Unspecified Application Error"
+#         on startup
 %ifarch %ix86
 %global optflags %(echo %{optflags} -g0 | sed -e 's/-Oz/-O2/') -I%{_includedir}/harfbuzz --rtlib=compiler-rt
 %global ldflags %{ldflags} --rtlib=compiler-rt
 %else
+%ifarch znver1
+%global optflags -O2 -g0 -I%{_includedir}/harfbuzz
+%else
 %global optflags %(echo %{optflags} -g0 | sed -e 's/-Oz/-O2/') -I%{_includedir}/harfbuzz
+%endif
 %endif
 
 export JAVA_HOME=%{_prefix}/lib/jvm/java-12-openjdk
