@@ -65,7 +65,7 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	7.6.0.1
+Version:	7.6.0.2
 Release:	%{?beta:0.%{beta}.}1
 Source0:	%{relurl}/%{ooname}-%{version}%{?beta:.%{beta}}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{version}%{?beta:.%{beta}}.tar.xz
@@ -114,6 +114,8 @@ Patch105:	libreoffice-6.3.2-openjdk-13.patch
 # Possible workaround for
 # https://github.com/QubesOS/qubes-issues/issues/3281
 Patch106:	libreoffice-7.3.0-workaround-small-window.patch
+Patch107:	libreoffice-7.6-plasma6.patch
+Patch108:	libreoffice-7.6-dont-prefer-gtk-over-qt.patch
 
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
@@ -2596,12 +2598,8 @@ autoconf
 #sed -i -e /CppunitTest_sc_ucalc/d -e /CppunitTest_chart2_export/d -e /CppunitTest_sw_ww8export/d -e /CppunitTest_sw_globalfilter/d -e /CppunitTest_sw_filters_test/d -e /CppunitTest_sw_rtfexport/d sw/Module_sw.mk
 
 %build
-
 # Use linker flags to reduce memory consumption (bfd only)
 #global ldflags %{ldflags} -Wl,--no-keep-memory -Wl,--reduce-memory-overheads
-# Work around https://github.com/llvm/llvm-project/issues/57566
-export CC=gcc
-export CXX=g++
 
 # path to external tarballs
 EXTSRCDIR=`dirname %{SOURCE0}`
@@ -2632,6 +2630,7 @@ export CCACHE_DIR=%{ccachedir}
 %global ldflags %{ldflags} --rtlib=compiler-rt
 %else
 %ifarch znver1
+# If built with normal znver1 flags, "lowriter" hangs forever, but "lowriter --backtrace" works
 %global optflags -O2 -g0 -I%{_includedir}/harfbuzz
 %else
 %global optflags %(echo %{optflags} -g0 | sed -e 's/-Oz/-O2/') -I%{_includedir}/harfbuzz

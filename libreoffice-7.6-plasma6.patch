@@ -1,0 +1,94 @@
+diff -up libreoffice-7.6.0.1/vcl/inc/unx/desktops.hxx.omv~ libreoffice-7.6.0.1/vcl/inc/unx/desktops.hxx
+--- libreoffice-7.6.0.1/vcl/inc/unx/desktops.hxx.omv~	2023-07-27 17:49:49.296440172 +0200
++++ libreoffice-7.6.0.1/vcl/inc/unx/desktops.hxx	2023-07-27 17:50:01.684535712 +0200
+@@ -33,6 +33,7 @@ enum SAL_DLLPUBLIC_RTTI DesktopType
+     DESKTOP_XFCE,
+     DESKTOP_MATE,
+     DESKTOP_PLASMA5,
++    DESKTOP_PLASMA6,
+     DESKTOP_LXQT
+ }; // keep in sync with desktop_strings[] in salplug.cxx
+ 
+diff -up libreoffice-7.6.0.1/vcl/source/app/salplug.cxx.omv~ libreoffice-7.6.0.1/vcl/source/app/salplug.cxx
+--- libreoffice-7.6.0.1/vcl/source/app/salplug.cxx.omv~	2023-07-27 17:50:16.638650321 +0200
++++ libreoffice-7.6.0.1/vcl/source/app/salplug.cxx	2023-07-27 18:02:20.558588514 +0200
+@@ -216,6 +216,26 @@ const char* const* autodetect_plugin_lis
+         nullptr
+     };
+ 
++    static const char* const pKDE6FallbackList[] =
++    {
++#if ENABLE_QT6
++        "qt6",
++#endif
++#if ENABLE_KF5
++        "kf5",
++#endif
++#if ENABLE_GTK3_KDE5
++        "gtk3_kde5",
++#endif
++#if ENABLE_GTK3
++        "gtk3",
++#endif
++#if ENABLE_GEN
++        "gen",
++#endif
++        nullptr
++    };
++
+     static const char* const pStandardFallbackList[] =
+     {
+ #if ENABLE_GTK3
+@@ -249,6 +269,8 @@ const char* const* autodetect_plugin_lis
+               desktop == DESKTOP_XFCE  ||
+               desktop == DESKTOP_MATE )
+         pList = pStandardFallbackList;
++    else if (desktop == DESKTOP_PLASMA6)
++        pList = pKDE6FallbackList;
+     else if (desktop == DESKTOP_PLASMA5 || desktop == DESKTOP_LXQT)
+         pList = pKDEFallbackList;
+ 
+@@ -426,7 +448,7 @@ const OUString& SalGetDesktopEnvironment
+     // Order to match desktops.hxx' DesktopType
+     static const char * const desktop_strings[] = {
+         "none", "unknown", "GNOME", "UNITY",
+-        "XFCE", "MATE", "PLASMA5", "LXQT" };
++        "XFCE", "MATE", "PLASMA5", "PLASMA6", "LXQT" };
+     static OUString aDesktopEnvironment;
+     if( aDesktopEnvironment.isEmpty())
+     {
+diff -up libreoffice-7.6.0.1/vcl/unx/generic/desktopdetect/desktopdetector.cxx.omv~ libreoffice-7.6.0.1/vcl/unx/generic/desktopdetect/desktopdetector.cxx
+--- libreoffice-7.6.0.1/vcl/unx/generic/desktopdetect/desktopdetector.cxx.omv~	2023-07-27 17:51:16.794103819 +0200
++++ libreoffice-7.6.0.1/vcl/unx/generic/desktopdetect/desktopdetector.cxx	2023-07-27 18:00:30.662889825 +0200
+@@ -117,6 +117,13 @@ static bool is_plasma5_desktop()
+     return pFullVersion && pSessionVersion && (0 == strcmp(pSessionVersion, "5"));
+ }
+ 
++static bool is_plasma6_desktop()
++{
++    static const char* pFullVersion = getenv("KDE_FULL_SESSION");
++    static const char* pSessionVersion = getenv("KDE_SESSION_VERSION");
++    return pFullVersion && pSessionVersion && (0 == strcmp(pSessionVersion, "6"));
++}
++
+ extern "C"
+ {
+ 
+@@ -132,6 +139,8 @@ DESKTOP_DETECTOR_PUBLIC DesktopType get_
+             return DESKTOP_LXQT;
+         if (aOver.equalsIgnoreAsciiCase("plasma5") || aOver.equalsIgnoreAsciiCase("plasma"))
+             return DESKTOP_PLASMA5;
++        if ( aOver.equalsIgnoreAsciiCase("plasma6") )
++            return DESKTOP_PLASMA6;
+         if ( aOver.equalsIgnoreAsciiCase( "gnome" ) )
+             return DESKTOP_GNOME;
+         if ( aOver.equalsIgnoreAsciiCase( "gnome-wayland" ) )
+@@ -190,6 +199,8 @@ DESKTOP_DETECTOR_PUBLIC DesktopType get_
+ 
+     if (is_plasma5_desktop())
+         return DESKTOP_PLASMA5;
++    else if (is_plasma6_desktop())
++        return DESKTOP_PLASMA6;
+ 
+     // tdf#121275 if we still can't tell, and WAYLAND_DISPLAY
+     // is set, default to gtk3

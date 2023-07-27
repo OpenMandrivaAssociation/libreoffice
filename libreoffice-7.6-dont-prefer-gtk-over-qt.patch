@@ -1,0 +1,87 @@
+diff -up libreoffice-7.6.0.1/vcl/source/app/salplug.cxx.omv~ libreoffice-7.6.0.1/vcl/source/app/salplug.cxx
+--- libreoffice-7.6.0.1/vcl/source/app/salplug.cxx.omv~	2023-07-27 18:03:47.175131972 +0200
++++ libreoffice-7.6.0.1/vcl/source/app/salplug.cxx	2023-07-27 18:07:09.046677837 +0200
+@@ -204,9 +204,15 @@ const char* const* autodetect_plugin_lis
+ #if ENABLE_KF5
+         "kf5",
+ #endif
++#if ENABLE_QT5
++        "qt5",
++#endif
+ #if ENABLE_GTK3_KDE5
+         "gtk3_kde5",
+ #endif
++#if ENABLE_QT6
++        "qt6",
++#endif
+ #if ENABLE_GTK3
+         "gtk3",
+ #endif
+@@ -224,6 +230,9 @@ const char* const* autodetect_plugin_lis
+ #if ENABLE_KF5
+         "kf5",
+ #endif
++#if ENABLE_QT5
++        "qt5",
++#endif
+ #if ENABLE_GTK3_KDE5
+         "gtk3_kde5",
+ #endif
+@@ -238,6 +247,18 @@ const char* const* autodetect_plugin_lis
+ 
+     static const char* const pStandardFallbackList[] =
+     {
++#if ENABLE_QT6
++        "qt6",
++#endif
++#if ENABLE_QT5
++        "qt5",
++#endif
++#if ENABLE_KF5
++        "kf5",
++#endif
++#if ENABLE_GTK3_KDE5
++        "gtk3_kde5",
++#endif
+ #if ENABLE_GTK3
+         "gtk3",
+ #endif
+@@ -247,6 +268,29 @@ const char* const* autodetect_plugin_lis
+         nullptr
+     };
+ 
++    static const char* const pGtkFallbackList[] =
++    {
++#if ENABLE_GTK3
++        "gtk3",
++#endif
++#if ENABLE_GTK3_KDE5
++        "gtk3_kde5",
++#endif
++#if ENABLE_QT6
++        "qt6",
++#endif
++#if ENABLE_QT5
++        "qt5",
++#endif
++#if ENABLE_KF5
++        "kf5",
++#endif
++#if ENABLE_GEN
++        "gen",
++#endif
++        nullptr
++    };
++
+ #if ENABLE_HEADLESS
+     static const char* const pHeadlessFallbackList[] =
+     {
+@@ -268,7 +312,7 @@ const char* const* autodetect_plugin_lis
+               desktop == DESKTOP_UNITY ||
+               desktop == DESKTOP_XFCE  ||
+               desktop == DESKTOP_MATE )
+-        pList = pStandardFallbackList;
++        pList = pGtkFallbackList;
+     else if (desktop == DESKTOP_PLASMA6)
+         pList = pKDE6FallbackList;
+     else if (desktop == DESKTOP_PLASMA5 || desktop == DESKTOP_LXQT)
