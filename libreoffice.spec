@@ -66,7 +66,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Version:	7.6.0.2
-Release:	%{?beta:0.%{beta}.}2
+Release:	%{?beta:0.%{beta}.}3
 Source0:	%{relurl}/%{ooname}-%{version}%{?beta:.%{beta}}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{version}%{?beta:.%{beta}}.tar.xz
 Source2:	%{relurl}/%{ooname}-help-%{version}%{?beta:.%{beta}}.tar.xz
@@ -2640,6 +2640,15 @@ export CCACHE_DIR=%{ccachedir}
 
 export JAVA_HOME=%{_prefix}/lib/jvm/java-12-openjdk
 export PATH=${JAVA_HOME}/bin:$PATH
+
+%ifarch x86_64
+# Weirdest Heisenbug ever: On x86_64 (NOT znver1), LO hangs on startup
+# if it's built with clang.
+# BUT on znver1, LO crashes on startup (UAE) if it's built with gcc.
+# Last observed with LO 7.6.0.2, clang 16.0.6, gcc 13.1.1-20230513
+export CC=gcc
+export CXX=g++
+%endif
 
 export CFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing"
 export CXXFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive -std=gnu++20"
