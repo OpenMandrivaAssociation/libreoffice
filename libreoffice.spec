@@ -204,7 +204,7 @@ BuildRequires:	cmake(zxing)
 BuildRequires:	libtool-devel
 BuildRequires:	lpsolve-devel
 BuildRequires:	nas-devel
-BuildRequires:	openldap-devel
+BuildRequires:	pkgconfig(ldap)
 BuildRequires:	pam-devel
 BuildRequires:	postgresql-devel
 BuildRequires:	readline-devel
