@@ -65,8 +65,8 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	7.6.0.2
-Release:	%{?beta:0.%{beta}.}4
+Version:	7.6.0.3
+Release:	%{?beta:0.%{beta}.}1
 Source0:	%{relurl}/%{ooname}-%{version}%{?beta:.%{beta}}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{version}%{?beta:.%{beta}}.tar.xz
 Source2:	%{relurl}/%{ooname}-help-%{version}%{?beta:.%{beta}}.tar.xz
