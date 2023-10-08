@@ -65,7 +65,7 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	7.6.1.2
+Version:	7.6.2.1
 Release:	%{?beta:0.%{beta}.}1
 Source0:	%{relurl}/%{ooname}-%{version}%{?beta:.%{beta}}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{version}%{?beta:.%{beta}}.tar.xz
@@ -299,8 +299,8 @@ BuildRequires:	google-crosextra-caladea-fonts
 BuildRequires:	ant
 # Unfortunately hsqldb jODBC stuff isn't
 # compatible with newer versions of OpenJDK
-BuildRequires:	java-12-openjdk-devel
-BuildRequires:	java-12-openjdk-gui
+BuildRequires:	jdk-current
+BuildRequires:	java-gui-current
 Suggests:	%{name}-java = %{EVRD}
 %endif 
 # STLport-devel 4.5 + private patches are needed
@@ -2641,7 +2641,7 @@ export CCACHE_DIR=%{ccachedir}
 %endif
 %endif
 
-export JAVA_HOME=%{_prefix}/lib/jvm/java-12-openjdk
+. %{_sysconfdir}/profile.d/90java.sh
 export PATH=${JAVA_HOME}/bin:$PATH
 
 %ifarch x86_64
@@ -2753,7 +2753,7 @@ rm -f writerperfect/qa/unit/data/writer/libwpd/pass/EDB-14344-1.wpd
 %endif
 
 # (tpg) silent output to reduce memory and free space
-make V=0
+make verbose=0
 
 echo "Make end at: "`date` >> ooobuildtime.log 
 echo "Install start at: "`date` >> ooobuildtime.log 
