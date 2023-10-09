@@ -117,6 +117,7 @@ Patch106:	libreoffice-7.3.0-workaround-small-window.patch
 Patch107:	libreoffice-7.6-plasma6.patch
 Patch108:	libreoffice-7.6-dont-prefer-gtk-over-qt.patch
 Patch109:	libreoffice-7.6-qt6-wayland-egl.patch
+Patch110:	libreoffice-7.6.2.1-lld17.patch
 
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch

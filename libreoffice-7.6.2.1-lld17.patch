@@ -1,0 +1,13 @@
+diff -up libreoffice-7.6.2.1/solenv/gbuild/platform/linux.mk.omv~ libreoffice-7.6.2.1/solenv/gbuild/platform/linux.mk
+--- libreoffice-7.6.2.1/solenv/gbuild/platform/linux.mk.omv~	2023-10-09 16:07:06.768136702 +0200
++++ libreoffice-7.6.2.1/solenv/gbuild/platform/linux.mk	2023-10-09 16:07:53.423622579 +0200
+@@ -18,6 +18,9 @@ gb_LinkTarget_LDFLAGS += $(gb__LinkTarge
+ ifneq ($(findstring lld,$(USE_LD)),)
+ USE_LD += -Wl,--undefined-version
+ endif
++ifeq ($(USE_LLD),)
++USE_LD += -Wl,--undefined-version
++endif
+ 
+ include $(GBUILDDIR)/platform/unxgcc.mk
+ 
