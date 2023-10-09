@@ -1,0 +1,17 @@
+diff -up libreoffice-7.6.2.1/solenv/gbuild/platform/com_GCC_defs.mk.omv~ libreoffice-7.6.2.1/solenv/gbuild/platform/com_GCC_defs.mk
+--- libreoffice-7.6.2.1/solenv/gbuild/platform/com_GCC_defs.mk.omv~	2023-10-09 17:48:28.196988749 +0200
++++ libreoffice-7.6.2.1/solenv/gbuild/platform/com_GCC_defs.mk	2023-10-09 17:49:08.506417072 +0200
+@@ -193,9 +193,13 @@ gb_CFLAGS_COMMON += -std=gnu89
+ ifeq ($(ENABLE_LTO),TRUE)
+ ifeq ($(COM_IS_CLANG),TRUE)
+ gb_LTOFLAGS := -flto=thin
++# OpenMandriva defaults to LLD, so we don't need the LLVMgold plugin
++# for clang LTO
++ifeq (1,2)
+ ifeq (,$(index,iOS MACOSX,$(OS)))
+ gb_LTOPLUGINFLAGS := --plugin $(if $(LD_PLUGIN),$(LD_PLUGIN),LLVMgold.so)
+ endif
++endif
+ else
+ # use parallelism based on make's job handling
+ gb_LTOFLAGS := -flto=jobserver -fuse-linker-plugin -O2

@@ -66,7 +66,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Version:	7.6.2.1
-Release:	%{?beta:0.%{beta}.}1
+Release:	%{?beta:0.%{beta}.}2
 Source0:	%{relurl}/%{ooname}-%{version}%{?beta:.%{beta}}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{version}%{?beta:.%{beta}}.tar.xz
 Source2:	%{relurl}/%{ooname}-help-%{version}%{?beta:.%{beta}}.tar.xz
@@ -118,6 +118,7 @@ Patch107:	libreoffice-7.6-plasma6.patch
 Patch108:	libreoffice-7.6-dont-prefer-gtk-over-qt.patch
 Patch109:	libreoffice-7.6-qt6-wayland-egl.patch
 Patch110:	libreoffice-7.6.2.1-lld17.patch
+Patch111:	libreoffice-7.6.2.1-no-LLVMgold-plugin-needed.patch
 
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
@@ -2754,7 +2755,7 @@ rm -f writerperfect/qa/unit/data/writer/libwpd/pass/EDB-14344-1.wpd
 %endif
 
 # (tpg) silent output to reduce memory and free space
-make verbose=0
+make verbose=0 V=0
 
 echo "Make end at: "`date` >> ooobuildtime.log 
 echo "Install start at: "`date` >> ooobuildtime.log 
