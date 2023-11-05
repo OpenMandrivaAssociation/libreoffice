@@ -65,7 +65,7 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	7.6.2.1
+Version:	7.6.3.1
 Release:	%{?beta:0.%{beta}.}3
 Source0:	%{relurl}/%{ooname}-%{version}%{?beta:.%{beta}}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{version}%{?beta:.%{beta}}.tar.xz
@@ -243,7 +243,7 @@ BuildRequires:	pkgconfig(icu-i18n)
 BuildRequires:	pkgconfig(lcms2)
 BuildRequires:	pkgconfig(libabw-0.1)
 BuildRequires:	pkgconfig(libclucene-core)
-BuildRequires:	pkgconfig(libcmis-0.5)
+BuildRequires:	pkgconfig(libcmis-0.6)
 BuildRequires:	pkgconfig(libcurl)
 BuildRequires:	pkgconfig(libcdr-0.1)
 BuildRequires:	pkgconfig(libe-book-0.1)
