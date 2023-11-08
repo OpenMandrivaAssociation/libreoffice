@@ -2637,7 +2637,8 @@ export CCACHE_DIR=%{ccachedir}
 %else
 %ifarch znver1
 # If built with normal znver1 flags, "lowriter" hangs forever, but "lowriter --backtrace" works
-%global optflags -O2 -g0 -I%{_includedir}/harfbuzz
+# -O0 is not as bad as it looks, since a lot of Makefiles in the LO tree add -O2 anyway
+%global optflags -O0 -fomit-frame-pointer -g1 -fno-strict-aliasing -I%{_includedir}/harfbuzz
 %else
 %global optflags %(echo %{optflags} -g0 | sed -e 's/-Oz/-O2/') -I%{_includedir}/harfbuzz
 %endif
