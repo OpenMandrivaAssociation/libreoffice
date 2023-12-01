@@ -1,20 +1,24 @@
-diff -up libreoffice-7.5.0.0/configure.ac.3~ libreoffice-7.5.0.0/configure.ac
---- libreoffice-7.5.0.0/configure.ac.3~	2022-12-08 20:29:09.000000000 +0100
-+++ libreoffice-7.5.0.0/configure.ac	2022-12-16 01:56:12.277991145 +0100
-@@ -5651,7 +5651,6 @@ if test "$cross_compiling" = "yes"; then
-         instsetoo_native/util/openoffice.lst.in \
-         config_host/*.in \
+diff -up libreoffice-24.2.0.0/configure.ac.omv~ libreoffice-24.2.0.0/configure.ac
+--- libreoffice-24.2.0.0/configure.ac.omv~	2023-11-30 22:10:30.577248462 +0100
++++ libreoffice-24.2.0.0/configure.ac	2023-11-30 22:10:58.133520073 +0100
+@@ -5726,7 +5726,6 @@ if test "$cross_compiling" = "yes"; then
          sysui/desktop/macosx/Info.plist.in \
+         sysui/desktop/macosx/hardened_runtime.xcent.in \
+         sysui/desktop/macosx/lo.xcent.in \
 -        .vscode/vs-code-template.code-workspace.in \
          solenv/lockfile/autoconf.h.in \
          ) \
      | (cd CONF-FOR-BUILD && tar xf -)
-@@ -14764,7 +14763,7 @@ AC_CONFIG_FILES([config_host.mk
-                  hardened_runtime.xcent
-                  instsetoo_native/util/openoffice.lst
-                  sysui/desktop/macosx/Info.plist
+@@ -15085,11 +15084,7 @@ AC_CONFIG_FILES([config_host.mk
+                  bin/bffvalidator.sh
+                  bin/odfvalidator.sh
+                  bin/officeotron.sh
+-                 instsetoo_native/util/openoffice.lst
+-                 sysui/desktop/macosx/Info.plist
+-                 hardened_runtime.xcent:sysui/desktop/macosx/hardened_runtime.xcent.in
+-                 lo.xcent:sysui/desktop/macosx/lo.xcent.in
 -                 vs-code.code-workspace.template:.vscode/vs-code-template.code-workspace.in])
-+                 ])
++                 instsetoo_native/util/openoffice.lst])
  
+ AC_CONFIG_HEADERS([config_host/config_atspi.h])
  AC_CONFIG_HEADERS([config_host/config_buildconfig.h])
- AC_CONFIG_HEADERS([config_host/config_buildid.h])

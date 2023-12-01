@@ -1,23 +1,29 @@
-diff -up libreoffice-7.6.0.1/vcl/source/app/salplug.cxx.omv~ libreoffice-7.6.0.1/vcl/source/app/salplug.cxx
---- libreoffice-7.6.0.1/vcl/source/app/salplug.cxx.omv~	2023-07-27 18:03:47.175131972 +0200
-+++ libreoffice-7.6.0.1/vcl/source/app/salplug.cxx	2023-07-27 18:07:09.046677837 +0200
-@@ -204,9 +204,15 @@ const char* const* autodetect_plugin_lis
+diff -up libreoffice-24.2.0.0/vcl/source/app/salplug.cxx.omv~ libreoffice-24.2.0.0/vcl/source/app/salplug.cxx
+--- libreoffice-24.2.0.0/vcl/source/app/salplug.cxx.omv~	2023-11-30 20:31:40.665217252 +0100
++++ libreoffice-24.2.0.0/vcl/source/app/salplug.cxx	2023-11-30 20:35:51.739496971 +0100
+@@ -205,6 +205,15 @@ const char* const* autodetect_plugin_lis
  #if ENABLE_KF5
          "kf5",
  #endif
 +#if ENABLE_QT5
 +        "qt5",
 +#endif
++#if ENABLE_KF6
++        "kf6",
++#endif
++#if ENABLE_QT6
++        "qt6",
++#endif
  #if ENABLE_GTK3_KDE5
          "gtk3_kde5",
+ #endif
+@@ -222,9 +231,15 @@ const char* const* autodetect_plugin_lis
+ #if ENABLE_KF6
+         "kf6",
  #endif
 +#if ENABLE_QT6
 +        "qt6",
 +#endif
- #if ENABLE_GTK3
-         "gtk3",
- #endif
-@@ -224,6 +230,9 @@ const char* const* autodetect_plugin_lis
  #if ENABLE_KF5
          "kf5",
  #endif
@@ -27,12 +33,15 @@ diff -up libreoffice-7.6.0.1/vcl/source/app/salplug.cxx.omv~ libreoffice-7.6.0.1
  #if ENABLE_GTK3_KDE5
          "gtk3_kde5",
  #endif
-@@ -238,6 +247,18 @@ const char* const* autodetect_plugin_lis
+@@ -239,6 +254,21 @@ const char* const* autodetect_plugin_lis
  
      static const char* const pStandardFallbackList[] =
      {
 +#if ENABLE_QT6
 +        "qt6",
++#endif
++#if ENABLE_KF6
++        "kf6",
 +#endif
 +#if ENABLE_QT5
 +        "qt5",
@@ -46,7 +55,7 @@ diff -up libreoffice-7.6.0.1/vcl/source/app/salplug.cxx.omv~ libreoffice-7.6.0.1
  #if ENABLE_GTK3
          "gtk3",
  #endif
-@@ -247,6 +268,29 @@ const char* const* autodetect_plugin_lis
+@@ -248,6 +278,32 @@ const char* const* autodetect_plugin_lis
          nullptr
      };
  
@@ -60,6 +69,9 @@ diff -up libreoffice-7.6.0.1/vcl/source/app/salplug.cxx.omv~ libreoffice-7.6.0.1
 +#endif
 +#if ENABLE_QT6
 +        "qt6",
++#endif
++#if ENABLE_KF6
++        "kf6",
 +#endif
 +#if ENABLE_QT5
 +        "qt5",
@@ -76,12 +88,51 @@ diff -up libreoffice-7.6.0.1/vcl/source/app/salplug.cxx.omv~ libreoffice-7.6.0.1
  #if ENABLE_HEADLESS
      static const char* const pHeadlessFallbackList[] =
      {
-@@ -268,7 +312,7 @@ const char* const* autodetect_plugin_lis
+@@ -269,7 +325,7 @@ const char* const* autodetect_plugin_lis
                desktop == DESKTOP_UNITY ||
                desktop == DESKTOP_XFCE  ||
                desktop == DESKTOP_MATE )
 -        pList = pStandardFallbackList;
 +        pList = pGtkFallbackList;
-     else if (desktop == DESKTOP_PLASMA6)
-         pList = pKDE6FallbackList;
      else if (desktop == DESKTOP_PLASMA5 || desktop == DESKTOP_LXQT)
+         pList = pKDEFallbackList;
+     else if (desktop == DESKTOP_PLASMA6)
+@@ -346,27 +402,27 @@ SalInstance *CreateSalInstance()
+ #elif defined(MACOSX)
+         "osx",
+ #else // !_WIN32 && !MACOSX
+-#if ENABLE_GTK3
+-        "gtk3",
++#if ENABLE_KF6
++        "kf6",
++#endif
++#if ENABLE_QT6
++        "qt6",
+ #endif
+ #if ENABLE_KF5
+         "kf5",
+ #endif
++#if ENABLE_QT5
++        "qt5",
++#endif
+ #if ENABLE_GTK3_KDE5
+         "gtk3_kde5",
+ #endif
++#if ENABLE_GTK3
++        "gtk3",
++#endif
+ #if ENABLE_GEN
+         "gen",
+ #endif
+-#if ENABLE_QT5
+-        "qt5",
+-#endif
+-#if ENABLE_KF6
+-        "kf6",
+-#endif
+-#if ENABLE_QT6
+-        "qt6",
+-#endif
+ #endif // !_WIN32 && !MACOSX
+         nullptr
+     };

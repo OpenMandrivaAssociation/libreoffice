@@ -14,9 +14,10 @@ sources:
   smart_0.9.4_en_hu_corrected.oxt: b888d8b18d3252ec4b04bfb8913f5df356b9c053
   odfvalidator-1.2.0-incubating-SNAPSHOT-jar-with-dependencies-971c54fd38a968f5860014b44301872706f9e540.jar: a2aaff3c6e19d7442295ca8a1c39e8c3a8b4081a
   dtoa-20180411.tgz: 083509db5ad9d1680830be9add727d58b54ca0d3
-  pdfium-5778.tar.bz2: 443f5e51bf9bffe50432b3d5c338bdbf2f28a92b
-  skia-m111-a31e897fb3dcbc96b2b40999751611d029bf5404.tar.xz: 4fd35d564935dbc33d7e32081fdb08ce3209b5ed
-  libreoffice-7.6.3.2.tar.xz: 70a1b666200affbec952d13bf28348abd717f87d
-  libreoffice-dictionaries-7.6.3.2.tar.xz: 020de208c93a5fc351b9ae264ffcd1eed08e122c
-  libreoffice-help-7.6.3.2.tar.xz: 8eaca7e6c434248893d0297b93117b7e8d885857
-  libreoffice-translations-7.6.3.2.tar.xz: 6b5c033cba4f40ccb9022126db586ed485a0f99f
+  skia-m116-2ddcf183eb260f63698aa74d1bb380f247ad7ccd.tar.xz: 44bfe996e61f6b72e29db5fc2f6abf41cc2d6768
+  pdfium-6060.tar.bz2: d8abf58e22d2947df0f9fc6b2364626a1aec2503
+  Java-WebSocket-1.5.4.tar.gz: 67703956d32bd3c20baf8f1dd69efa579234381e
+  libreoffice-24.2.0.0.alpha1.tar.xz: f23ffdef72bf2360898f91b6dc1881e1ada1f28d
+  libreoffice-dictionaries-24.2.0.0.alpha1.tar.xz: 1c9c1ebcb5c03549f7d59805a5824c104c40f7b1
+  libreoffice-help-24.2.0.0.alpha1.tar.xz: 26396912225aed89c0fa7c230df1a78157199e84
+  libreoffice-translations-24.2.0.0.alpha1.tar.xz: a71e1c56ca7c1bcfe2a903ee83380317c52f30eb

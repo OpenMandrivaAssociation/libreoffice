@@ -30,7 +30,7 @@
 %bcond_with ccache
 %bcond_with debug
 
-#define beta beta1
+%define beta alpha1
 
 %if %{with l10n}
 %define langs	en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu
@@ -65,7 +65,7 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	7.6.3.2
+Version:	24.2.0.0
 Release:	%{?beta:0.%{beta}.}1
 Source0:	%{relurl}/%{ooname}-%{version}%{?beta:.%{beta}}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{version}%{?beta:.%{beta}}.tar.xz
@@ -79,8 +79,10 @@ Source4:	http://dev-www.libreoffice.org/extern/185d60944ea767075d27247c3162b3bc-
 #javaless
 %if %{javaless}
 Source20:	http://archive.apache.org/dist/ant/binaries/apache-ant-1.8.1-bin.tar.bz2
+%else
+Source21:	https://dev-www.libreoffice.org/src/Java-WebSocket-1.5.4.tar.gz
 %endif
-Source31:	https://dev-www.libreoffice.org/src/skia-m111-a31e897fb3dcbc96b2b40999751611d029bf5404.tar.xz
+Source31:	https://dev-www.libreoffice.org/src/skia-m116-2ddcf183eb260f63698aa74d1bb380f247ad7ccd.tar.xz
 Source32:	https://dev-www.libreoffice.org/src/dtoa-20180411.tgz
 Source33:	%{srcurl}/62c0b97e94fe47d5e50ff605d2edf37a-hsqldb-2.3.3.zip
 Source34:	https://dev-www.libreoffice.org/extern/odfvalidator-1.2.0-incubating-SNAPSHOT-jar-with-dependencies-971c54fd38a968f5860014b44301872706f9e540.jar
@@ -88,7 +90,7 @@ Source35:	%{devurl}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
 Source36:	%{devurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
 Source37:	%{devurl}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
 Source38:	%{devurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
-Source39:	http://dev-www.libreoffice.org/src/pdfium-5778.tar.bz2
+Source39:	http://dev-www.libreoffice.org/src/pdfium-6060.tar.bz2
 
 # External Download Sources
 Source40:	http://hg.services.openoffice.org/binaries/1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz
@@ -109,13 +111,12 @@ Patch100:	libreoffice-4.3.1.2-vendor.patch
 Patch101:	libreoffice-5.1.0.1-desktop-categories.patch
 Patch102:	libreoffice-7.2.0-dont-reference-unpackaged-files.patch
 Patch103:	libreoffice-7.3.0-find-qt6.patch
-#Patch104:	libreoffice-7.5.0.0-boost-1.81.patch
+Patch104:	libreoffice-24.2-kf6-buildfix.patch
 Patch105:	libreoffice-6.3.2-openjdk-13.patch
 # Possible workaround for
 # https://github.com/QubesOS/qubes-issues/issues/3281
 Patch106:	libreoffice-7.3.0-workaround-small-window.patch
-Patch107:	libreoffice-7.6-plasma6.patch
-Patch108:	libreoffice-7.6-dont-prefer-gtk-over-qt.patch
+Patch107:	libreoffice-7.6-dont-prefer-gtk-over-qt.patch
 Patch109:	libreoffice-7.6-qt6-wayland-egl.patch
 Patch110:	libreoffice-7.6.2.1-lld17.patch
 Patch111:	libreoffice-7.6.2.1-no-LLVMgold-plugin-needed.patch
@@ -204,6 +205,7 @@ BuildRequires:	pkgconfig(libwps-0.4)
 BuildRequires:	pkgconfig(libzmf-0.0)
 BuildRequires:	pkgconfig(libstaroffice-0.0)
 BuildRequires:	cmake(zxing)
+BuildRequires:	zxcvbn-devel
 BuildRequires:	libtool-devel
 BuildRequires:	lpsolve-devel
 BuildRequires:	nas-devel
@@ -258,7 +260,7 @@ BuildRequires:	pkgconfig(libopenjp2)
 BuildRequires:	pkgconfig(libmspub-0.1)
 BuildRequires:	pkgconfig(libmwaw-0.3) >= 0.3.5
 BuildRequires:	pkgconfig(libodfgen-0.1)
-BuildRequires:	pkgconfig(liborcus-0.18)
+BuildRequires:	pkgconfig(liborcus-0.18) >= 0.19
 BuildRequires:	pkgconfig(libpagemaker-0.0)
 BuildRequires:	pkgconfig(librevenge-0.0)
 BuildRequires:	pkgconfig(librsvg-2.0)
@@ -563,6 +565,22 @@ KDE5/Qt5.x and a KDEish File Picker when running under KDE5.
 %{_libdir}/libreoffice/program/libvclplug_kf5lo.so
 %{_libdir}/libreoffice/program/libvclplug_qt5lo.so
 %{_libdir}/libreoffice/program/lo_kde5filepicker
+
+#----------------------------------------------------------------------------
+
+%package kde6
+Summary:	KDE6 Integration for LibreOffice (Widgets, Dialogs, Addressbook)
+Group:		Office
+Requires:	%{name}-common = %{EVRD}
+Suggests:	%{name}-style-breeze = %{EVRD}
+Suggests:	%{name}-style-breeze_dark = %{EVRD}
+
+%description kde6
+This package contains the KDE5 plugin for drawing LibreOffice widgets with
+KDE6/Qt6.x and a KDEish File Picker when running under KDE6.
+
+%files kde6
+%{_libdir}/libreoffice/program/libvclplug_kf6lo.so
 
 #----------------------------------------------------------------------------
 
@@ -2585,7 +2603,11 @@ for a in */*; do mv `pwd`/$a .; done
 #ant
 %if %{javaless}
 tar -xjvf %{SOURCE20}
+%else
+mkdir -p workdir/UnpackedTarget
+cp %{S:21} workdir/UnpackedTarget/
 %endif
+
 %autopatch -p1
 
 # to make the friggin cppunit tests work
@@ -2663,6 +2685,7 @@ echo "Configure start at: "`date` >> ooobuildtime.log
 
 touch autogen.lastrun
 export QT6DIR=%{_libdir}/qt6
+export KF6INC=%{_includedir}/KF6/KConfig
 %configure \
 	%{?_smp_mflags:--with-parallelism="`getconf _NPROCESSORS_ONLN`"} \
 	--with-vendor=OpenMandriva \
@@ -2689,6 +2712,7 @@ export QT6DIR=%{_libdir}/qt6
 	--enable-qt5 \
 	--enable-qt6 \
 	--enable-kf5 \
+	--enable-kf6 \
 	--enable-vlc \
 	--enable-introspection \
 	--enable-eot \
