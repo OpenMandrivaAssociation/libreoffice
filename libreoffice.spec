@@ -196,6 +196,13 @@ BuildRequires:	cmake(Qt6Gui)
 BuildRequires:	cmake(Qt6Widgets)
 BuildRequires:	cmake(Qt6Network)
 
+# For KDE 6
+BuildRequires:	cmake(KF6CoreAddons)
+BuildRequires:	cmake(KF6I18n)
+BuildRequires:	cmake(KF6Config)
+BuildRequires:	cmake(KF6WindowSystem)
+BuildRequires:	cmake(KF6KIO)
+
 BuildRequires:  pkgconfig(xcb)
 BuildRequires:  cmake(Gpgmepp)
 
