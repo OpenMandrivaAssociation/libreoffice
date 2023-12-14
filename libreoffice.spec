@@ -21,16 +21,12 @@
 
 %define styles breeze breeze_dark breeze_dark_svg breeze_svg colibre colibre_svg elementary elementary_svg karasa_jaga karasa_jaga_svg sifr sifr_dark sifr_dark_svg sifr_svg sukapura sukapura_svg
 
-# For debugsource package
-%global _empty_manifest_terminate_build 0
-%global _debugsource_template %{nil}
-
 %bcond_without l10n
 %bcond_with icecream
 %bcond_with ccache
 %bcond_with debug
 
-%define beta alpha1
+%define beta beta1
 
 %if %{with l10n}
 %define langs	en-US af ar as bg bn br bs ca cs cy da de dz el en-GB es et eu fa fi fr ga gl gu he hi hr hu it ja ko kn lt lv mai mk ml mr nb nl nn nr nso or pa-IN pl pt pt-BR ro ru si sk sl sr ss st sv ta te th tn tr ts uk ve xh zh-TW zh-CN zu
@@ -75,6 +71,10 @@ License:	(MPLv1.1 or LGPLv3+) and LGPLv3 and LGPLv2+ and BSD and (MPLv1.1 or GPL
 Group:		Office
 Url:		http://www.libreoffice.org
 Source4:	http://dev-www.libreoffice.org/extern/185d60944ea767075d27247c3162b3bc-unowinreg.dll
+# https://bugs.documentfoundation.org/show_bug.cgi?id=158108
+# Probably replacing the custom line.txt in LO and replacing it with upstream ICU's is
+# the best fix.
+Source5:	https://raw.githubusercontent.com/unicode-org/icu/main/icu4c/source/data/brkitr/rules/line.txt
 
 #javaless
 %if %{javaless}
@@ -2629,6 +2629,8 @@ sed -i -e "s,dragonbox-1\.0\.0,$DBVER,g" configure.ac
 aclocal -I m4
 autoconf
 
+cp -f %{S:5} i18npool/source/breakiterator/data/
+
 # disable failing tests
 #sed -i -e /CppunitTest_sc_ucalc/d -e /CppunitTest_chart2_export/d -e /CppunitTest_sw_ww8export/d -e /CppunitTest_sw_globalfilter/d -e /CppunitTest_sw_filters_test/d -e /CppunitTest_sw_rtfexport/d sw/Module_sw.mk
 
@@ -2653,37 +2655,8 @@ export PATH
 export CCACHE_DIR=%{ccachedir}
 %endif
 
-# g0 - Workaround for abf builds running out of memory
-# O2 - tests seem to segfault with Oz
-# -I - needed because of #include <hb.h> in a couple of places
-# ix86: compiler-rt needed because of __mulodi4
-# znver1: As of LO 7.6.0.1, clang 16.0.6, building with znver1
-#         optimizations results in a "Unspecified Application Error"
-#         on startup
-%ifarch %ix86
-%global optflags %(echo %{optflags} -g0 | sed -e 's/-Oz/-O2/') -I%{_includedir}/harfbuzz --rtlib=compiler-rt
-%global ldflags %{ldflags} --rtlib=compiler-rt
-%else
-%ifarch znver1
-# If built with normal znver1 flags, "lowriter" hangs forever, but "lowriter --backtrace" works
-# -O0 is not as bad as it looks, since a lot of Makefiles in the LO tree add -O2 anyway
-%global optflags -O0 -march=znver1 -fomit-frame-pointer -g1 -fno-strict-aliasing -I%{_includedir}/harfbuzz
-%else
-%global optflags %(echo %{optflags} -g0 | sed -e 's/-Oz/-O2/') -I%{_includedir}/harfbuzz
-%endif
-%endif
-
 . %{_sysconfdir}/profile.d/90java.sh
 export PATH=${JAVA_HOME}/bin:$PATH
-
-%ifarch x86_64
-# Weirdest Heisenbug ever: On x86_64 (NOT znver1), LO hangs on startup
-# if it's built with clang.
-# BUT on znver1, LO crashes on startup (UAE) if it's built with gcc.
-# Last observed with LO 7.6.0.2, clang 16.0.6, gcc 13.1.1-20230513
-export CC=gcc
-export CXX=g++
-%endif
 
 export CFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing"
 export CXXFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive -std=gnu++20"
@@ -2788,6 +2761,16 @@ rm -f writerperfect/qa/unit/data/writer/libwpd/pass/EDB-14344-1.wpd
 
 # (tpg) silent output to reduce memory and free space
 make verbose=0 V=0
+
+# FIXME workaround for what is either nasty undefined behavior in LO
+# or a pretty bad compiler bug
+sed -i -e 's,export CXXFLAGS=.*,export CXXFLAGS=-O0,' config_host.mk
+sed -i -e 's,export CFLAGS=.*,export CFLAGS=-O0,' config_host.mk
+sed -i -e 's,export LDFLAGS=.*,export LDFLAGS=-O0,' config_host.mk
+cd svtools
+make clean
+%make_build
+cd ..
 
 echo "Make end at: "`date` >> ooobuildtime.log 
 echo "Install start at: "`date` >> ooobuildtime.log 
