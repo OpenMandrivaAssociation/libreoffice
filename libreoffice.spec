@@ -143,6 +143,7 @@ BuildRequires:	flute
 # For building the OpenSymbol font
 BuildRequires:	fontforge
 BuildRequires:	gettext
+BuildRequires:	which
 BuildRequires:	locales-extra-charsets
 BuildRequires:	gdb
 BuildRequires:	git
