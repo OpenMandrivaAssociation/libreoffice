@@ -16,8 +16,8 @@ sources:
   dtoa-20180411.tgz: 083509db5ad9d1680830be9add727d58b54ca0d3
   skia-m116-2ddcf183eb260f63698aa74d1bb380f247ad7ccd.tar.xz: 44bfe996e61f6b72e29db5fc2f6abf41cc2d6768
   Java-WebSocket-1.5.4.tar.gz: 67703956d32bd3c20baf8f1dd69efa579234381e
-  libreoffice-24.2.0.1.tar.xz: 2e8e551c85c9a8f4a9e096a81663da32195382ec
-  libreoffice-dictionaries-24.2.0.1.tar.xz: 0dd86552a8ccb775d3bd77d2336c5b43726c151e
-  libreoffice-help-24.2.0.1.tar.xz: 9bc80d191caf1a29a68704b05fe5da2037189927
-  libreoffice-translations-24.2.0.1.tar.xz: 49e6ed2cf3b539013d485059a3c17a550bd0e320
   pdfium-6179.tar.bz2: e4aa77457bbbf66755d50232470952e7f84e6a35
+  libreoffice-24.2.1.1.tar.xz: 9e1d0c623c2a2e4e49fd263930f9b40251e0a009
+  libreoffice-dictionaries-24.2.1.1.tar.xz: 8751a7abb980fce16ff97118a7c08e52b5567290
+  libreoffice-help-24.2.1.1.tar.xz: cee39c5eb272a3263d6c270adc45525b1a4c16aa
+  libreoffice-translations-24.2.1.1.tar.xz: 8dc23a03c885d8d51c117bbab170e9368b565b06
