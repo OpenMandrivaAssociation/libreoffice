@@ -61,8 +61,8 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	24.2.3.2
-Release:	%{?beta:0.%{beta}.}3
+Version:	24.2.4.1
+Release:	%{?beta:0.%{beta}.}1
 Source0:	%{relurl}/%{ooname}-%{version}%{?beta:.%{beta}}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{version}%{?beta:.%{beta}}.tar.xz
 Source2:	%{relurl}/%{ooname}-help-%{version}%{?beta:.%{beta}}.tar.xz
@@ -123,6 +123,10 @@ Patch111:	libreoffice-7.6.2.1-no-LLVMgold-plugin-needed.patch
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
 Patch203:	libreoffice-5.4-std_thread.patch
+
+# Backported from master branch
+Patch300:	libreoffice-icu-75-fb94cc0d1348140d03c2826771c57255ff74a94a.patch
+Patch301:	libreoffice-icu-75-44699b3de37f07090ac6fee1cd97aa76036e9700.patch
 
 %if %{with icecream}
 BuildRequires:	icecream
