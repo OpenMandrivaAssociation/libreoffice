@@ -2,7 +2,6 @@ sources:
   35c94d2df8893241173de1d16b6034c0-swingExSrc.zip: 1acea86fd399ed7817879d36370d3d1f8b109050
   17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip: 7168b0f40aa5c72267899601c116d2348d2f56ec
   62c0b97e94fe47d5e50ff605d2edf37a-hsqldb-2.3.3.zip: f5fce3d5eb21294f9ffba40c34e7c736ab64d6b9
-  798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip: 8a90669029e107b61953b90ba11545fef586c2ca
   a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip: 2d49e11b0b711970f494294dc3698f05eb294853
   1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz: 5eb209d91ac4a01c7d49d31991a6d78350ab8174
   b63e6340a02ff1cacfeadb2c42286161-JLanguageTool-1.7.0.tar.bz2: aa8faa4f9e6721eed9bc6878862d74d0cb23251c
@@ -15,9 +14,10 @@ sources:
   odfvalidator-1.2.0-incubating-SNAPSHOT-jar-with-dependencies-971c54fd38a968f5860014b44301872706f9e540.jar: a2aaff3c6e19d7442295ca8a1c39e8c3a8b4081a
   dtoa-20180411.tgz: 083509db5ad9d1680830be9add727d58b54ca0d3
   skia-m116-2ddcf183eb260f63698aa74d1bb380f247ad7ccd.tar.xz: 44bfe996e61f6b72e29db5fc2f6abf41cc2d6768
-  Java-WebSocket-1.5.4.tar.gz: 67703956d32bd3c20baf8f1dd69efa579234381e
-  pdfium-6179.tar.bz2: e4aa77457bbbf66755d50232470952e7f84e6a35
-  libreoffice-24.2.5.1.tar.xz: bb117fe32fabb92dde89140f3ba521b252d4fc4e
-  libreoffice-dictionaries-24.2.5.1.tar.xz: a90b8ede1604990a33ed0e2b3c3be46e3ae1161e
-  libreoffice-help-24.2.5.1.tar.xz: 6160fd06f839b27a1ff3842352be2da485e39d7c
-  libreoffice-translations-24.2.5.1.tar.xz: 5e8f914955b4669fa0d77ab4184028a80af7bb4b
+  pdfium-6425.tar.bz2: 2cac7ab29cd9850b832198c913a529ffcee306a2
+  rhino-1.7.14.zip: 8380e870db4dac7978ca178d476a43810d81c6cf
+  Java-WebSocket-1.5.6.tar.gz: ee561c270fa186bac51bb240d4ce2166f866795c
+  libreoffice-24.8.0.2.tar.xz: 951d6778bd8b660846e780384ce587ddc3835e22
+  libreoffice-dictionaries-24.8.0.2.tar.xz: 9c0d9e8786f38fa242c7485882e8fec879900f50
+  libreoffice-help-24.8.0.2.tar.xz: f15bb7c1c82154c64ed843984294def70a6f4ea2
+  libreoffice-translations-24.8.0.2.tar.xz: 4196d5a465b93160cc406eef5d5cc1bf7154efa5

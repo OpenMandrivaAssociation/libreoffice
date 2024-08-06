@@ -61,8 +61,8 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	24.2.5.1
-Release:	%{?beta:0.%{beta}.}2
+Version:	24.8.0.2
+Release:	%{?beta:0.%{beta}.}1
 Source0:	%{relurl}/%{ooname}-%{version}%{?beta:.%{beta}}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{version}%{?beta:.%{beta}}.tar.xz
 Source2:	%{relurl}/%{ooname}-help-%{version}%{?beta:.%{beta}}.tar.xz
@@ -80,17 +80,17 @@ Source5:	https://raw.githubusercontent.com/unicode-org/icu/main/icu4c/source/dat
 %if %{javaless}
 Source20:	http://archive.apache.org/dist/ant/binaries/apache-ant-1.8.1-bin.tar.bz2
 %else
-Source21:	https://dev-www.libreoffice.org/src/Java-WebSocket-1.5.4.tar.gz
+Source21:	https://dev-www.libreoffice.org/src/Java-WebSocket-1.5.6.tar.gz
 %endif
 Source31:	https://dev-www.libreoffice.org/src/skia-m116-2ddcf183eb260f63698aa74d1bb380f247ad7ccd.tar.xz
 Source32:	https://dev-www.libreoffice.org/src/dtoa-20180411.tgz
 Source33:	%{srcurl}/62c0b97e94fe47d5e50ff605d2edf37a-hsqldb-2.3.3.zip
 Source34:	https://dev-www.libreoffice.org/extern/odfvalidator-1.2.0-incubating-SNAPSHOT-jar-with-dependencies-971c54fd38a968f5860014b44301872706f9e540.jar
-Source35:	%{devurl}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip
+Source35:	%{srcurl}/rhino-1.7.14.zip
 Source36:	%{devurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
 Source37:	%{devurl}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
 Source38:	%{devurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
-Source39:	http://dev-www.libreoffice.org/src/pdfium-6179.tar.bz2
+Source39:	http://dev-www.libreoffice.org/src/pdfium-6425.tar.bz2
 
 # External Download Sources
 Source40:	http://hg.services.openoffice.org/binaries/1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz
@@ -123,10 +123,6 @@ Patch111:	libreoffice-7.6.2.1-no-LLVMgold-plugin-needed.patch
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
 Patch203:	libreoffice-5.4-std_thread.patch
-
-# Backported from master branch
-Patch300:	libreoffice-icu-75-fb94cc0d1348140d03c2826771c57255ff74a94a.patch
-Patch301:	libreoffice-icu-75-44699b3de37f07090ac6fee1cd97aa76036e9700.patch
 
 %if %{with icecream}
 BuildRequires:	icecream
@@ -2732,6 +2728,7 @@ export KF6INC=%{_includedir}/KF6/KConfig
 	--enable-ext-languagetool \
 	--enable-ext-wiki-publisher \
 	--enable-ext-mariadb-connector \
+	--without-system-rhino \
 %if %{with ccache} && !%{with icecream}
 	--with-gcc-speedup=ccache \
 %else
