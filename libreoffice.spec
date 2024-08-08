@@ -195,6 +195,7 @@ BuildRequires:	cmake(Qt6Core)
 BuildRequires:	cmake(Qt6Gui)
 BuildRequires:	cmake(Qt6Widgets)
 BuildRequires:	cmake(Qt6Multimedia)
+BuildRequires:	cmake(Qt6MultimediaWidgets)
 BuildRequires:	cmake(Qt6Network)
 
 # For KDE 6
