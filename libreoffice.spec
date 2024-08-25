@@ -61,7 +61,7 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	24.8.0.3
+Version:	24.8.1.1
 Release:	%{?beta:0.%{beta}.}1
 Source0:	%{relurl}/%{ooname}-%{version}%{?beta:.%{beta}}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{version}%{?beta:.%{beta}}.tar.xz
