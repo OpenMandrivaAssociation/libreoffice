@@ -69,7 +69,7 @@ Source2:	%{relurl}/%{ooname}-help-%{version}%{?beta:.%{beta}}.tar.xz
 Source3:	%{relurl}/%{ooname}-translations-%{version}%{?beta:.%{beta}}.tar.xz
 License:	(MPLv1.1 or LGPLv3+) and LGPLv3 and LGPLv2+ and BSD and (MPLv1.1 or GPLv2 or LGPLv2 or Netscape) and Public Domain and ASL 2.0 and Artistic
 Group:		Office
-Url:		http://www.libreoffice.org
+Url:		https://www.libreoffice.org
 Source4:	http://dev-www.libreoffice.org/extern/185d60944ea767075d27247c3162b3bc-unowinreg.dll
 # https://bugs.documentfoundation.org/show_bug.cgi?id=158108
 # Probably replacing the custom line.txt in LO and replacing it with upstream ICU's is
