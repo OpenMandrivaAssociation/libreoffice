@@ -17,7 +17,7 @@ sources:
   pdfium-6425.tar.bz2: 2cac7ab29cd9850b832198c913a529ffcee306a2
   rhino-1.7.14.zip: 8380e870db4dac7978ca178d476a43810d81c6cf
   Java-WebSocket-1.5.6.tar.gz: ee561c270fa186bac51bb240d4ce2166f866795c
-  libreoffice-24.8.2.1.tar.xz: b172bf4669e04e08f99e681316ce5c2e2ca316e4
-  libreoffice-dictionaries-24.8.2.1.tar.xz: 14ca9429794405bc19f784ffeeef7013f546946e
-  libreoffice-help-24.8.2.1.tar.xz: f825f6dbe609f0e8a26d7aff266bcb62c55ede13
-  libreoffice-translations-24.8.2.1.tar.xz: ba9342f7d076dcd31cd6b27c149c5c42e4a97843
+  libreoffice-24.8.3.1.tar.xz: 378dfee916778b699229d214c286f431892cae53
+  libreoffice-dictionaries-24.8.3.1.tar.xz: dfb3e694e1866299fb369824b2e9b81a023c5ecd
+  libreoffice-help-24.8.3.1.tar.xz: 5d3288f83de2e63eb9419bb53beeb4bffedf4be7
+  libreoffice-translations-24.8.3.1.tar.xz: b9b64c6b4408df0da43933cbbcab3c669811186d
