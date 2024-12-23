@@ -13,11 +13,11 @@ sources:
   smart_0.9.4_en_hu_corrected.oxt: b888d8b18d3252ec4b04bfb8913f5df356b9c053
   odfvalidator-1.2.0-incubating-SNAPSHOT-jar-with-dependencies-971c54fd38a968f5860014b44301872706f9e540.jar: a2aaff3c6e19d7442295ca8a1c39e8c3a8b4081a
   dtoa-20180411.tgz: 083509db5ad9d1680830be9add727d58b54ca0d3
-  skia-m116-2ddcf183eb260f63698aa74d1bb380f247ad7ccd.tar.xz: 44bfe996e61f6b72e29db5fc2f6abf41cc2d6768
-  pdfium-6425.tar.bz2: 2cac7ab29cd9850b832198c913a529ffcee306a2
-  rhino-1.7.14.zip: 8380e870db4dac7978ca178d476a43810d81c6cf
-  Java-WebSocket-1.5.6.tar.gz: ee561c270fa186bac51bb240d4ce2166f866795c
-  libreoffice-24.8.3.2.tar.xz: d4a6c4a735210ddfd0b723e926a8b3352705662f
-  libreoffice-dictionaries-24.8.3.2.tar.xz: 0843704a42ac06cbf3f336f304619553d9812f97
-  libreoffice-help-24.8.3.2.tar.xz: fe7c694c1156e412a3ecc2ef77ca670f56b6b470
-  libreoffice-translations-24.8.3.2.tar.xz: c8766c085e21cc92c47d7ef2371b8a4d3dc2933d
+  Java-WebSocket-1.6.0.tar.gz: ec18632a76819220dec2aab6935def2fb386e079
+  skia-m130-3c64459d5df2fa9794b277f0959ed8a92552bf4c.tar.xz: 52d8623582ba307c7f25a41a1cc67570ef34fbb5
+  rhino-1.7.15.zip: 12f9d6c069d2d5e64efc9d0514efcaca50ef9e94
+  pdfium-6764.tar.bz2: 2eb412983d83c3c6a213b91159000ddb8e8bd211
+  libreoffice-25.2.0.1.tar.xz: 68940a998c463af8f34b7a6055eb271fb864c707
+  libreoffice-dictionaries-25.2.0.1.tar.xz: 18e4c804c421c7a3c07758896ffa9ef1cfc6a2cb
+  libreoffice-help-25.2.0.1.tar.xz: 21962f7e541e49b510b6240d5aa810bb2a8d9b07
+  libreoffice-translations-25.2.0.1.tar.xz: 88e845ba5a981f7ba3ffcf5ebdc28a4a3febbd7d

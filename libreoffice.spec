@@ -61,8 +61,8 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	24.8.3.2
-Release:	%{?beta:0.%{beta}.}4
+Version:	25.2.0.1
+Release:	%{?beta:0.%{beta}.}1
 Source0:	%{relurl}/%{ooname}-%{version}%{?beta:.%{beta}}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{version}%{?beta:.%{beta}}.tar.xz
 Source2:	%{relurl}/%{ooname}-help-%{version}%{?beta:.%{beta}}.tar.xz
@@ -80,17 +80,17 @@ Source5:	https://raw.githubusercontent.com/unicode-org/icu/main/icu4c/source/dat
 %if %{javaless}
 Source20:	http://archive.apache.org/dist/ant/binaries/apache-ant-1.8.1-bin.tar.bz2
 %else
-Source21:	https://dev-www.libreoffice.org/src/Java-WebSocket-1.5.6.tar.gz
+Source21:	https://dev-www.libreoffice.org/src/Java-WebSocket-1.6.0.tar.gz
 %endif
-Source31:	https://dev-www.libreoffice.org/src/skia-m116-2ddcf183eb260f63698aa74d1bb380f247ad7ccd.tar.xz
+Source31:	https://dev-www.libreoffice.org/src/skia-m130-3c64459d5df2fa9794b277f0959ed8a92552bf4c.tar.xz
 Source32:	https://dev-www.libreoffice.org/src/dtoa-20180411.tgz
 Source33:	%{srcurl}/62c0b97e94fe47d5e50ff605d2edf37a-hsqldb-2.3.3.zip
 Source34:	https://dev-www.libreoffice.org/extern/odfvalidator-1.2.0-incubating-SNAPSHOT-jar-with-dependencies-971c54fd38a968f5860014b44301872706f9e540.jar
-Source35:	%{srcurl}/rhino-1.7.14.zip
+Source35:	%{srcurl}/rhino-1.7.15.zip
 Source36:	%{devurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
 Source37:	%{devurl}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
 Source38:	%{devurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
-Source39:	http://dev-www.libreoffice.org/src/pdfium-6425.tar.bz2
+Source39:	http://dev-www.libreoffice.org/src/pdfium-6764.tar.bz2
 
 # External Download Sources
 Source40:	http://hg.services.openoffice.org/binaries/1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz
@@ -2724,6 +2724,7 @@ export KF6INC=%{_includedir}/KF6/KConfig
 	--with-system-libs \
 	--with-system-ucpp \
 	--with-system-icu-for-build \
+	--without-system-java-websocket \
 	--enable-avahi \
 	--enable-ext-ct2n \
 	--enable-ext-numbertext \

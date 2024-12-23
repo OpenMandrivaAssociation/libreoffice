@@ -1,6 +1,6 @@
-diff -up libreoffice-24.2.4.1/sysui/desktop/menus/base.desktop.2~ libreoffice-24.2.4.1/sysui/desktop/menus/base.desktop
---- libreoffice-24.2.4.1/sysui/desktop/menus/base.desktop.2~	2024-05-21 21:31:47.000000000 +0200
-+++ libreoffice-24.2.4.1/sysui/desktop/menus/base.desktop	2024-05-29 22:51:46.506539049 +0200
+diff -up libreoffice-25.2.0.1/sysui/desktop/menus/base.desktop.2~ libreoffice-25.2.0.1/sysui/desktop/menus/base.desktop
+--- libreoffice-25.2.0.1/sysui/desktop/menus/base.desktop.2~	2024-12-20 00:26:33.000000000 +0100
++++ libreoffice-25.2.0.1/sysui/desktop/menus/base.desktop	2024-12-23 17:24:22.377798634 +0100
 @@ -20,7 +20,7 @@ Version=1.0
  Terminal=false
  Icon=base
@@ -10,9 +10,9 @@ diff -up libreoffice-24.2.4.1/sysui/desktop/menus/base.desktop.2~ libreoffice-24
  Exec=${UNIXBASISROOTNAME} --base %%FILE%%
  MimeType=application/vnd.oasis.opendocument.base;application/vnd.sun.xml.base;
  Name=%PRODUCTNAME Base
-diff -up libreoffice-24.2.4.1/sysui/desktop/menus/calc.desktop.2~ libreoffice-24.2.4.1/sysui/desktop/menus/calc.desktop
---- libreoffice-24.2.4.1/sysui/desktop/menus/calc.desktop.2~	2024-05-29 22:51:46.506539049 +0200
-+++ libreoffice-24.2.4.1/sysui/desktop/menus/calc.desktop	2024-05-29 22:56:40.213620330 +0200
+diff -up libreoffice-25.2.0.1/sysui/desktop/menus/calc.desktop.2~ libreoffice-25.2.0.1/sysui/desktop/menus/calc.desktop
+--- libreoffice-25.2.0.1/sysui/desktop/menus/calc.desktop.2~	2024-12-20 00:26:33.000000000 +0100
++++ libreoffice-25.2.0.1/sysui/desktop/menus/calc.desktop	2024-12-23 17:24:22.377798634 +0100
 @@ -20,7 +20,7 @@ Version=1.0
  Terminal=false
  Icon=calc
@@ -22,9 +22,9 @@ diff -up libreoffice-24.2.4.1/sysui/desktop/menus/calc.desktop.2~ libreoffice-24
  Exec=${UNIXBASISROOTNAME} --calc %%FILE%%
  MimeType=application/clarisworks;application/csv;application/excel;application/msexcel;application/tab-separated-values;application/vnd.apache.parquet;application/vnd.apple.numbers;application/vnd.lotus-1-2-3;application/vnd.ms-excel;application/vnd.ms-excel.sheet.binary.macroEnabled.12;application/vnd.ms-excel.sheet.macroEnabled.12;application/vnd.ms-excel.template.macroEnabled.12;application/vnd.ms-works;application/vnd.oasis.opendocument.chart;application/vnd.oasis.opendocument.chart-template;application/vnd.oasis.opendocument.spreadsheet;application/vnd.oasis.opendocument.spreadsheet-flat-xml;application/vnd.oasis.opendocument.spreadsheet-template;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;application/vnd.openxmlformats-officedocument.spreadsheetml.template;application/vnd.stardivision.calc;application/vnd.stardivision.chart;application/vnd.sun.xml.calc;application/vnd.sun.xml.calc.template;application/x-123;application/x-dbase;application/x-dbf;application/x-dos_ms_excel;application/x-excel;application/x-gnumeric;application/x-iwork-numbers-sffnumbers;application/x-ms-excel;application/x-msexcel;application/x-quattropro;application/x-starcalc;application/x-starchart;text/comma-separated-values;text/csv;text/spreadsheet;text/tab-separated-values;text/x-comma-separated-values;text/x-csv;
  Name=%PRODUCTNAME Calc
-diff -up libreoffice-24.2.4.1/sysui/desktop/menus/draw.desktop.2~ libreoffice-24.2.4.1/sysui/desktop/menus/draw.desktop
---- libreoffice-24.2.4.1/sysui/desktop/menus/draw.desktop.2~	2024-05-29 22:51:46.506539049 +0200
-+++ libreoffice-24.2.4.1/sysui/desktop/menus/draw.desktop	2024-05-29 22:57:00.381832662 +0200
+diff -up libreoffice-25.2.0.1/sysui/desktop/menus/draw.desktop.2~ libreoffice-25.2.0.1/sysui/desktop/menus/draw.desktop
+--- libreoffice-25.2.0.1/sysui/desktop/menus/draw.desktop.2~	2024-12-20 00:26:33.000000000 +0100
++++ libreoffice-25.2.0.1/sysui/desktop/menus/draw.desktop	2024-12-23 17:24:22.377798634 +0100
 @@ -20,7 +20,7 @@ Version=1.0
  Terminal=false
  Icon=draw
@@ -34,9 +34,9 @@ diff -up libreoffice-24.2.4.1/sysui/desktop/menus/draw.desktop.2~ libreoffice-24
  Exec=${UNIXBASISROOTNAME} --draw %%FILE%%
  MimeType=application/clarisworks;application/pdf;application/vnd.corel-draw;application/vnd.ms-publisher;application/vnd.oasis.opendocument.graphics;application/vnd.oasis.opendocument.graphics-flat-xml;application/vnd.oasis.opendocument.graphics-template;application/vnd.quark.quarkxpress;application/vnd.stardivision.draw;application/vnd.sun.xml.draw;application/vnd.sun.xml.draw.template;application/vnd.visio;application/x-pagemaker;application/x-stardraw;application/x-wpg;image/x-emf;image/x-freehand;image/x-wmf;
  Name=%PRODUCTNAME Draw
-diff -up libreoffice-24.2.4.1/sysui/desktop/menus/impress.desktop.2~ libreoffice-24.2.4.1/sysui/desktop/menus/impress.desktop
---- libreoffice-24.2.4.1/sysui/desktop/menus/impress.desktop.2~	2024-05-29 22:51:46.506539049 +0200
-+++ libreoffice-24.2.4.1/sysui/desktop/menus/impress.desktop	2024-05-29 22:57:15.201988738 +0200
+diff -up libreoffice-25.2.0.1/sysui/desktop/menus/impress.desktop.2~ libreoffice-25.2.0.1/sysui/desktop/menus/impress.desktop
+--- libreoffice-25.2.0.1/sysui/desktop/menus/impress.desktop.2~	2024-12-20 00:26:33.000000000 +0100
++++ libreoffice-25.2.0.1/sysui/desktop/menus/impress.desktop	2024-12-23 17:24:22.377798634 +0100
 @@ -20,7 +20,7 @@ Version=1.0
  Terminal=false
  Icon=impress
@@ -46,9 +46,9 @@ diff -up libreoffice-24.2.4.1/sysui/desktop/menus/impress.desktop.2~ libreoffice
  Exec=${UNIXBASISROOTNAME} --impress %%FILE%%
  MimeType=application/mspowerpoint;application/vnd.apple.keynote;application/vnd.ms-powerpoint;application/vnd.ms-powerpoint.presentation.macroEnabled.12;application/vnd.ms-powerpoint.slideshow.macroEnabled.12;application/vnd.ms-powerpoint.template.macroEnabled.12;application/vnd.oasis.opendocument.presentation;application/vnd.oasis.opendocument.presentation-flat-xml;application/vnd.oasis.opendocument.presentation-template;application/vnd.openxmlformats-officedocument.presentationml.presentation;application/vnd.openxmlformats-officedocument.presentationml.slide;application/vnd.openxmlformats-officedocument.presentationml.slideshow;application/vnd.openxmlformats-officedocument.presentationml.template;application/vnd.stardivision.impress;application/vnd.sun.xml.impress;application/vnd.sun.xml.impress.template;application/x-iwork-keynote-sffkey;application/x-starimpress;
  Name=%PRODUCTNAME Impress
-diff -up libreoffice-24.2.4.1/sysui/desktop/menus/math.desktop.2~ libreoffice-24.2.4.1/sysui/desktop/menus/math.desktop
---- libreoffice-24.2.4.1/sysui/desktop/menus/math.desktop.2~	2024-05-29 22:51:46.506539049 +0200
-+++ libreoffice-24.2.4.1/sysui/desktop/menus/math.desktop	2024-05-29 22:57:34.422191214 +0200
+diff -up libreoffice-25.2.0.1/sysui/desktop/menus/math.desktop.2~ libreoffice-25.2.0.1/sysui/desktop/menus/math.desktop
+--- libreoffice-25.2.0.1/sysui/desktop/menus/math.desktop.2~	2024-12-20 00:26:33.000000000 +0100
++++ libreoffice-25.2.0.1/sysui/desktop/menus/math.desktop	2024-12-23 17:24:22.377798634 +0100
 @@ -21,7 +21,7 @@ Terminal=false
  NoDisplay=false
  Icon=math
@@ -58,9 +58,9 @@ diff -up libreoffice-24.2.4.1/sysui/desktop/menus/math.desktop.2~ libreoffice-24
  Exec=${UNIXBASISROOTNAME} --math %%FILE%%
  MimeType=application/mathml+xml;application/vnd.oasis.opendocument.formula;application/vnd.oasis.opendocument.formula-template;application/vnd.stardivision.math;application/vnd.sun.xml.math;application/x-starmath;text/mathml;
  Name=%PRODUCTNAME Math
-diff -up libreoffice-24.2.4.1/sysui/desktop/menus/startcenter.desktop.2~ libreoffice-24.2.4.1/sysui/desktop/menus/startcenter.desktop
---- libreoffice-24.2.4.1/sysui/desktop/menus/startcenter.desktop.2~	2024-05-21 21:31:47.000000000 +0200
-+++ libreoffice-24.2.4.1/sysui/desktop/menus/startcenter.desktop	2024-05-29 22:51:46.506539049 +0200
+diff -up libreoffice-25.2.0.1/sysui/desktop/menus/startcenter.desktop.2~ libreoffice-25.2.0.1/sysui/desktop/menus/startcenter.desktop
+--- libreoffice-25.2.0.1/sysui/desktop/menus/startcenter.desktop.2~	2024-12-20 00:26:33.000000000 +0100
++++ libreoffice-25.2.0.1/sysui/desktop/menus/startcenter.desktop	2024-12-23 17:24:22.377798634 +0100
 @@ -21,7 +21,7 @@ Terminal=false
  NoDisplay=false
  Icon=startcenter
@@ -70,9 +70,9 @@ diff -up libreoffice-24.2.4.1/sysui/desktop/menus/startcenter.desktop.2~ libreof
  Exec=${UNIXBASISROOTNAME} %%FILE%%
  MimeType=application/vnd.openofficeorg.extension;x-scheme-handler/vnd.libreoffice.cmis;x-scheme-handler/vnd.sun.star.webdav;x-scheme-handler/vnd.sun.star.webdavs;x-scheme-handler/vnd.libreoffice.command;x-scheme-handler/ms-word;x-scheme-handler/ms-powerpoint;x-scheme-handler/ms-excel;x-scheme-handler/ms-visio;x-scheme-handler/ms-access;
  Name=%PRODUCTNAME
-diff -up libreoffice-24.2.4.1/sysui/desktop/menus/writer.desktop.2~ libreoffice-24.2.4.1/sysui/desktop/menus/writer.desktop
---- libreoffice-24.2.4.1/sysui/desktop/menus/writer.desktop.2~	2024-05-29 22:51:46.506539049 +0200
-+++ libreoffice-24.2.4.1/sysui/desktop/menus/writer.desktop	2024-05-29 22:57:51.330369386 +0200
+diff -up libreoffice-25.2.0.1/sysui/desktop/menus/writer.desktop.2~ libreoffice-25.2.0.1/sysui/desktop/menus/writer.desktop
+--- libreoffice-25.2.0.1/sysui/desktop/menus/writer.desktop.2~	2024-12-23 17:24:22.377798634 +0100
++++ libreoffice-25.2.0.1/sysui/desktop/menus/writer.desktop	2024-12-23 20:03:42.566115201 +0100
 @@ -20,7 +20,7 @@ Version=1.0
  Terminal=false
  Icon=writer
@@ -80,5 +80,5 @@ diff -up libreoffice-24.2.4.1/sysui/desktop/menus/writer.desktop.2~ libreoffice-
 -Categories=Office;WordProcessor;X-Red-Hat-Base;
 +Categories=Office;WordProcessor;
  Exec=${UNIXBASISROOTNAME} --writer %%FILE%%
- MimeType=application/clarisworks;application/docbook+xml;application/macwriteii;application/msword;application/prs.plucker;application/rtf;application/vnd.apple.pages;application/vnd.lotus-wordpro;application/vnd.ms-word;application/vnd.ms-word.document.macroEnabled.12;application/vnd.ms-word.template.macroEnabled.12;application/vnd.ms-works;application/vnd.oasis.opendocument.text;application/vnd.oasis.opendocument.text-flat-xml;application/vnd.oasis.opendocument.text-master;application/vnd.oasis.opendocument.text-master-template;application/vnd.oasis.opendocument.text-template;application/vnd.oasis.opendocument.text-web;application/vnd.openxmlformats-officedocument.wordprocessingml.document;application/vnd.openxmlformats-officedocument.wordprocessingml.template;application/vnd.palm;application/vnd.stardivision.writer-global;application/vnd.stardivision.writer-global;application/vnd.sun.xml.writer;application/vnd.sun.xml.writer.global;application/vnd.sun.xml.writer.template;application/vnd.wordperfect;application/wordperfect;application/x-abiword;application/x-aportisdoc;application/x-doc;application/x-extension-txt;application/x-fictionbook+xml;application/x-hwp;application/x-iwork-pages-sffpages;application/x-mswrite;application/x-pocket-word;application/x-sony-bbeb;application/x-starwriter;application/x-starwriter-global;application/x-t602;text/plain;text/rtf;
+ MimeType=application/clarisworks;application/docbook+xml;application/macwriteii;application/msword;application/prs.plucker;application/rtf;application/vnd.apple.pages;application/vnd.lotus-wordpro;application/vnd.ms-word;application/vnd.ms-word.document.macroEnabled.12;application/vnd.ms-word.template.macroEnabled.12;application/vnd.ms-works;application/vnd.oasis.opendocument.text;application/vnd.oasis.opendocument.text-flat-xml;application/vnd.oasis.opendocument.text-master;application/vnd.oasis.opendocument.text-master-template;application/vnd.oasis.opendocument.text-template;application/vnd.oasis.opendocument.text-web;application/vnd.openxmlformats-officedocument.wordprocessingml.document;application/vnd.openxmlformats-officedocument.wordprocessingml.template;application/vnd.palm;application/vnd.stardivision.writer-global;application/vnd.sun.xml.writer;application/vnd.sun.xml.writer.global;application/vnd.sun.xml.writer.template;application/vnd.wordperfect;application/wordperfect;application/x-abiword;application/x-aportisdoc;application/x-doc;application/x-extension-txt;application/x-fictionbook+xml;application/x-hwp;application/x-iwork-pages-sffpages;application/x-mswrite;application/x-pocket-word;application/x-sony-bbeb;application/x-starwriter;application/x-starwriter-global;application/x-t602;text/plain;text/rtf;
  Name=%PRODUCTNAME Writer
