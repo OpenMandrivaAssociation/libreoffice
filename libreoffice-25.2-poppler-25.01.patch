@@ -1,0 +1,12 @@
+diff -up libreoffice-25.2.0.1/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx.omv~ libreoffice-25.2.0.1/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx
+--- libreoffice-25.2.0.1/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx.omv~	2025-01-06 16:18:50.243634569 +0100
++++ libreoffice-25.2.0.1/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx	2025-01-06 16:19:14.878275371 +0100
+@@ -1101,7 +1101,7 @@ void PDFOutDev::drawImageMask(GfxState*
+ 
+     int bitsPerComponent = 1;
+     StreamColorSpaceMode csMode = streamCSNone;
+-    str->getImageParams( &bitsPerComponent, &csMode );
++    str->getImageParams( &bitsPerComponent, &csMode, nullptr /* hasAlpha */ );
+     if( bitsPerComponent == 1 && (csMode == streamCSNone || csMode == streamCSDeviceGray) )
+     {
+         GfxRGB oneColor = { dblToCol( 1.0 ), dblToCol( 1.0 ), dblToCol( 1.0 ) };

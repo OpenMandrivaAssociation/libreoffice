@@ -117,6 +117,7 @@ Patch105:	libreoffice-6.3.2-openjdk-13.patch
 # https://github.com/QubesOS/qubes-issues/issues/3281
 Patch106:	libreoffice-7.3.0-workaround-small-window.patch
 Patch107:	libreoffice-7.6-dont-prefer-gtk-over-qt.patch
+Patch108:	libreoffice-25.2-poppler-25.01.patch
 Patch109:	libreoffice-7.6-qt6-wayland-egl.patch
 Patch110:	libreoffice-7.6.2.1-lld17.patch
 Patch111:	libreoffice-7.6.2.1-no-LLVMgold-plugin-needed.patch
