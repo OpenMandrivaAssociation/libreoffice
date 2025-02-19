@@ -1,23 +1,35 @@
-diff -up libreoffice-24.8.0.2/configure.ac.3~ libreoffice-24.8.0.2/configure.ac
---- libreoffice-24.8.0.2/configure.ac.3~	2024-07-26 15:49:08.000000000 +0200
-+++ libreoffice-24.8.0.2/configure.ac	2024-08-06 01:26:24.318967849 +0200
-@@ -5828,7 +5828,6 @@ if test "$cross_compiling" = "yes"; then
+diff -up libreoffice-25.2.1.1/configure.ac.3~ libreoffice-25.2.1.1/configure.ac
+--- libreoffice-25.2.1.1/configure.ac.3~	2025-02-17 18:59:02.859246884 +0100
++++ libreoffice-25.2.1.1/configure.ac	2025-02-17 19:08:50.836146986 +0100
+@@ -6036,7 +6036,6 @@ if test "$cross_compiling" = "yes"; then
          sysui/desktop/macosx/Info.plist.in \
          sysui/desktop/macosx/hardened_runtime.xcent.in \
          sysui/desktop/macosx/lo.xcent.in \
 -        .vscode/vs-code-template.code-workspace.in \
          solenv/lockfile/autoconf.h.in \
-         ) \
-     | (cd CONF-FOR-BUILD && tar xf -)
-@@ -15508,10 +15507,7 @@ AC_CONFIG_FILES([
+         extensions/source/macosx/quicklookpreview/appex/Info.plist.in \
+         extensions/source/macosx/quicklookthumbnail/appex/Info.plist.in \
+@@ -15874,11 +15873,6 @@ AC_CONFIG_FILES([
                   bin/odfvalidator.sh
                   bin/officeotron.sh
                   instsetoo_native/util/openoffice.lst
 -                 sysui/desktop/macosx/Info.plist
 -                 hardened_runtime.xcent:sysui/desktop/macosx/hardened_runtime.xcent.in
 -                 lo.xcent:sysui/desktop/macosx/lo.xcent.in
--                 vs-code.code-workspace.template:.vscode/vs-code-template.code-workspace.in])
-+                 ])
+-                 extensions/source/macosx/quicklookpreview/appex/Info.plist
+-                 extensions/source/macosx/quicklookthumbnail/appex/Info.plist
+                  ])
  # map unix-style mount dirs to windows directories: /mnt/c/foobar -> C:/foobar
  # easier to do it in a postprocessing command than to modify every single variable
- AC_CONFIG_FILES([config_host.mk], [
+@@ -15882,11 +15883,6 @@ AC_CONFIG_FILES([config_host.mk], [
+     fi], [WSL_ONLY_AS_HELPER=$WSL_ONLY_AS_HELPER])
+ # also use windows paths in the vs-code workspace file (esp. for the launch configurations that use
+ # INSTROOT) and also change the default shell from Cygwin to Git Bash
+-AC_CONFIG_FILES([vs-code.code-workspace.template:.vscode/vs-code-template.code-workspace.in], [
+-    if test -n "$WSL_ONLY_AS_HELPER"; then
+-        sed -i -e 's#/mnt/\([[:alpha:]]\)/#\u\1:/#g' \
+-               -e '/defaultProfile/s#Cygwin#Git Bash#' vs-code.code-workspace.template
+-    fi], [WSL_ONLY_AS_HELPER=$WSL_ONLY_AS_HELPER])
+ 
+ AC_CONFIG_HEADERS([config_host/config_atspi.h])
+ AC_CONFIG_HEADERS([config_host/config_buildconfig.h])

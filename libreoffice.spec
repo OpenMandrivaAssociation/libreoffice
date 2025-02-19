@@ -61,8 +61,8 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	25.2.0.1
-Release:	%{?beta:0.%{beta}.}2
+Version:	25.2.1.1
+Release:	%{?beta:0.%{beta}.}1
 Source0:	%{relurl}/%{ooname}-%{version}%{?beta:.%{beta}}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{version}%{?beta:.%{beta}}.tar.xz
 Source2:	%{relurl}/%{ooname}-help-%{version}%{?beta:.%{beta}}.tar.xz
@@ -111,13 +111,13 @@ Patch100:	libreoffice-4.3.1.2-vendor.patch
 Patch101:	libreoffice-5.1.0.1-desktop-categories.patch
 Patch102:	libreoffice-7.2.0-dont-reference-unpackaged-files.patch
 Patch103:	libreoffice-7.3.0-find-qt6.patch
-Patch104:	libreoffice-24.8.2.1-poppler-24.10.patch
+#Patch104:	libreoffice-24.8.2.1-poppler-24.10.patch
 Patch105:	libreoffice-6.3.2-openjdk-13.patch
 # Possible workaround for
 # https://github.com/QubesOS/qubes-issues/issues/3281
 Patch106:	libreoffice-7.3.0-workaround-small-window.patch
 Patch107:	libreoffice-7.6-dont-prefer-gtk-over-qt.patch
-Patch108:	libreoffice-25.2-poppler-25.01.patch
+#Patch108:	libreoffice-25.2-poppler-25.01.patch
 Patch109:	libreoffice-7.6-qt6-wayland-egl.patch
 Patch110:	libreoffice-7.6.2.1-lld17.patch
 Patch111:	libreoffice-7.6.2.1-no-LLVMgold-plugin-needed.patch
