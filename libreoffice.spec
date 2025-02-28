@@ -673,7 +673,7 @@ and sounds.
 #{ooodir}/share/gallery/Photos
 %{ooodir}/share/gallery/apples*
 %{ooodir}/share/gallery/arrows*
-%{ooodir}/share/gallery/backgrounds
+%{ooodir}/share/gallery/backgrounds*
 %{ooodir}/share/gallery/bigapple*
 %{ooodir}/share/gallery/bpmn*
 %{ooodir}/share/gallery/bullets*
