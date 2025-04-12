@@ -1,0 +1,12 @@
+diff -up libreoffice-25.2.3.1/oox/source/export/shapes.cxx.omv~ libreoffice-25.2.3.1/oox/source/export/shapes.cxx
+--- libreoffice-25.2.3.1/oox/source/export/shapes.cxx.omv~	2025-04-12 13:28:14.723236477 +0200
++++ libreoffice-25.2.3.1/oox/source/export/shapes.cxx	2025-04-12 13:29:28.062092225 +0200
+@@ -2196,7 +2196,7 @@ bool ShapeExport::IsShapeTypeKnown(const
+         return false;
+ 
+     const OUString sShapeType = xShape->getShapeType();
+-    return constMap.contains(sShapeType);
++    return constMap.find(sShapeType) != constMap.end();
+ }
+ 
+ ShapeExport& ShapeExport::WriteShape( const Reference< XShape >& xShape )

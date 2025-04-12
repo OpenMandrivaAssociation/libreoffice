@@ -121,6 +121,7 @@ Patch107:	libreoffice-7.6-dont-prefer-gtk-over-qt.patch
 Patch109:	libreoffice-7.6-qt6-wayland-egl.patch
 Patch110:	libreoffice-7.6.2.1-lld17.patch
 Patch111:	libreoffice-7.6.2.1-no-LLVMgold-plugin-needed.patch
+Patch112:	libreoffice-25.2.3.1-compile.patch
 
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
