@@ -112,6 +112,7 @@ Patch101:	libreoffice-5.1.0.1-desktop-categories.patch
 Patch102:	libreoffice-7.2.0-dont-reference-unpackaged-files.patch
 Patch103:	libreoffice-7.3.0-find-qt6.patch
 #Patch104:	libreoffice-24.8.2.1-poppler-24.10.patch
+Patch104:	libreoffice-25.2-poppler-25.05.patch
 Patch105:	libreoffice-6.3.2-openjdk-13.patch
 # Possible workaround for
 # https://github.com/QubesOS/qubes-issues/issues/3281

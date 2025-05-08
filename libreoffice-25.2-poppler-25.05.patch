@@ -1,0 +1,17 @@
+diff -up libreoffice-25.2.3.2/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx.omv~ libreoffice-25.2.3.2/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx
+--- libreoffice-25.2.3.2/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx.omv~	2025-05-08 17:44:06.011111748 +0200
++++ libreoffice-25.2.3.2/sdext/source/pdfimport/xpdfwrapper/pdfioutdev_gpl.cxx	2025-05-08 17:44:31.078054713 +0200
+@@ -1318,10 +1318,10 @@ poppler_bool PDFOutDev::tilingPatternFil
+     }
+ 
+     std::unique_ptr<MemStream> pRgbStr(new MemStream(pBitmapData, 0,
+-        nBitmapWidth * nBitmapHeight * 3, Object(objNull)));
++        nBitmapWidth * nBitmapHeight * 3, Object::null()));
+     std::unique_ptr<MemStream> pAlphaStr(new MemStream(reinterpret_cast<char *>(pSplashBitmap->getAlphaPtr()),
+-        0, nBitmapWidth * nBitmapHeight, Object(objNull)));
+-    auto aDecode = Object(objNull);
++        0, nBitmapWidth * nBitmapHeight, Object::null()));
++    auto aDecode = Object::null();
+ #if POPPLER_CHECK_VERSION(24, 10, 0)
+     std::unique_ptr<GfxImageColorMap> pRgbIdentityColorMap(new GfxImageColorMap(8, &aDecode,
+         std::make_unique<GfxDeviceRGBColorSpace>()));
