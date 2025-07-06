@@ -61,8 +61,8 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	25.2.3.2
-Release:	%{?beta:0.%{beta}.}4
+Version:	25.2.5.1
+Release:	%{?beta:0.%{beta}.}1
 Source0:	%{relurl}/%{ooname}-%{version}%{?beta:.%{beta}}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{version}%{?beta:.%{beta}}.tar.xz
 Source2:	%{relurl}/%{ooname}-help-%{version}%{?beta:.%{beta}}.tar.xz
@@ -112,7 +112,7 @@ Patch101:	libreoffice-5.1.0.1-desktop-categories.patch
 Patch102:	libreoffice-7.2.0-dont-reference-unpackaged-files.patch
 Patch103:	libreoffice-7.3.0-find-qt6.patch
 #Patch104:	libreoffice-24.8.2.1-poppler-24.10.patch
-Patch104:	libreoffice-25.2-poppler-25.05.patch
+#Patch104:	libreoffice-25.2-poppler-25.05.patch
 Patch105:	libreoffice-6.3.2-openjdk-13.patch
 # Possible workaround for
 # https://github.com/QubesOS/qubes-issues/issues/3281
@@ -152,7 +152,7 @@ BuildRequires:	gdb
 BuildRequires:	git
 BuildRequires:	gperf
 BuildRequires:	glm-devel
-BuildRequires:	gpgmepp-devel
+BuildRequires:	pkgconfig(gpgmepp)
 BuildRequires:	icu
 BuildRequires:	imagemagick
 BuildRequires:	libxml2-utils

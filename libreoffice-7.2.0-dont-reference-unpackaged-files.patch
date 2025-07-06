@@ -1,27 +1,22 @@
-diff -up libreoffice-25.2.1.1/configure.ac.3~ libreoffice-25.2.1.1/configure.ac
---- libreoffice-25.2.1.1/configure.ac.3~	2025-02-17 18:59:02.859246884 +0100
-+++ libreoffice-25.2.1.1/configure.ac	2025-02-17 19:08:50.836146986 +0100
-@@ -6036,7 +6036,6 @@ if test "$cross_compiling" = "yes"; then
-         sysui/desktop/macosx/Info.plist.in \
-         sysui/desktop/macosx/hardened_runtime.xcent.in \
-         sysui/desktop/macosx/lo.xcent.in \
+diff -up libreoffice-25.2.5.1/configure.ac.3~ libreoffice-25.2.5.1/configure.ac
+--- libreoffice-25.2.5.1/configure.ac.3~	2025-06-27 14:32:54.000000000 +0200
++++ libreoffice-25.2.5.1/configure.ac	2025-07-06 14:41:04.141729239 +0200
+@@ -6038,14 +6038,7 @@ if test "$cross_compiling" = "yes"; then
+         bin/officeotron.sh.in \
+         instsetoo_native/util/openoffice.lst.in \
+         config_host/*.in \
+-        sysui/desktop/macosx/Info.plist.in \
+-        sysui/desktop/macosx/LaunchConstraint.plist.in \
+-        sysui/desktop/macosx/hardened_runtime.xcent.in \
+-        sysui/desktop/macosx/lo.xcent.in \
 -        .vscode/vs-code-template.code-workspace.in \
          solenv/lockfile/autoconf.h.in \
-         extensions/source/macosx/quicklookpreview/appex/Info.plist.in \
-         extensions/source/macosx/quicklookthumbnail/appex/Info.plist.in \
-@@ -15874,11 +15873,6 @@ AC_CONFIG_FILES([
-                  bin/odfvalidator.sh
-                  bin/officeotron.sh
-                  instsetoo_native/util/openoffice.lst
--                 sysui/desktop/macosx/Info.plist
--                 hardened_runtime.xcent:sysui/desktop/macosx/hardened_runtime.xcent.in
--                 lo.xcent:sysui/desktop/macosx/lo.xcent.in
--                 extensions/source/macosx/quicklookpreview/appex/Info.plist
--                 extensions/source/macosx/quicklookthumbnail/appex/Info.plist
-                  ])
- # map unix-style mount dirs to windows directories: /mnt/c/foobar -> C:/foobar
- # easier to do it in a postprocessing command than to modify every single variable
-@@ -15882,11 +15883,6 @@ AC_CONFIG_FILES([config_host.mk], [
+-        extensions/source/macosx/quicklookpreview/appex/Info.plist.in \
+-        extensions/source/macosx/quicklookthumbnail/appex/Info.plist.in \
+         ) \
+     | (cd CONF-FOR-BUILD && tar xf -)
+     cp configure CONF-FOR-BUILD
+@@ -15902,11 +15895,6 @@ AC_CONFIG_FILES([config_host.mk], [
      fi], [WSL_ONLY_AS_HELPER=$WSL_ONLY_AS_HELPER])
  # also use windows paths in the vs-code workspace file (esp. for the launch configurations that use
  # INSTROOT) and also change the default shell from Cygwin to Git Bash
