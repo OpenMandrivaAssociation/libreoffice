@@ -126,6 +126,7 @@ Patch112:	libreoffice-25.2.3.1-compile.patch
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
 Patch203:	libreoffice-5.4-std_thread.patch
+Patch204:	https://gitweb.gentoo.org/repo/gentoo.git/plain/app-office/libreoffice/files/libreoffice-25.2.6.2-poppler-25.09.patch
 
 %if %{with icecream}
 BuildRequires:	icecream
