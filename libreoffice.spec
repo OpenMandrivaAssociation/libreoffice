@@ -61,8 +61,8 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	25.2.5.2
-Release:	%{?beta:0.%{beta}.}2
+Version:	25.8.1.1
+Release:	%{?beta:0.%{beta}.}1
 Source0:	%{relurl}/%{ooname}-%{version}%{?beta:.%{beta}}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{version}%{?beta:.%{beta}}.tar.xz
 Source2:	%{relurl}/%{ooname}-help-%{version}%{?beta:.%{beta}}.tar.xz
@@ -82,7 +82,7 @@ Source20:	http://archive.apache.org/dist/ant/binaries/apache-ant-1.8.1-bin.tar.b
 %else
 Source21:	https://dev-www.libreoffice.org/src/Java-WebSocket-1.6.0.tar.gz
 %endif
-Source31:	https://dev-www.libreoffice.org/src/skia-m130-3c64459d5df2fa9794b277f0959ed8a92552bf4c.tar.xz
+Source31:	https://dev-www.libreoffice.org/src/skia-m136-28685d899b0a35894743e2cedad4c9f525e90e1e.tar.xz
 Source32:	https://dev-www.libreoffice.org/src/dtoa-20180411.tgz
 Source33:	%{srcurl}/62c0b97e94fe47d5e50ff605d2edf37a-hsqldb-2.3.3.zip
 Source34:	https://dev-www.libreoffice.org/extern/odfvalidator-1.2.0-incubating-SNAPSHOT-jar-with-dependencies-971c54fd38a968f5860014b44301872706f9e540.jar
@@ -90,10 +90,10 @@ Source35:	%{srcurl}/rhino-1.7.15.zip
 Source36:	%{devurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
 Source37:	%{devurl}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
 Source38:	%{devurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
-Source39:	http://dev-www.libreoffice.org/src/pdfium-6764.tar.bz2
+Source39:	http://dev-www.libreoffice.org/src/pdfium-7012.tar.bz2
 
 # External Download Sources
-Source40:	http://hg.services.openoffice.org/binaries/1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz
+#Source40:	http://hg.services.openoffice.org/binaries/1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz
 
 # Extensions
 Source50:	%{srcurl}1f467e5bb703f12cbbb09d5cf67ecf4a-converttexttonumber-1-5-0.oxt
@@ -101,7 +101,6 @@ Source51:	%{srcurl}b63e6340a02ff1cacfeadb2c42286161-JLanguageTool-1.7.0.tar.bz2
 Source52:	https://extensions.libreoffice.org/extensions/barcode/1.3.5.0/@@download/file/barcode_1.3.5.0.oxt
 Source53:	https://extensions.libreoffice.org/extensions/smart/0.94/@@download/file/smart_0.9.4_en_hu_corrected.oxt
 Source55:	%{srcurl}27211596cf0ad97cab7321239406fde0-gdocs_3.0.1_modified.oxt
-Source56:	%{srcurl}b7cae45ad2c23551fd6ccb8ae2c1f59e-numbertext_0.9.5.oxt
 
 Source1000:	libreoffice.rpmlintrc
 Source1001:	libreoffice-help-package
@@ -180,19 +179,6 @@ BuildRequires:	fixmath-devel
 
 BuildRequires:	cmake
 
-# Used for Qt detection
-BuildRequires:	cmake(Qt5Core)
-BuildRequires:	cmake(Qt5Gui)
-BuildRequires:	cmake(Qt5Widgets)
-BuildRequires:	cmake(Qt5Network)
-BuildRequires:	cmake(Qt5X11Extras)
-BuildRequires:	cmake(KF5CoreAddons)
-BuildRequires:	cmake(KF5I18n)
-BuildRequires:	cmake(KF5Config)
-BuildRequires:	cmake(KF5WindowSystem)
-BuildRequires:	cmake(KF5KIO)
-BuildRequires:	cmake(KF5KDELibs4Support)
-
 # For Qt6 frontend
 BuildRequires:	qmake-qt6
 BuildRequires:	cmake(Qt6Core)
@@ -269,12 +255,11 @@ BuildRequires:	pkgconfig(libeot)
 BuildRequires:	pkgconfig(libexttextcat)
 BuildRequires:	pkgconfig(libjpeg)
 BuildRequires:	pkgconfig(liblangtag) >= 0.5.4
-BuildRequires:	pkgconfig(libnumbertext) >= 1.0.3
 BuildRequires:	pkgconfig(libopenjp2)
 BuildRequires:	pkgconfig(libmspub-0.1)
 BuildRequires:	pkgconfig(libmwaw-0.3) >= 0.3.5
 BuildRequires:	pkgconfig(libodfgen-0.1)
-BuildRequires:	pkgconfig(liborcus-0.18) >= 0.19
+BuildRequires:	pkgconfig(liborcus-0.20)
 BuildRequires:	pkgconfig(libpagemaker-0.0)
 BuildRequires:	pkgconfig(librevenge-0.0)
 BuildRequires:	pkgconfig(librsvg-2.0)
@@ -285,7 +270,8 @@ BuildRequires:	pkgconfig(libunwind-llvm)
 BuildRequires:	pkgconfig(libvisio-0.1)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(libxslt)
-BuildRequires:	pkgconfig(mdds-2.1)
+BuildRequires:	pkgconfig(libnumbertext) >= 1.0.6
+BuildRequires:	pkgconfig(mdds-3.0)
 BuildRequires:	pkgconfig(mythes)
 BuildRequires:	pkgconfig(neon)
 BuildRequires:	pkgconfig(nspr)
@@ -561,33 +547,14 @@ This package contains the presentation component for LibreOffice.
 
 #----------------------------------------------------------------------------
 
-%package kde5
-Summary:	KDE5 Integration for LibreOffice (Widgets, Dialogs, Addressbook)
-Group:		Office
-Requires:	%{name}-common = %{EVRD}
-Suggests:	%{name}-style-breeze = %{EVRD}
-Suggests:	%{name}-style-breeze_dark = %{EVRD}
-%rename	libreoffice-kde4
-
-%description kde5
-This package contains the KDE5 plugin for drawing LibreOffice widgets with
-KDE5/Qt5.x and a KDEish File Picker when running under KDE5.
-
-%files kde5
-%{_datadir}/metainfo/org.libreoffice.kde.metainfo.xml
-%{_libdir}/libreoffice/program/libkf5be1lo.so
-%{_libdir}/libreoffice/program/libvclplug_kf5lo.so
-%{_libdir}/libreoffice/program/libvclplug_qt5lo.so
-%{_libdir}/libreoffice/program/lo_kde5filepicker
-
-#----------------------------------------------------------------------------
-
 %package kde6
 Summary:	KDE6 Integration for LibreOffice (Widgets, Dialogs, Addressbook)
 Group:		Office
 Requires:	%{name}-common = %{EVRD}
 Suggests:	%{name}-style-breeze = %{EVRD}
 Suggests:	%{name}-style-breeze_dark = %{EVRD}
+Obsoletes:	%{name}-kde5 < %{EVRD}
+Obsoletes:	%{name}-gtk3-kde5 < %{EVRD}
 
 %description kde6
 This package contains the KDE5 plugin for drawing LibreOffice widgets with
@@ -611,24 +578,6 @@ Qt 6.
 
 %files qt6
 %{_libdir}/libreoffice/program/libvclplug_qt6lo.so
-
-#----------------------------------------------------------------------------
-
-%package gtk3-kde5
-Summary:	LibreOffice plugin for using KDE dialogs and GTK widgets
-Group:		Office
-Requires:	%{name}-common = %{EVRD}
-Suggests:	%{name}-style-breeze = %{EVRD}
-Suggests:	%{name}-style-breeze_dark = %{EVRD}
-
-%description gtk3-kde5
-This package contains a LibreOffice plugin for using KDE dialogs, but
-GTK widgets.
-Usually libreoffice-kde5 is preferable, but since GTK widgets have had
-a lot more testing in libreoffice, this version may be more stable.
-
-%files gtk3-kde5
-%{ooodir}/program/libvclplug_gtk3_kde5lo.so
 
 #----------------------------------------------------------------------------
 
@@ -774,19 +723,6 @@ models into Calc.
 
 %files extension-nlpsolver
 %{ooodir}/share/extensions/nlpsolver
-
-#----------------------------------------------------------------------------
-
-%package extension-numbertext
-Summary:	Number-to-Text conversion function for LibreOffice Calc
-Group:		Office
-Requires:	%{name}-calc = %{EVRD}
-
-%description extension-numbertext
-Number-to-Text conversion function for LibreOffice Calc.
-
-%files extension-numbertext
-%{ooodir}/share/extensions/numbertext
 
 #----------------------------------------------------------------------------
 
@@ -2695,11 +2631,11 @@ export KF6INC=%{_includedir}/KF6/KConfig
 %endif
 	--enable-lto \
 	--enable-gtk3 \
-	--enable-gtk3-kde5 \
+	--disable-gtk3-kde5 \
 	--enable-gtk4 \
-	--enable-qt5 \
+	--disable-qt5 \
 	--enable-qt6 \
-	--enable-kf5 \
+	--disable-kf5 \
 	--enable-kf6 \
 	--enable-vlc \
 	--enable-introspection \
@@ -2731,7 +2667,6 @@ export KF6INC=%{_includedir}/KF6/KConfig
 	--without-system-java-websocket \
 	--enable-avahi \
 	--enable-ext-ct2n \
-	--enable-ext-numbertext \
 	--enable-ext-nlpsolver \
 	--enable-ext-languagetool \
 	--enable-ext-wiki-publisher \

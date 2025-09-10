@@ -1,9 +1,9 @@
-diff -up libreoffice-7.4.0.0/dbaccess/Module_dbaccess.mk.7~ libreoffice-7.4.0.0/dbaccess/Module_dbaccess.mk
---- libreoffice-7.4.0.0/dbaccess/Module_dbaccess.mk.7~	2022-06-03 17:22:20.404663852 +0200
-+++ libreoffice-7.4.0.0/dbaccess/Module_dbaccess.mk	2022-06-03 17:23:27.177013151 +0200
-@@ -41,10 +41,6 @@ $(eval $(call gb_Module_add_check_target
-     $(if $(ENABLE_JAVA),CppunitTest_dbaccess_tdf119625) \
-     $(if $(ENABLE_JAVA),CppunitTest_dbaccess_tdf126268) \
+diff -up libreoffice-25.8.1.1/dbaccess/Module_dbaccess.mk.12~ libreoffice-25.8.1.1/dbaccess/Module_dbaccess.mk
+--- libreoffice-25.8.1.1/dbaccess/Module_dbaccess.mk.12~	2025-08-26 00:08:27.000000000 +0200
++++ libreoffice-25.8.1.1/dbaccess/Module_dbaccess.mk	2025-09-09 18:47:07.194596563 +0200
+@@ -39,10 +39,6 @@ ifeq ($(ENABLE_FIREBIRD_SDBC),TRUE)
+ $(eval $(call gb_Module_add_check_targets,dbaccess,\
+     $(if $(ENABLE_JAVA),CppunitTest_dbaccess_migration) \
  ))
 -
 -$(eval $(call gb_Module_add_check_targets,dbaccess,\
