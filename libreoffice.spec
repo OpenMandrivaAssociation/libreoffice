@@ -563,6 +563,7 @@ KDE6/Qt6.x and a KDEish File Picker when running under KDE6.
 
 %files kde6
 %{_libdir}/libreoffice/program/libvclplug_kf6lo.so
+%{_datadir}/metainfo/org.libreoffice.kde.metainfo.xml
 
 #----------------------------------------------------------------------------
 
