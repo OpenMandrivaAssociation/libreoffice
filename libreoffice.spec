@@ -162,6 +162,7 @@ BuildRequires:	perl
 BuildRequires:	perl-Archive-Zip
 BuildRequires:	perl-HTML-Parser
 BuildRequires:	perl-XML-Twig
+BuildRequires:	perl(Time::Piece)
 BuildRequires:	sharutils
 BuildRequires:	recode
 BuildRequires:	sac
