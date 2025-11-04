@@ -61,8 +61,8 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	25.8.1.1
-Release:	%{?beta:0.%{beta}.}2
+Version:	25.8.3.1
+Release:	%{?beta:0.%{beta}.}1
 Source0:	%{relurl}/%{ooname}-%{version}%{?beta:.%{beta}}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{version}%{?beta:.%{beta}}.tar.xz
 Source2:	%{relurl}/%{ooname}-help-%{version}%{?beta:.%{beta}}.tar.xz
@@ -126,7 +126,6 @@ Patch112:	libreoffice-25.2.3.1-compile.patch
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
 Patch203:	libreoffice-5.4-std_thread.patch
-Patch204:	https://gitweb.gentoo.org/repo/gentoo.git/plain/app-office/libreoffice/files/libreoffice-25.2.6.2-poppler-25.09.patch
 
 %if %{with icecream}
 BuildRequires:	icecream
