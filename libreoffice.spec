@@ -61,8 +61,8 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	25.8.3.1
-Release:	%{?beta:0.%{beta}.}3
+Version:	26.2.0.1
+Release:	%{?beta:0.%{beta}.}1
 Source0:	%{relurl}/%{ooname}-%{version}%{?beta:.%{beta}}.tar.xz
 Source1:	%{relurl}/%{ooname}-dictionaries-%{version}%{?beta:.%{beta}}.tar.xz
 Source2:	%{relurl}/%{ooname}-help-%{version}%{?beta:.%{beta}}.tar.xz
@@ -82,15 +82,15 @@ Source20:	http://archive.apache.org/dist/ant/binaries/apache-ant-1.8.1-bin.tar.b
 %else
 Source21:	https://dev-www.libreoffice.org/src/Java-WebSocket-1.6.0.tar.gz
 %endif
-Source31:	https://dev-www.libreoffice.org/src/skia-m136-28685d899b0a35894743e2cedad4c9f525e90e1e.tar.xz
+Source31:	https://dev-www.libreoffice.org/src/skia-m142-f4ed99d2443962782cf5f8b4dd27179f131e7cbe.tar.xz
 Source32:	https://dev-www.libreoffice.org/src/dtoa-20180411.tgz
 Source33:	%{srcurl}/62c0b97e94fe47d5e50ff605d2edf37a-hsqldb-2.3.3.zip
 Source34:	https://dev-www.libreoffice.org/extern/odfvalidator-1.2.0-incubating-SNAPSHOT-jar-with-dependencies-971c54fd38a968f5860014b44301872706f9e540.jar
-Source35:	%{srcurl}/rhino-1.7.15.zip
+Source35:	%{srcurl}/rhino-1.7.15.1.zip
 Source36:	%{devurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
 Source37:	%{devurl}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
 Source38:	%{devurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
-Source39:	http://dev-www.libreoffice.org/src/pdfium-7012.tar.bz2
+Source39:	http://dev-www.libreoffice.org/src/pdfium-7471.tar.bz2
 
 # External Download Sources
 #Source40:	http://hg.services.openoffice.org/binaries/1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz
@@ -133,6 +133,11 @@ BuildRequires:	icecream
 %if %{with ccache}
 BuildRequires:	ccache
 %endif
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	boost-devel
 BuildRequires:	bison
 BuildRequires:	bsh
@@ -216,6 +221,7 @@ BuildRequires:	postgresql-devel
 BuildRequires:	readline-devel
 BuildRequires:	unixODBC-devel
 BuildRequires:	vigra-devel
+BuildRequires:	afdko
 BuildRequires:	pkgconfig(avahi-client)
 BuildRequires:	pkgconfig(absl_base)
 BuildRequires:	pkgconfig(bluez)
@@ -260,7 +266,7 @@ BuildRequires:	pkgconfig(libopenjp2)
 BuildRequires:	pkgconfig(libmspub-0.1)
 BuildRequires:	pkgconfig(libmwaw-0.3) >= 0.3.5
 BuildRequires:	pkgconfig(libodfgen-0.1)
-BuildRequires:	pkgconfig(liborcus-0.20)
+BuildRequires:	pkgconfig(liborcus-0.21)
 BuildRequires:	pkgconfig(libpagemaker-0.0)
 BuildRequires:	pkgconfig(librevenge-0.0)
 BuildRequires:	pkgconfig(librsvg-2.0)

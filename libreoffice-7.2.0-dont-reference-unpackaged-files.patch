@@ -1,7 +1,7 @@
-diff -up libreoffice-25.2.5.1/configure.ac.3~ libreoffice-25.2.5.1/configure.ac
---- libreoffice-25.2.5.1/configure.ac.3~	2025-06-27 14:32:54.000000000 +0200
-+++ libreoffice-25.2.5.1/configure.ac	2025-07-06 14:41:04.141729239 +0200
-@@ -6038,14 +6038,7 @@ if test "$cross_compiling" = "yes"; then
+diff -up libreoffice-26.2.0.1/configure.ac.3~ libreoffice-26.2.0.1/configure.ac
+--- libreoffice-26.2.0.1/configure.ac.3~	2025-12-16 21:43:44.000000000 +0100
++++ libreoffice-26.2.0.1/configure.ac	2025-12-20 09:03:58.225710239 +0100
+@@ -6181,14 +6181,7 @@ if test "$cross_compiling" = "yes"; then
          bin/officeotron.sh.in \
          instsetoo_native/util/openoffice.lst.in \
          config_host/*.in \
@@ -16,15 +16,17 @@ diff -up libreoffice-25.2.5.1/configure.ac.3~ libreoffice-25.2.5.1/configure.ac
          ) \
      | (cd CONF-FOR-BUILD && tar xf -)
      cp configure CONF-FOR-BUILD
-@@ -15902,11 +15895,6 @@ AC_CONFIG_FILES([config_host.mk], [
+@@ -16270,13 +16263,6 @@ AC_CONFIG_FILES([config_host.mk], [
+     if test -n "$WSL_ONLY_AS_HELPER"; then
+         sed -i -e 's#/mnt/\([[:alpha:]]\)/#\u\1:/#g' config_host.mk
      fi], [WSL_ONLY_AS_HELPER=$WSL_ONLY_AS_HELPER])
- # also use windows paths in the vs-code workspace file (esp. for the launch configurations that use
- # INSTROOT) and also change the default shell from Cygwin to Git Bash
+-# also use windows paths in the vs-code workspace file (esp. for the launch configurations that use
+-# INSTROOT) and also change the default shell from Cygwin to Git Bash
 -AC_CONFIG_FILES([vs-code.code-workspace.template:.vscode/vs-code-template.code-workspace.in], [
 -    if test -n "$WSL_ONLY_AS_HELPER"; then
 -        sed -i -e 's#/mnt/\([[:alpha:]]\)/#\u\1:/#g' \
 -               -e '/defaultProfile/s#Cygwin#Git Bash#' vs-code.code-workspace.template
 -    fi], [WSL_ONLY_AS_HELPER=$WSL_ONLY_AS_HELPER])
  
+ AC_CONFIG_HEADERS([config_host/config_afdko.h])
  AC_CONFIG_HEADERS([config_host/config_atspi.h])
- AC_CONFIG_HEADERS([config_host/config_buildconfig.h])
