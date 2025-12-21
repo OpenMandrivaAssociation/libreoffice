@@ -181,6 +181,7 @@ BuildRequires:	cmake(box2d)
 BuildRequires:	cmake(libcuckoo)
 BuildRequires:	cmake(dragonbox)
 BuildRequires:	cmake(frozen)
+BuildRequires:	cmake(FastFloat)
 BuildRequires:	fixmath-devel
 BuildRequires:	cmake(FastFloat)
 BuildRequires:	cmake
