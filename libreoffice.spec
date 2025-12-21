@@ -204,6 +204,7 @@ BuildRequires:	cmake(KF6KIO)
 BuildRequires:  pkgconfig(xcb)
 BuildRequires:  cmake(Gpgmepp)
 
+BuildRequires:	pkgconfig(md4c)
 BuildRequires:	pkgconfig(libargon2)
 BuildRequires:	pkgconfig(libwpd-0.10)
 BuildRequires:	pkgconfig(libwpg-0.3)
