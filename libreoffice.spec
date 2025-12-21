@@ -182,7 +182,7 @@ BuildRequires:	cmake(libcuckoo)
 BuildRequires:	cmake(dragonbox)
 BuildRequires:	cmake(frozen)
 BuildRequires:	fixmath-devel
-
+BuildRequires:	cmake(FastFloat)
 BuildRequires:	cmake
 
 # For Qt6 frontend
@@ -301,6 +301,7 @@ BuildRequires:	pkgconfig(xmlsec1) >= 1.2.24
 BuildRequires:	pkgconfig(xpm)
 BuildRequires:	pkgconfig(xtst)
 BuildRequires:	pkgconfig(zlib)
+BuildRequires:	python%{pyver}dist(lxml)
 BuildRequires:	db-devel >= 18.1
 BuildRequires:	locales-en
 # required for unit tests
