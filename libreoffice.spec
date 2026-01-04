@@ -64,9 +64,8 @@ Name:		libreoffice
 Version:	26.2.0.1
 Release:	%{?beta:0.%{beta}.}1
 Source0:	%{relurl}/%{ooname}-%{version}%{?beta:.%{beta}}.tar.xz
-Source1:	%{relurl}/%{ooname}-dictionaries-%{version}%{?beta:.%{beta}}.tar.xz
-Source2:	%{relurl}/%{ooname}-help-%{version}%{?beta:.%{beta}}.tar.xz
-Source3:	%{relurl}/%{ooname}-translations-%{version}%{?beta:.%{beta}}.tar.xz
+Source1:	%{relurl}/%{ooname}-help-%{version}%{?beta:.%{beta}}.tar.xz
+Source2:	%{relurl}/%{ooname}-translations-%{version}%{?beta:.%{beta}}.tar.xz
 License:	(MPLv1.1 or LGPLv3+) and LGPLv3 and LGPLv2+ and BSD and (MPLv1.1 or GPLv2 or LGPLv2 or Netscape) and Public Domain and ASL 2.0 and Artistic
 Group:		Office
 Url:		https://www.libreoffice.org
@@ -2558,7 +2557,7 @@ Simplified Chinese templates for LibreOffice.
 #----------------------------------------------------------------------------
 
 %prep
-%setup -q -c -a 1 -a 2 -a 3
+%setup -q -c -a 1 -a 2
 rm -rf git-hooks */git-hooks
 for a in */*; do mv `pwd`/$a .; done
 
