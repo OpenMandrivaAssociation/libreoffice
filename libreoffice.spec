@@ -61,7 +61,7 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	26.2.1.1
+Version:	26.2.2.1
 Release:	%{?beta:0.%{beta}.}1
 Source0:	%{relurl}/%{ooname}-%{version}%{?beta:.%{beta}}.tar.xz
 Source1:	%{relurl}/%{ooname}-help-%{version}%{?beta:.%{beta}}.tar.xz
@@ -121,9 +121,6 @@ Patch109:	libreoffice-7.6-qt6-wayland-egl.patch
 Patch110:	libreoffice-7.6.2.1-lld17.patch
 Patch111:	libreoffice-7.6.2.1-no-LLVMgold-plugin-needed.patch
 Patch112:	libreoffice-25.2.3.1-compile.patch
-# Fix poppler 26.02.0+
-# https://gerrit.libreoffice.org/c/core/+/198803
-Patch113:	3c29b709.diff
 
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
