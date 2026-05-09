@@ -61,8 +61,8 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	26.2.2.1
-Release:	%{?beta:0.%{beta}.}4
+Version:	26.2.3.2
+Release:	%{?beta:0.%{beta}.}1
 Source0:	%{relurl}/%{ooname}-%{version}%{?beta:.%{beta}}.tar.xz
 Source1:	%{relurl}/%{ooname}-help-%{version}%{?beta:.%{beta}}.tar.xz
 Source2:	%{relurl}/%{ooname}-translations-%{version}%{?beta:.%{beta}}.tar.xz
