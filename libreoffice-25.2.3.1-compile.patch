@@ -1,7 +1,7 @@
-diff -up libreoffice-25.2.3.1/oox/source/export/shapes.cxx.omv~ libreoffice-25.2.3.1/oox/source/export/shapes.cxx
---- libreoffice-25.2.3.1/oox/source/export/shapes.cxx.omv~	2025-04-12 13:28:14.723236477 +0200
-+++ libreoffice-25.2.3.1/oox/source/export/shapes.cxx	2025-04-12 13:29:28.062092225 +0200
-@@ -2196,7 +2196,7 @@ bool ShapeExport::IsShapeTypeKnown(const
+diff -uraN libreoffice-26.8.0.1/oox/source/export/shapes.cxx omv-libreoffice-26.8.0.1/oox/source/export/shapes.cxx
+--- libreoffice-26.8.0.1/oox/source/export/shapes.cxx	2026-07-13 11:47:46.000000000 +0100
++++ omv-libreoffice-26.8.0.1/oox/source/export/shapes.cxx	2026-07-20 15:26:02.935125185 +0100
+@@ -2252,7 +2252,7 @@
          return false;
  
      const OUString sShapeType = xShape->getShapeType();
@@ -9,4 +9,5 @@ diff -up libreoffice-25.2.3.1/oox/source/export/shapes.cxx.omv~ libreoffice-25.2
 +    return constMap.find(sShapeType) != constMap.end();
  }
  
- ShapeExport& ShapeExport::WriteShape( const Reference< XShape >& xShape )
+ bool ShapeExport::IsValidShape(const Reference<XShape>& xShape, DocumentType eDocumentType)
+
