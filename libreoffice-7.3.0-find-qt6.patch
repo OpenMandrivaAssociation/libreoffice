@@ -1,14 +1,14 @@
-diff -up libreoffice-7.3.0/configure.ac.omv~ libreoffice-7.3.0/configure.ac
---- libreoffice-7.3.0/configure.ac.omv~	2021-12-09 22:25:50.788885013 +0100
-+++ libreoffice-7.3.0/configure.ac	2021-12-09 22:26:18.633158225 +0100
-@@ -12951,8 +12951,8 @@ then
+diff -uraN libreoffice-26.8.0.1/configure.ac omv-libreoffice-26.8.0.1/configure.ac
+--- libreoffice-26.8.0.1/configure.ac	2026-07-13 11:47:46.000000000 +0100
++++ omv-libreoffice-26.8.0.1/configure.ac	2026-07-20 15:12:47.465981937 +0100
+@@ -14232,8 +14232,8 @@
          AC_MSG_NOTICE([Detected Qt6 version: $qmake6_test_ver])
      fi
  
--    qt6_incdirs="`$QMAKE6 -query QT_INSTALL_HEADERS` $qt6_incdirs"
--    qt6_libdirs="`$QMAKE6 -query QT_INSTALL_LIBS` $qt6_libdirs"
-+    qt6_incdirs="`$QMAKE6 -query QT_INSTALL_HEADERS` $qt6_incdirs $QT6DIR/include"
-+    qt6_libdirs="`$QMAKE6 -query QT_INSTALL_LIBS` $qt6_libdirs $QT6DIR/lib"
-     qt6_platformsdir="`$QMAKE6 -query QT_INSTALL_PLUGINS`/platforms"
+-    qt6_incdirs="`$QMAKE6 -query QT_INSTALL_HEADERS | tr -d '\r'` $qt6_incdirs"
+-    qt6_libdirs="`$QMAKE6 -query QT_INSTALL_LIBS | tr -d '\r'` $qt6_libdirs"
++    qt6_incdirs="`$QMAKE6 -query QT_INSTALL_HEADERS | tr -d '\r'` $qt6_incdirs $QT6DIR/include"
++    qt6_libdirs="`$QMAKE6 -query QT_INSTALL_LIBS | tr -d '\r'` $qt6_libdirs $QT6DIR/lib"
+     qt6_platformsdir="`$QMAKE6 -query QT_INSTALL_PLUGINS | tr -d '\r'`/platforms"
      QT6_PLATFORMS_SRCDIR="$qt6_platformsdir"
- 
+

@@ -1,8 +1,8 @@
-diff -up libreoffice-26.2.0.1/configure.ac.3~ libreoffice-26.2.0.1/configure.ac
---- libreoffice-26.2.0.1/configure.ac.3~	2025-12-16 21:43:44.000000000 +0100
-+++ libreoffice-26.2.0.1/configure.ac	2025-12-20 09:03:58.225710239 +0100
-@@ -6181,14 +6181,7 @@ if test "$cross_compiling" = "yes"; then
-         bin/officeotron.sh.in \
+diff -uraN libreoffice-26.8.0.1/configure.ac omv-libreoffice-26.8.0.1/configure.ac
+--- libreoffice-26.8.0.1/configure.ac	2026-07-13 12:47:46.000000000 +0200
++++ omv-libreoffice-26.8.0.1/configure.ac	2026-07-19 21:06:59.051122931 +0200
+@@ -6246,14 +6246,7 @@
+         bin/verapdf.sh.in \
          instsetoo_native/util/openoffice.lst.in \
          config_host/*.in \
 -        sysui/desktop/macosx/Info.plist.in \
@@ -16,7 +16,7 @@ diff -up libreoffice-26.2.0.1/configure.ac.3~ libreoffice-26.2.0.1/configure.ac
          ) \
      | (cd CONF-FOR-BUILD && tar xf -)
      cp configure CONF-FOR-BUILD
-@@ -16270,13 +16263,6 @@ AC_CONFIG_FILES([config_host.mk], [
+@@ -16499,13 +16492,6 @@
      if test -n "$WSL_ONLY_AS_HELPER"; then
          sed -i -e 's#/mnt/\([[:alpha:]]\)/#\u\1:/#g' config_host.mk
      fi], [WSL_ONLY_AS_HELPER=$WSL_ONLY_AS_HELPER])
