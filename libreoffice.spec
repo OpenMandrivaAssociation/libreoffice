@@ -127,6 +127,7 @@ Patch112:	libreoffice-25.2.3.1-compile.patch
 # Other bugfix patches, including upstream
 Patch202:	0001-disable-firebird-unit-test.patch
 Patch203:	libreoffice-5.4-std_thread.patch
+Patch204:   fix_box2d_3.patch
 
 %if %{with icecream}
 BuildRequires:	icecream
