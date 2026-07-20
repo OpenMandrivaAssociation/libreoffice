@@ -1,0 +1,14 @@
+diff -U 3 -dHrN a/configure b/configure
+--- a/configure	2026-07-13 12:52:24.000000000 +0200
++++ b/configure	2026-07-18 09:40:31.395684399 +0200
+@@ -43108,6 +43108,10 @@
+     BOX2D_VERSION=`$PKG_CONFIG --modversion box2d 2>/dev/null`
+     BOX2D_MAJOR=`echo $BOX2D_VERSION | cut -d"." -f1`
+     BOX2D_MINOR=`echo $BOX2D_VERSION | cut -d"." -f2`
++    if test "$BOX2D_MAJOR" -eq "3"; then
++        _BOX2D_LIB=box2d
++        printf "%s\n" "#define BOX2D_HEADER <box2d/box2d.h>" >>confdefs.h
++    fi
+     if test "$BOX2D_MAJOR" -eq "2"; then
+         if test "$BOX2D_MINOR" -eq "4"; then
+             _BOX2D_LIB=box2d
