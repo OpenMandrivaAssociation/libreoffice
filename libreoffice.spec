@@ -2584,8 +2584,11 @@ chmod 777 ~/tmp
 DBVER=`ls -d /usr/include/dragonbox-[0-9]* |cut -d/ -f4`
 sed -i -e "s,dragonbox-1\.0\.0,$DBVER,g" configure.ac
 
-#aclocal -I m4
-#autoconf
+aclocal -I m4
+autoconf
+
+# run patch with box2d after autoconf otherwise it will not be used
+%patch204 -p1
 
 cp -f %{S:5} i18npool/source/breakiterator/data/
 
