@@ -2588,7 +2588,7 @@ aclocal -I m4
 autoconf
 
 # run patch with box2d after autoconf otherwise it will not be used
-%patch204 -p1
+%patch 204 -p1
 
 cp -f %{S:5} i18npool/source/breakiterator/data/
 
