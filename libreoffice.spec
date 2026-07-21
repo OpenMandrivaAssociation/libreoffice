@@ -81,7 +81,7 @@ Source20:	http://archive.apache.org/dist/ant/binaries/apache-ant-1.8.1-bin.tar.b
 %else
 Source21:	https://dev-www.libreoffice.org/src/Java-WebSocket-1.6.0.tar.gz
 %endif
-Source31:	https://dev-www.libreoffice.org/src/skia-m142-f4ed99d2443962782cf5f8b4dd27179f131e7cbe.tar.xz
+Source31:	https://dev-www.libreoffice.org/src/skia-m147-ad8ecedbfdef9f4ae4b1e73347b6dd56e6637d38.tar.xz
 Source32:	https://dev-www.libreoffice.org/src/dtoa-20180411.tgz
 Source33:	%{srcurl}/62c0b97e94fe47d5e50ff605d2edf37a-hsqldb-2.3.3.zip
 Source34:	https://dev-www.libreoffice.org/extern/odfvalidator-1.2.0-incubating-SNAPSHOT-jar-with-dependencies-971c54fd38a968f5860014b44301872706f9e540.jar
