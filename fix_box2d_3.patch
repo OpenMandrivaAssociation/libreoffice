@@ -1,14 +1,35 @@
-diff -U 3 -dHrN a/configure b/configure
---- a/configure	2026-07-13 12:52:24.000000000 +0200
-+++ b/configure	2026-07-18 09:40:31.395684399 +0200
-@@ -43108,6 +43108,10 @@
+diff -uraN libreoffice-26.8.0.1/configure.ac omv-libreoffice-26.8.0.1/configure.ac
+--- libreoffice-26.8.0.1/configure.ac
++++ omv-libreoffice-26.8.0.1/configure.ac
+@@ -12232,10 +12232,14 @@
+     SYSTEM_BOX2D=TRUE
+     AC_LANG_PUSH([C++])
      BOX2D_VERSION=`$PKG_CONFIG --modversion box2d 2>/dev/null`
-     BOX2D_MAJOR=`echo $BOX2D_VERSION | cut -d"." -f1`
-     BOX2D_MINOR=`echo $BOX2D_VERSION | cut -d"." -f2`
-+    if test "$BOX2D_MAJOR" -eq "3"; then
-+        _BOX2D_LIB=box2d
-+        printf "%s\n" "#define BOX2D_HEADER <box2d/box2d.h>" >>confdefs.h
+-    BOX2D_MAJOR=`echo $BOX2D_VERSION | cut -d"." -f1`
+-    BOX2D_MINOR=`echo $BOX2D_VERSION | cut -d"." -f2`
+-    if test "$BOX2D_MAJOR" -eq "2"; then
+-        if test "$BOX2D_MINOR" -eq "4"; then
++    # pkg-config is optional: Box2D 3.x packages often ship only CMake config.
++    # Keep the defaults (3.1) when modversion is unavailable.
++    if test -n "$BOX2D_VERSION"; then
++        BOX2D_MAJOR=`echo $BOX2D_VERSION | cut -d"." -f1`
++        BOX2D_MINOR=`echo $BOX2D_VERSION | cut -d"." -f2`
 +    fi
-     if test "$BOX2D_MAJOR" -eq "2"; then
-         if test "$BOX2D_MINOR" -eq "4"; then
++    if test "$BOX2D_MAJOR" = "2"; then
++        if test "$BOX2D_MINOR" = "4"; then
              _BOX2D_LIB=box2d
+             AC_DEFINE(BOX2D_HEADER,<box2d/box2d.h>)
+         else
+@@ -12245,6 +12249,12 @@
+             _BOX2D_LIB=Box2D
+             AC_DEFINE(BOX2D_HEADER,<Box2D/Box2D.h>)
+         fi
++    else
++        # Box2D 3.x (rewritten C API; library is still -lbox2d)
++        _BOX2D_LIB=box2d
++        AC_DEFINE(BOX2D_HEADER,<box2d/box2d.h>)
++        AC_CHECK_HEADER([box2d/box2d.h], [],
++            [AC_MSG_ERROR(box2d headers not found.)])
+     fi
+     AC_CHECK_LIB([$_BOX2D_LIB], [main], [:],
+         [ AC_MSG_ERROR(box2d library not found.) ], [])

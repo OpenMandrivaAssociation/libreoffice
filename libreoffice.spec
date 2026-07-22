@@ -62,7 +62,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Version:	26.8.0.1
-Release:	%{?beta:0.%{beta}.}1
+Release:	%{?beta:0.%{beta}.}2
 Source0:	%{relurl}/%{ooname}-%{version}%{?beta:.%{beta}}.tar.xz
 Source1:	%{relurl}/%{ooname}-help-%{version}%{?beta:.%{beta}}.tar.xz
 Source2:	%{relurl}/%{ooname}-translations-%{version}%{?beta:.%{beta}}.tar.xz
@@ -115,11 +115,10 @@ Patch105:	libreoffice-6.3.2-openjdk-13.patch
 # Possible workaround for
 # https://github.com/QubesOS/qubes-issues/issues/3281
 Patch106:	libreoffice-7.3.0-workaround-small-window.patch
-# No longer applies, it probably requires a bit more care and maybe changing a few things
-#Patch107:	libreoffice-7.6-dont-prefer-gtk-over-qt.patch
+Patch107:	libreoffice-7.6-dont-prefer-gtk-over-qt.patch
 #Patch108:	libreoffice-25.2-poppler-25.01.patch
-# lets drop it maybe, it only touches qt5/QtFrame.cxx, while qt5 was dropped
-#Patch109:	libreoffice-7.6-qt6-wayland-egl.patch
+# qt5 sources are still shared with qt6 (vcl/qt6 includes ../qt5/QtFrame.cxx)
+Patch109:	libreoffice-7.6-qt6-wayland-egl.patch
 Patch110:	libreoffice-7.6.2.1-lld17.patch
 Patch111:	libreoffice-7.6.2.1-no-LLVMgold-plugin-needed.patch
 Patch112:	libreoffice-25.2.3.1-compile.patch
@@ -2586,9 +2585,6 @@ sed -i -e "s,dragonbox-1\.0\.0,$DBVER,g" configure.ac
 
 aclocal -I m4
 autoconf
-
-# run patch with box2d after autoconf otherwise it will not be used
-%patch 204 -p1
 
 cp -f %{S:5} i18npool/source/breakiterator/data/
 

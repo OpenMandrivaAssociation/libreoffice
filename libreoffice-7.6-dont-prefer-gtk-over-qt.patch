@@ -1,143 +1,150 @@
-diff -up libreoffice-24.8.0.2/vcl/source/app/salplug.cxx.7~ libreoffice-24.8.0.2/vcl/source/app/salplug.cxx
---- libreoffice-24.8.0.2/vcl/source/app/salplug.cxx.7~	2024-07-26 15:49:08.000000000 +0200
-+++ libreoffice-24.8.0.2/vcl/source/app/salplug.cxx	2024-08-06 01:30:55.924275966 +0200
-@@ -184,6 +184,15 @@ const char* const* autodetect_plugin_lis
- #if ENABLE_KF5
-         "kf5",
+diff -up libreoffice-26.8.0.1/vcl/source/app/salplug.cxx.7~ libreoffice-26.8.0.1/vcl/source/app/salplug.cxx
+--- libreoffice-26.8.0.1/vcl/source/app/salplug.cxx.7~	2026-07-13 12:47:46.000000000 +0200
++++ libreoffice-26.8.0.1/vcl/source/app/salplug.cxx	2026-07-22 19:57:05.739745673 +0200
+@@ -178,23 +178,93 @@ std::vector<OUString> autodetect_plugin_
  #endif
-+#if ENABLE_QT5
-+        "qt5",
-+#endif
-+#if ENABLE_KF6
-+        "kf6",
-+#endif
-+#if ENABLE_QT6
-+        "qt6",
-+#endif
- #if ENABLE_GTK3_KDE5
-         "gtk3_kde5",
- #endif
-@@ -201,9 +210,15 @@ const char* const* autodetect_plugin_lis
- #if ENABLE_KF6
-         "kf6",
- #endif
-+#if ENABLE_QT6
-+        "qt6",
-+#endif
- #if ENABLE_KF5
-         "kf5",
- #endif
-+#if ENABLE_QT5
-+        "qt5",
-+#endif
- #if ENABLE_GTK3_KDE5
-         "gtk3_kde5",
- #endif
-@@ -218,6 +233,21 @@ const char* const* autodetect_plugin_lis
  
-     static const char* const pStandardFallbackList[] =
+     std::vector<OUString> aPlugins;
+-    if (eDesktop == DesktopType::LXQt || eDesktop == DesktopType::Plasma5 || eDesktop == DesktopType::Plasma6)
++
++    // Prefer gtk on GNOME-family desktops; prefer Qt/KF on Plasma/LXQt
++    // (do not prefer gtk over qt/kf by default).
++    if (eDesktop == DesktopType::GNOME || eDesktop == DesktopType::Xfce
++        || eDesktop == DesktopType::MATE)
      {
-+#if ENABLE_QT6
-+        "qt6",
++#if ENABLE_GTK3
++        aPlugins.push_back(u"gtk3"_ustr);
 +#endif
-+#if ENABLE_KF6
-+        "kf6",
++#if ENABLE_QT6
++        aPlugins.push_back(u"qt6"_ustr);
++#endif
+ #if ENABLE_KF6
+-        if (eDesktop == DesktopType::Plasma6)
+-            aPlugins.push_back(u"kf6"_ustr);
++        aPlugins.push_back(u"kf6"_ustr);
 +#endif
 +#if ENABLE_QT5
-+        "qt5",
++        aPlugins.push_back(u"qt5"_ustr);
+ #endif
+ #if ENABLE_KF5
+         aPlugins.push_back(u"kf5"_ustr);
+ #endif
++    }
++    else if (eDesktop == DesktopType::Plasma6 || eDesktop == DesktopType::LXQt)
++    {
++#if ENABLE_KF6
++        aPlugins.push_back(u"kf6"_ustr);
++#endif
++#if ENABLE_QT6
++        aPlugins.push_back(u"qt6"_ustr);
 +#endif
 +#if ENABLE_KF5
-+        "kf5",
++        aPlugins.push_back(u"kf5"_ustr);
++#endif
++#if ENABLE_QT5
++        aPlugins.push_back(u"qt5"_ustr);
++#endif
+ #if ENABLE_GTK3_KDE5
+         aPlugins.push_back(u"gtk3_kde5"_ustr);
+ #endif
++#if ENABLE_GTK3
++        aPlugins.push_back(u"gtk3"_ustr);
++#endif
+     }
+-
++    else if (eDesktop == DesktopType::Plasma5)
++    {
++#if ENABLE_KF5
++        aPlugins.push_back(u"kf5"_ustr);
++#endif
++#if ENABLE_QT5
++        aPlugins.push_back(u"qt5"_ustr);
++#endif
++#if ENABLE_KF6
++        aPlugins.push_back(u"kf6"_ustr);
++#endif
++#if ENABLE_QT6
++        aPlugins.push_back(u"qt6"_ustr);
 +#endif
 +#if ENABLE_GTK3_KDE5
-+        "gtk3_kde5",
++        aPlugins.push_back(u"gtk3_kde5"_ustr);
++#endif
++#if ENABLE_GTK3
++        aPlugins.push_back(u"gtk3"_ustr);
++#endif
++    }
++    else
++    {
++        // Default: prefer Qt/KF over GTK
++#if ENABLE_QT6
++        aPlugins.push_back(u"qt6"_ustr);
++#endif
++#if ENABLE_KF6
++        aPlugins.push_back(u"kf6"_ustr);
++#endif
++#if ENABLE_QT5
++        aPlugins.push_back(u"qt5"_ustr);
++#endif
++#if ENABLE_KF5
++        aPlugins.push_back(u"kf5"_ustr);
++#endif
++#if ENABLE_GTK3_KDE5
++        aPlugins.push_back(u"gtk3_kde5"_ustr);
 +#endif
  #if ENABLE_GTK3
-         "gtk3",
+-    aPlugins.push_back(u"gtk3"_ustr);
++        aPlugins.push_back(u"gtk3"_ustr);
  #endif
-@@ -227,6 +257,32 @@ const char* const* autodetect_plugin_lis
-         nullptr
-     };
- 
-+    static const char* const pGtkFallbackList[] =
-+    {
-+#if ENABLE_GTK3
-+        "gtk3",
-+#endif
-+#if ENABLE_GTK3_KDE5
-+        "gtk3_kde5",
-+#endif
-+#if ENABLE_QT6
-+        "qt6",
-+#endif
-+#if ENABLE_KF6
-+        "kf6",
-+#endif
-+#if ENABLE_QT5
-+        "qt5",
-+#endif
-+#if ENABLE_KF5
-+        "kf5",
-+#endif
-+#if ENABLE_GEN
-+        "gen",
-+#endif
-+        nullptr
-+    };
++    }
 +
- #if ENABLE_HEADLESS
-     static const char* const pHeadlessFallbackList[] =
-     {
-@@ -248,10 +304,10 @@ const char* const* autodetect_plugin_lis
-               desktop == DESKTOP_UNITY ||
-               desktop == DESKTOP_XFCE  ||
-               desktop == DESKTOP_MATE )
--        pList = pStandardFallbackList;
--    else if (desktop == DESKTOP_PLASMA5 || desktop == DESKTOP_LXQT)
-+        pList = pGtkFallbackList;
-+    else if (desktop == DESKTOP_PLASMA5)
-         pList = pKDEFallbackList;
--    else if (desktop == DESKTOP_PLASMA6)
-+    else if (desktop == DESKTOP_PLASMA6 || desktop == DESKTOP_LXQT)
-         pList = pPlasma6FallbackList;
+ #if ENABLE_GEN
+     aPlugins.push_back(u"gen"_ustr);
+ #endif
+@@ -267,7 +337,7 @@ SalInstance *CreateSalInstance()
+     }
+ #endif
  
-     return pList;
-@@ -325,27 +381,27 @@ SalInstance *CreateSalInstance()
- #elif defined(MACOSX)
-         "osx",
- #else // !_WIN32 && !MACOSX
+-    // fallback, try everything
++    // fallback, try everything (prefer Qt/KF over GTK)
+     static constexpr OUString aPlugins[] = {
+ #if defined(MACOSX)
+         u"osx"_ustr,
+@@ -275,27 +345,27 @@ SalInstance *CreateSalInstance()
+ #if ENABLE_WIN
+         u"win"_ustr,
+ #endif
 -#if ENABLE_GTK3
--        "gtk3",
+-        u"gtk3"_ustr,
 +#if ENABLE_KF6
-+        "kf6",
++        u"kf6"_ustr,
 +#endif
 +#if ENABLE_QT6
-+        "qt6",
++        u"qt6"_ustr,
  #endif
  #if ENABLE_KF5
-         "kf5",
+         u"kf5"_ustr,
  #endif
 +#if ENABLE_QT5
-+        "qt5",
++        u"qt5"_ustr,
 +#endif
  #if ENABLE_GTK3_KDE5
-         "gtk3_kde5",
+         u"gtk3_kde5"_ustr,
  #endif
 +#if ENABLE_GTK3
-+        "gtk3",
++        u"gtk3"_ustr,
 +#endif
  #if ENABLE_GEN
-         "gen",
+         u"gen"_ustr,
  #endif
 -#if ENABLE_QT5
--        "qt5",
+-        u"qt5"_ustr,
 -#endif
 -#if ENABLE_KF6
--        "kf6",
+-        u"kf6"_ustr,
 -#endif
 -#if ENABLE_QT6
--        "qt6",
+-        u"qt6"_ustr,
 -#endif
- #endif // !_WIN32 && !MACOSX
-         nullptr
      };
+ 
+     for (const OUString& rPlugin : aPlugins)
