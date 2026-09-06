@@ -41,8 +41,9 @@
 %if %{defined beta}
 %define relurl		http://dev-builds.libreoffice.org/pre-releases/src
 %else
-#define relurl		http://download.documentfoundation.org/libreoffice/src/%{version}
-%define relurl		http://dev-builds.libreoffice.org/pre-releases/src
+# Official tarballs live under the 3-component version (26.8.0), not 26.8.0.3
+%define lo_srcver	26.8.0
+%define relurl		http://download.documentfoundation.org/libreoffice/src/%{lo_srcver}
 %endif
 %define devurl		http://dev-www.libreoffice.org/ooo_external
 %define srcurl		http://dev-www.libreoffice.org/src/
@@ -61,8 +62,8 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	26.8.0.1
-Release:	%{?beta:0.%{beta}.}4
+Version:	26.8.0.3
+Release:	%{?beta:0.%{beta}.}1
 Source0:	%{relurl}/%{ooname}-%{version}%{?beta:.%{beta}}.tar.xz
 Source1:	%{relurl}/%{ooname}-help-%{version}%{?beta:.%{beta}}.tar.xz
 Source2:	%{relurl}/%{ooname}-translations-%{version}%{?beta:.%{beta}}.tar.xz
