@@ -3,10 +3,11 @@
 %global _python_bytecompile_build 0
 
 %ifarch %{aarch64}
-# Workaround for OMP runtime error while
-# compressing with w19.zstdio with zstd
-# 1.5.0, llvm/clang/openmp 13.0.0
-%define _binary_payload w1.xzdio
+# Level 19 zstd used to crash in libomp (zstd 1.5.0, openmp 13).
+# xz level 1 avoids that, but writing these packages still
+# exceeded the 10 hour mock limit on aarch64. Fast threaded
+# zstd finishes; do not go back to level 19.
+%define _binary_payload w3T0.zstdio
 %endif
 
 # Set up Google API keys, see http://www.chromium.org/developers/how-tos/api-keys
