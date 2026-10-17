@@ -64,7 +64,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Version:	26.8.1.1
-Release:	%{?beta:0.%{beta}.}2
+Release:	%{?beta:0.%{beta}.}1
 Source0:	%{relurl}/%{ooname}-%{version}%{?beta:.%{beta}}.tar.xz
 Source1:	%{relurl}/%{ooname}-help-%{version}%{?beta:.%{beta}}.tar.xz
 Source2:	%{relurl}/%{ooname}-translations-%{version}%{?beta:.%{beta}}.tar.xz
@@ -2620,40 +2620,13 @@ export PATH=${JAVA_HOME}/bin:$PATH
 export CFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing"
 export CXXFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive -std=gnu++20"
 
-%ifarch %{x86_64}
-# Thin LTO at one job was killed during the Skia compile on the 64GB
-# builders. The build root is an 80% tmpfs, and the bitcode filled it.
-# Drop LTO here. -g1 keeps the objects small. 8GB per job is 7 jobs
-# on that machine. aarch64 keeps LTO.
-strip_flto() {
-	out=
-	for f in "$@"; do
-		[ "$f" = "-flto" ] && continue
-		out="$out $f"
-	done
-	printf '%s' "${out# }"
-}
-export CFLAGS="$(strip_flto $CFLAGS) -g1"
-export CXXFLAGS="$(strip_flto $CXXFLAGS) -g1"
-export LDFLAGS="$(strip_flto ${LDFLAGS:-$RPM_LD_FLAGS})"
-mem_kb=$(awk '/MemTotal/ {print $2}' /proc/meminfo)
-max_jobs=$((mem_kb / 8388608))
-[ "$max_jobs" -ge 1 ] || max_jobs=1
-[ "$max_jobs" -le 8 ] || max_jobs=8
-ncpus=$(/usr/bin/getconf _NPROCESSORS_ONLN)
-[ "$ncpus" -le "$max_jobs" ] || ncpus=$max_jobs
-echo "Using $ncpus LibreOffice jobs (MemTotal ${mem_kb} kB)"
-%else
-ncpus=$(/usr/bin/getconf _NPROCESSORS_ONLN)
-%endif
-
 echo "Configure start at: "`date` >> ooobuildtime.log 
 
 touch autogen.lastrun
 export QT6DIR=%{_libdir}/qt6
 export KF6INC=%{_includedir}/KF6/KConfig
 %configure \
-	--with-parallelism="$ncpus" \
+	%{?_smp_mflags:--with-parallelism="`getconf _NPROCESSORS_ONLN`"} \
 	--with-vendor=OpenMandriva \
 	--with-build-version="OpenMandriva %{version}-%{release}" \
 	--with-gdrive-client-id="%{google_default_client_id}" \
@@ -2671,11 +2644,7 @@ export KF6INC=%{_includedir}/KF6/KConfig
 %else
 	--enable-release-build \
 %endif
-%ifarch %{x86_64}
-	--disable-lto \
-%else
 	--enable-lto \
-%endif
 	--enable-gtk3 \
 	--disable-gtk3-kde5 \
 	--enable-gtk4 \
@@ -2761,7 +2730,7 @@ sed -i -e 's,export LDFLAGS=.*,export LDFLAGS=-O0,' config_host.mk
 for i in framework svtools; do
 	cd $i
 	make clean
-	%make_build -j$ncpus
+	%make_build
 	cd ..
 done
 
