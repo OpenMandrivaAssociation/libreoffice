@@ -2621,11 +2621,13 @@ export CFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing"
 export CXXFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive -std=gnu++20"
 
 %ifarch %{x86_64}
-# Parallel -flto -g3 compiles were OOM-killed on the x86_64 builder
-# (make: Killed). 8GB per job. The build root is an 80% tmpfs.
+# 677909 was OOM-killed at --with-parallelism=32 (-flto=thin -g3).
+# The build root is an 80% tmpfs, so MemTotal/8GB still selects every
+# CPU on a large builder. Give each job 16GB and never more than 8.
 mem_kb=$(awk '/MemTotal/ {print $2}' /proc/meminfo)
-max_jobs=$((mem_kb / 8388608))
+max_jobs=$((mem_kb / 16777216))
 [ "$max_jobs" -ge 1 ] || max_jobs=1
+[ "$max_jobs" -le 8 ] || max_jobs=8
 ncpus=$(/usr/bin/getconf _NPROCESSORS_ONLN)
 [ "$ncpus" -le "$max_jobs" ] || ncpus=$max_jobs
 echo "Using $ncpus LibreOffice jobs (MemTotal ${mem_kb} kB)"
