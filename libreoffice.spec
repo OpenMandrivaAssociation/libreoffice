@@ -2621,31 +2621,23 @@ export CFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing"
 export CXXFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive -std=gnu++20"
 
 %ifarch %{x86_64}
-# rpm's -flto is appended after LibreOffice's -flto=thin and the link
-# becomes full LTO. 678039 was killed linking libskialo.so on a 64GB
-# builder (MemTotal 65720352 kB, 3 jobs, -g3). Keep thin LTO, one
-# backend thread, and -g1. 32GB per job is one job on that machine.
-# The build root is an 80% tmpfs.
-# LibreOffice puts -flto=thin on the command before these flags, and
-# passes only LDFLAGS to the link. -flto-jobs on CFLAGS never reaches
-# ld, and on a compile clang -Werror rejects it. configure's C++20
-# probe adds that -Werror. Keep thin LTO on the compile line and put
-# the one backend thread on the link line.
-rewrite_lto() {
+# Thin LTO at one job was killed during the Skia compile on the 64GB
+# builders. The build root is an 80% tmpfs, and the bitcode filled it.
+# Drop LTO here. -g1 keeps the objects small. 8GB per job is 7 jobs
+# on that machine. aarch64 keeps LTO.
+strip_flto() {
 	out=
 	for f in "$@"; do
-		if [ "$f" = "-flto" ]; then
-			f="-flto=thin"
-		fi
+		[ "$f" = "-flto" ] && continue
 		out="$out $f"
 	done
 	printf '%s' "${out# }"
 }
-export CFLAGS="$(rewrite_lto $CFLAGS) -g1"
-export CXXFLAGS="$(rewrite_lto $CXXFLAGS) -g1"
-export LDFLAGS="$(rewrite_lto ${LDFLAGS:-$RPM_LD_FLAGS}) -flto-jobs=1"
+export CFLAGS="$(strip_flto $CFLAGS) -g1"
+export CXXFLAGS="$(strip_flto $CXXFLAGS) -g1"
+export LDFLAGS="$(strip_flto ${LDFLAGS:-$RPM_LD_FLAGS})"
 mem_kb=$(awk '/MemTotal/ {print $2}' /proc/meminfo)
-max_jobs=$((mem_kb / 33554432))
+max_jobs=$((mem_kb / 8388608))
 [ "$max_jobs" -ge 1 ] || max_jobs=1
 [ "$max_jobs" -le 8 ] || max_jobs=8
 ncpus=$(/usr/bin/getconf _NPROCESSORS_ONLN)
@@ -2679,7 +2671,11 @@ export KF6INC=%{_includedir}/KF6/KConfig
 %else
 	--enable-release-build \
 %endif
+%ifarch %{x86_64}
+	--disable-lto \
+%else
 	--enable-lto \
+%endif
 	--enable-gtk3 \
 	--disable-gtk3-kde5 \
 	--enable-gtk4 \
