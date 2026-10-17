@@ -64,7 +64,7 @@
 Summary:	Office suite 
 Name:		libreoffice
 Version:	26.8.1.1
-Release:	%{?beta:0.%{beta}.}1
+Release:	%{?beta:0.%{beta}.}2
 Source0:	%{relurl}/%{ooname}-%{version}%{?beta:.%{beta}}.tar.xz
 Source1:	%{relurl}/%{ooname}-help-%{version}%{?beta:.%{beta}}.tar.xz
 Source2:	%{relurl}/%{ooname}-translations-%{version}%{?beta:.%{beta}}.tar.xz
@@ -2620,13 +2620,26 @@ export PATH=${JAVA_HOME}/bin:$PATH
 export CFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing"
 export CXXFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive -std=gnu++20"
 
+%ifarch %{x86_64}
+# Parallel -flto -g3 compiles were OOM-killed on the x86_64 builder
+# (make: Killed). 8GB per job. The build root is an 80% tmpfs.
+mem_kb=$(awk '/MemTotal/ {print $2}' /proc/meminfo)
+max_jobs=$((mem_kb / 8388608))
+[ "$max_jobs" -ge 1 ] || max_jobs=1
+ncpus=$(/usr/bin/getconf _NPROCESSORS_ONLN)
+[ "$ncpus" -le "$max_jobs" ] || ncpus=$max_jobs
+echo "Using $ncpus LibreOffice jobs (MemTotal ${mem_kb} kB)"
+%else
+ncpus=$(/usr/bin/getconf _NPROCESSORS_ONLN)
+%endif
+
 echo "Configure start at: "`date` >> ooobuildtime.log 
 
 touch autogen.lastrun
 export QT6DIR=%{_libdir}/qt6
 export KF6INC=%{_includedir}/KF6/KConfig
 %configure \
-	%{?_smp_mflags:--with-parallelism="`getconf _NPROCESSORS_ONLN`"} \
+	--with-parallelism="$ncpus" \
 	--with-vendor=OpenMandriva \
 	--with-build-version="OpenMandriva %{version}-%{release}" \
 	--with-gdrive-client-id="%{google_default_client_id}" \
@@ -2730,7 +2743,7 @@ sed -i -e 's,export LDFLAGS=.*,export LDFLAGS=-O0,' config_host.mk
 for i in framework svtools; do
 	cd $i
 	make clean
-	%make_build
+	%make_build -j$ncpus
 	cd ..
 done
 
