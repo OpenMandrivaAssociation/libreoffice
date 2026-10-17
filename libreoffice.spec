@@ -2626,20 +2626,24 @@ export CXXFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing -fperm
 # builder (MemTotal 65720352 kB, 3 jobs, -g3). Keep thin LTO, one
 # backend thread, and -g1. 32GB per job is one job on that machine.
 # The build root is an 80% tmpfs.
-# -flto-jobs is unused for a plain compile. configure's C++20 probe
-# adds -Werror, so clang rejects that unused flag (678052, 678053).
-# Silence only that warning; the flag is still honored at link time.
-strip_flto() {
+# LibreOffice puts -flto=thin on the command before these flags, and
+# passes only LDFLAGS to the link. -flto-jobs on CFLAGS never reaches
+# ld, and on a compile clang -Werror rejects it. configure's C++20
+# probe adds that -Werror. Keep thin LTO on the compile line and put
+# the one backend thread on the link line.
+rewrite_lto() {
 	out=
 	for f in "$@"; do
-		[ "$f" = "-flto" ] && continue
+		if [ "$f" = "-flto" ]; then
+			f="-flto=thin"
+		fi
 		out="$out $f"
 	done
 	printf '%s' "${out# }"
 }
-export CFLAGS="$(strip_flto $CFLAGS) -g1 -flto-jobs=1 -Wno-unused-command-line-argument"
-export CXXFLAGS="$(strip_flto $CXXFLAGS) -g1 -flto-jobs=1 -Wno-unused-command-line-argument"
-export LDFLAGS="$(strip_flto ${LDFLAGS:-$RPM_LD_FLAGS})"
+export CFLAGS="$(rewrite_lto $CFLAGS) -g1"
+export CXXFLAGS="$(rewrite_lto $CXXFLAGS) -g1"
+export LDFLAGS="$(rewrite_lto ${LDFLAGS:-$RPM_LD_FLAGS}) -flto-jobs=1"
 mem_kb=$(awk '/MemTotal/ {print $2}' /proc/meminfo)
 max_jobs=$((mem_kb / 33554432))
 [ "$max_jobs" -ge 1 ] || max_jobs=1
