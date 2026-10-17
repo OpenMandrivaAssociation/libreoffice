@@ -2621,11 +2621,22 @@ export CFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing"
 export CXXFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing -fpermissive -std=gnu++20"
 
 %ifarch %{x86_64}
-# 3 jobs on the 64GB builders still killed the -flto=thin -g3 link of
-# libskialo.so. -g1 keeps that link small enough. 32GB per job is one
-# job on that machine. The build root is an 80% tmpfs.
-export CFLAGS="$CFLAGS -g1"
-export CXXFLAGS="$CXXFLAGS -g1"
+# rpm's -flto is appended after LibreOffice's -flto=thin and the link
+# becomes full LTO. 678039 was killed linking libskialo.so on a 64GB
+# builder (MemTotal 65720352 kB, 3 jobs, -g3). Keep thin LTO, one
+# backend thread, and -g1. 32GB per job is one job on that machine.
+# The build root is an 80% tmpfs.
+strip_flto() {
+	out=
+	for f in "$@"; do
+		[ "$f" = "-flto" ] && continue
+		out="$out $f"
+	done
+	printf '%s' "${out# }"
+}
+export CFLAGS="$(strip_flto $CFLAGS) -g1 -flto-jobs=1"
+export CXXFLAGS="$(strip_flto $CXXFLAGS) -g1 -flto-jobs=1"
+export LDFLAGS="$(strip_flto ${LDFLAGS:-$RPM_LD_FLAGS})"
 mem_kb=$(awk '/MemTotal/ {print $2}' /proc/meminfo)
 max_jobs=$((mem_kb / 33554432))
 [ "$max_jobs" -ge 1 ] || max_jobs=1
