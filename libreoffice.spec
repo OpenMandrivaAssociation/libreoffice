@@ -2626,6 +2626,9 @@ export CXXFLAGS="%{optflags} -fno-omit-frame-pointer -fno-strict-aliasing -fperm
 # builder (MemTotal 65720352 kB, 3 jobs, -g3). Keep thin LTO, one
 # backend thread, and -g1. 32GB per job is one job on that machine.
 # The build root is an 80% tmpfs.
+# -flto-jobs is unused for a plain compile. configure's C++20 probe
+# adds -Werror, so clang rejects that unused flag (678052, 678053).
+# Silence only that warning; the flag is still honored at link time.
 strip_flto() {
 	out=
 	for f in "$@"; do
@@ -2634,8 +2637,8 @@ strip_flto() {
 	done
 	printf '%s' "${out# }"
 }
-export CFLAGS="$(strip_flto $CFLAGS) -g1 -flto-jobs=1"
-export CXXFLAGS="$(strip_flto $CXXFLAGS) -g1 -flto-jobs=1"
+export CFLAGS="$(strip_flto $CFLAGS) -g1 -flto-jobs=1 -Wno-unused-command-line-argument"
+export CXXFLAGS="$(strip_flto $CXXFLAGS) -g1 -flto-jobs=1 -Wno-unused-command-line-argument"
 export LDFLAGS="$(strip_flto ${LDFLAGS:-$RPM_LD_FLAGS})"
 mem_kb=$(awk '/MemTotal/ {print $2}' /proc/meminfo)
 max_jobs=$((mem_kb / 33554432))
