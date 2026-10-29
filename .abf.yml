@@ -10,12 +10,12 @@ sources:
   a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip: 2d49e11b0b711970f494294dc3698f05eb294853
   b63e6340a02ff1cacfeadb2c42286161-JLanguageTool-1.7.0.tar.bz2: aa8faa4f9e6721eed9bc6878862d74d0cb23251c
   dtoa-20180411.tgz: 083509db5ad9d1680830be9add727d58b54ca0d3
-  odfvalidator-1.2.0-incubating-SNAPSHOT-jar-with-dependencies-971c54fd38a968f5860014b44301872706f9e540.jar: a2aaff3c6e19d7442295ca8a1c39e8c3a8b4081a
   smart_0.9.4_en_hu_corrected.oxt: b888d8b18d3252ec4b04bfb8913f5df356b9c053
   barcode_1.3.5.0.oxt: 3f7bc3483687f14040dfa6bea70aa38cdbe25897
   skia-m147-ad8ecedbfdef9f4ae4b1e73347b6dd56e6637d38.tar.xz: e72c8f60490918c400a5c6e1479abcfb3dcd201d
-  pdfium-7681.tar.bz2: dd021b6f418d579046271f60ed31b7a22d659b4c
   rhino-1.7.15.1.zip: d92c34bf4de9b51903826a263b9cf966301b7c3e
-  libreoffice-26.8.1.1.tar.xz: f34bc87ba6731d380f081f098f9bbed2f867aac2
-  libreoffice-help-26.8.1.1.tar.xz: d5de15c56f14a5e2709d87c27a1a504a2be5035f
-  libreoffice-translations-26.8.1.1.tar.xz: 60953a4b677dcf9cd801b9aae43e52df43a31bab
+  libreoffice-26.8.2.2.tar.xz: 55d86395d9924e726f50b88888e0932a80e82cb3
+  libreoffice-help-26.8.2.2.tar.xz: 28c5fd50fc927509ff0aac8b864f626e324dd374
+  libreoffice-translations-26.8.2.2.tar.xz: bb94f44a248fbc2da310f34b34d8c12d35e65236
+  pdfium-8073.tar.bz2: 087d1eb3af890e670857b88e31c1de91b05832b6
+  odfvalidator-0.13.0-jar-with-dependencies.jar: 3fad4445c37a5231095ddc2d6b9af38658632bf1

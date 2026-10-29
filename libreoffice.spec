@@ -42,8 +42,8 @@
 %if %{defined beta}
 %define relurl		http://dev-builds.libreoffice.org/pre-releases/src
 %else
-# Official tarballs live under the 3-component version (26.8.1), not 26.8.1.1
-%define lo_srcver	26.8.1
+# Official tarballs live under the 3-component version (26.8.2), not 26.8.2.2
+%define lo_srcver	26.8.2
 %define relurl		http://download.documentfoundation.org/libreoffice/src/%{lo_srcver}
 %endif
 %define devurl		http://dev-www.libreoffice.org/ooo_external
@@ -63,8 +63,8 @@
 
 Summary:	Office suite 
 Name:		libreoffice
-Version:	26.8.1.1
-Release:	%{?beta:0.%{beta}.}2
+Version:	26.8.2.2
+Release:	%{?beta:0.%{beta}.}1
 Source0:	%{relurl}/%{ooname}-%{version}%{?beta:.%{beta}}.tar.xz
 Source1:	%{relurl}/%{ooname}-help-%{version}%{?beta:.%{beta}}.tar.xz
 Source2:	%{relurl}/%{ooname}-translations-%{version}%{?beta:.%{beta}}.tar.xz
@@ -86,12 +86,12 @@ Source21:	https://dev-www.libreoffice.org/src/Java-WebSocket-1.6.0.tar.gz
 Source31:	https://dev-www.libreoffice.org/src/skia-m147-ad8ecedbfdef9f4ae4b1e73347b6dd56e6637d38.tar.xz
 Source32:	https://dev-www.libreoffice.org/src/dtoa-20180411.tgz
 Source33:	%{srcurl}/62c0b97e94fe47d5e50ff605d2edf37a-hsqldb-2.3.3.zip
-Source34:	https://dev-www.libreoffice.org/extern/odfvalidator-1.2.0-incubating-SNAPSHOT-jar-with-dependencies-971c54fd38a968f5860014b44301872706f9e540.jar
+Source34:	https://dev-www.libreoffice.org/extern/odfvalidator-0.13.0-jar-with-dependencies.jar
 Source35:	%{srcurl}/rhino-1.7.15.1.zip
 Source36:	%{devurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
 Source37:	%{devurl}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip
 Source38:	%{devurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip
-Source39:	http://dev-www.libreoffice.org/src/pdfium-7681.tar.bz2
+Source39:	http://dev-www.libreoffice.org/src/pdfium-8073.tar.bz2
 
 # External Download Sources
 #Source40:	http://hg.services.openoffice.org/binaries/1756c4fa6c616ae15973c104cd8cb256-Adobe-Core35_AFMs-314.tar.gz
@@ -2580,10 +2580,10 @@ cp %{S:21} workdir/UnpackedTarget/
 mkdir -p ~/tmp
 chmod 777 ~/tmp
 
-# The autoconf script hardcodes dragonbox 1.0.0, but newer
-# versions work fine...
+# configure.ac hardcodes the dragonbox include directory. Point it at
+# whatever version is installed.
 DBVER=`ls -d /usr/include/dragonbox-[0-9]* |cut -d/ -f4`
-sed -i -e "s,dragonbox-1\.0\.0,$DBVER,g" configure.ac
+sed -i -e "s,/usr/include/dragonbox-[0-9.]*,/usr/include/$DBVER,g" configure.ac
 
 aclocal -I m4
 autoconf
