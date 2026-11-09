@@ -2722,18 +2722,6 @@ rm -f writerperfect/qa/unit/data/writer/libwpd/pass/EDB-14344-1.wpd
 # (tpg) silent output to reduce memory and free space
 make verbose=0 V=0
 
-# FIXME workaround for what is either nasty undefined behavior in LO
-# or a pretty bad compiler bug
-sed -i -e 's,export CXXFLAGS=.*,export CXXFLAGS=-O0,' config_host.mk
-sed -i -e 's,export CFLAGS=.*,export CFLAGS=-O0,' config_host.mk
-sed -i -e 's,export LDFLAGS=.*,export LDFLAGS=-O0,' config_host.mk
-for i in framework svtools; do
-	cd $i
-	make clean
-	%make_build
-	cd ..
-done
-
 echo "Make end at: "`date` >> ooobuildtime.log 
 echo "Install start at: "`date` >> ooobuildtime.log 
 
