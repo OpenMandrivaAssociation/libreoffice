@@ -129,6 +129,8 @@ Patch112:	libreoffice-25.2.3.1-compile.patch
 Patch202:	0001-disable-firebird-unit-test.patch
 Patch203:	libreoffice-5.4-std_thread.patch
 Patch204:   fix_box2d_3.patch
+# flex 2.6.11 dropped yy_fatal_error; the dead call in sqlflex.l no longer compiles
+Patch205:	libreoffice-26.8.3.1-flex-2.6.11.patch
 
 %if %{with icecream}
 BuildRequires:	icecream
