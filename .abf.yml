@@ -14,8 +14,8 @@ sources:
   barcode_1.3.5.0.oxt: 3f7bc3483687f14040dfa6bea70aa38cdbe25897
   skia-m147-ad8ecedbfdef9f4ae4b1e73347b6dd56e6637d38.tar.xz: e72c8f60490918c400a5c6e1479abcfb3dcd201d
   rhino-1.7.15.1.zip: d92c34bf4de9b51903826a263b9cf966301b7c3e
-  libreoffice-26.8.2.2.tar.xz: 55d86395d9924e726f50b88888e0932a80e82cb3
-  libreoffice-help-26.8.2.2.tar.xz: 28c5fd50fc927509ff0aac8b864f626e324dd374
-  libreoffice-translations-26.8.2.2.tar.xz: bb94f44a248fbc2da310f34b34d8c12d35e65236
   pdfium-8073.tar.bz2: 087d1eb3af890e670857b88e31c1de91b05832b6
   odfvalidator-0.13.0-jar-with-dependencies.jar: 3fad4445c37a5231095ddc2d6b9af38658632bf1
+  libreoffice-26.8.3.1.tar.xz: 2a64237dd68249e41296925a1c3b58d7e60033d4
+  libreoffice-help-26.8.3.1.tar.xz: ef427bde52c0c54bc6791d8ad32e8bf6ac4c6635
+  libreoffice-translations-26.8.3.1.tar.xz: efd4ec5574029ad905a6687160ab8130bc0f9cea
